@@ -1,5 +1,5 @@
 from openai import OpenAI
-from config import OPENAI_API_KEY
+from config import OPENAI_API_KEY, OPENAI_MODEL
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -37,7 +37,7 @@ class AIService:
         
         try:
             response = client.chat.completions.create(
-                model="gpt-4o", 
+                model=OPENAI_MODEL, 
                 messages=[
                     {"role": "system", "content": "You are a helpful ticket analysis assistant."},
                     {"role": "user", "content": prompt}
@@ -62,7 +62,7 @@ class AIService:
         """
         try:
             response = client.chat.completions.create(
-                model="gpt-4o", 
+                model=OPENAI_MODEL, 
                 messages=[
                     {
                         "role": "system", 
