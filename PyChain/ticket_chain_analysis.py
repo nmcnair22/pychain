@@ -98,21 +98,15 @@ def analyze_real_ticket(ticket_id):
     db = next(db_generator)
     
     try:
-        # First, get the chain hash for this ticket
-        chain_hash = TicketChainService.get_chain_hash_by_ticket_id(db, ticket_id)
-        
-        if not chain_hash:
-            print(f"Error: No chain hash found for ticket ID {ticket_id}")
-            return
-            
-        print(f"Found chain hash: {chain_hash}")
-        
-        # Get chain details
+        # Get chain details directly with the single query approach
         chain_details = TicketChainService.get_chain_details_by_ticket_id(db, ticket_id)
         
         if "error" in chain_details:
             print(f"Error: {chain_details['error']}")
             return
+        
+        # Show chain hash
+        print(f"Found chain hash: {chain_details['chain_hash']}")
         
         # Show tickets found
         print(f"Found {chain_details['ticket_count']} tickets in chain:")
@@ -120,7 +114,7 @@ def analyze_real_ticket(ticket_id):
         # Group tickets by category
         tickets_by_category = {}
         for ticket in chain_details['tickets']:
-            category = ticket['ticket_category']
+            category = ticket['TicketCategory']
             if category not in tickets_by_category:
                 tickets_by_category[category] = []
             tickets_by_category[category].append(ticket)
