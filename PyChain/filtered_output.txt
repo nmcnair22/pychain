@@ -1,0 +1,223 @@
+Ticket Chain Analysis Tool
+-------------------------
+
+Analyzing ticket chain for ticket ID: 2399922
+Found chain hash: C2DDD2D9-9D8B-7C44-8047-F030884F9723
+Found 20 tickets in chain:
+
+Dispatch Tickets (8):
+  - ID: 2371027, Subject: Flynn_FW001840_Indianapolis_IN
+  - ID: 2376840, Subject: Flynn_FW001840_Indianapolis_IN_Turnup Assist Ticket
+  - ID: 2382273, Subject: Flynn_FW001840_Indianapolis_IN_Site Survey
+  - ID: 2382345, Subject: Flynn_FW001840_Indianapolis_IN_P1
+  - ID: 2382393, Subject: Flynn_FW001840_Indianapolis_IN_P2
+  - ID: 2387583, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 1 (Electrician)
+  - ID: 2390070, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 2
+  - ID: 2400838, Subject: Flynn_FW001840_Indianapolis_IN_50 PERCENT BILLING
+
+Other (2):
+  - ID: 2388883, Subject: Flynn_FW001840_Indianapolis_IN - Add to billing
+  - ID: 2401718, Subject: Flynn_FW001840_Indianapolis_IN_Completed billing
+
+Project Management (2):
+  - ID: 2370983, Subject: Flynn_1840_Indianapolis_IN_Cabling and Network Upgrade
+  - ID: 2372208, Subject: Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM
+
+Shipping Tickets (2):
+  - ID: 2371009, Subject: Flynn_FW001840_Indianapolis_IN
+  - ID: 2376745, Subject: Flynn_FW001840_Indianapolis_IN
+
+Turnup Tickets (6):
+  - ID: 2384311, Subject: Flynn_FW001840_Indianapolis_IN_Site Survey 2/11/2025 11:00 AM
+  - ID: 2385133, Subject: Flynn_FW001840_Indianapolis_IN_P1 2/17/2025 6:30 PM
+  - ID: 2385481, Subject: Flynn_FW001840_Indianapolis_IN_P2 2/18/2025 6:30 PM
+  - ID: 2390086, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 2 3/4/2025 6:30 PM
+  - ID: 2413627, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 3 4/9/2025 9:30 PM
+  - ID: 2372208, Subject: Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM
+
+Analyzing ticket relationships with OpenAI...
+
+================================================================================
+TICKET CHAIN ANALYSIS RESULT
+================================================================================
+---
+
+## 1. TIMELINE OF EVENTS
+
+Below, all events are detailed in strict chronological order based on ticket creation and action timestamps. Each ticket's evolution, technician activity, and outcomes are precisely itemized.
+
+---
+
+**2025-01-15 11:33**  
+- **Ticket ID 2371027 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_ (VPN Cutover)  
+  Created by Amber Hodgson  
+  Purpose: Setup for upcoming network cutover (Turnup assist as part of broader cabling project).  
+  **Status:** Closed (No "Closed" timestamp recorded).  
+  **Outcome:** Ticket creation and planning documented, but no direct site work logged.
+
+---
+
+**2025-01-17 11:30**  
+- **Ticket ID 2372208 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM_  
+  **Status:** Open (no technician assigned, orphaned)  
+  **Outcome:** Created but no posts, activity, or resolution.  
+  **Technician:** None  
+  **Note:** Placeholder or orphaned ticket – no field activity recorded.
+
+---
+
+**2025-01-28 08:29**  
+- **Ticket ID 2376840 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Turnup Assist Ticket_ (Turnup)  
+  Created by Amber Hodgson  
+  **Status:** Closed (No "Closed" timestamp recorded).  
+  **Purpose:** Duplicate/continuation of cutover planning.  
+  **Outcome:** Planning only; no explicit site or technician activity recorded.
+
+---
+
+**2025-02-06 15:02**  
+- **Ticket ID 2382273 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Site Survey_ (Site Survey)  
+  Created by Josh Bosen  
+  **Service Date:** 2025-02-13  
+  **Status:** Audit  
+  **Outcome:** Set up for field site survey.
+
+---
+
+**2025-02-06 16:01**  
+- **Ticket ID 2382345 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_P1_ (Hardware-Wiring)  
+  Created by Josh Bosen  
+  **Service Date:** 2025-02-19  
+  **Status:** Confirmed  
+  **Outcome:** Planning Phase 1 wiring visit, no evidence of field completion in this record.
+
+---
+
+**2025-02-06 16:18**  
+- **Ticket ID 2382393 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_P2_ (VPN Installation)  
+  Created by Josh Bosen  
+  **Service Date:** 2025-02-20  
+  **Status:** Audit  
+  **Outcome:** Setup for Phase 2 VPN installation.
+
+---
+
+**2025-02-11 08:00–13:13**  
+- **Ticket ID 2384311 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Site Survey 2/11/2025 11:00 AM_  
+  **Tech:** David Fisher  
+  **Arrived:** 11:30 AM | **Departed:** 1:13 PM  
+  **Work Outcome:** Site survey completed; confirmation with site MOD, all checklist items cleared.  
+  **Status:** Completed (Closed: 2025-02-11 13:16:48).
+
+---
+
+**2025-02-12 15:00**  
+- **Ticket ID 2385133 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_P1 2/17/2025 6:30 PM_  
+  **Tech:** David Fisher  
+  **Actual Visit:** 2025-02-17, 6:30 PM – 2:30 AM (overnight ending 2025-02-18).  
+  **Work Outcome:** Roughed in 29 cable runs, but POS/station cabling left incomplete.  
+  **Status:** Incomplete (Closed: 2025-02-18 02:36:23).
+
+---
+
+**2025-02-13 06:01**  
+- **Ticket ID 2385481 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_P2 2/18/2025 6:30 PM_  
+  **Tech:** David Fisher  
+  **Actual Visit:** 2025-02-18, In: 6:30 AM, Out: 11:02 AM  
+  **Work Outcome:** Turnup (VPN installation) completed, received info, delays noted but job finished.  
+  **Status:** Completed (Closed: 2025-02-19 08:04:01).
+
+---
+
+**2025-02-17 13:50**  
+- **Ticket ID 2387583 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Revisit 1 (Electrician)_ (VPN Installation)  
+  Created by alyssa.philpott  
+  **Service Date:** (Erroneous: 1969-12-31 16:00:00)  
+  **Status:** Confirmed  
+  **Outcome:** Possible planning for site revisit after incomplete P1, but no execution noted.
+
+---
+
+**2025-02-21 09:08**  
+- **Ticket ID 2390070 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Revisit 2_ (VPN Installation)  
+  Created by alyssa.philpott  
+  **Service Date:** (Erroneous: 1969-12-31 16:00:00)  
+  **Status:** Confirmed  
+  **Outcome:** Set up for additional field revisit after prior incomplete work.
+
+---
+
+**2025-02-21 09:30**  
+- **Ticket ID 2390086 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Revisit 2 3/4/2025 6:30 PM_  
+  **Tech:** David Fisher  
+  **Actual Visit:** 2025-03-04, In: 6:30 PM, Out: 1:00 AM (on 2025-03-05)  
+  **Work Outcome:** 3 techs onsite; all station cabling and new conduit installed.  
+  **Status:** Completed (Closed: 2025-03-05 01:02:16).
+
+---
+
+**2025-03-12 10:37**  
+- **Ticket ID 2400838 (Dispatch):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_50 PERCENT BILLING_ (Hardware-Wiring)  
+  Created by David Fisher  
+  **Status:** Closed  
+  **Outcome:** Site processed for accounting/invoicing post-work.
+
+---
+
+**2025-04-01 12:30**  
+- **Ticket ID 2413627 (Turnup):**  
+  Subject: _Flynn_FW001840_Indianapolis_IN_Revisit 3 4/9/2025 9:30 PM_  
+  **Tech:** David Fisher  
+  **Status:** On Hold  
+  **Notes:** Visit not executed. Scheduling changes pending.  
+  **Outcome:** No field activity; ticket awaits scheduling/follow-up.
+
+---
+
+## 2. RELATIONSHIP MAP
+
+Here, the relationships and flows between dispatch, turnup, and other supporting tickets are mapped. Orphaned entries and the role of shipping/accounting are flagged.
+
+- **Dispatch Ticket 2371027 (VPN Cutover)**  
+  _Purpose:_ Initial planning for cutover/turnup supporting the cabling project.  
+  **Linked Turnup:** None directly; supports chain for Turnup 2372208 (see below), and later turnups.
+
+- **Dispatch Ticket 2376840 (Turnup Assist)**  
+  _Purpose:_ Further planning for cutover; appears administrative.  
+  **Linked Turnup:** None directly. Same context as above.
+
+- **Dispatch Ticket 2382273 (Site Survey)**  
+  **Mapped to Turnup:** 2384311 (Site Survey Turnup, 2025-02-11)  
+  — 1:1 relationship.
+
+- **Dispatch Ticket 2382345 (Hardware-Wiring P1)**  
+  **Mapped to Turnup:** 2385133 (P1 Turnup, 2025-02-17/18)  
+  — 1:1 relationship.
+
+- **Dispatch Ticket 2382393 (VPN Installation P2)**  
+  **Mapped to Turnup:** 2385481 (P2 Turnup, 2025-02-18)  
+  — 1:1 relationship.
+
+- **Dispatch Tickets 2387583 & 2390070 (Revisit 1 & 2)**  
+  **Mapped to Turnup:** 2390086 (Revisit 2 Turnup, 2025-03-04/5)  
+  — Series of revisits mapped to new turnup ticket(s).
+
+- **Dispatch Ticket 2400838 (50 Percent Billing)**  
+  Administrative (billing) outcome, not a field event.  
+  **Mapped to Turnup:** _None_. Supports project closure/accounting.
+
+- **Turnup
+================================================================================

@@ -110,6 +110,7 @@ class TicketChainService:
 
                 WHERE st.ticketid = :ticket_id
                   AND st4.departmenttitle NOT IN ('Add to NPM', 'Helpdesk Tier 1', 'Helpdesk Tier 2', 'Helpdesk Tier 3', 'Engineering')
+                  AND st4.tickettypetitle <> '3rd Party Turnup'
             )
             SELECT * FROM cte WHERE row_num = 1
             ORDER BY TicketCategory, chain_dateline;
@@ -278,31 +279,35 @@ class TicketChainService:
         dispatch_count = len(dispatch_tickets)
         turnup_count = len(turnup_tickets)
         shipping_count = len(shipping_tickets)
+        other_count = len(other_tickets)
         
-        prompt = f"""
-        I need you to analyze a set of field service tickets ({dispatch_count} dispatch tickets, {turnup_count} turnup tickets, and {shipping_count} shipping tickets) that are linked together in a chain with hash {chain_details['chain_hash']}.
-        
-        BACKGROUND:
-        In our field service system, we have these main types of tickets:
-        1. DISPATCH tickets - Initial records created when a service is requested (departments: FST Accounting, Dispatch, Pro Services)
-        2. TURNUP tickets - Created when a technician is booked, containing the work details (department: Turnups)
-        3. SHIPPING tickets - Records for shipments related to the service work (departments: Shipping, Outbound, Inbound)
-        
-        Normally, there should be a 1:1 relationship between dispatch and turnup tickets, but for complex
-        projects, there can be multiple relationships that aren't properly tracked in the system.
-        
-        GOAL:
-        Based on the information in these tickets, please:
-        1. Identify the actual relationships between these tickets
-        2. Determine the chronological order of events
-        3. Explain which dispatch tickets spawned which turnup tickets
-        4. Note any anomalies or issues with the ticket relationships
-        5. Provide a clear summary of the entire service history represented by these tickets
-        
-        NOTE: This chain has {len(project_tickets)} project management tickets and {len(other_tickets)} other related tickets that are excluded from this analysis.
-        
-        TICKET DETAILS:
+        prompt = """
+        You are an expert Field Service Analyst specializing in clearly reconstructing timelines and relationships from dispatch, turnup, and shipping tickets for IT infrastructure field service projects.
+
+        Create a structured narrative clearly detailing:
+
+        1. TIMELINE OF EVENTS:
+        - Chronologically ordered with precise timestamps.
+        - Include ticket IDs, technician names, arrival/departure times, and work outcomes.
+
+        2. RELATIONSHIP MAP:
+        - Explicitly map Dispatch Tickets to Turnup Tickets.
+        - Highlight orphaned or unlinked tickets clearly.
+
+        3. ANOMALIES AND ISSUES:
+        - Clearly enumerate anomalies (missing data, orphaned tickets, incorrect dates).
+        - Include affected ticket IDs explicitly.
+
+        4. SERVICE SUMMARY:
+        - Concise summary of entire service history, including key ticket IDs.
         """
+        
+        prompt += f"\n\nTicket Data:\nThis analysis covers {dispatch_count} dispatch tickets and {turnup_count} turnup tickets linked by chain hash {chain_details['chain_hash']}."
+        
+        # Note excluded tickets
+        excluded_count = shipping_count + other_count + len(project_tickets)
+        if excluded_count > 0:
+            prompt += f"\nNote: {excluded_count} additional tickets (project management, shipping, and other) are excluded from this analysis."
         
         # Add Dispatch Tickets
         if dispatch_tickets:
@@ -350,6 +355,9 @@ class TicketChainService:
                 Customer: {ticket.get('customer', 'N/A')}
                 Location: {ticket.get('city', 'N/A')}, {ticket.get('state', 'N/A')}
                 Service Date: {ticket.get('service_date', 'N/A')}
+                Expected Time In: {ticket.get('expected_time_in', 'N/A')}
+                Actual Time In: {ticket.get('in_time', 'N/A')}
+                Actual Time Out: {ticket.get('out_time', 'N/A')}
                 Project ID: {ticket.get('project_id', 'N/A')}
                 Closed: {ticket.get('closed', 'N/A')}
                 First Post: {ticket.get('first_post_date', 'N/A')} by {ticket.get('first_posted_by', 'N/A')}
@@ -363,37 +371,5 @@ class TicketChainService:
                     if len(last_content) > 150:
                         last_content = last_content[:147] + "..."
                     prompt += f"\nLast Post Content:\n{last_content}\n"
-                
-        # Add Shipping Tickets (if any)
-        if shipping_tickets:
-            prompt += "\n\n=== SHIPPING TICKETS ===\n"
-            for i, ticket in enumerate(shipping_tickets, 1):
-                prompt += f"""
-                --- SHIPPING TICKET {i}: ID {ticket['ticketid']} ---
-                Subject: {ticket.get('subject', 'N/A')}
-                Type: {ticket.get('tickettypetitle', 'N/A')}
-                Status: {ticket.get('ticketstatustitle', 'N/A')}
-                Department: {ticket.get('departmenttitle', 'N/A')}
-                Coordinator: {ticket.get('fullname', 'N/A')}
-                Created: {ticket.get('ticket_created', 'N/A')}
-                Site Number: {ticket.get('site_number', 'N/A')}
-                Customer: {ticket.get('customer', 'N/A')}
-                Location: {ticket.get('city', 'N/A')}, {ticket.get('state', 'N/A')}
-                Service Date: {ticket.get('service_date', 'N/A')}
-                Project ID: {ticket.get('project_id', 'N/A')}
-                Closed: {ticket.get('closed', 'N/A')}
-                """
-                
-        # Add final instructions
-        prompt += """
-        
-        RESPONSE FORMAT:
-        1. Timeline of Events: (chronological list of what happened)
-        2. Relationship Map: (which dispatch tickets spawned which turnup tickets)
-        3. Anomalies/Issues: (any problems or inconsistencies in the ticket relationships)
-        4. Summary: (overall description of the service history)
-        
-        Please analyze all the data in these tickets and explain the relationships between them.
-        """
         
         return prompt 

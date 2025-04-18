@@ -1,0 +1,112 @@
+Below is a detailed analysis of the provided tickets, structured per your requested format. Dates assumed are in UTC unless otherwise stated.
+
+---
+
+## 1. Timeline of Events
+
+#### **PHASE 1: Preparation—Shipping and Early Dispatch**
+- **2025-01-15:** Dispatch Ticket **2371027** created (VPN Cutover; initial turnup assist; preps main project; Amber Hodgson posts)
+- **2025-01-17:** Turnup Ticket **2372208** (Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM) created but remains *open*/*incomplete*
+- **2025-01-28:** Dispatch Ticket **2376840** created (explicit Turnup Assist; duplicates/supplements 2371027)
+- **2025-01-30:** Shipping Ticket **2376745** *closed* (shipping coordinated by Amber Hodgson)
+- **2025-02-06:** Dispatch Tickets **2382273, 2382345, 2382393** created (Site Survey, P1 Hardware-Wiring, P2 VPN Installation) – set up to segment project by task phase.
+
+#### **PHASE 2: Site Survey**
+- **2025-02-11:** Turnup Ticket **2384311** (Site Survey, David Fisher onsite 11:30 AM–1:13 PM; closure same day)
+- **2025-02-13:** Dispatch Ticket **2385730** created to log 3rd Party Turnup billing for Turnup #2384311
+- **2025-02-13:** Dispatch Ticket **2385730** first post, logging billing for 2384311 (confirms the linkage: Dispatch → Turnup → Billing)
+
+#### **PHASE 3: Phase 1—Cabling**
+- **2025-02-12:** Turnup Ticket **2385133** prepared for P1 (actual work scheduled 2/17/2025, Hardware-Wiring)
+- **2025-02-17:** Turnup Ticket **2385133**: Onsite work, 6:30 PM–2:30 AM
+- **2025-02-17:** Dispatch Ticket **2387583** created (Revisit 1, Electrician; setup for follow-up after P1; Alyssa Philpott)
+- **2025-02-18:** Turnup Ticket **2385133** closed as *Incomplete* (despite work performed)
+- **2025-02-17:** Shipping Ticket **2371009** closed (equipment delivered pre-P1 completion)
+
+#### **PHASE 4: Phase 2—Turnup, Cutover, and Troubleshooting**
+- **2025-02-13:** Turnup Ticket **2385481** prepped for P2 (scheduled 2/18/2025; VPN install)
+- **2025-02-18:** Turnup Ticket **2385481**: Site work (In: 6:30 AM, Out: 11:02 AM); closed next day
+- **2025-02-18:** Turnup Ticket **2372208** (originally scheduled) still open/no update (never completed)
+- **2025-02-20:** Dispatch Ticket **2389531** logs 3rd party billing for Turnup #2385133 (matches P1 In/Out time for 2/17/2025)
+- **2025-02-20:** Dispatch Ticket **2382393** for P2 (VPN Installation) references work done
+- **2025-02-20:** Last posts from Dispatch (**2376840** and **2371027**; closing out preparatory/assist tasks)
+
+#### **PHASE 5: Revisits + Additional Work**
+- **2025-02-21:** Dispatch Ticket **2390070** (Revisit 2, VPN Installation; more troubleshooting)
+- **2025-02-27:** Dispatch Ticket **2393017** logs 3rd Party billing for Turnup #2385481 (P2)
+- **2025-03-04:** Turnup Ticket **2390086** (Revisit 2) scheduled and executed (6:30 PM–1:00 AM)
+- **2025-03-06:** Dispatch Ticket **2397208** logs billing for Turnup #2390086 (Revisit 2)
+- **2025-03-11:** Dispatch Ticket **2399922** (Revisit 3; on hold status)
+- **2025-03-12:** Dispatch Ticket **2400838** requests 50% customer billing (project mid-point)
+- **2025-04-01:** Turnup Ticket **2413627** for Revisit 3 scheduled (service date 4/9/2025)
+
+**End-of-Chain Activity:**
+- **2025-04-17:** Dispatch Tickets **2424153** & **2424181** log 3rd party billing for Turnup #2413627 (Revisit 3), both with RTE hours of 0.0 (site visit not completed/put on hold)
+
+---
+
+## 2. Relationship Map
+
+Here's a visualization of ticket spawning relationships (→ = "spawns/leads to"):
+
+### **Preparation**
+- **2371027** & **2376840** (Dispatch: VPN Cutover, Turnup Assist)
+  - Attempted to spawn → **2372208** (Turnup: Open, never completed)
+  - Both prep for the overall project and initial cutover/assist phases
+
+### **Phase Breakdown / Main Work**
+- **2382273** (Dispatch: Site Survey)
+  - spawns → **2384311** (Turnup: Site Survey)
+  - billing tracked in → **2385730** (Dispatch: 3rd-Party Turnup)
+- **2382345** (Dispatch: P1 Hardware-Wiring)
+  - spawns → **2385133** (Turnup: P1 Hardware-Wiring)
+  - billing tracked in → **2389531** (Dispatch: 3rd-Party Turnup)
+- **2382393** (Dispatch: P2 VPN Installation)
+  - spawns → **2385481** (Turnup: P2 VPN Installation)
+  - billing tracked in → **2393017** (Dispatch: 3rd Party Turnup)
+
+### **Revisit/Remedial Work**
+- **2387583**, **2390070**, **2399922** (Dispatch: Revisits 1/2/3)
+  - **2387583** revisits P2 after P1
+  - **2390070** spawns → **2390086** (Turnup: Revisit 2)
+  - Billing for Revisit 2 tracked in → **2397208**
+  - **2399922** spawns → **2413627** (Turnup: Revisit 3); no actual work done (put on hold); billing in **2424153**, **2424181** (zero hour entries)
+
+### **Shipping**
+- **2371009**, **2376745** (Shipping: Outbound)
+  - Both support hardware movement for phases above—timing matches initial project prep and P1
+
+---
+
+## 3. Anomalies/Issues
+
+**A. Turnup Ticket Orphans/Unfinished**
+- **2372208** (Turnup) was never completed (open, no posts). Originally intended to match **2371027**/*2376840* but superseded by later tickets.
+- Multiple turnup dispatches created for revisits, but not all resulted in actual site work (e.g., **2413627**: "On hold", two separate 3rd-party billing tickets raised for a single zero-hour event).
+
+**B. Redundancy/Duplication**
+- Multiple "Revisit" tickets (both dispatch and turnup) for troubleshooting the same phase/task.
+- Several billing tickets for the same event (particularly, two billed at $27 for zero hours for 2413627).
+
+**C. Service Date Ambiguity**
+- Many "Service Date" fields are set to the Unix Epoch default (1969-12-31 16:00:00), indicating missing actual date entries on certain records.
+- "Site Number" inconsistencies: Sometimes listed as "1840", other times as "FW001840" (should be unified for tracking).
+
+**D. Status/Closure Gaps**
+- Original Turnup Assist (2372208) is open but never completed, yet project moved on via other tickets.
+- On-hold and confirmed tickets without work completion but with billing entries.
+
+**E. Billing Before/Without Work**
+- Final revisit had billing entered even though turnup status is "on hold" (no work actually performed; possibly a cancellation fee).
+
+---
+
+## 4. Summary: Service History
+
+**Project "Flynn_FW001840_Indianapolis_IN" involved a multi-phase network/cabling overhaul requiring site survey, two main implementation phases (P1: Wiring, P2: VPN Cutover), and several troubleshooting revisits.** Amber Hodgson, Josh Bosen, and Alyssa Philpott were key contacts coordinating between Flynn, field engineers, and external contractors.
+
+1. **Preparation included initial shipping of equipment and the creation of preliminary dispatch and turnup assist tickets.** Shipping occurred ahead of all works and was promptly closed upon delivery.
+
+2. **A detailed site survey was scheduled and successfully completed (with matching dispatch/turnup and third-party billing tickets).**
+
+3. **Phase

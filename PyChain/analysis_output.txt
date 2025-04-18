@@ -1,0 +1,167 @@
+Ticket Chain Analysis Tool
+-------------------------
+
+Analyzing ticket chain for ticket ID: 2401718
+Found chain hash: C2DDD2D9-9D8B-7C44-8047-F030884F9723
+Found 26 tickets in chain:
+
+Dispatch Tickets (15):
+  - ID: 2371027, Subject: Flynn_FW001840_Indianapolis_IN
+  - ID: 2376840, Subject: Flynn_FW001840_Indianapolis_IN_Turnup Assist Ticket
+  - ID: 2382273, Subject: Flynn_FW001840_Indianapolis_IN_Site Survey
+  - ID: 2382345, Subject: Flynn_FW001840_Indianapolis_IN_P1
+  - ID: 2382393, Subject: Flynn_FW001840_Indianapolis_IN_P2
+  - ID: 2385730, Subject: Flynn_FW001840_RTE Contractors
+  - ID: 2387583, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 1 (Electrician)
+  - ID: 2389531, Subject: Flynn_FW001840_RTE Contractors
+  - ID: 2390070, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 2
+  - ID: 2393017, Subject: Flynn_FW001840_RTE Contractors
+  - ID: 2397208, Subject: Flynn_FW001840_RTE Contractors
+  - ID: 2399922, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 3
+  - ID: 2400838, Subject: Flynn_FW001840_Indianapolis_IN_50 PERCENT BILLING
+  - ID: 2424153, Subject: Flynn_FW001840_RTE Contractors
+  - ID: 2424181, Subject: Flynn_FW001840_RTE Contractors
+
+Other (1):
+  - ID: 2388883, Subject: Flynn_FW001840_Indianapolis_IN - Add to billing
+
+Project Management (2):
+  - ID: 2370983, Subject: Flynn_1840_Indianapolis_IN_Cabling and Network Upgrade
+  - ID: 2372208, Subject: Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM
+
+Shipping Tickets (2):
+  - ID: 2371009, Subject: Flynn_FW001840_Indianapolis_IN
+  - ID: 2376745, Subject: Flynn_FW001840_Indianapolis_IN
+
+Turnup Tickets (6):
+  - ID: 2384311, Subject: Flynn_FW001840_Indianapolis_IN_Site Survey 2/11/2025 11:00 AM
+  - ID: 2385133, Subject: Flynn_FW001840_Indianapolis_IN_P1 2/17/2025 6:30 PM
+  - ID: 2385481, Subject: Flynn_FW001840_Indianapolis_IN_P2 2/18/2025 6:30 PM
+  - ID: 2390086, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 2 3/4/2025 6:30 PM
+  - ID: 2413627, Subject: Flynn_FW001840_Indianapolis_IN_Revisit 3 4/9/2025 9:30 PM
+  - ID: 2372208, Subject: Flynn_FW001840_Indianapolis_IN 2/18/2025 8:30 PM
+
+Analyzing ticket relationships with OpenAI...
+
+================================================================================
+TICKET CHAIN ANALYSIS RESULT
+================================================================================
+Certainly. Below is a comprehensive, detailed analysis based on your provided data. Each requested element is covered explicitly.
+
+---
+
+## 1. Timeline of Events
+
+### **Shipping & Pre-Dispatch:**
+- **2025-01-15**: Dispatch Ticket 1 (2371027) created for VPN Cutover, referencing upcoming project needs.
+- **2025-01-15**: Shipping Ticket 1 (2371009) created (likely to coordinate hardware arrival for site work).
+- **2025-01-28**: Dispatch Ticket 2 (2376840) created—a Turnup Assist ticket suggesting additional support required.
+- **2025-01-30**: Shipping Ticket 2 (2376745) closed (further hardware arrival).
+
+---
+
+### **Site Survey Phase:**
+- **2025-02-06 AM**: Multiple Pro Services dispatch tickets (3, 4, 5: 2382273, 2382345, 2382393) created for:
+    - Site Survey
+    - Phase 1 Hardware-Wiring
+    - Phase 2 (VPN Installation)
+- **2025-02-11**: Turnup Ticket 1 (2384311): Site Survey performed and closed by David Fisher.
+
+---
+
+### **Project Work – Cabling & VPN Cutover:**
+- **2025-02-12**: Turnup Ticket 2 (2385133): Phase 1 hardware work created.
+- **2025-02-13**: Dispatch Ticket 6 (2385730): "3rd Party Turnup" – records for contractor time logged for Turnup Ticket 2384311 (the survey).
+- **2025-02-17**: Turnup Ticket 2 (2385133) executed 6:30 PM–2:30 AM (Phase 1 cable rough-in; ends early 2/18).
+    - Corresponds with RTE times in Dispatch Ticket 8 (2389531).
+- **2025-02-17**: Dispatch Ticket 7 (2387583): Request for "Revisit 1 (Electrician)" due to Phase 2 needs or issues.
+
+---
+
+### **Phase 2 – VPN Cutover & Main Install**
+- **2025-02-18**: Turnup Ticket 3 (2385481): Phase 2 (VPN installation) occurs (6:30 AM–11:02 AM).
+- **2025-02-18**: Open Turnup Ticket 6 (2372208) for end-of-day Turnup (unclear if work is completed; ticket open with no posts).
+
+---
+
+#### **Multiple Contractor Involvement:**
+- **2025-02-20**: Dispatch Ticket 8 (2389531): Accounting logs contractor time for Turnup Ticket 2385133 (Phase 1).
+- **2025-02-20**: Last posts and responses in original Dispatch/Assistant Dispatch reference cutover work completed.
+
+---
+
+### **Post-main-work Re-visits and Corrections:**
+- **2025-02-21**: Dispatch Ticket 9 (2390070): "Revisit 2" (network or electrical corrections).
+- **2025-02-27**: Dispatch Ticket 10 (2393017): Contractor hours logged for Turnup Ticket 3 (2385481).
+    - Indicates extended/troubled install.
+- **2025-03-04**: Turnup Ticket 4 (2390086): Revisit 2 executed, closed.
+    - Contractor RTE entry in 11 (2397208).
+
+---
+
+### **Further Re-visits & Billing:**
+- **2025-03-11**: Dispatch Ticket 12 (2399922): "Revisit 3" scheduled.
+- **2025-03-12**: Dispatch Ticket 13 (2400838): "50 PERCENT BILLING" for project—signals project milestones reached.
+- **2025-04-01**: Turnup Ticket 5 (2413627): Revisit 3 scheduled (set "On Hold," not completed).
+- **2025-04-09**: Updates and admin notes for Turnup Ticket 5 (revisit not completed; pending info).
+- **2025-04-17**: Dispatch Tickets 14, 15 (2424153, 2424181): Contractor entries for Revisit 3 (zero hours/pay—likely canceled/aborted attempt).
+
+---
+
+## 2. Relationship Map
+
+Below is a logical mapping of the relationships, denoting which **DISPATCH** tickets directly led to which **TURNUP** tickets. SHIPPING tickets are noted where relevant.
+
+**Phase/Function | Dispatch Ticket(s) -> Turnup Ticket(s) | Shipping Ticket(s)**
+--- | --- | ---
+**Site Survey** | 2382273 ("Site Survey" dispatch, created 2/6) -> 2384311 (site survey turnup 2/11/2025) | 2371009, 2376745 (prior to on-site work)
+**Phase 1 (Cabling)** | 2382345 ("P1" dispatch 2/6) -> 2385133 (hardware-wiring turnup 2/17/2025) | 
+**Phase 2 (VPN Install/Cutover)** | 2382393 ("P2" dispatch 2/6) -> 2385481 (VPN install turnup 2/18/2025), and possibly open turnup 2372208 | 
+**Turnup Assist/Coordination** | 2371027 & 2376840 (dispatches 1/15 and 1/28)—advisory, referencing core events above—not direct to a turnup, but management/assist for cutover event | 
+**Contractor/Acct (FST Accounting)** | 2385730, 2389531, 2393017, 2397208, 2424153, 2424181: These dispatch FST accounting records **track labor/hours/costs** for the above Turnup tickets, using "Turn Up #:" references to match up to turnup ticket IDs. | 
+**Revisit 1/Electrician** | 2387583 (dispatch 2/17)—no turnup ticket directly associated (possibly overlaps/superseded by P2, or was a canceled/tripalicate) | 
+**Revisit 2** | 2390070 (dispatch 2/21) -> 2390086 (turnup 3/4, completed), accounting entry in 2397208 | 
+**Revisit 3** | 2399922 (dispatch 3/11, on hold) -> 2413627 (turnup 4/9/2025)—marked "On Hold", not completed, with accounting attempts in 2424153, 2424181 (0 hours/pay) | 
+**Billing/Milestone** | 2400838 (dispatch 3/12): Billing milestone; not linked to a turnup but to project progress.
+
+---
+
+## 3. Anomalies/Issues
+
+1. **Dispatch-to-Turnup 1:1 Broken:**  
+   - Several dispatch tickets were "advisory" or project-management (i.e., Turnup Assist, Accounting, Billing), breaking the presumed 1:1 relationship with Turnup tickets.
+   - At every work phase (survey, cabling, VPN), multiple dispatch tickets reference the same on-site event.
+
+2. **Duplicated and Parallel Dispatches:**  
+   - "Revisit" tickets (for both dispatch and turnup) indicate rework and/or troubleshooting loops, leading to parallel and repeated tickets for essentially the same phase.
+
+3. **Open/Unresolved Turnup:**  
+   - Turnup Ticket 2372208 was created (2/18/2025) but lacks posts and is never closed—likely an artifact or placeholder.
+
+4. **Accounting/Contractor Entries as Dispatch Tickets:**  
+   - Several dispatch tickets are logging time/pay (not actual service dispatch)—may pollute reporting/analytics in systems expecting a strict dispatch->turnup mapping.
+
+5. **Revisit 3 Never Completed:**  
+   - The final phase (Revisit 3, Turnup 2413627) was scheduled, set to On Hold, and never completed despite contractor records for attempt/time with zero hours/pay.
+
+6. **Inconsistent Use of Site Number:**  
+   - Some dispatch/turnup tickets use “Site Number: FW001840,” others just “1840,” which could cause confusion or mismatches in automation.
+
+7. **Service Dates Defaulted:**  
+   - Several service dates default to 1969-12-31—a sign of incomplete/malformed ticket data.
+
+---
+
+## 4. Summary: Overall Service History
+
+### **Project Overview**
+This field service ticket chain traces the lifecycle of a complex network cabling and VPN cutover project at a Flynn site in Indianapolis (FW001840, Site 1840), under the project heading "NETWORK RE-CABLING - WENDYS." 
+
+- **Initial Phases:**  
+  - Project began with pre-planning, shipping of materials, and the scheduling of a site survey.  
+  - A turnup was executed on 2/11/2025 to survey the environment.
+
+- **Main Work:**  
+  - Subsequent main cabling ("Phase 1") and VPN installation ("Phase 2") were scheduled and performed mid-February, supported by corresponding dispatches and on-site visits by technician David Fisher.
+  - Additional tickets for "Turnup Assist" and multi-department
+================================================================================
