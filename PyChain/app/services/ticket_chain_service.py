@@ -268,12 +268,23 @@ class TicketChainService:
         Returns:
             Prompt string for AI analysis
         """
+        # First, filter out any tickets that contain "billing" in the subject line
+        filtered_tickets = [
+            t for t in chain_details['tickets'] 
+            if not (t.get('subject', '').lower() and 'billing' in t.get('subject', '').lower())
+        ]
+        
         # Group tickets by category
-        dispatch_tickets = [t for t in chain_details['tickets'] if t['TicketCategory'] == 'Dispatch Tickets']
-        turnup_tickets = [t for t in chain_details['tickets'] if t['TicketCategory'] == 'Turnup Tickets']
-        shipping_tickets = [t for t in chain_details['tickets'] if t['TicketCategory'] == 'Shipping Tickets']
-        project_tickets = [t for t in chain_details['tickets'] if t['TicketCategory'] == 'Project Management']
-        other_tickets = [t for t in chain_details['tickets'] if t['TicketCategory'] == 'Other']
+        dispatch_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Dispatch Tickets']
+        turnup_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Turnup Tickets']
+        shipping_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Shipping Tickets']
+        project_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Project Management']
+        other_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Other']
+        
+        # Store counts of filtered and unfiltered tickets
+        original_ticket_count = len(chain_details['tickets'])
+        filtered_ticket_count = len(filtered_tickets)
+        billing_tickets_count = original_ticket_count - filtered_ticket_count
         
         # Calculate how many tickets we're actually analyzing
         dispatch_count = len(dispatch_tickets)
@@ -305,9 +316,9 @@ class TicketChainService:
         prompt += f"\n\nTicket Data:\nThis analysis covers {dispatch_count} dispatch tickets and {turnup_count} turnup tickets linked by chain hash {chain_details['chain_hash']}."
         
         # Note excluded tickets
-        excluded_count = shipping_count + other_count + len(project_tickets)
+        excluded_count = shipping_count + other_count + len(project_tickets) + billing_tickets_count
         if excluded_count > 0:
-            prompt += f"\nNote: {excluded_count} additional tickets (project management, shipping, and other) are excluded from this analysis."
+            prompt += f"\nNote: {excluded_count} additional tickets (project management, shipping, billing, and other) are excluded from this analysis."
         
         # Add Dispatch Tickets
         if dispatch_tickets:
