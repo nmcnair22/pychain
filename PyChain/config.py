@@ -29,6 +29,9 @@ TICKETING_DB_CONFIG = {
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = os.getenv('OPENAI_MODEL', 'gpt-4o')
 
+# Analysis database path (SQLite)
+ANALYSIS_DB_PATH = os.getenv('ANALYSIS_DB_PATH', os.path.join(os.path.dirname(__file__), 'data', 'analysis.db'))
+
 # SQLAlchemy connection strings
 if USE_IN_MEMORY_DB:
     # SQLite in-memory database for local development
@@ -37,4 +40,7 @@ if USE_IN_MEMORY_DB:
 else:
     # Real MySQL database connections
     CISSDM_DATABASE_URL = f"mysql+mysqlconnector://{CISSDM_DB_CONFIG['user']}:{CISSDM_DB_CONFIG['password']}@{CISSDM_DB_CONFIG['host']}:{CISSDM_DB_CONFIG['port']}/{CISSDM_DB_CONFIG['database']}"
-    TICKETING_DATABASE_URL = f"mysql+mysqlconnector://{TICKETING_DB_CONFIG['user']}:{TICKETING_DB_CONFIG['password']}@{TICKETING_DB_CONFIG['host']}:{TICKETING_DB_CONFIG['port']}/{TICKETING_DB_CONFIG['database']}" 
+    TICKETING_DATABASE_URL = f"mysql+mysqlconnector://{TICKETING_DB_CONFIG['user']}:{TICKETING_DB_CONFIG['password']}@{TICKETING_DB_CONFIG['host']}:{TICKETING_DB_CONFIG['port']}/{TICKETING_DB_CONFIG['database']}"
+
+# Analysis database always uses SQLite for local storage
+ANALYSIS_DATABASE_URL = f"sqlite:///{ANALYSIS_DB_PATH}" 
