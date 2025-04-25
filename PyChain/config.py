@@ -40,7 +40,7 @@ if USE_IN_MEMORY_DB:
 else:
     # Real MySQL database connections
     CISSDM_DATABASE_URL = f"mysql+mysqlconnector://{CISSDM_DB_CONFIG['user']}:{CISSDM_DB_CONFIG['password']}@{CISSDM_DB_CONFIG['host']}:{CISSDM_DB_CONFIG['port']}/{CISSDM_DB_CONFIG['database']}"
-    TICKETING_DATABASE_URL = f"mysql+mysqlconnector://{TICKETING_DB_CONFIG['user']}:{TICKETING_DB_CONFIG['password']}@{TICKETING_DB_CONFIG['host']}:{TICKETING_DB_CONFIG['port']}/{TICKETING_DB_CONFIG['database']}"
+    TICKETING_DATABASE_URL = f"mysql+mysqlconnector://{TICKETING_DB_CONFIG['user']}:{TICKETING_DB_CONFIG['password']}@{TICKETING_DB_CONFIG['host']}:{TICKETING_DB_CONFIG['port']}/{TICKETING_DB_CONFIG['database']}" 
 
 # Analysis database always uses SQLite for local storage
 ANALYSIS_DATABASE_URL = f"sqlite:///{ANALYSIS_DB_PATH}" 

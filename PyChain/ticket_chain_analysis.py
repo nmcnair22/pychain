@@ -1,340 +1,398 @@
 #!/usr/bin/env python3
 """
-Ticket Chain Analysis Tool
-
-This script is used to test different approaches to analyzing relationships
-between tickets in a field service system using OpenAI.
+Analyze the relationships between tickets in a ticket chain.
 """
 
 import os
-import sys
+import json
 import argparse
-from sqlalchemy.exc import OperationalError
+from datetime import datetime
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import sys
 
-# Add the project root to the Python path
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+# Add parent directory to path for proper imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.models.base import Base, get_ticketing_db, ticketing_engine, get_analysis_db, analysis_engine
-from app.services.ticket_chain_service import TicketChainService
-from app.services.analysis_service import AnalysisService
-from app.utils.db_helpers import create_mock_ticket_chain
-from config import USE_IN_MEMORY_DB
+# Load environment variables
+load_dotenv()
 
-def create_tables():
-    """Create database tables for the analysis database only"""
-    print("Setting up database tables...")
-    # Only create tables for analysis database (SQLite)
-    # Import only the AnalysisResult model to avoid creating other tables
-    from app.models.analysis_result import AnalysisResult
-    # Create the AnalysisResult table
-    try:
-        AnalysisResult.__table__.create(bind=analysis_engine, checkfirst=True)
-        print("Analysis database tables created.")
-    except Exception as e:
-        print(f"Error creating tables: {e}")
-        import traceback
-        traceback.print_exc()
+# Define available report types
+REPORT_TYPES = {
+    "1": {
+        "id": "relationship",
+        "name": "Ticket Relationship and Summary",
+        "description": "Analyzes the relationships between tickets and provides a summary of the whole chain",
+        "prompt_focus": "Analyze the relationships between these tickets and provide an overall summary."
+    },
+    "2": {
+        "id": "timeline",
+        "name": "Timelines and Outcomes",
+        "description": "Analyzes the timeline, scope, completions, and issues for each visit",
+        "prompt_focus": "Analyze the timeline, scope, completion status, issues, revisits, cable drops, and material shortages. Determine if revisits were billable to client."
+    }
+}
 
-def test_with_mock_data(complexity=1):
-    """
-    Test ticket chain analysis using mock data
+# Database connection
+def get_db_session():
+    """Create a new database session"""
+    # Load database configuration 
+    db_config = {
+        "host": os.environ.get("TICKETING_DB_HOST", "localhost"),
+        "user": os.environ.get("TICKETING_DB_USER", "root"),
+        "password": os.environ.get("TICKETING_DB_PASSWORD", ""),
+        "database": os.environ.get("TICKETING_DB_NAME", "")
+    }
     
-    Args:
-        complexity: 1=simple, 2=moderate, 3=complex relationship patterns
-    """
-    print(f"Creating mock ticket chain (complexity level: {complexity})...")
+    # Create database engine
+    connection_string = f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}"
+    engine = create_engine(connection_string)
     
-    # Different complexity levels will create more challenging relationships
-    if complexity == 1:
-        num_dispatch = 1
-        num_turnup = 1
-    elif complexity == 2:
-        num_dispatch = 2
-        num_turnup = 3
-    else:  # complexity >= 3
-        num_dispatch = 3
-        num_turnup = 5
+    # Create session
+    Session = sessionmaker(bind=engine)
+    session = Session()
     
-    # Get database session
-    db_generator = get_ticketing_db()
-    db = next(db_generator)
+    return session
+
+def test_with_mock_data():
+    """Test the analysis with mock data"""
+    from PyChain.app.services.ticket_chain_service import TicketChainService
     
-    try:
-        # Create mock data
-        chain_info = create_mock_ticket_chain(db, num_dispatch, num_turnup)
-        print(f"Created ticket chain with hash: {chain_info['chain_hash']}")
-        print(f"Dispatch tickets: {', '.join(chain_info['dispatch_tickets'])}")
-        print(f"Turnup tickets: {', '.join(chain_info['turnup_tickets'])}")
+    # Mock chain details
+    with open("PyChain/data/mock_ticket_chain.json", "r") as f:
+        mock_chain = json.load(f)
+    
+    # Print ticket details
+    print("\nTicket Chain Sample")
+    print("-" * 30)
+    print(f"Chain Hash: {mock_chain['chain_hash']}")
+    print(f"Number of Tickets: {mock_chain['ticket_count']}")
+    
+    # Group tickets by category
+    tickets_by_category = {}
+    for ticket in mock_chain['tickets']:
+        category = ticket.get('TicketCategory', 'Unknown')
+        if category not in tickets_by_category:
+            tickets_by_category[category] = []
+        tickets_by_category[category].append(ticket)
+    
+    # Display tickets by category
+    for category, tickets in tickets_by_category.items():
+        print(f"\n{category} Tickets: {len(tickets)}")
+        for ticket in tickets:
+            print(f"  - {ticket.get('ticketid')}: {ticket.get('subject', 'No Subject')}")
+    
+    # Display report options and get selection
+    report_type = get_report_selection()
+    if report_type == "quit":
+        print("\nExiting analysis.")
+        return
+    
+    # Run selected report type with mock data
+    run_selected_report(mock_chain, report_type)
+    
+    # After running the report, offer to run another report
+    while True:
+        report_type = get_report_selection()
+        if report_type == "quit":
+            print("\nExiting analysis.")
+            break
+        run_selected_report(mock_chain, report_type)
+
+def get_report_selection():
+    """Display available report options and get user selection"""
+    print("\nAvailable Reports:")
+    for key, report in REPORT_TYPES.items():
+        print(f"{key}: {report['name']} - {report['description']}")
+    print("q: Quit")
+    
+    while True:
+        selection = input("\nSelect a report to run: ").strip().lower()
+        if selection == "q":
+            return "quit"
+        if selection in REPORT_TYPES:
+            return REPORT_TYPES[selection]["id"]
+        print("Invalid selection. Please try again.")
+
+def display_ticket_details(chain_details):
+    """Display details about the ticket chain"""
+    if "error" in chain_details:
+        print(f"Error: {chain_details['error']}")
+        return None
+    
+    print("\nTicket Chain Details")
+    print("-" * 30)
+    print(f"Chain Hash: {chain_details['chain_hash']}")
+    print(f"Number of Tickets: {chain_details['ticket_count']}")
+    
+    # Group tickets by category for easier viewing
+    tickets_by_category = {}
+    for ticket in chain_details['tickets']:
+        category = ticket.get('TicketCategory', 'Unknown')
+        if category not in tickets_by_category:
+            tickets_by_category[category] = []
+        tickets_by_category[category].append(ticket)
+    
+    # Display tickets by category
+    for category, tickets in tickets_by_category.items():
+        print(f"\n{category} Tickets: {len(tickets)}")
+        for ticket in tickets:
+            print(f"  - {ticket.get('ticketid')}: {ticket.get('subject', 'No Subject')}")
+    
+    return chain_details
+
+def run_selected_report(chain_details, report_type):
+    """Run the selected report type"""
+    from PyChain.app.services.ticket_chain_service import TicketChainService
+    from PyChain.app.services.ai_service import AIService
+    
+    # Find the report name for saving
+    report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type), "Unknown Report")
+    
+    print(f"\nRunning {report_name}...")
+    
+    # Create a detailed prompt with chain information
+    prompt = TicketChainService._create_chain_analysis_prompt(chain_details, report_type)
+    
+    # Use AIService to analyze the chain
+    analysis = AIService.analyze_chain(prompt, report_type)
+    
+    # Print the analysis
+    print("\n" + "=" * 50)
+    print(f"ANALYSIS: {report_name}")
+    print("=" * 50)
+    print(analysis)
+    print("=" * 50)
+    
+    # Ask if user wants to save the analysis
+    save_response = input("\nDo you want to save this analysis? (y/n): ").strip().lower()
+    if save_response == 'y':
+        # Create the data directory if it doesn't exist
+        os.makedirs("PyChain/data/analyses", exist_ok=True)
         
-        # Get a ticket to use for testing
-        test_ticket = chain_info['example_ticket']
-        print(f"\nUsing ticket {test_ticket} for analysis...\n")
+        # Create a timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        # First, show the raw chain details
-        chain_details = TicketChainService.get_chain_details_by_ticket_id(db, test_ticket)
-        print(f"Found {chain_details['ticket_count']} tickets in chain.\n")
+        # Create a filename that includes the chain hash and timestamp
+        filename = f"PyChain/data/analyses/{chain_details['chain_hash']}_{timestamp}_{report_type}.txt"
         
-        # Analyze the relationships
-        print("Analyzing ticket relationships with OpenAI...\n")
-        analysis = TicketChainService.analyze_chain_relationships(db, test_ticket)
+        # Save the analysis with metadata
+        with open(filename, "w") as f:
+            f.write(f"Ticket Chain Analysis\n")
+            f.write(f"Report Type: {report_name}\n")
+            f.write(f"Chain Hash: {chain_details['chain_hash']}\n")
+            f.write(f"Number of Tickets: {chain_details['ticket_count']}\n")
+            f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            f.write("=" * 50 + "\n")
+            f.write(analysis)
         
-        print("=" * 80)
-        print("TICKET CHAIN ANALYSIS RESULT")
-        print("=" * 80)
-        print(analysis)
-        print("=" * 80)
-        
-    except Exception as e:
-        print(f"Error during testing: {e}")
-    finally:
-        db.close()
+        print(f"Analysis saved to {filename}")
 
 def analyze_real_ticket(ticket_id):
-    """
-    Analyze a real ticket chain from the database
+    """Analyze a real ticket from the database"""
+    from PyChain.app.services.ticket_chain_service import TicketChainService
     
-    Args:
-        ticket_id: The ticket ID to analyze
-    """
-    if USE_IN_MEMORY_DB:
-        print("Cannot analyze real tickets in in-memory mode.")
-        print("Please set USE_IN_MEMORY_DB=false in .env file to connect to real databases.")
-        return
-    
-    print(f"Analyzing ticket chain for ticket ID: {ticket_id}")
-    
-    # Get database sessions
-    db_generator = get_ticketing_db()
-    db = next(db_generator)
-    
-    analysis_db_generator = get_analysis_db()
-    analysis_db = next(analysis_db_generator)
+    # Create a database session
+    session = get_db_session()
     
     try:
-        # Get chain details directly with the single query approach
-        chain_details = TicketChainService.get_chain_details_by_ticket_id(db, ticket_id)
+        # Get the ticket chain details
+        chain_details = TicketChainService.get_chain_details_by_ticket_id(session, ticket_id)
         
-        if "error" in chain_details:
-            print(f"Error: {chain_details['error']}")
+        # Display ticket information
+        chain_details = display_ticket_details(chain_details)
+        if not chain_details:
             return
         
-        # Show chain hash
-        print(f"Found chain hash: {chain_details['chain_hash']}")
+        # Display report options and get selection
+        report_type = get_report_selection()
+        if report_type == "quit":
+            print("\nExiting analysis.")
+            return
         
-        # Show tickets found
-        print(f"Found {chain_details['ticket_count']} tickets in chain:")
+        # Run the selected report
+        run_selected_report(chain_details, report_type)
         
-        # Group tickets by category
-        tickets_by_category = {}
-        for ticket in chain_details['tickets']:
-            category = ticket['TicketCategory']
-            if category not in tickets_by_category:
-                tickets_by_category[category] = []
-            tickets_by_category[category].append(ticket)
-        
-        # Print ticket summary by category
-        for category, tickets in tickets_by_category.items():
-            print(f"\n{category} ({len(tickets)}):")
-            for ticket in tickets:
-                print(f"  - ID: {ticket['ticketid']}, Subject: {ticket['subject']}")
-        
-        print("\nAnalyzing ticket relationships with OpenAI...\n")
-        analysis = TicketChainService.analyze_chain_relationships(db, ticket_id)
-        
-        print("=" * 80)
-        print("TICKET CHAIN ANALYSIS RESULT")
-        print("=" * 80)
-        print(analysis)
-        print("=" * 80)
-        
-        # Save the analysis to the database
-        AnalysisService.save_analysis(
-            analysis_db, 
-            ticket_id, 
-            chain_details['chain_hash'], 
-            chain_details['ticket_count'], 
-            analysis
-        )
-        print(f"Analysis for ticket {ticket_id} saved to database")
-        
-    except Exception as e:
-        print(f"Error analyzing ticket: {e}")
-        import traceback
-        traceback.print_exc()
+        # After running the first report, offer to run another report
+        while True:
+            report_type = get_report_selection()
+            if report_type == "quit":
+                print("\nExiting analysis.")
+                break
+            run_selected_report(chain_details, report_type)
+            
     finally:
-        db.close()
-        analysis_db.close()
+        # Close the session
+        session.close()
 
 def analyze_multiple_tickets(ticket_ids):
-    """
-    Analyze multiple tickets and store results in the database
+    """Analyze multiple tickets in sequence"""
+    from PyChain.app.services.ticket_chain_service import TicketChainService
     
-    Args:
-        ticket_ids: List of ticket IDs to analyze
-    """
-    if USE_IN_MEMORY_DB:
-        print("Cannot analyze real tickets in in-memory mode.")
-        print("Please set USE_IN_MEMORY_DB=false in .env file to connect to real databases.")
-        return
+    # Create a database session
+    session = get_db_session()
     
-    print(f"Analyzing {len(ticket_ids)} tickets...")
-    
-    success_count = 0
-    failed_count = 0
-    
-    for ticket_id in ticket_ids:
-        try:
-            # Strip any whitespace from the ticket ID
-            ticket_id = ticket_id.strip()
-            print(f"\n{'-' * 40}")
-            print(f"Analyzing ticket ID: {ticket_id}")
-            print(f"{'-' * 40}")
+    try:
+        # Display report options first, so all tickets are analyzed with the same report type
+        print(f"\nPreparing to analyze {len(ticket_ids)} tickets.")
+        report_type = get_report_selection()
+        if report_type == "quit":
+            print("\nExiting analysis.")
+            return
+        
+        # Find the report name for reference
+        report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type), "Unknown Report")
+        print(f"\nRunning {report_name} for all tickets...")
+        
+        # Analyze each ticket
+        for i, ticket_id in enumerate(ticket_ids, 1):
+            print(f"\n[{i}/{len(ticket_ids)}] Analyzing ticket {ticket_id}...")
             
-            analyze_real_ticket(ticket_id)
-            success_count += 1
-        except Exception as e:
-            print(f"Error analyzing ticket {ticket_id}: {e}")
-            failed_count += 1
+            # Get the ticket chain details
+            chain_details = TicketChainService.get_chain_details_by_ticket_id(session, ticket_id)
+            
+            # Display ticket information
+            chain_details = display_ticket_details(chain_details)
+            if not chain_details:
+                print(f"Skipping ticket {ticket_id} due to errors.")
+                continue
+            
+            # Run the selected report for this ticket
+            run_selected_report(chain_details, report_type)
+        
+        print(f"\nCompleted analysis of {len(ticket_ids)} tickets using {report_name}.")
+        
+        # After analyzing all tickets, offer to run all tickets with a different report
+        while True:
+            print("\nAll tickets have been analyzed.")
+            report_type = get_report_selection()
+            if report_type == "quit":
+                print("\nExiting analysis.")
+                break
+            
+            # Run the new report type for all tickets
+            report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type), "Unknown Report")
+            print(f"\nRunning {report_name} for all tickets...")
+            
+            for i, ticket_id in enumerate(ticket_ids, 1):
+                print(f"\n[{i}/{len(ticket_ids)}] Analyzing ticket {ticket_id}...")
+                
+                # Get the ticket chain details
+                chain_details = TicketChainService.get_chain_details_by_ticket_id(session, ticket_id)
+                
+                # Display ticket information (brief, since we've seen it before)
+                print(f"Chain Hash: {chain_details.get('chain_hash', 'Unknown')}")
+                print(f"Number of Tickets: {chain_details.get('ticket_count', 0)}")
+                
+                # Run the selected report for this ticket
+                if "error" not in chain_details:
+                    run_selected_report(chain_details, report_type)
     
-    print(f"\nAnalysis complete: {success_count} successful, {failed_count} failed")
+    finally:
+        # Close the session
+        session.close()
 
 def list_saved_analyses():
-    """
-    List all previously saved analyses from the database
-    """
-    # Get database session
-    db_generator = get_analysis_db()
-    db = next(db_generator)
+    """List all saved analyses"""
+    analyses_dir = "PyChain/data/analyses"
     
-    try:
-        analyses = AnalysisService.get_all_analyses(db)
+    # Check if the directory exists
+    if not os.path.exists(analyses_dir):
+        print("No saved analyses found.")
+        return
+    
+    # Get all analysis files
+    analysis_files = [f for f in os.listdir(analyses_dir) if f.endswith(".txt")]
+    
+    if not analysis_files:
+        print("No saved analyses found.")
+        return
+    
+    print("\nSaved Analyses:")
+    print("-" * 30)
+    
+    # Sort by timestamp (newest first)
+    analysis_files.sort(reverse=True)
+    
+    for i, filename in enumerate(analysis_files, 1):
+        # Extract information from filename
+        parts = filename.split("_")
+        chain_hash = parts[0]
+        timestamp = parts[1]
         
-        if not analyses:
-            print("No saved analyses found in the database.")
+        # Extract report type
+        report_type_id = parts[2].split(".")[0]
+        report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type_id), "Unknown Report")
+        
+        # Format timestamp
+        timestamp_date = datetime.strptime(timestamp, "%Y%m%d_%H%M%S").strftime("%Y-%m-%d %H:%M:%S")
+        
+        print(f"{i}. Chain: {chain_hash} - {timestamp_date} - {report_name}")
+    
+    return analysis_files
+
+def show_saved_analysis():
+    """Show a saved analysis"""
+    analysis_files = list_saved_analyses()
+    
+    if not analysis_files:
+        return
+    
+    while True:
+        selection = input("\nEnter the number of the analysis to view (or 'q' to quit): ").strip().lower()
+        
+        if selection == 'q':
             return
         
-        print(f"Found {len(analyses)} saved analyses:")
-        print(f"{'ID':<5} {'Ticket ID':<10} {'Chain Hash':<40} {'Ticket Count':<12} {'Created At':<20}")
-        print("-" * 90)
-        
-        for analysis in analyses:
-            print(f"{analysis.id:<5} {analysis.ticket_id:<10} {analysis.chain_hash:<40} {analysis.ticket_count:<12} {analysis.created_at}")
-        
-    except Exception as e:
-        print(f"Error listing analyses: {e}")
-    finally:
-        db.close()
-
-def show_saved_analysis(analysis_id):
-    """
-    Show a previously saved analysis from the database
-    
-    Args:
-        analysis_id: ID of the analysis to display
-    """
-    # Get database session
-    db_generator = get_analysis_db()
-    db = next(db_generator)
-    
-    try:
-        from app.models.analysis_result import AnalysisResult
-        analysis = db.query(AnalysisResult).filter_by(id=analysis_id).first()
-        
-        if not analysis:
-            print(f"Analysis ID {analysis_id} not found.")
-            return
-        
-        print(f"Analysis for ticket ID: {analysis.ticket_id}")
-        print(f"Chain hash: {analysis.chain_hash}")
-        print(f"Ticket count: {analysis.ticket_count}")
-        print(f"Created at: {analysis.created_at}")
-        
-        print("\n" + "=" * 80)
-        print("TICKET CHAIN ANALYSIS RESULT")
-        print("=" * 80)
-        print(analysis.full_analysis)
-        print("=" * 80)
-        
-    except Exception as e:
-        print(f"Error showing analysis: {e}")
-    finally:
-        db.close()
-
-def parse_arguments():
-    """Parse command line arguments"""
-    parser = argparse.ArgumentParser(description="Ticket Chain Analysis Tool")
-    
-    # Create subparsers for different commands
-    subparsers = parser.add_subparsers(dest="command", help="Command to run")
-    
-    # Test with mock data
-    mock_parser = subparsers.add_parser("mock", help="Test with mock data")
-    mock_parser.add_argument(
-        "--complexity", type=int, choices=[1, 2, 3], default=2,
-        help="Complexity level of mock relationships (1=simple, 2=moderate, 3=complex)"
-    )
-    
-    # Analyze a single real ticket
-    analyze_parser = subparsers.add_parser("analyze", help="Analyze a real ticket chain")
-    analyze_parser.add_argument(
-        "ticket_id", type=str,
-        help="Ticket ID to analyze"
-    )
-    
-    # Analyze multiple tickets
-    batch_parser = subparsers.add_parser("batch", help="Analyze multiple ticket chains")
-    batch_parser.add_argument(
-        "ticket_ids", type=str,
-        help="Comma-separated list of ticket IDs to analyze"
-    )
-    
-    # List saved analyses
-    list_parser = subparsers.add_parser("list", help="List saved analyses")
-    
-    # Show a saved analysis
-    show_parser = subparsers.add_parser("show", help="Show a saved analysis")
-    show_parser.add_argument(
-        "analysis_id", type=int,
-        help="ID of the analysis to show"
-    )
-    
-    return parser.parse_args()
+        try:
+            index = int(selection) - 1
+            if 0 <= index < len(analysis_files):
+                filename = analysis_files[index]
+                
+                # Extract report type from filename
+                parts = filename.split("_")
+                report_type_id = parts[2].split(".")[0]
+                report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type_id), "Unknown Report")
+                
+                with open(f"PyChain/data/analyses/{filename}", "r") as f:
+                    content = f.read()
+                
+                print("\n" + "=" * 50)
+                print(f"SAVED ANALYSIS - {report_name}")
+                print("=" * 50)
+                print(content)
+                print("=" * 50)
+                break
+            else:
+                print(f"Invalid selection. Please enter a number between 1 and {len(analysis_files)}.")
+        except ValueError:
+            print("Invalid input. Please enter a number or 'q'.")
 
 def main():
-    """Main function"""
-    print("Ticket Chain Analysis Tool")
-    print("-------------------------\n")
+    """Main entry point"""
+    parser = argparse.ArgumentParser(description="Analyze ticket chains")
+    parser.add_argument("--ticket", type=str, help="Ticket ID to analyze")
+    parser.add_argument("--tickets", type=str, help="Comma-separated list of ticket IDs to analyze")
+    parser.add_argument("--test", action="store_true", help="Run with test data")
+    parser.add_argument("--list", action="store_true", help="List saved analyses")
+    parser.add_argument("--show", action="store_true", help="Show a saved analysis")
     
-    args = parse_arguments()
+    args = parser.parse_args()
     
-    try:
-        # Create tables (needed for in-memory mode and for analysis database)
-        create_tables()
-        
-        # Handle different commands
-        if args.command == "mock":
-            test_with_mock_data(args.complexity)
-        elif args.command == "analyze":
-            analyze_real_ticket(args.ticket_id)
-        elif args.command == "batch":
-            # Split the comma-separated list of ticket IDs
-            ticket_ids = args.ticket_ids.split(',')
-            analyze_multiple_tickets(ticket_ids)
-        elif args.command == "list":
-            list_saved_analyses()
-        elif args.command == "show":
-            show_saved_analysis(args.analysis_id)
-        else:
-            # Default to mock test if no command specified
-            test_with_mock_data(2)
-    
-    except OperationalError as e:
-        print(f"Database error: {e}")
-        print("Make sure your database connections are configured correctly.")
-    except Exception as e:
-        print(f"Error: {e}")
-        import traceback
-        traceback.print_exc()
+    if args.list:
+        list_saved_analyses()
+    elif args.show:
+        show_saved_analysis()
+    elif args.test:
+        test_with_mock_data()
+    elif args.ticket:
+        analyze_real_ticket(args.ticket)
+    elif args.tickets:
+        ticket_ids = [tid.strip() for tid in args.tickets.split(",")]
+        analyze_multiple_tickets(ticket_ids)
+    else:
+        parser.print_help()
 
 if __name__ == "__main__":
     main() 

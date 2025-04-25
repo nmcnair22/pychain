@@ -10,6 +10,7 @@ class AnalysisResult(Base):
     ticket_id = Column(String(50), nullable=False, index=True)
     chain_hash = Column(String(100), nullable=True)
     ticket_count = Column(Integer, nullable=True)
+    report_type = Column(String(50), nullable=True, default="relationship_summary")
     
     # Analysis sections
     timeline_events = Column(Text, nullable=True)
@@ -24,4 +25,4 @@ class AnalysisResult(Base):
     created_at = Column(DateTime, default=func.now())
     
     def __repr__(self):
-        return f"<AnalysisResult(ticket_id='{self.ticket_id}', chain_hash='{self.chain_hash}')>" 
+        return f"<AnalysisResult(ticket_id='{self.ticket_id}', report_type='{self.report_type}')>" 

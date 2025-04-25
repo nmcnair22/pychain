@@ -4,9 +4,16 @@ from sqlalchemy import text, create_engine
 from app.models.ticket_chain import TicketChain
 from app.models.dispatch_ticket import DispatchTicket
 from app.models.turnup_ticket import TurnupTicket
+from app.models.ticket import Ticket
 from .ai_service import AIService
 import datetime
 from config import CISSDM_DB_CONFIG
+import os
+import json
+from openai import OpenAI
+
+# Initialize OpenAI client with API key from environment
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class TicketChainService:
     """Service to handle ticket chain operations and analysis"""
@@ -205,182 +212,131 @@ class TicketChainService:
     @staticmethod
     def get_chain_details_by_ticket_id(db: Session, ticket_id: str) -> Dict[str, Any]:
         """
-        Get details for all tickets in the chain that contains the given ticket
+        Get all tickets in the same chain as the specified ticket ID
+        using a single SQL query.
         
         Args:
             db: Database session
-            ticket_id: Any ticket ID in the chain
+            ticket_id: The ticket ID to find the chain for
             
         Returns:
-            Dictionary with chain details and all ticket information
+            Dictionary with chain details and list of tickets
         """
-        # Get all tickets with a single query
-        tickets, chain_hash = TicketChainService.get_tickets_by_id(db, ticket_id)
-        
-        if not chain_hash:
-            return {"error": f"No chain hash found for ticket ID {ticket_id}"}
-        
-        if not tickets:
-            return {"error": f"No linked tickets found for ticket ID {ticket_id}"}
-        
-        return {
-            "chain_hash": chain_hash,
-            "ticket_count": len(tickets),
-            "tickets": tickets
-        }
+        try:
+            # Use a direct SQL query since we're dealing with a complex structure
+            tickets, chain_hash = TicketChainService.get_tickets_by_id(db, ticket_id)
+            
+            if not tickets:
+                return {"error": f"Ticket {ticket_id} not found."}
+            
+            if not chain_hash:
+                return {"error": f"Ticket {ticket_id} doesn't have a chain hash."}
+                
+            return {
+                "chain_hash": chain_hash,
+                "ticket_count": len(tickets),
+                "tickets": tickets
+            }
+        except Exception as e:
+            # Return an error if something goes wrong
+            return {"error": str(e)}
     
     @staticmethod
-    def analyze_chain_relationships(db: Session, ticket_id: str) -> str:
+    def analyze_chain_relationships(db: Session, ticket_id: str, report_type: str = "relationship_summary") -> str:
         """
-        Use AI to analyze the relationships between tickets in a chain
+        Analyze relationships between tickets in a chain using OpenAI
         
         Args:
             db: Database session
-            ticket_id: Any ticket ID in the chain
+            ticket_id: The ticket ID to analyze
+            report_type: Type of report to generate (relationship_summary or timelines_outcomes)
             
         Returns:
-            Analysis of the ticket chain relationships
+            Analysis text describing the relationships
         """
+        # Get the ticket chain
         chain_details = TicketChainService.get_chain_details_by_ticket_id(db, ticket_id)
         
         if "error" in chain_details:
-            return chain_details["error"]
+            return f"Error: {chain_details['error']}"
         
-        # Prepare the data for AI analysis
-        ai_service = AIService()
+        # Create a detailed prompt
+        prompt = TicketChainService._create_chain_analysis_prompt(chain_details, report_type)
         
-        # Create a detailed prompt with chain information
-        prompt = TicketChainService._create_chain_analysis_prompt(chain_details)
-        
-        # Send to AI for analysis
-        analysis_result = ai_service.analyze_chain(prompt)
-        
-        return analysis_result
+        # Use AIService to analyze the chain
+        return AIService.analyze_chain(prompt, report_type)
     
     @staticmethod
-    def _create_chain_analysis_prompt(chain_details: Dict[str, Any]) -> str:
+    def _create_chain_analysis_prompt(chain_details: Dict[str, Any], report_type: str = "relationship_summary") -> str:
         """
-        Create a prompt for the AI to analyze ticket relationships
+        Create a detailed prompt for OpenAI based on the ticket chain
         
         Args:
-            chain_details: Dictionary with chain details
+            chain_details: Dictionary with chain details and list of tickets
+            report_type: Type of report to generate (relationship_summary or timelines_outcomes)
             
         Returns:
-            Prompt string for AI analysis
+            Prompt text for OpenAI
         """
-        # First, filter out any tickets that contain "billing" in the subject line
-        filtered_tickets = [
-            t for t in chain_details['tickets'] 
-            if not (t.get('subject', '').lower() and 'billing' in t.get('subject', '').lower())
-        ]
+        # Start building the prompt
+        if report_type == "relationship_summary":
+            prompt = "Please analyze the following chain of service tickets and provide insights about their relationships.\n\n"
+            prompt += "For your analysis:\n"
+            prompt += "1. Identify the main scope/project and how the tickets relate to each other\n"
+            prompt += "2. Identify any dependencies between tickets\n"
+            prompt += "3. Summarize what appears to be happening across this chain of tickets\n"
+            prompt += "4. Note any issues, delays, or recurrences that appear in the chain\n"
+        elif report_type == "timelines_outcomes":
+            prompt = "Please analyze the following chain of service tickets and provide a detailed timeline analysis.\n\n"
+            prompt += "For your analysis:\n"
+            prompt += "1. Create a timeline of events showing each site visit\n"
+            prompt += "2. For each visit, describe the specific scope and what was completed\n"
+            prompt += "3. Highlight any issues or incomplete work requiring revisits\n"
+            prompt += "4. Specifically track cable drops: what was requested vs. what was completed\n"
+            prompt += "5. Note any material shortages and their impact\n"
+            prompt += "6. Determine if revisits were billable to the client or due to incomplete prior work\n"
+            prompt += "7. Conclude with an overall assessment of project efficiency\n"
+        else:
+            # Default to relationship summary
+            prompt = "Please analyze the following chain of service tickets and provide insights about their relationships.\n\n"
+        
+        # Add the ticket details
+        prompt += f"\nTicket Chain ID: {chain_details['chain_hash']}\n"
+        prompt += f"Number of Tickets: {chain_details['ticket_count']}\n\n"
         
         # Group tickets by category
-        dispatch_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Dispatch Tickets']
-        turnup_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Turnup Tickets']
-        shipping_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Shipping Tickets']
-        project_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Project Management']
-        other_tickets = [t for t in filtered_tickets if t['TicketCategory'] == 'Other']
+        tickets_by_category = {}
+        for ticket in chain_details['tickets']:
+            category = ticket.get('TicketCategory', 'Unknown')
+            if category not in tickets_by_category:
+                tickets_by_category[category] = []
+            tickets_by_category[category].append(ticket)
         
-        # Store counts of filtered and unfiltered tickets
-        original_ticket_count = len(chain_details['tickets'])
-        filtered_ticket_count = len(filtered_tickets)
-        billing_tickets_count = original_ticket_count - filtered_ticket_count
-        
-        # Calculate how many tickets we're actually analyzing
-        dispatch_count = len(dispatch_tickets)
-        turnup_count = len(turnup_tickets)
-        shipping_count = len(shipping_tickets)
-        other_count = len(other_tickets)
-        
-        prompt = """
-        You are an expert Field Service Analyst specializing in clearly reconstructing timelines and relationships from dispatch, turnup, and shipping tickets for IT infrastructure field service projects.
-
-        Create a structured narrative clearly detailing:
-
-        1. TIMELINE OF EVENTS:
-        - Chronologically ordered with precise timestamps.
-        - Include ticket IDs, technician names, arrival/departure times, and work outcomes.
-
-        2. RELATIONSHIP MAP:
-        - Explicitly map Dispatch Tickets to Turnup Tickets.
-        - Highlight orphaned or unlinked tickets clearly.
-
-        3. ANOMALIES AND ISSUES:
-        - Clearly enumerate anomalies (missing data, orphaned tickets, incorrect dates).
-        - Include affected ticket IDs explicitly.
-
-        4. SERVICE SUMMARY:
-        - Concise summary of entire service history, including key ticket IDs.
-        """
-        
-        prompt += f"\n\nTicket Data:\nThis analysis covers {dispatch_count} dispatch tickets and {turnup_count} turnup tickets linked by chain hash {chain_details['chain_hash']}."
-        
-        # Note excluded tickets
-        excluded_count = shipping_count + other_count + len(project_tickets) + billing_tickets_count
-        if excluded_count > 0:
-            prompt += f"\nNote: {excluded_count} additional tickets (project management, shipping, billing, and other) are excluded from this analysis."
-        
-        # Add Dispatch Tickets
-        if dispatch_tickets:
-            prompt += "\n\n=== DISPATCH TICKETS ===\n"
-            for i, ticket in enumerate(dispatch_tickets, 1):
-                prompt += f"""
-                --- DISPATCH TICKET {i}: ID {ticket['ticketid']} ---
-                Subject: {ticket.get('subject', 'N/A')}
-                Type: {ticket.get('tickettypetitle', 'N/A')}
-                Status: {ticket.get('ticketstatustitle', 'N/A')}
-                Department: {ticket.get('departmenttitle', 'N/A')}
-                Customer: {ticket.get('fullname', 'N/A')}
-                Created: {ticket.get('ticket_created', 'N/A')}
-                Site Number: {ticket.get('site_number', 'N/A')}
-                Customer: {ticket.get('customer', 'N/A')}
-                Location: {ticket.get('city', 'N/A')}, {ticket.get('state', 'N/A')}
-                Service Date: {ticket.get('service_date', 'N/A')}
-                Project ID: {ticket.get('project_id', 'N/A')}
-                Closed: {ticket.get('closed', 'N/A')}
-                First Post: {ticket.get('first_post_date', 'N/A')} by {ticket.get('first_posted_by', 'N/A')}
-                Last Post: {ticket.get('last_post_date', 'N/A')} by {ticket.get('last_posted_by', 'N/A')}
-                """
+        # Add tickets grouped by category
+        for category, tickets in tickets_by_category.items():
+            prompt += f"# {category} Tickets ({len(tickets)}):\n\n"
+            
+            for ticket in tickets:
+                prompt += f"## Ticket ID: {ticket.get('ticketid', 'Unknown')}\n"
+                prompt += f"Subject: {ticket.get('subject', 'Unknown')}\n"
+                prompt += f"Status: {ticket.get('ticketstatus', 'Unknown')}\n"
+                prompt += f"Created: {ticket.get('datecreated', 'Unknown')}\n"
+                prompt += f"Modified: {ticket.get('datemodified', 'Unknown')}\n"
+                prompt += f"Description: {ticket.get('ticketdescription', 'None')}\n"
                 
-                # Add first post content if available
-                first_content = ticket.get('first_post_content', '')
-                if first_content:
-                    # Limit post content length
-                    if len(first_content) > 150:
-                        first_content = first_content[:147] + "..."
-                    prompt += f"\nFirst Post Content:\n{first_content}\n"
-        
-        # Add Turnup Tickets
-        if turnup_tickets:
-            prompt += "\n\n=== TURNUP TICKETS ===\n"
-            for i, ticket in enumerate(turnup_tickets, 1):
-                prompt += f"""
-                --- TURNUP TICKET {i}: ID {ticket['ticketid']} ---
-                Subject: {ticket.get('subject', 'N/A')}
-                Type: {ticket.get('tickettypetitle', 'N/A')}
-                Status: {ticket.get('ticketstatustitle', 'N/A')}
-                Department: {ticket.get('departmenttitle', 'N/A')}
-                Technician: {ticket.get('fullname', 'N/A')}
-                Created: {ticket.get('ticket_created', 'N/A')}
-                Site Number: {ticket.get('site_number', 'N/A')}
-                Customer: {ticket.get('customer', 'N/A')}
-                Location: {ticket.get('city', 'N/A')}, {ticket.get('state', 'N/A')}
-                Service Date: {ticket.get('service_date', 'N/A')}
-                Expected Time In: {ticket.get('expected_time_in', 'N/A')}
-                Actual Time In: {ticket.get('in_time', 'N/A')}
-                Actual Time Out: {ticket.get('out_time', 'N/A')}
-                Project ID: {ticket.get('project_id', 'N/A')}
-                Closed: {ticket.get('closed', 'N/A')}
-                First Post: {ticket.get('first_post_date', 'N/A')} by {ticket.get('first_posted_by', 'N/A')}
-                Last Post: {ticket.get('last_post_date', 'N/A')} by {ticket.get('last_posted_by', 'N/A')}
-                """
+                # Include any work orders associated with the ticket
+                work_orders = ticket.get('work_orders', [])
+                if work_orders:
+                    prompt += f"Work Orders: {len(work_orders)}\n"
+                    for wo in work_orders:
+                        prompt += f"- {wo.get('title', 'Unknown')}: {wo.get('description', 'None')}\n"
                 
-                # Add last post content if available (for turnups, the last post is often more relevant)
-                last_content = ticket.get('last_post_content', '')
-                if last_content:
-                    # Limit post content length
-                    if len(last_content) > 150:
-                        last_content = last_content[:147] + "..."
-                    prompt += f"\nLast Post Content:\n{last_content}\n"
+                prompt += "\n"
         
+        # End with specific questions based on report type
+        if report_type == "relationship_summary":
+            prompt += "\nBased on this information, please provide a comprehensive analysis of the relationships between these tickets. Include insights about dependencies, timeline, and any patterns you notice. Make sure to identify the overall project or service these tickets represent."
+        elif report_type == "timelines_outcomes":
+            prompt += "\nBased on this information, please provide a comprehensive timeline analysis with special focus on scope completion, cable drops, material issues, and the necessity of revisits. Create a clear progression of events that shows what happened at each visit and why additional visits were needed."
+            
         return prompt 

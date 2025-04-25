@@ -8,7 +8,7 @@ class AnalysisService:
     
     @staticmethod
     def save_analysis(db: Session, ticket_id: str, chain_hash: str, ticket_count: int, 
-                     full_analysis: str) -> AnalysisResult:
+                     full_analysis: str, report_type: str = "relationship_summary") -> AnalysisResult:
         """
         Save the analysis result to the database
         
@@ -18,6 +18,7 @@ class AnalysisService:
             chain_hash: The chain hash for the ticket
             ticket_count: The number of tickets in the chain
             full_analysis: The full text of the analysis
+            report_type: Type of report generated
             
         Returns:
             The created AnalysisResult object
@@ -30,6 +31,7 @@ class AnalysisService:
             ticket_id=ticket_id,
             chain_hash=chain_hash,
             ticket_count=ticket_count,
+            report_type=report_type,
             timeline_events=sections.get('timeline', ''),
             relationship_map=sections.get('relationship', ''),
             anomalies_issues=sections.get('anomalies', ''),
@@ -50,14 +52,44 @@ class AnalysisService:
         return db.query(AnalysisResult).order_by(AnalysisResult.created_at.desc()).offset(skip).limit(limit).all()
     
     @staticmethod
-    def get_analysis_by_ticket_id(db: Session, ticket_id: str) -> Optional[AnalysisResult]:
-        """Get an analysis result for a specific ticket ID"""
-        return db.query(AnalysisResult).filter(AnalysisResult.ticket_id == ticket_id).first()
+    def get_analysis_by_ticket_id(db: Session, ticket_id: str, report_type: str = None) -> Optional[AnalysisResult]:
+        """
+        Get an analysis result for a specific ticket ID
+        
+        Args:
+            db: Database session
+            ticket_id: The ticket ID to search for
+            report_type: Optional report type to filter by
+            
+        Returns:
+            The matching AnalysisResult or None
+        """
+        query = db.query(AnalysisResult).filter(AnalysisResult.ticket_id == ticket_id)
+        
+        if report_type:
+            query = query.filter(AnalysisResult.report_type == report_type)
+            
+        return query.order_by(AnalysisResult.created_at.desc()).first()
     
     @staticmethod
-    def get_analyses_by_chain_hash(db: Session, chain_hash: str) -> List[AnalysisResult]:
-        """Get all analysis results for a specific chain hash"""
-        return db.query(AnalysisResult).filter(AnalysisResult.chain_hash == chain_hash).all()
+    def get_analyses_by_chain_hash(db: Session, chain_hash: str, report_type: str = None) -> List[AnalysisResult]:
+        """
+        Get all analysis results for a specific chain hash
+        
+        Args:
+            db: Database session
+            chain_hash: The chain hash to search for
+            report_type: Optional report type to filter by
+            
+        Returns:
+            List of matching AnalysisResult objects
+        """
+        query = db.query(AnalysisResult).filter(AnalysisResult.chain_hash == chain_hash)
+        
+        if report_type:
+            query = query.filter(AnalysisResult.report_type == report_type)
+            
+        return query.order_by(AnalysisResult.created_at.desc()).all()
     
     @staticmethod
     def _parse_analysis_sections(analysis_text: str) -> Dict[str, str]:

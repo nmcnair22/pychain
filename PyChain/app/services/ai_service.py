@@ -50,23 +50,46 @@ class AIService:
             return f"Error analyzing ticket: {str(e)}"
     
     @staticmethod
-    def analyze_chain(prompt):
+    def analyze_chain(prompt, report_type="relationship_summary"):
         """
-        Analyze a ticket chain using OpenAI
+        Analyze a ticket chain using OpenAI with different report types
         
         Args:
             prompt: The detailed prompt containing ticket chain information
+            report_type: Type of report to generate (relationship_summary or timelines_outcomes)
             
         Returns:
             str: Analysis result from OpenAI describing the relationships between tickets
         """
         try:
+            system_content = "You are an expert field service analyst who specializes in understanding complex relationships between ticket records in a field service system."
+            
+            if report_type == "timelines_outcomes":
+                # Append specialized instructions for the timelines and outcomes report
+                system_content += """
+                You will focus on creating clear timelines of visits with details about:
+                
+                1. The scope of each visit and the reason for each visit
+                2. What scope was actually completed during each visit
+                3. Issues or work that was not completed 
+                4. Whether revisits were required due to incomplete work
+                5. Specific information about cable drops and whether there were material shortages
+                6. Do not guess or make up any information - only report what is evident in the provided data
+                
+                At the end, provide a summary that classifies each revisit as:
+                - Not completed due to internal issues (our fault)
+                - Not completed due to customer/site issues (client's responsibility)
+                - Whether the revisit should be billable to the client and why
+                
+                Be factual and specific - cite ticket IDs and actual notes rather than inferring information.
+                """
+            
             response = client.chat.completions.create(
                 model=OPENAI_MODEL, 
                 messages=[
                     {
                         "role": "system", 
-                        "content": "You are an expert field service analyst who specializes in understanding complex relationships between ticket records in a field service system."
+                        "content": system_content
                     },
                     {"role": "user", "content": prompt}
                 ],
