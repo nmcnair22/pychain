@@ -250,67 +250,8 @@ def display_ticket_details(chain_details):
     
     return chain_details
 
-def run_phase_1_report(chain_details):
-    """Run Phase 1 analysis and save results as JSON"""
-    from PyChain.app.services.ticket_chain_service import TicketChainService
-    from PyChain.app.services.ai_service import AIService
-    
-    print(f"\nRunning {REPORT_TYPE['name']} (Phase 1)...")
-    
-    # Create a detailed prompt with chain information
-    prompt = TicketChainService._create_chain_analysis_prompt(chain_details, REPORT_TYPE['id'])
-    
-    # Use AIService to analyze the chain
-    analysis = AIService.analyze_chain(prompt, REPORT_TYPE['id'])
-    
-    # Print the analysis
-    print("\n" + "=" * 50)
-    print(f"ANALYSIS: {REPORT_TYPE['name']}")
-    print("=" * 50)
-    print(analysis)
-    print("=" * 50)
-    
-    # Save analysis as JSON
-    os.makedirs("PyChain/data/ticket_files", exist_ok=True)
-    summary_file = f"PyChain/data/ticket_files/summary_{chain_details['chain_hash']}.json"
-    summary_data = {
-        "chain_hash": chain_details['chain_hash'],
-        "ticket_count": chain_details['ticket_count'],
-        "analysis": analysis,
-        "timestamp": datetime.now().isoformat()
-    }
-    with open(summary_file, "w") as f:
-        json.dump(summary_data, f, indent=4)
-    print(f"Summary saved to {summary_file}")
-    
-    # Ask if user wants to save the analysis
-    save_response = input("\nDo you want to save this analysis? (y/n): ").strip().lower()
-    if save_response == 'y':
-        # Create the data directory if it doesn't exist
-        os.makedirs("PyChain/data/analyses", exist_ok=True)
-        
-        # Create a timestamp
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Create a filename that includes the chain hash and timestamp
-        filename = f"PyChain/data/analyses/{chain_details['chain_hash']}_{timestamp}_{REPORT_TYPE['id']}.txt"
-        
-        # Save the analysis with metadata
-        with open(filename, "w") as f:
-            f.write(f"Ticket Chain Analysis\n")
-            f.write(f"Report Type: {REPORT_TYPE['name']}\n")
-            f.write(f"Chain Hash: {chain_details['chain_hash']}\n")
-            f.write(f"Number of Tickets: {chain_details['ticket_count']}\n")
-            f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-            f.write("=" * 50 + "\n")
-            f.write(analysis)
-        
-        print(f"Analysis saved to {filename}")
-    
-    return summary_file, analysis
-
 def fetch_full_ticket_data(session, ticket_ids):
-    """Fetch all posts and details for each ticket"""
+    """Fetch all posts and details for each ticket including full post and note data"""
     if not ticket_ids:
         return {}
     
@@ -318,48 +259,31 @@ def fetch_full_ticket_data(session, ticket_ids):
     if not isinstance(ticket_ids, list):
         ticket_ids = list(ticket_ids)
     
-    # Handle case with only one ticket ID
-    if len(ticket_ids) == 1:
-        query = text("""
-            SELECT 
-                tp.ticketid, 
-                tp.contents, 
-                tp.fullname, 
-                FROM_UNIXTIME(tp.dateline) AS timestamp,
-                t.subject, 
-                t.ticketstatustitle AS status, 
-                t.departmenttitle
-            FROM sw_ticketposts tp
-            JOIN sw_tickets t ON tp.ticketid = t.ticketid
-            WHERE tp.ticketid = :ticket_id
-            ORDER BY tp.ticketid, tp.dateline
-        """)
-        
-        result = session.execute(query, {"ticket_id": ticket_ids[0]}).fetchall()
-    else:
-        # Convert ticket_ids to strings to ensure proper SQL formatting
-        ticket_ids_str = [str(id) for id in ticket_ids]
-        
-        # Create placeholders for the IN clause
-        placeholders = ', '.join(['%s' % id for id in ticket_ids_str])
-        
-        query = text(f"""
-            SELECT 
-                tp.ticketid, 
-                tp.contents, 
-                tp.fullname, 
-                FROM_UNIXTIME(tp.dateline) AS timestamp,
-                t.subject, 
-                t.ticketstatustitle AS status, 
-                t.departmenttitle
-            FROM sw_ticketposts tp
-            JOIN sw_tickets t ON tp.ticketid = t.ticketid
-            WHERE tp.ticketid IN ({placeholders})
-            ORDER BY tp.ticketid, tp.dateline
-        """)
-        
-        result = session.execute(query).fetchall()
+    # Convert ticket_ids to strings to ensure proper SQL formatting
+    ticket_ids_str = [str(id) for id in ticket_ids]
     
+    # Create placeholders for the IN clause
+    placeholders = ', '.join(['%s' % id for id in ticket_ids_str])
+    
+    # Basic ticket metadata and first post query
+    query = text(f"""
+        SELECT 
+            tp.ticketid, 
+            tp.contents, 
+            tp.fullname, 
+            FROM_UNIXTIME(tp.dateline) AS timestamp,
+            t.subject, 
+            t.ticketstatustitle AS status, 
+            t.departmenttitle
+        FROM sw_ticketposts tp
+        JOIN sw_tickets t ON tp.ticketid = t.ticketid
+        WHERE tp.ticketid IN ({placeholders})
+        ORDER BY tp.ticketid, tp.dateline
+    """)
+    
+    result = session.execute(query).fetchall()
+    
+    # Initialize ticket data structure
     ticket_data = {}
     for row in result:
         ticket_id = row.ticketid
@@ -370,13 +294,80 @@ def fetch_full_ticket_data(session, ticket_ids):
                 "status": row.status,
                 "department": row.departmenttitle,
                 "phase": get_phase(row.subject),
-                "posts": []
+                "posts": [],
+                "notes": [],
+                "all_posts_data": [],
+                "all_notes_data": []
             }
         ticket_data[ticket_id]["posts"].append({
             "content": row.contents,
             "author": row.fullname,
             "timestamp": str(row.timestamp)
         })
+    
+    # Now fetch complete post data for each ticket
+    for ticket_id in ticket_ids_str:
+        # Get all ticket posts with complete data
+        posts_query = text(f"""
+            SELECT 
+                ticketpostid, 
+                ticketid, 
+                dateline AS post_dateline, 
+                userid, 
+                fullname, 
+                email, 
+                subject, 
+                ipaddress, 
+                hasattachments, 
+                staffid AS post_staffid, 
+                contents, 
+                creationmode, 
+                displaytier, 
+                isprivate, 
+                responsetime, 
+                firstresponsetime
+            FROM sw_ticketposts 
+            WHERE ticketid = {ticket_id}
+            ORDER BY dateline
+        """)
+        
+        posts_result = session.execute(posts_query).fetchall()
+        
+        # Get all ticket notes
+        notes_query = text(f"""
+            SELECT 
+                ticketnoteid, 
+                linktypeid, 
+                linktype, 
+                staffid AS note_staffid, 
+                dateline AS note_dateline, 
+                staffname, 
+                notecolor, 
+                note
+            FROM sw_ticketnotes
+            WHERE linktypeid = {ticket_id}
+            ORDER BY note_dateline
+        """)
+        
+        notes_result = session.execute(notes_query).fetchall()
+        
+        # Add posts data to ticket
+        if ticket_id in ticket_data:
+            # Convert each posts row to a dictionary
+            for post in posts_result:
+                post_dict = {column: getattr(post, column) for column in post._mapping}
+                # Convert dates to strings for JSON serialization
+                if 'post_dateline' in post_dict:
+                    post_dict['post_dateline_formatted'] = datetime.fromtimestamp(post_dict['post_dateline']).strftime('%Y-%m-%d %H:%M:%S') if post_dict['post_dateline'] else None
+                ticket_data[ticket_id]["all_posts_data"].append(post_dict)
+            
+            # Convert each notes row to a dictionary
+            for note in notes_result:
+                note_dict = {column: getattr(note, column) for column in note._mapping}
+                # Convert dates to strings for JSON serialization
+                if 'note_dateline' in note_dict:
+                    note_dict['note_dateline_formatted'] = datetime.fromtimestamp(note_dict['note_dateline']).strftime('%Y-%m-%d %H:%M:%S') if note_dict['note_dateline'] else None
+                ticket_data[ticket_id]["all_notes_data"].append(note_dict)
     
     return ticket_data
 
@@ -441,6 +432,62 @@ def upload_files(file_paths):
             print(f"Error uploading {file_path}: {e}")
     return file_ids
 
+def run_phase_1_report(chain_details):
+    """Run Phase 1 analysis and save results as JSON, always automatically save the analysis"""
+    from PyChain.app.services.ticket_chain_service import TicketChainService
+    from PyChain.app.services.ai_service import AIService
+    
+    print(f"\nRunning {REPORT_TYPE['name']} (Phase 1)...")
+    
+    # Create a detailed prompt with chain information
+    prompt = TicketChainService._create_chain_analysis_prompt(chain_details, REPORT_TYPE['id'])
+    
+    # Use AIService to analyze the chain
+    analysis = AIService.analyze_chain(prompt, REPORT_TYPE['id'])
+    
+    # Print the analysis
+    print("\n" + "=" * 50)
+    print(f"ANALYSIS: {REPORT_TYPE['name']}")
+    print("=" * 50)
+    print(analysis)
+    print("=" * 50)
+    
+    # Save analysis as JSON
+    os.makedirs("PyChain/data/ticket_files", exist_ok=True)
+    summary_file = f"PyChain/data/ticket_files/summary_{chain_details['chain_hash']}.json"
+    summary_data = {
+        "chain_hash": chain_details['chain_hash'],
+        "ticket_count": chain_details['ticket_count'],
+        "analysis": analysis,
+        "timestamp": datetime.now().isoformat()
+    }
+    with open(summary_file, "w") as f:
+        json.dump(summary_data, f, indent=4)
+    print(f"Summary saved to {summary_file}")
+    
+    # Automatically save the analysis without asking
+    os.makedirs("PyChain/data/analyses", exist_ok=True)
+    
+    # Create a timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    # Create a filename that includes the chain hash and timestamp
+    filename = f"PyChain/data/analyses/{chain_details['chain_hash']}_{timestamp}_{REPORT_TYPE['id']}.txt"
+    
+    # Save the analysis with metadata
+    with open(filename, "w") as f:
+        f.write(f"Ticket Chain Analysis\n")
+        f.write(f"Report Type: {REPORT_TYPE['name']}\n")
+        f.write(f"Chain Hash: {chain_details['chain_hash']}\n")
+        f.write(f"Number of Tickets: {chain_details['ticket_count']}\n")
+        f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write("=" * 50 + "\n")
+        f.write(analysis)
+    
+    print(f"Analysis saved to {filename}")
+    
+    return summary_file, analysis
+
 def run_phase_2_analysis(chain_details, summary_file, analysis):
     """Run Phase 2 analysis using the OpenAI Assistant API with vector store for file search"""
     # Set up vector store and assistant if needed
@@ -471,7 +518,7 @@ def run_phase_2_analysis(chain_details, summary_file, analysis):
     # Fetch full ticket data
     session = get_db_session()
     try:
-        print("Fetching complete ticket data including all posts...")
+        print("Fetching complete ticket data including all posts and notes...")
         ticket_data = fetch_full_ticket_data(session, ticket_ids)
         
         if not ticket_data:
@@ -480,6 +527,17 @@ def run_phase_2_analysis(chain_details, summary_file, analysis):
             
         print(f"Creating JSON files for {len(ticket_data)} tickets...")
         file_paths = create_ticket_files(ticket_data, chain_hash)
+        
+        # Add the Phase 1 analysis to the files to upload
+        phase1_analysis_file = f"PyChain/data/ticket_files/phase1_analysis_{chain_hash}.json"
+        with open(phase1_analysis_file, "w") as f:
+            analysis_data = {
+                "chain_hash": chain_hash,
+                "analysis": analysis,
+                "timestamp": datetime.now().isoformat()
+            }
+            json.dump(analysis_data, f, indent=4)
+        file_paths.append(phase1_analysis_file)
         
         # Upload files
         print("Uploading files to OpenAI...")
