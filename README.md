@@ -1,149 +1,179 @@
-# PyChain
+# PyChain Ticket Analysis Tool
 
-PyChain is a Python-based application for analyzing relationships between tickets in a ticketing system. It identifies connections between Dispatch and Turnup tickets, providing insights into service workflows and relationships.
+An AI-powered tool for analyzing ticket chains in a service management system, providing insights about ticket relationships, timelines, and more.
 
-## Features
+## Overview
 
-- Connects to ticketing database to retrieve ticket information
-- Groups tickets by category (Dispatch Tickets, Turnup Tickets)
-- Identifies ticket chains using chain hash identifiers
-- Uses OpenAI to analyze relationships between tickets
-- Provides timeline of events, relationship mapping, and anomaly detection
-- Stores analysis results in a local SQLite database for future reference
-- Supports batch processing of multiple tickets in a single run
+The PyChain Ticket Analysis Tool uses OpenAI's advanced language models to analyze ticket chains and extract meaningful insights, such as:
 
-## Installation
+- Relationships between tickets
+- Timeline of events
+- Material shortages
+- Reasons for revisits
+- Billing information
+
+## Setup
 
 1. Clone this repository:
-   ```
-   git clone https://github.com/nmcnair22/pychain.git
-   cd pychain
-   ```
+```
+git clone https://github.com/your-username/pychain.git
+cd pychain
+```
 
-2. Create and activate a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-   ```
+2. Create a virtual environment and install dependencies:
+```
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+3. Create a `.env` file with your OpenAI API key:
+```
+OPENAI_API_KEY=your_api_key_here
+```
 
-4. Set up your environment variables in a `.env` file:
-   ```
-   # Database Configuration - CISSDM
-   CISSDM_DB_HOST=your_host
-   CISSDM_DB_PORT=3306
-   CISSDM_DB_NAME=cissdm
-   CISSDM_DB_USER=your_user
-   CISSDM_DB_PASSWORD=your_password
-
-   # Database Configuration - Ticketing
-   TICKETING_DB_HOST=your_host
-   TICKETING_DB_PORT=3306
-   TICKETING_DB_NAME=ticketing
-   TICKETING_DB_USER=your_user
-   TICKETING_DB_PASSWORD=your_password
-
-   # Use in-memory database for local development (true/false)
-   USE_IN_MEMORY_DB=false
-
-   # OpenAI Configuration
-   OPENAI_API_KEY=your_openai_api_key
-   ```
-
-5. Create the data directory for the SQLite database:
-   ```
-   mkdir -p PyChain/data
-   ```
-
-## Setting Up on a New Machine
-
-If you're setting up PyChain on a new machine after it's been developed on another machine, follow these steps:
-
-1. Clone the repository or pull the latest changes:
-   ```
-   git clone https://github.com/nmcnair22/pychain.git
-   ```
-   or if already cloned:
-   ```
-   git pull origin
-   git checkout report_v2
-   ```
-
-2. Create and activate the virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install or update dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. Create the data directory for the SQLite database:
-   ```
-   mkdir -p PyChain/data
-   ```
-
-5. Run any command with the script to initialize the database:
-   ```
-   python PyChain/ticket_chain_analysis.py list
-   ```
-
-The database file will be automatically created when you first run the script. The SQLite database is stored locally and does not require any additional setup.
+4. Set up the OpenAI Assistant for Phase 2 analysis:
+```
+python PyChain/setup_assistant.py
+```
 
 ## Usage
 
-### Analyzing a Single Ticket
+### Phase 1 Analysis (Chat Completions API)
 
-To analyze a single ticket, run:
-
-```
-python PyChain/ticket_chain_analysis.py analyze <ticket_id>
-```
-
-For example:
-```
-python PyChain/ticket_chain_analysis.py analyze 2399922
-```
-
-### Batch Processing Multiple Tickets
-
-To analyze multiple tickets in a single run, use the batch command with comma-separated ticket IDs:
+For basic ticket chain analysis:
 
 ```
-python PyChain/ticket_chain_analysis.py batch "2426369,2424785,2399922"
+python PyChain/ticket_chain_analysis.py --ticket TICKET_ID
 ```
 
-### Managing Analysis Results
+This will provide a thorough analysis of the ticket chain using the Chat Completions API.
 
-To list all previously saved analyses:
+### Phase 2 Analysis (Assistant API)
 
-```
-python PyChain/ticket_chain_analysis.py list
-```
-
-To view a specific saved analysis:
+For advanced analysis with structured data extraction:
 
 ```
-python PyChain/ticket_chain_analysis.py show <analysis_id>
+python PyChain/ticket_chain_analysis_v2.py --ticket TICKET_ID
 ```
 
-## Architecture
+Phase 2 provides additional capabilities:
+- Structured JSON output for easy data processing
+- More detailed material shortage analysis
+- Timeline extraction
+- Revisit cause analysis
 
-The application is structured as follows:
+### Test Mode
 
-- `ticket_chain_analysis.py`: Main entry point
-- `app/services/ticket_chain_service.py`: Core service for ticket chain analysis
-- `app/services/ai_service.py`: Service for OpenAI integration
-- `app/services/analysis_service.py`: Service for storing and retrieving analysis results
-- `app/models/`: Data models for the application
-- `app/models/analysis_result.py`: Model for storing analysis results in SQLite
+To test with mock data:
+
+```
+python PyChain/ticket_chain_analysis_v2.py --test
+```
+
+### Using a Specific Assistant
+
+If you have multiple assistants, you can specify which one to use:
+
+```
+python PyChain/ticket_chain_analysis_v2.py --ticket TICKET_ID --assistant-id YOUR_ASSISTANT_ID
+```
+
+## Analysis Output
+
+Phase 1 creates a text report with insights about the ticket chain.
+
+Phase 2 creates a structured JSON file with:
+- Phase 1 summary
+- Ticket IDs and phases
+- Material shortages
+- Timeline events
+- Revisit information
+
+Output files are saved in `PyChain/data/analyses/`.
+
+## Requirements
+
+- Python 3.8 or higher
+- OpenAI API key
+- Dependencies listed in requirements.txt
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+[MIT License](LICENSE)
+
+# OpenAI Assistants with File Search
+
+This repository contains examples showing how to create and use OpenAI assistants with file search capabilities using vector stores.
+
+## Requirements
+
+- Python 3.8+
+- OpenAI API key
+- OpenAI Python SDK v1.75.0+
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Setting Up Your Environment
+
+1. Set your OpenAI API key as an environment variable:
+
+```bash
+export OPENAI_API_KEY=your_api_key_here
+```
+
+## Using Vector Stores with Assistants
+
+The latest OpenAI API requires using vector stores to enable file search capabilities in assistants. The workflow is:
+
+1. Create a vector store
+2. Upload files to OpenAI
+3. Add files to the vector store
+4. Create an assistant with file search tool and vector store IDs
+
+### Example Usage
+
+Check out the complete example in `assistant_with_files.py`:
+
+```python
+# Create vector store
+vector_store = client.vector_stores.create(name="my_document_store")
+
+# Upload file
+file_obj = client.files.create(
+    file=open("document.pdf", "rb"),
+    purpose="assistants"
+)
+
+# Add file to vector store
+client.vector_stores.files.create(
+    vector_store_id=vector_store.id,
+    file_id=file_obj.id
+)
+
+# Create assistant with file search
+assistant = client.beta.assistants.create(
+    name="Document Assistant",
+    instructions="...",
+    model="gpt-4o",
+    tools=[{"type": "file_search"}],
+    tool_resources={"file_search": {"vector_store_ids": [vector_store.id]}}
+)
+```
+
+## Key API Components
+
+- `client.vector_stores.create()` - Creates a new vector store
+- `client.files.create()` - Uploads a file to OpenAI
+- `client.vector_stores.files.create()` - Associates a file with a vector store
+- `client.beta.assistants.create()` - Creates an assistant with the `tool_resources` parameter specifying vector stores
+
+## Common Issues
+
+- Files need processing time after being added to a vector store before they can be used
+- The `purpose` parameter when uploading files must be set to "assistants"
+- Vector stores must be explicitly linked to assistants using the `tool_resources` parameter 

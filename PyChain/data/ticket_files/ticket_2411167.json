@@ -1,0 +1,140 @@
+{
+    "ticket_id": "2411167",
+    "subject": "Flynn_FW001882_Chambersburg_PA_P2 4/14/2025 6:30 PM",
+    "status": "Completed",
+    "department": "Turnups",
+    "phase": "P2",
+    "created_at": "2025-03-28 12:35:32",
+    "posts": [
+        {
+            "content": "Scope - Objective: P2\r \rTechnician Information: \rExpected In Time: 6:30 PM \rTechnician Type: Contractor\rFST Technician Name: Michael\rContact #: 317-848-0184 ext. 1003\r \rProject ID: NETWORK RE-CABLING - WENDYS \r \rCustomer Name: Flynn\rStore Type: Existing\rStore Name: Wendys\rSite #: FW001882\rStreet Address: 1658 Lincoln Way East\rSuite: \rCity: Chambersburg\rState: PA\rZIP: 17201 \rSite Contact Name:  \rSite Contact Number:  \rNew Store Contact:  \rSite Time Zone:  \r \rProvider Ordered:  \rProduct Ordered:  \rNumber of IPs:  \rUpload Bandwidth:  \rDownload Bandwidth:  \r\rCircuit Information\rOrder ID: \rAccount Number:  \rISP Circuit Live: \r\rIP Address:  \rIP Assignment: \rSubnet Mask: \rGateway: \rDNS1: \rDNS2: \rProvider Support Number:  \r \rModem Information \rMake:  \rModel:  \rMode:  \r \rDMARC Extension \rExtension Required:  \rDate extension completed:  \rDMARC Location Details:  \rILEC Circuit ID:  ",
+            "author": "David Fisher",
+            "timestamp": "2025-03-28 12:35:32"
+        },
+        {
+            "content": "reaching out to fst\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 18:30:29"
+        },
+        {
+            "content": "3178335471 5743703873 Numbers for the onsite techs\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 18:36:53"
+        },
+        {
+            "content": "Techs are working on installing the new rack and back board.\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 18:42:10"
+        },
+        {
+            "content": "Tech still working on installing the rack and back board\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 19:15:13"
+        },
+        {
+            "content": "Tech still working on backboard and rack install\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 19:42:44"
+        },
+        {
+            "content": "0.0.0.0\tE0:55:3D:F3:D9:EE\t110\t50\n10.2.234.130\tE0:55:3D:F3:D9:EE\t110\t9\n10.18.82.197\tC4:00:AD:0F:0F:7B\t140\t5\n10.18.82.198\tC4:00:AD:0F:0F:74\t140\t1\n10.250.250.251\tE8:9C:25:46:A3:E6\t5\t2\n100.100.101.1\t00:60:EF:3B:1A:73\t10\t5\n100.100.101.2\tD8:C4:97:75:7A:14\t10\t1\n100.100.101.3\tD8:C4:97:75:B4:BA\t10\t12\n100.100.101.4\tD8:C4:97:75:B4:18\t10\t12\n100.100.101.16\t00:21:B7:83:F6:A4\t10\t5\n100.100.101.42\tC4:00:AD:0C:4E:A2\t10\t5\n100.100.101.81\t3C:E1:A1:CE:79:FB\t10\t5\n100.100.101.82\t3C:E1:A1:CE:9D:40\t10\t5\n100.100.101.83\t3C:E1:A1:CE:95:80\t10\t1\n100.100.101.85\t3C:E1:A1:CE:80:1C\t10\t12\n100.100.101.236\t00:30:18:01:E0:10\t10\t6\n100.100.101.254\tB0:4F:13:02:64:87\t10\t6\n100.100.201.1\t4C:36:4E:2D:17:8B\t120\t9\n100.100.201.3\t9C:AD:EF:A8:70:11\t120\t1\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 19:49:30"
+        },
+        {
+            "content": "Tech working on rack install // Will start termination soon\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 20:25:32"
+        },
+        {
+            "content": "Termination starting\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 20:39:22"
+        },
+        {
+            "content": "A4&5 need orange jacks at the patch panel side we used green for now since it's all we had left over \nA11&12 are blue jacks on the patch panel side but need black\n\nShortage on black and orange jacks\n\n2 orange 2 Black missing\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 20:53:31"
+        },
+        {
+            "content": "Missing ivory patch panel blanks \n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 20:55:24"
+        },
+        {
+            "content": "Tech working terminations\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 21:16:02"
+        },
+        {
+            "content": "Tech and second tech working on terminations\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 22:09:29"
+        },
+        {
+            "content": "Tech still moving equipment over\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-14 23:54:08"
+        },
+        {
+            "content": "Tech still working on moving legacy eq over\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 00:14:00"
+        },
+        {
+            "content": "Mx appears to be up currently waiting on tech to advise all devices are connected.\n\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 00:26:22"
+        },
+        {
+            "content": "0.0.0.0\tE0:55:3D:F3:D9:EE\t110\t33\n10.2.234.130\tE0:55:3D:F3:D9:EE\t110\t0\n10.18.82.197\tC4:00:AD:0F:0F:7B\t140\t8\n10.18.82.198\tC4:00:AD:0F:0F:74\t140\t0\n10.250.250.251\tE8:9C:25:46:A3:E6\t5\t1\n100.100.101.1\t00:60:EF:3B:1A:73\t10\t5\n100.100.101.2\tD8:C4:97:75:7A:14\t10\t5\n100.100.101.3\tD8:C4:97:75:B4:BA\t10\t5\n100.100.101.4\tD8:C4:97:75:B4:18\t10\t8\n100.100.101.16\t00:21:B7:83:F6:A4\t10\t4\n100.100.101.81\t3C:E1:A1:CE:79:FB\t10\t5\n100.100.101.82\t3C:E1:A1:CE:9D:40\t10\t5\n100.100.101.83\t3C:E1:A1:CE:95:80\t10\t5\n100.100.101.85\t3C:E1:A1:CE:80:1C\t10\t5\n100.100.101.89\t3C:E1:A1:CE:7B:87\t10\t12\n100.100.101.236\t00:30:18:01:E0:10\t10\t7\n100.100.101.254\tB0:4F:13:02:64:87\t10\t0\n100.100.201.3\t9C:AD:EF:A8:70:11\t120\t0\n192.168.0.2\t1C:98:EC:76:BC:A0\t10\t41\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 00:49:00"
+        },
+        {
+            "content": "Power cycling the meraki, cp, and modem.\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 01:49:09"
+        },
+        {
+            "content": "mx back up all devices pinging // Mood Music returned to location on modem per legacy port map\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 02:31:24"
+        },
+        {
+            "content": "Additional pics from tech // Tech waiting for mod.\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 03:16:03"
+        },
+        {
+            "content": "Mod Billy testing with tech\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 03:19:30"
+        },
+        {
+            "content": "Testing has been completed successfully with mod just need picture approval.\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 03:35:59"
+        },
+        {
+            "content": "Currently waiting on picture approval\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 03:54:46"
+        },
+        {
+            "content": "Getting corrected pictures\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 04:22:25"
+        },
+        {
+            "content": "Summary:\nFlynn site number:Flynn_FW001882\nVisit date:4/12/25\nNumber of technicians onsite:2\nCheck-in time: 6:30 PM PST\nCheck-out time: 5:05 Am PST\nTotal hours: 10 hours 25 mins\nCutover status: Completed \nFST name and number: Michael 317-848-0184 ext. 1003\nManager name upon arrival: Emily\nAdditional materials needed: missing 2 ivory jacks 2 orange jacks and 2 black jacks from the inventory \n\na. All validation steps completed: Yes\nb. Pre/Post-change ARP table verified: Yes\nc. Cabling terminations completed (device-end): Yes\nd. Cabling terminations completed (rack-end): Yes\ne. Legacy equipment installed and devices connected/validated: Yes\nf. Cable abatement completed: Yes\ng. All required photos taken and attached to Smartsheet/turn-up ticket: Yes\ni. h. Incomplete / remaining items, if any:\nNotes of any issues experienced:\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 05:09:20"
+        },
+        {
+            "content": "In: 6:30 PM\nOut: 5:05 AM\n\nBrief notes on Turnup start to finish: \nStarting pictures\nRack install / Backboard install\nArp table\nStarting terminations\nMissing Keystone jacks\nMissing ivory patch panel blanks\ntech working on terminations\nTech still moving equipment over\nMx appears to be up \nPost arp\nMx back up all devices pinging\nAdditional pics from the tech\nTesting has been completed\nGetting corrected pics\nApproved By Lucas\n\nBrief notes on significant sources of delay: \n\nList of any Materials Used by FST:\n\nApproximate time and description of client driven time spent on out of scope work: \n\nUnresolved Issues this installation:\n1.\n2.\n\n",
+            "author": "Jason Redd",
+            "timestamp": "2025-04-15 05:12:40"
+        }
+    ]
+}

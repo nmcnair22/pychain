@@ -1,0 +1,72 @@
+{
+    "chain_hash": "mock_chain_12345",
+    "ticket_count": 6,
+    "tickets": [
+        {
+            "ticketid": "1001",
+            "subject": "Flynn_FW004539_Hyattsville_MD_Site Survey",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-01-10",
+            "datemodified": "2023-01-12",
+            "ticketdescription": "Initial site survey to assess requirements and site conditions.",
+            "first_post_content": "Performed site survey. Cable drop locations identified. Need to confirm power requirements.",
+            "last_post_content": "Survey completed. 5 cable drops marked. Electrical work will be needed before installation."
+        },
+        {
+            "ticketid": "1002",
+            "subject": "Flynn_FW004539_Hyattsville_MD_P1",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-01-15",
+            "datemodified": "2023-01-18",
+            "ticketdescription": "Phase 1 installation of network infrastructure.",
+            "first_post_content": "Arrived on site for P1 installation. Begin running cable drops and setting up network closet.",
+            "last_post_content": "Completed 3 of 5 drops. Missing necessary junction boxes for 2 remaining drops. Will need to schedule follow-up."
+        },
+        {
+            "ticketid": "1003",
+            "subject": "Flynn_FW004539_Hyattsville_MD_P2",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-02-01",
+            "datemodified": "2023-02-03",
+            "ticketdescription": "Phase 2 installation of network equipment.",
+            "first_post_content": "Installing network equipment and completing remaining cable drops.",
+            "last_post_content": "Network closet set up complete. All switches installed. Still waiting on junction boxes for 2 remaining drops."
+        },
+        {
+            "ticketid": "1004",
+            "subject": "Flynn_FW004539_Hyattsville_MD_P3",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-02-20",
+            "datemodified": "2023-02-22",
+            "ticketdescription": "Phase 3 configuration and testing.",
+            "first_post_content": "Junction boxes arrived. Completing remaining drops and configuring network.",
+            "last_post_content": "All drops complete and tested. Network configured and operational. Customer sign-off received."
+        },
+        {
+            "ticketid": "1005",
+            "subject": "Flynn_FW004539_Hyattsville_MD_50 PERCENT BILLING",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-02-01",
+            "datemodified": "2023-02-01",
+            "ticketdescription": "50% billing milestone reached.",
+            "first_post_content": "Project has reached 50% completion. Issuing partial invoice.",
+            "last_post_content": "Invoice #INV-2023-456 issued for 50% of project total."
+        },
+        {
+            "ticketid": "1006",
+            "subject": "Flynn_FW004539_Hyattsville_MD_Revisit 1",
+            "TicketCategory": "Dispatch Tickets",
+            "ticketstatus": "Closed",
+            "datecreated": "2023-03-15",
+            "datemodified": "2023-03-16",
+            "ticketdescription": "Revisit to address network connectivity issues.",
+            "first_post_content": "Customer reporting intermittent connectivity issues with 2 drops.",
+            "last_post_content": "Found and repaired damaged cable in drop #3. Replaced faulty patch panel port for drop #5. All connections now testing properly."
+        }
+    ]
+} 

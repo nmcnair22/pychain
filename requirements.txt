@@ -1,5 +1,11 @@
-sqlalchemy>=2.0.0
+openai>=1.70.0
+SQLAlchemy>=2.0.20
+mysqlclient>=2.2.0
+mysql-connector-python>=8.2.0
 python-dotenv>=1.0.0
-mysqlclient>=2.1.0
-openai>=1.1.0
+argparse>=1.4.0
+tqdm>=4.65.0
+httpx>=0.24.1
+httpcore>=0.18.0
+Jinja2>=3.1.2
 colorama>=0.4.6 

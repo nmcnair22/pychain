@@ -1,0 +1,245 @@
+{
+    "ticket_id": "2411131",
+    "subject": "Flynn_FW001882_Chambersburg_PA_P1 4/13/2025 6:30 PM",
+    "status": "Completed",
+    "department": "Turnups",
+    "phase": "P1",
+    "created_at": "2025-03-28 12:31:38",
+    "posts": [
+        {
+            "content": "Scope - Objective: P1\r \rTechnician Information: \rExpected In Time: 6:30 PM \rTechnician Type: Contractor\rFST Technician Name: Michael\rContact #: 317-848-0184 ext. 1003\r \rProject ID: NETWORK RE-CABLING - WENDYS \r \rCustomer Name: Flynn\rStore Type: Existing\rStore Name: Wendys\rSite #: FW001882\rStreet Address: 1658 Lincoln Way East\rSuite: \rCity: Chambersburg\rState: PA\rZIP: 17201 \rSite Contact Name:  \rSite Contact Number:  \rNew Store Contact:  \rSite Time Zone:  \r \rProvider Ordered:  \rProduct Ordered:  \rNumber of IPs:  \rUpload Bandwidth:  \rDownload Bandwidth:  \r\rCircuit Information\rOrder ID: \rAccount Number:  \rISP Circuit Live: \r\rIP Address:  \rIP Assignment: \rSubnet Mask: \rGateway: \rDNS1: \rDNS2: \rProvider Support Number:  \r \rModem Information \rMake:  \rModel:  \rMode:  \r \rDMARC Extension \rExtension Required:  \rDate extension completed:  \rDMARC Location Details:  \rILEC Circuit ID:  ",
+            "author": "David Fisher",
+            "timestamp": "2025-03-28 12:31:38"
+        },
+        {
+            "content": "Upon arrival ---Please ask MOD to check and confirm/deny functionality of the OCD by having them enter a test order *****this would need to happen before they close ******\n(this will help eliminate the question of whether it was working on arrival).  \n\n\n\n\nOnce determined if it works or not, please add to Smartsheets ticket notes and calling it out in final notes.  Please be specific and notate that it was working upon arrival or wasn\u2019t working upon arrival.\n\n",
+            "author": "Jill Bankey",
+            "timestamp": "2025-04-13 17:21:17"
+        },
+        {
+            "content": "FST check in 6;30\n2 Techs\nMOD jason MOD already left before test order could be done\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 18:37:01"
+        },
+        {
+            "content": "FST checking inventory \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 18:48:32"
+        },
+        {
+            "content": "Graybar order list sent to FST\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:04:42"
+        },
+        {
+            "content": "0.0.0.0\tE0:55:3D:F3:D9:EE\t110\t25\n10.18.82.198\tC4:00:AD:0F:0F:74\t140\t13\n10.250.250.251\tE8:9C:25:46:A3:E6\t5\t11\n100.100.101.16\t00:21:B7:83:F6:A4\t10\t9\n10.18.82.202\t38:EF:E3:D0:F0:BB\t140\t9\n10.18.82.201\t38:EF:E3:D0:FC:EB\t140\t9\n10.18.82.204\t38:EF:E3:D0:7D:C0\t140\t9\n10.18.82.203\t38:EF:E3:D0:CE:1A\t140\t9\n100.100.101.42\tC4:00:AD:0C:4E:A2\t10\t9\n100.100.201.3\t9C:AD:EF:A8:70:11\t120\t9\n100.100.101.100\t00:04:5F:10:6A:69\t10\t6\n100.100.101.82\t3C:E1:A1:CE:9D:40\t10\t5\n100.100.101.3\tD8:C4:97:75:B4:BA\t10\t5\n100.100.101.254\tB0:4F:13:02:64:87\t10\t3\n100.100.101.236\t00:30:18:01:E0:10\t10\t3\n100.100.201.1\t4C:36:4E:2D:17:8B\t120\t1\n10.2.234.130\tE0:55:3D:F3:D9:EE\t110\t0\n100.100.101.85\t3C:E1:A1:CE:80:1C\t10\t0\n100.100.101.81\t3C:E1:A1:CE:79:FB\t10\t0\n100.100.101.2\tD8:C4:97:75:7A:14\t10\t0\n10.18.82.197\tC4:00:AD:0F:0F:7B\t140\t0\n100.100.101.4\tD8:C4:97:75:B4:18\t10\t0\n100.100.101.1\t00:60:EF:3B:1A:73\t10\t0\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:06:46"
+        },
+        {
+            "content": "OCD pinging \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:09:08"
+        },
+        {
+            "content": "OCD line marked image uploaded\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:12:07"
+        },
+        {
+            "content": "FST checking inventory\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:26:44"
+        },
+        {
+            "content": "FST checking inventory\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:41:12"
+        },
+        {
+            "content": "fst stated that he is missing 2 ivory jacks\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 19:56:05"
+        },
+        {
+            "content": "FST working on port map\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 20:11:28"
+        },
+        {
+            "content": "Port map uloaded\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 20:24:18"
+        },
+        {
+            "content": "FST running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 20:36:23"
+        },
+        {
+            "content": "FST running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 20:47:41"
+        },
+        {
+            "content": "FST running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 21:03:09"
+        },
+        {
+            "content": "FST running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 21:18:12"
+        },
+        {
+            "content": "FST running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 21:32:29"
+        },
+        {
+            "content": "fst running cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 21:49:30"
+        },
+        {
+            "content": "FST didnt bring the backboard reached out and was advised to have them assemble the rack and store it out of the way and install everything tomorrow.\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 21:59:18"
+        },
+        {
+            "content": "Working on cable runs \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 22:14:08"
+        },
+        {
+            "content": "Working on cable runs\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 22:34:11"
+        },
+        {
+            "content": "Working on cable runs\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 22:51:08"
+        },
+        {
+            "content": "Working on cable runs\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 23:05:50"
+        },
+        {
+            "content": "Working on cable runs\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 23:19:51"
+        },
+        {
+            "content": "Termination cables \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 23:41:04"
+        },
+        {
+            "content": "Termination cables\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-13 23:59:16"
+        },
+        {
+            "content": "J-hook images uploaded \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 00:19:24"
+        },
+        {
+            "content": "Termination cables on device end\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 00:30:45"
+        },
+        {
+            "content": "Termination cables on device end\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 00:52:51"
+        },
+        {
+            "content": "Termination cables on device end\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 01:12:35"
+        },
+        {
+            "content": "Termination cables on device end\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 01:27:38"
+        },
+        {
+            "content": "Termination cables on device end and cutting cables to length\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 01:43:45"
+        },
+        {
+            "content": "Termination cables on device end and cutting cables to length\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 01:57:53"
+        },
+        {
+            "content": "Termination cables on device end and cutting cables to length\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 02:13:13"
+        },
+        {
+            "content": "Termination cables on device end and cutting cables to length\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 02:27:28"
+        },
+        {
+            "content": "putting the racks together \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 02:43:34"
+        },
+        {
+            "content": "putting the racks together\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:01:58"
+        },
+        {
+            "content": "Clean photos added \n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:17:32"
+        },
+        {
+            "content": "AP images uploaded\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:21:44"
+        },
+        {
+            "content": "0.0.0.0\t3C:E1:A1:CE:95:80\t10\t34\n100.100.101.83\t3C:E1:A1:CE:95:80\t10\t15\n100.100.101.4\tD8:C4:97:75:B4:18\t10\t11\n100.100.101.85\t3C:E1:A1:CE:80:1C\t10\t8\n100.100.101.3\tD8:C4:97:75:B4:BA\t10\t8\n100.100.101.42\tC4:00:AD:0C:4E:A2\t10\t8\n100.100.101.2\tD8:C4:97:75:7A:14\t10\t8\n10.18.82.198\tC4:00:AD:0F:0F:74\t140\t8\n10.250.250.251\tE8:9C:25:46:A3:E6\t5\t5\n100.100.201.1\t4C:36:4E:2D:17:8B\t120\t5\n10.2.234.130\tE0:55:3D:F3:D9:EE\t110\t1\n0.0.0.0\tE0:55:3D:F3:D9:EE\t110\t1\n100.100.101.82\t3C:E1:A1:CE:9D:40\t10\t1\n100.100.101.16\t00:21:B7:83:F6:A4\t10\t1\n100.100.101.81\t3C:E1:A1:CE:79:FB\t10\t1\n10.18.82.197\tC4:00:AD:0F:0F:7B\t140\t1\n100.100.101.236\t00:30:18:01:E0:10\t10\t1\n100.100.101.1\t00:60:EF:3B:1A:73\t10\t1\n100.100.101.254\tB0:4F:13:02:64:87\t10\t0\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:22:56"
+        },
+        {
+            "content": "FST stated they missing 2 orange jacks and 2 black jacks Devices were miscounted during the survey\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:31:38"
+        },
+        {
+            "content": "35 cable run in total \nTerminated all but 7 ends \nput patch cables with clips and labeled all the ones we dropped\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:34:54"
+        },
+        {
+            "content": "Was informed that the ocd has been down for a while\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 03:57:03"
+        },
+        {
+            "content": "FST was able to find a key to the OCD and he didnt see a link light. But will be able to plug a tonner to it tonight to diagnose.\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 04:10:14"
+        },
+        {
+            "content": "Summary:\nFlynn site number:Flynn_FW001882\nVisit date:4/12/25\nNumber of technicians onsite:2\nCheck-in time: 6:30 PM PST\nCheck-out time: 4:15 Am PST\nTotal hours: 9 hours 45 mins\nCutover status: Completed \nFST name and number: Michael 317-848-0184 ext. 1003\nManager name upon arrival: Jason\nAdditional materials needed: missing 2 ivory jacks 2 orange jacks and 2 black jacks from the inventory \n\n\na. All validation steps completed: Yes\nb. Pre/Post-change ARP table verified: Yes\nc. Materials/quantities verified and discrepancies reported: Yes\nd. Network port mapping completed: Yes\ne. New data racks installed: No\nf. Rough-in cabling started: Yes\ng. Cabling terminations started (device-end): Yes\nh. Cabling terminations started (rack-end): No\ni. All required photos taken and attached to Smartsheet/turn-up ticket: Yes\nj. Incomplete / remaining items, if any: \nk. Notes of any issues experienced:  missing 2 ivory jacks 2 orange jacks and 2 black jacks from the inventory. Backboard wasnt brought so will need to be installed on p2\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 04:13:36"
+        },
+        {
+            "content": "In: 6:30 PM\nOut: 4:15 AM\n\nBrief notes on Turnup start to finish: \n\nBrief notes on significant sources of delay: \n\nList of any Materials Used by FST:\n\nApproximate time and description of client driven time spent on out of scope work: \n\nUnresolved Issues this installation:\n1.\n2.\n\n",
+            "author": "Joseph Neff",
+            "timestamp": "2025-04-14 04:15:19"
+        }
+    ]
+}

@@ -83,22 +83,9 @@ def test_with_mock_data():
         for ticket in tickets:
             print(f"  - {ticket.get('ticketid')}: {ticket.get('subject', 'No Subject')}")
     
-    # Display report options and get selection
-    report_type = get_report_selection()
-    if report_type == "quit":
-        print("\nExiting analysis.")
-        return
-    
-    # Run selected report type with mock data
+    # Automatically run the relationship summary report (option 1)
+    report_type = "relationship"
     run_selected_report(mock_chain, report_type)
-    
-    # After running the report, offer to run another report
-    while True:
-        report_type = get_report_selection()
-        if report_type == "quit":
-            print("\nExiting analysis.")
-            break
-        run_selected_report(mock_chain, report_type)
 
 def get_report_selection():
     """Display available report options and get user selection"""
@@ -205,22 +192,9 @@ def analyze_real_ticket(ticket_id):
         if not chain_details:
             return
         
-        # Display report options and get selection
-        report_type = get_report_selection()
-        if report_type == "quit":
-            print("\nExiting analysis.")
-            return
-        
-        # Run the selected report
+        # Automatically run the relationship summary report (option 1)
+        report_type = "relationship"
         run_selected_report(chain_details, report_type)
-        
-        # After running the first report, offer to run another report
-        while True:
-            report_type = get_report_selection()
-            if report_type == "quit":
-                print("\nExiting analysis.")
-                break
-            run_selected_report(chain_details, report_type)
             
     finally:
         # Close the session
@@ -234,14 +208,8 @@ def analyze_multiple_tickets(ticket_ids):
     session = get_db_session()
     
     try:
-        # Display report options first, so all tickets are analyzed with the same report type
-        print(f"\nPreparing to analyze {len(ticket_ids)} tickets.")
-        report_type = get_report_selection()
-        if report_type == "quit":
-            print("\nExiting analysis.")
-            return
-        
-        # Find the report name for reference
+        # Set relationship report as default
+        report_type = "relationship"
         report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type), "Unknown Report")
         print(f"\nRunning {report_name} for all tickets...")
         
@@ -258,36 +226,10 @@ def analyze_multiple_tickets(ticket_ids):
                 print(f"Skipping ticket {ticket_id} due to errors.")
                 continue
             
-            # Run the selected report for this ticket
+            # Run the relationship summary report for this ticket
             run_selected_report(chain_details, report_type)
         
         print(f"\nCompleted analysis of {len(ticket_ids)} tickets using {report_name}.")
-        
-        # After analyzing all tickets, offer to run all tickets with a different report
-        while True:
-            print("\nAll tickets have been analyzed.")
-            report_type = get_report_selection()
-            if report_type == "quit":
-                print("\nExiting analysis.")
-                break
-            
-            # Run the new report type for all tickets
-            report_name = next((r["name"] for r in REPORT_TYPES.values() if r["id"] == report_type), "Unknown Report")
-            print(f"\nRunning {report_name} for all tickets...")
-            
-            for i, ticket_id in enumerate(ticket_ids, 1):
-                print(f"\n[{i}/{len(ticket_ids)}] Analyzing ticket {ticket_id}...")
-                
-                # Get the ticket chain details
-                chain_details = TicketChainService.get_chain_details_by_ticket_id(session, ticket_id)
-                
-                # Display ticket information (brief, since we've seen it before)
-                print(f"Chain Hash: {chain_details.get('chain_hash', 'Unknown')}")
-                print(f"Number of Tickets: {chain_details.get('ticket_count', 0)}")
-                
-                # Run the selected report for this ticket
-                if "error" not in chain_details:
-                    run_selected_report(chain_details, report_type)
     
     finally:
         # Close the session

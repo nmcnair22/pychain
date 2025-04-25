@@ -1,0 +1,25 @@
+{
+    "ticket_id": "2410943",
+    "subject": "Flynn_FW001882_Chambersburg_PA_P2",
+    "status": "Confirmed",
+    "department": "Pro Services",
+    "phase": "P2",
+    "created_at": "2025-03-28 11:38:11",
+    "posts": [
+        {
+            "content": "Flynn - Bulk Build\r\rFlynn_FW001882_Chambersburg_PA_P2\rSite ID: FW001882\r\rDate: 4/14/2025\rTime (In PST): 6:30 PM\r\rSCOPE OF WORK:\rP2\r\rWendys\r1658 Lincoln Way East \rChambersburg\rPA\r17201\r",
+            "author": "Josh Bosen",
+            "timestamp": "2025-03-28 11:38:11"
+        },
+        {
+            "content": "Schedule Confirmation \u2013 P2\nSite FW001882\nTech Shop Name: Incom\nScheduled Date: 4/14\nScheduled Time: 9:30 PM EDT\nAddress: 1658 Lincoln Way E, Chambersburg, PA, 17202\nContact Validated on: 4/11\nType of Validation: Phone call\nContact spoke to: Micheal 317-848-0184 ext. 1003 \n\nValidated the following (yes/no)\nDate and Time: Yes\nLocation Address: Yes\nScope and toolset: Yes\n\n\n",
+            "author": "Alyssa Philpott",
+            "timestamp": "2025-04-14 11:01:16"
+        },
+        {
+            "content": "Indiana Communication Specialists sent you invoice 023156 for $3,570.00 that's due on May 15, 2025.\n\n",
+            "author": "Brandon Mahoney",
+            "timestamp": "2025-04-15 06:39:57"
+        }
+    ]
+}
