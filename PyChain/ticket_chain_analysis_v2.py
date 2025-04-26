@@ -575,18 +575,42 @@ def run_phase_2_analysis(chain_details, summary_file, analysis):
         print("Creating analysis thread...")
         thread = client.beta.threads.create()
         
-        # Define initial queries
-        print("Running analysis queries...")
+        # Define comprehensive job hierarchy queries
+        print("Running comprehensive job hierarchy analysis queries...")
         queries = [
-            "Extract all ticket IDs and their phases in JSON format.",
-            "Identify any material shortages mentioned in the tickets in JSON format.",
-            "Create a timeline of events for this ticket chain in JSON format.",
-            "List all revisits and their reasons in JSON format."
+            f"Extract the Job details for the chain hash {chain_hash} in JSON format, including Job ID (use the chain hash), Job Description (summarize the project from ticket subjects and Phase 1 summary), Job Status (determine based on ticket statuses), Job Start Date (earliest Dispatch Ticket creation date), Job End Date (latest Turnup Ticket completion date or Billing Ticket date), and Job Scope Tasks (list phases like P1, P2, P3 with Task ID, Task Description, Predecessor Tasks, Task Status, Task Assigned Date, and Task Completion Date).",
+            
+            f"Extract the Request Phase details for all Dispatch Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Assigned Tasks, Customer Name, Contact Details, Service Type, Request Date/Time, Urgency Level, Work Location, Type of Work, and Work Scope.",
+            
+            f"Extract the Booking Phase details for all Dispatch Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Technician Name/ID, Technician Type, Subcontractor ID, Scheduled Date/Time, Estimated Duration, Skill Match, Booking Confirmation, and Time to Book.",
+            
+            f"Extract the Service Pending details for all Turnup Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Technician Preparation Status, Parts/Tools Assigned, Travel Distance, Estimated Arrival Time, and Schedule Adherence.",
+            
+            f"Extract the Day of Dispatch details for all Turnup Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Actual Start Time, Service Performed, Parts Used, Issues Encountered, Issue Impact on Scope, Mitigation/Workaround Applied, Mitigation/Workaround Details, Technician Scope Awareness, Work Order Reviewed, Required Tools Present, and Actual End Time.",
+            
+            f"Extract the Audit Phase details for all Turnup Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Task Completion Status, Task Completion Percentage, Customer Acceptance Status, Revisit Required, Revisit Type, Revisit Reason Details, Customer Feedback Score, Quality Check Result, and Follow-Up Required.",
+            
+            f"Extract the Payment Processing details for all Billing Tickets in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Invoice Amount, Labor Cost, Parts Cost, Payment Status, and Payment Date.",
+            
+            f"Extract the Cancellation details for all cancellation-related tickets or updates in the chain hash {chain_hash} in JSON format, including Job ID, Ticket ID, Cancellation Target Type, Cancellation Target ID, Cancellation Status, Cancellation Phase, Cancellation Initiator, Cancellation Reason, Cancellation Reason Details, and Cancellation Date/Time."
         ]
         
         responses = []
+        query_names = [
+            "Job Details", 
+            "Request Phase Details", 
+            "Booking Phase Details", 
+            "Service Pending Details", 
+            "Day of Dispatch Details", 
+            "Audit Phase Details", 
+            "Payment Processing Details", 
+            "Cancellation Details"
+        ]
+        
         for i, query in enumerate(queries, 1):
-            print(f"\nQuery {i}/{len(queries)}: {query}")
+            print(f"\n{'-' * 100}")
+            print(f"QUERY {i}/{len(queries)}: {query_names[i-1]}")
+            print(f"{'-' * 100}")
             
             # Create message
             message = client.beta.threads.messages.create(
@@ -627,87 +651,16 @@ def run_phase_2_analysis(chain_details, summary_file, analysis):
                 for msg in messages.data:
                     if msg.role == "assistant" and msg.run_id == run.id:
                         response_text = msg.content[0].text.value
-                        responses.append((query, response_text))
+                        responses.append((query_names[i-1], response_text))
                         
-                        print("\n" + "-" * 40)
-                        print("RESPONSE:")
-                        print("-" * 40)
+                        print("\n" + "=" * 100)
+                        print(f"{query_names[i-1]} RESPONSE:")
+                        print("=" * 100)
                         print(response_text)
-                        print("-" * 40)
-                        
-                        # Check if follow-up is needed
-                        if ("shortage" in query.lower() and 
-                            ("shortage" in response_text.lower() or "shortages" in response_text.lower()) and
-                            not "not found" in response_text.lower()):
-                            
-                            follow_up = "List tickets affected by material shortages and provide detailed information about each one in JSON format."
-                            print(f"\nFollow-up Query: {follow_up}")
-                            
-                            follow_up_message = client.beta.threads.messages.create(
-                                thread_id=thread.id,
-                                role="user",
-                                content=follow_up
-                            )
-                            
-                            follow_up_run = client.beta.threads.runs.create(
-                                thread_id=thread.id,
-                                assistant_id=assistant_id
-                            )
-                            
-                            # Poll for completion
-                            while True:
-                                follow_up_status = client.beta.threads.runs.retrieve(
-                                    thread_id=thread.id,
-                                    run_id=follow_up_run.id
-                                )
-                                
-                                if follow_up_status.status == "completed":
-                                    break
-                                elif follow_up_status.status in ["failed", "cancelled", "expired"]:
-                                    print(f"Follow-up run failed with status: {follow_up_status.status}")
-                                    break
-                                
-                                print("Waiting for assistant response...")
-                                time.sleep(5)
-                            
-                            # Get follow-up response
-                            if follow_up_status.status == "completed":
-                                follow_up_messages = client.beta.threads.messages.list(
-                                    thread_id=thread.id
-                                )
-                                
-                                for fm in follow_up_messages.data:
-                                    if fm.role == "assistant" and fm.run_id == follow_up_run.id:
-                                        follow_up_response = fm.content[0].text.value
-                                        responses.append((follow_up, follow_up_response))
-                                        
-                                        print("\n" + "-" * 40)
-                                        print("FOLLOW-UP RESPONSE:")
-                                        print("-" * 40)
-                                        print(follow_up_response)
-                                        print("-" * 40)
-                                        
-                                        break
+                        print("=" * 100)
                         break
         
-        # Save Phase 2 results
-        print("\nSaving Phase 2 analysis results...")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        phase2_file = f"PyChain/data/analyses/{chain_hash}_{timestamp}_phase2.json"
-        
-        with open(phase2_file, "w") as f:
-            result_data = {
-                "chain_hash": chain_hash,
-                "ticket_count": len(ticket_ids),
-                "phase1_summary": analysis,
-                "phase2_responses": [
-                    {"query": q, "response": r} for q, r in responses
-                ],
-                "timestamp": datetime.now().isoformat()
-            }
-            json.dump(result_data, f, indent=4)
-        
-        print(f"Phase 2 analysis saved to {phase2_file}")
+        print("\nPhase 2 analysis complete with comprehensive job hierarchy data!")
         
         # Clean up local files
         print("\nCleaning up temporary files...")
@@ -722,8 +675,6 @@ def run_phase_2_analysis(chain_details, summary_file, analysis):
         if cleanup_response == 'y':
             delete_store = input("Also delete the vector store? This will prevent reusing it for future analyses. (y/n): ").strip().lower() == 'y'
             cleanup_openai_resources(file_ids, vector_store_id, delete_store)
-        
-        print("Phase 2 analysis complete!")
         
     except Exception as e:
         print(f"Error during Phase 2 analysis: {e}")
