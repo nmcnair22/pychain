@@ -1,21 +1,44 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
-from sqlalchemy.sql import func
-from .base import Base
+from sqlalchemy import Column, String, DateTime, JSON, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Ticket(Base):
-    """Ticket model for database representation of issue tickets from the ticketing system"""
-    __tablename__ = "tickets"
-    # This model maps to the ticketing database
+    __tablename__ = 'tickets'
+    ticketid = Column(String, primary_key=True)
+    subject = Column(String)
+    status = Column(String)
+    created = Column(DateTime)
+    closed = Column(DateTime)
+    service_date = Column(DateTime)
+    site_number = Column(String)
+    customer = Column(String)
+    state = Column(String)
+    city = Column(String)
+    location_name = Column(String)
+    location_id = Column(String)
+    project_id = Column(String)
+    linked_tickets = Column(JSON)
+    total_replies = Column(String)
+    posts = relationship("Posts", back_populates="ticket")
+    notes = relationship("Notes", back_populates="ticket")
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(255), nullable=False)
-    description = Column(Text, nullable=True)
-    status = Column(String(50), default="new")
-    priority = Column(String(50), default="medium")
-    created_at = Column(DateTime, default=func.now())
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
-    is_analyzed = Column(Boolean, default=False)
-    analysis_result = Column(Text, nullable=True)
+class Posts(Base):
+    __tablename__ = 'posts'
+    ticketpostid = Column(String, primary_key=True)
+    ticketid = Column(String, ForeignKey('tickets.ticketid'))
+    post_dateline = Column(DateTime)
+    fullname = Column(String)
+    contents = Column(String)
+    isprivate = Column(String)
+    ticket = relationship("Ticket", back_populates="posts")
 
-    def __repr__(self):
-        return f"<Ticket(id={self.id}, title='{self.title}', status='{self.status}')>" 
+class Notes(Base):
+    __tablename__ = 'notes'
+    ticketnoteid = Column(String, primary_key=True)
+    ticketid = Column(String, ForeignKey('tickets.ticketid'))
+    note_dateline = Column(DateTime)
+    staffname = Column(String)
+    note = Column(String)
+    ticket = relationship("Ticket", back_populates="notes")
