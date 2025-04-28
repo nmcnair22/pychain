@@ -47,60 +47,52 @@ class TicketChainService:
         """
         try:
             # Query the ticket and its related data
-            ticket = session.query(Ticket).filter(Ticket.ticketid == ticket_id).first()
+            ticket = session.query(Ticket).filter(Ticket.ticketid == int(ticket_id)).first()
             if not ticket:
                 logging.error(f"No ticket found with ID: {ticket_id}")
                 return None
 
             # Initialize chain details
             chain_details = {
-                "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",  # Hardcoded for this example; ideally compute dynamically
+                "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",  # Hardcoded; compute dynamically if needed
                 "tickets": []
             }
 
-            # Get related tickets (assuming linked_tickets contains related ticket IDs)
-            related_tickets = [ticket]
-            if ticket.linked_tickets:
-                try:
-                    linked_ticket_ids = [lt["linked_ticket"] for lt in json.loads(ticket.linked_tickets)]
-                    related_tickets.extend(
-                        session.query(Ticket).filter(Ticket.ticketid.in_(linked_ticket_ids)).all()
-                    )
-                except json.JSONDecodeError as e:
-                    logging.error(f"Failed to parse linked_tickets for ticket {ticket_id}: {e}")
+            # Get related tickets (to be implemented with sw_ticketlinks)
+            related_tickets = [ticket]  # Placeholder; add linked tickets later
 
             # Process each ticket
             for t in related_tickets:
                 ticket_data = {
-                    "ticket_id": t.ticketid,
+                    "ticket_id": str(t.ticketid),
                     "subject": t.subject,
-                    "status": t.status,
-                    "ticket_type": TicketChainService._infer_ticket_type(t.subject, t.status),
-                    "created": t.created.isoformat() if t.created else None,
-                    "closed": t.closed.isoformat() if t.closed else None,
-                    "service_date": t.service_date.isoformat() if t.service_date and t.service_date.year > 1970 else None,
-                    "site_number": t.site_number,
-                    "customer": t.customer,
-                    "location_name": t.location_name,
-                    "project_id": t.project_id,
+                    "status": t.ticketstatustitle,
+                    "ticket_type": TicketChainService._infer_ticket_type(t.subject, t.ticketstatustitle, t.tickettypeid, t.departmentid),
+                    "created": t.dateline,
+                    "closed": t.lastactivity,
+                    "service_date": None,  # Not in sw_tickets; add via join if needed
+                    "site_number": None,   # Not in sw_tickets; add via cis_customers
+                    "customer": None,      # Not in sw_tickets; add via cis_customers
+                    "location_name": None, # Not in sw_tickets; add via cis_customers
+                    "project_id": None,    # Not in sw_tickets; add via cis_projects
                     "posts": [
                         {
-                            "post_id": p.ticketpostid,
-                            "dateline": p.post_dateline.isoformat() if p.post_dateline else None,
+                            "post_id": str(p.ticketpostid),
+                            "dateline": p.dateline,
                             "fullname": p.fullname,
                             "contents": p.contents,
-                            "is_private": p.isprivate
+                            "is_private": bool(p.isprivate)
                         } for p in t.posts
                     ],
                     "notes": [
                         {
-                            "note_id": n.ticketnoteid,
-                            "dateline": n.note_dateline.isoformat() if n.note_dateline else None,
+                            "note_id": str(n.ticketnoteid),
+                            "dateline": n.dateline,
                             "staffname": n.staffname,
                             "contents": n.note
-                        } for n in t.notes
+                        } for n in t.notes if n.linktypeid == t.ticketid  # Filter notes by ticketid
                     ],
-                    "linked_tickets": json.loads(t.linked_tickets) if t.linked_tickets else []
+                    "linked_tickets": []  # Placeholder; add via sw_ticketlinks
                 }
                 chain_details["tickets"].append(ticket_data)
 
@@ -110,23 +102,25 @@ class TicketChainService:
             return None
 
     @staticmethod
-    def _infer_ticket_type(subject: str, status: str) -> str:
+    def _infer_ticket_type(subject: str, status: str, tickettypeid: int, departmentid: int) -> str:
         """
-        Infer the ticket type based on subject and status.
+        Infer the ticket type based on subject, status, tickettypeid, and departmentid.
         
         Args:
             subject (str): Ticket subject
             status (str): Ticket status
+            tickettypeid (int): Ticket type ID
+            departmentid (int): Department ID
             
         Returns:
             str: Inferred ticket type
         """
         subject_lower = subject.lower()
-        if "dispatch" in subject_lower or "billing" in subject_lower:
+        if "dispatch" in subject_lower or "billing" in subject_lower or departmentid in [/* Add dispatch department IDs */]:
             return "dispatch"
-        elif "turnup" in subject_lower or "p1" in subject_lower or "p2" in subject_lower:
+        elif "turnup" in subject_lower or "p1" in subject_lower or "p2" in subject_lower or tickettypeid in [/* Add turnup type IDs */]:
             return "turnup"
-        elif "project" in subject_lower or "cabling" in subject_lower:
+        elif "project" in subject_lower or "cabling" in subject_lower or departmentid in [/* Add project department IDs */]:
             return "project_management"
         elif "shipping" in subject_lower or "delivered" in status.lower():
             return "shipping"

@@ -1,44 +1,39 @@
-from sqlalchemy import Column, String, DateTime, JSON, ForeignKey
+from sqlalchemy import Column, Integer, String, SmallInteger, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql.sqltypes import Text
 
 Base = declarative_base()
 
 class Ticket(Base):
-    __tablename__ = 'tickets'
-    ticketid = Column(String, primary_key=True)
-    subject = Column(String)
-    status = Column(String)
-    created = Column(DateTime)
-    closed = Column(DateTime)
-    service_date = Column(DateTime)
-    site_number = Column(String)
-    customer = Column(String)
-    state = Column(String)
-    city = Column(String)
-    location_name = Column(String)
-    location_id = Column(String)
-    project_id = Column(String)
-    linked_tickets = Column(JSON)
-    total_replies = Column(String)
+    __tablename__ = 'sw_tickets'
+    ticketid = Column(Integer, primary_key=True)
+    subject = Column(String(255))
+    ticketstatustitle = Column(String(255))
+    dateline = Column(Integer)  # Unix timestamp for created
+    lastactivity = Column(Integer)  # Unix timestamp for last activity
+    totalreplies = Column(Integer)
+    locationid = Column(Integer)
+    tickettypeid = Column(Integer)
+    departmentid = Column(Integer)
     posts = relationship("Posts", back_populates="ticket")
     notes = relationship("Notes", back_populates="ticket")
 
 class Posts(Base):
-    __tablename__ = 'posts'
-    ticketpostid = Column(String, primary_key=True)
-    ticketid = Column(String, ForeignKey('tickets.ticketid'))
-    post_dateline = Column(DateTime)
-    fullname = Column(String)
-    contents = Column(String)
-    isprivate = Column(String)
+    __tablename__ = 'sw_ticketposts'
+    ticketpostid = Column(Integer, primary_key=True)
+    ticketid = Column(Integer, ForeignKey('sw_tickets.ticketid'))
+    dateline = Column(Integer)  # Unix timestamp
+    fullname = Column(String(255))
+    contents = Column(Text)
+    isprivate = Column(SmallInteger)
     ticket = relationship("Ticket", back_populates="posts")
 
 class Notes(Base):
-    __tablename__ = 'notes'
-    ticketnoteid = Column(String, primary_key=True)
-    ticketid = Column(String, ForeignKey('tickets.ticketid'))
-    note_dateline = Column(DateTime)
-    staffname = Column(String)
-    note = Column(String)
+    __tablename__ = 'sw_ticketnotes'
+    ticketnoteid = Column(Integer, primary_key=True)
+    linktypeid = Column(Integer)  # Maps to ticketid in raw data
+    dateline = Column(Integer)  # Unix timestamp
+    staffname = Column(String(255))
+    note = Column(Text)
     ticket = relationship("Ticket", back_populates="notes")
