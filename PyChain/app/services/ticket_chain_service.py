@@ -1,7 +1,7 @@
 import logging
 import json
 from typing import Optional, Dict, List, Any
-from sqlalchemy import create_engine, select, func, text
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, Session
 from app.models.ticket import Ticket
 from config import TICKETING_DATABASE_URL
@@ -147,12 +147,12 @@ class TicketChainService:
                 return None
 
             # Query custom fields from sw_customfieldvalues
-            custom_fields_query = select(
-                text('customfieldid'), text('fieldvalue')
-            ).select_from(text('sw_customfieldvalues')).where(
-                text('ticketid') == int(ticket_id)
-            )
-            custom_fields_result = session.execute(custom_fields_query).fetchall()
+            custom_fields_query = text("""
+                SELECT customfieldid, fieldvalue
+                FROM sw_customfieldvalues
+                WHERE ticketid = :ticket_id
+            """)
+            custom_fields_result = session.execute(custom_fields_query, {"ticket_id": ticket_id}).fetchall()
             custom_fields = {row['customfieldid']: row['fieldvalue'] for row in custom_fields_result}
 
             # Map custom fields
@@ -169,55 +169,55 @@ class TicketChainService:
             ]))
 
             # Query last post
-            last_post_query = select(
-                text('contents')
-            ).select_from(text('sw_ticketposts')).where(
-                text('ticketpostid') == ticket.lastpostid
-            )
-            last_post_result = session.execute(last_post_query).scalar()
+            last_post_query = text("""
+                SELECT contents
+                FROM sw_ticketposts
+                WHERE ticketpostid = :lastpostid
+            """)
+            last_post_result = session.execute(last_post_query, {"lastpostid": ticket.lastpostid}).scalar()
 
             # Query posts with GROUP_CONCAT
-            posts_query = select([
-                func.concat(
+            posts_query = text("""
+                SELECT CONCAT(
                     '[',
-                    func.group_concat(
-                        func.concat(
-                            '{"ticketpostid":"', text('stp.ticketpostid'),
-                            '", "post_dateline":"', func.from_unixtime(text('stp.dateline')),
-                            '", "fullname":"', func.replace(text('stp.fullname'), '"', '\\"'),
-                            '", "contents":"', func.replace(text('stp.contents'), '"', '\\"'),
-                            '", "isprivate":"', text('stp.isprivate'),
+                    GROUP_CONCAT(
+                        CONCAT(
+                            '{"ticketpostid":"', stp.ticketpostid,
+                            '", "post_dateline":"', FROM_UNIXTIME(stp.dateline),
+                            '", "fullname":"', REPLACE(stp.fullname, '"', '\\"'),
+                            '", "contents":"', REPLACE(stp.contents, '"', '\\"'),
+                            '", "isprivate":"', stp.isprivate,
                             '"}'
                         )
                     ),
                     ']'
-                ).label('posts')
-            ]).select_from(text('sw_ticketposts stp')).where(
-                text('stp.ticketid') == int(ticket_id)
-            )
-            posts_result = session.execute(posts_query).scalar()
+                ) AS posts
+                FROM sw_ticketposts stp
+                WHERE stp.ticketid = :ticket_id
+            """)
+            posts_result = session.execute(posts_query, {"ticket_id": ticket_id}).scalar()
             posts = json.loads(posts_result) if posts_result and posts_result != '[]' else []
 
             # Query notes with GROUP_CONCAT
-            notes_query = select([
-                func.concat(
+            notes_query = text("""
+                SELECT CONCAT(
                     '[',
-                    func.group_concat(
-                        func.concat(
-                            '{"ticketnoteid":"', text('n.ticketnoteid'),
-                            '", "note_staffid":"', text('n.staffid'),
-                            '", "note_dateline":"', func.from_unixtime(text('n.dateline')),
-                            '", "staffname":"', func.replace(text('n.staffname'), '"', '\\"'),
-                            '", "note":"', func.replace(text('n.note'), '"', '\\"'),
+                    GROUP_CONCAT(
+                        CONCAT(
+                            '{"ticketnoteid":"', n.ticketnoteid,
+                            '", "note_staffid":"', n.staffid,
+                            '", "note_dateline":"', FROM_UNIXTIME(n.dateline),
+                            '", "staffname":"', REPLACE(n.staffname, '"', '\\"'),
+                            '", "note":"', REPLACE(n.note, '"', '\\"'),
                             '"}'
                         )
                     ),
                     ']'
-                ).label('notes')
-            ]).select_from(text('sw_ticketnotes n')).where(
-                text('n.linktypeid') == int(ticket_id)
-            )
-            notes_result = session.execute(notes_query).scalar()
+                ) AS notes
+                FROM sw_ticketnotes n
+                WHERE n.linktypeid = :ticket_id
+            """)
+            notes_result = session.execute(notes_query, {"ticket_id": ticket_id}).scalar()
             notes = json.loads(notes_result) if notes_result and notes_result != '[]' else []
 
             # Return ticket details
