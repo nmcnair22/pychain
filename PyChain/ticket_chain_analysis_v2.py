@@ -66,6 +66,8 @@ try:
     api_key_to_use = OPENAI_API_KEY or os.getenv("OPENAI_API_KEY")
     if not api_key_to_use:
         raise ValueError("OpenAI API Key not found in config.py (OPENAI_API_KEY) or environment variables.")
+    # Log the first few characters of the API key for debugging (masked for security)
+    logging.info(f"Using OpenAI API Key starting with: {api_key_to_use[:10]}...")
     client = OpenAI(api_key=api_key_to_use)
 except Exception as e:
     logging.error(f"Failed to initialize OpenAI client: {e}")
