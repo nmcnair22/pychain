@@ -1,0 +1,47 @@
+Ticket / Record type and relationship information
+Based on the provided text, corrections, and additional details, the field service dispatch system operates as follows:
+Dispatch Record Creation
+* A dispatch record, also known as the dispatch request record, is generated when a service is requested.
+* Serves as the primary container for the service request, holding initial booking information, including negotiated pay rates with the technician and customer details.
+* For large projects, a bulk creation tool uses a template to generate multiple dispatch records based on a list of locations, dates, and times.
+Turnup Record Creation
+* When a technician is booked, a turnup record is created and linked to the dispatch record.
+* Includes details such as technician name, time in/out, site visit notes, photos, and work details.
+* Normally, there is a 1:1 relationship between dispatch and turnup records.
+Dispatch Queues and Audit Phase
+* Dispatch tickets reside in one of three queues:
+    * Dispatch Queue: Managed by the dispatch team.
+    * Pro Services Queue: Managed by the professional services team.
+    * FST Accounting Queue: For accounting processing after audit.
+* Both Dispatch and Pro Services queues are considered dispatch queues, worked by different groups.
+* If the associated turnup ticket is completed (work performed and details filled in) and the dispatch ticket remains in the Dispatch or Pro Services queue, it is in its audit phase, where both the dispatch and turnup tickets are validated to ensure all work and details are correct.
+* Once audited, the dispatch ticket is pushed to the FST Accounting queue for processing.
+Accounting Integration
+* During the audit phase, key information from the turnup ticket (e.g., work times, completion details) is copied back to the dispatch record.
+* The dispatch record, now updated with turnup data and containing financial details from the original booking (e.g., technician pay agreement), combines with local data rates for customer billing.
+* In the FST Accounting queue, an API integrates with Dynamics 365 Business Central to create payables (for contractors) and receivables (for customers) based on the dispatch record.
+* If a dispatch ticket is in the FST Accounting queue and not closed, it has been audited but not yet processed by accounting.
+* If a dispatch ticket is in the FST Accounting queue and closed, it has been processed by accounting and is being invoiced, or, depending on the timeframe, may have already been invoiced and potentially paid.
+Handling Additional Visits
+* If a visit is canceled or incomplete, a new dispatch ticket should be created, spawning a new turnup record for the revisit.
+* For large projects, multiple dispatch and turnup records may be created, but they should remain linked.
+Issues with Structures/Relationships
+The text highlights several issues that disrupt the intended process and data integrity:
+Improper Reuse of Dispatch Records
+* Employees reuse pre-filled dispatch records to generate new turnup records (e.g., for cancellations or incomplete scopes) instead of creating new dispatch tickets.
+* This creates non-1:1 relationships, where one dispatch record may link to multiple turnup records.
+Orphaned Records
+* Bulk-created dispatch records are sometimes abandoned (e.g., due to schedule changes) and deleted, even if turnup records were already generated.
+* This results in turnup records without associated dispatch records, breaking the expected linkage.
+Non-1:1 Relationships
+* Complex projects lead to multiple dispatch and turnup records for the same job, with relationships not properly tracked (e.g., one dispatch spawning multiple turnups for revisits or additional phases).
+* Administrative dispatch records (e.g., for billing) may reference turnups without being field events, complicating relationship tracking.
+Data Quality Issues
+* Incorrect dates (e.g., UNIX epoch default 1969-12-31) in turnup records indicate missing or unset fields.
+* Incomplete statuses (e.g., turnup marked "Incomplete" but "Closed") suggest unfinished work or unclear closure flows.
+Reporting Problems
+* Reporting tools expect a 1:1 dispatch-to-turnup relationship, causing errors or missing data when relationships are broken or orphaned.
+* Even when users manually ensure accounting data is correct, the lack of proper linkages affects report accuracy.
+Workflow Misuse
+* Bulk creation tools are misused, generating excessive records that are later abandoned.
+* Lack of a project management ticket to track high-level phases for complex jobs adds to confusion. 

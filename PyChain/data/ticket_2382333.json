@@ -1,0 +1,32 @@
+{
+    "ticket_id": 2382333,
+    "subject": "Flynn_FW008350_Hagerstown_MD_P1",
+    "status": "On Hold",
+    "department": "Pro Services",
+    "phase": "P1",
+    "posts": [
+        {
+            "content": "Flynn Bulk\r\r\rFlynn_FW008350_Hagerstown_MD_P1\rSite ID: 8350\r\r\rDate: 2/11/2025\r\r\rSCOPE OF WORK:\rPhase 1\r\rHagerstown Centre\r17786 Garland Groth Boulevard \rHagerstown\rMD\r21740\r\r\rBilling Details: \rFlat Rate",
+            "author": "Josh Bosen",
+            "timestamp": "2025-02-06 15:59:13"
+        },
+        {
+            "content": "P1 dispatch on 2/11\nTech info: Ritchie 443-375-7942\n\n",
+            "author": "Brandon Mahoney",
+            "timestamp": "2025-02-07 10:57:58"
+        },
+        {
+            "content": "Hello Flynn team,\n\nWe have scheduled this dispatch for (2/11) at 9:30 PM EST. We have attached our tech\u2019s contact info below. If there is any issue with this date or time, please let us know right away.\n\nTECH CONTACT INFORMATION\nRitchie 443-375-7942\n\nThank you,\nPro Services Team\n\n",
+            "author": "Brandon Mahoney",
+            "timestamp": "2025-02-07 10:59:29"
+        },
+        {
+            "content": "Tech tonight: Aaron Blackburn  215-771-8788\n\n",
+            "author": "Christopher Hagen",
+            "timestamp": "2025-02-11 14:36:25"
+        }
+    ],
+    "notes": [],
+    "all_posts_data": [],
+    "all_notes_data": []
+}
