@@ -4,7 +4,7 @@ from typing import Optional, Dict, List
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from app.models.ticket import Ticket, Posts, Notes
-from config import DATABASE_URL
+from config import TICKETING_DATABASE_URL
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,7 +24,7 @@ class TicketChainService:
             Optional[Session]: SQLAlchemy session object or None if connection fails
         """
         try:
-            engine = create_engine(DATABASE_URL)
+            engine = create_engine(TICKETING_DATABASE_URL)
             SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
             session = SessionLocal()
             logging.info(f"{db_type.capitalize()} database session created successfully.")
