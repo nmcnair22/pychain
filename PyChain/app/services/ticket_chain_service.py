@@ -1,9 +1,9 @@
 import logging
 import json
 from typing import Optional, Dict, List
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select, func, text
 from sqlalchemy.orm import sessionmaker, Session
-from app.models.ticket import Ticket, Posts, Notes
+from app.models.ticket import Ticket, Posts
 from config import TICKETING_DATABASE_URL
 
 # Configure logging
@@ -46,55 +46,112 @@ class TicketChainService:
             Optional[Dict]: Dictionary containing chain details or None if not found
         """
         try:
-            # Query the ticket and its related data
+            # Query the ticket
             ticket = session.query(Ticket).filter(Ticket.ticketid == int(ticket_id)).first()
             if not ticket:
                 logging.error(f"No ticket found with ID: {ticket_id}")
                 return None
 
+            # Query custom fields from sw_customfieldvalues
+            custom_fields_query = select([
+                'fieldid', 'value'
+            ]).select_from(text('sw_customfieldvalues')).where(
+                text('ticketid') == int(ticket_id)
+            )
+            custom_fields_result = session.execute(custom_fields_query).fetchall()
+            custom_fields = {row['fieldid']: row['value'] for row in custom_fields_result}
+
+            # Map custom fields
+            site_number = custom_fields.get(117)
+            customer = custom_fields.get(104)
+            state = custom_fields.get(122)
+            city = custom_fields.get(121)
+            project_id = custom_fields.get(248)
+            location_name = ', '.join(filter(None, [
+                custom_fields.get(118),  # Address
+                custom_fields.get(121),  # City
+                custom_fields.get(122),  # State
+                custom_fields.get(123)   # ZIP
+            ]))
+
+            # Query last post
+            last_post_query = select([text('contents')]).select_from(text('sw_ticketposts')).where(
+                text('ticketpostid') == ticket.lastpostid
+            )
+            last_post_result = session.execute(last_post_query).scalar()
+
+            # Query posts with GROUP_CONCAT
+            posts_query = select([
+                func.concat(
+                    '[',
+                    func.group_concat(
+                        func.concat(
+                            '{"ticketpostid":"', text('stp.ticketpostid'),
+                            '", "post_dateline":"', func.from_unixtime(text('stp.dateline')),
+                            '", "fullname":"', func.replace(text('stp.fullname'), '"', '\\"'),
+                            '", "contents":"', func.replace(text('stp.contents'), '"', '\\"'),
+                            '", "isprivate":"', text('stp.isprivate'),
+                            '"}'
+                        )
+                    ),
+                    ']'
+                ).label('posts')
+            ]).select_from(text('sw_ticketposts stp')).where(
+                text('stp.ticketid') == int(ticket_id)
+            )
+            posts_result = session.execute(posts_query).scalar()
+            posts = json.loads(posts_result) if posts_result else []
+
+            # Query notes with GROUP_CONCAT
+            notes_query = select([
+                func.concat(
+                    '[',
+                    func.group_concat(
+                        func.concat(
+                            '{"ticketnoteid":"', text('n.ticketnoteid'),
+                            '", "note_staffid":"', text('n.staffid'),
+                            '", "note_dateline":"', func.from_unixtime(text('n.dateline')),
+                            '", "staffname":"', func.replace(text('n.staffname'), '"', '\\"'),
+                            '", "note":"', func.replace(text('n.note'), '"', '\\"'),
+                            '"}'
+                        )
+                    ),
+                    ']'
+                ).label('notes')
+            ]).select_from(text('sw_ticketnotes n')).where(
+                text('n.linktypeid') == int(ticket_id)
+            )
+            notes_result = session.execute(notes_query).scalar()
+            notes = json.loads(notes_result) if notes_result else []
+
             # Initialize chain details
             chain_details = {
-                "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",  # Hardcoded; compute dynamically if needed
+                "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
                 "tickets": []
             }
 
-            # Get related tickets (to be implemented with sw_ticketlinks)
-            related_tickets = [ticket]  # Placeholder; add linked tickets later
-
-            # Process each ticket
-            for t in related_tickets:
-                ticket_data = {
-                    "ticket_id": str(t.ticketid),
-                    "subject": t.subject,
-                    "status": t.ticketstatustitle,
-                    "ticket_type": TicketChainService._infer_ticket_type(t.subject, t.ticketstatustitle, t.tickettypeid, t.departmentid),
-                    "created": t.dateline,
-                    "closed": t.lastactivity,
-                    "service_date": None,  # Not in sw_tickets; add via join if needed
-                    "site_number": None,   # Not in sw_tickets; add via cis_customers
-                    "customer": None,      # Not in sw_tickets; add via cis_customers
-                    "location_name": None, # Not in sw_tickets; add via cis_customers
-                    "project_id": None,    # Not in sw_tickets; add via cis_projects
-                    "posts": [
-                        {
-                            "post_id": str(p.ticketpostid),
-                            "dateline": p.dateline,
-                            "fullname": p.fullname,
-                            "contents": p.contents,
-                            "is_private": bool(p.isprivate)
-                        } for p in t.posts
-                    ],
-                    "notes": [
-                        {
-                            "note_id": str(n.ticketnoteid),
-                            "dateline": n.dateline,
-                            "staffname": n.staffname,
-                            "contents": n.note
-                        } for n in t.notes if n.linktypeid == t.ticketid  # Filter notes by ticketid
-                    ],
-                    "linked_tickets": []  # Placeholder; add via sw_ticketlinks
-                }
-                chain_details["tickets"].append(ticket_data)
+            # Process ticket
+            ticket_data = {
+                "ticket_id": str(ticket.ticketid),
+                "subject": ticket.subject,
+                "site_number": site_number,
+                "customer": customer,
+                "state": state,
+                "city": city,
+                "service_date": ticket.duedate,
+                "location_name": location_name,
+                "location_id": str(ticket.locationid) if ticket.locationid else None,
+                "status": ticket.ticketstatustitle,
+                "last_post": last_post_result,
+                "created": ticket.dateline,
+                "closed": ticket.resolutiondateline,
+                "project_id": project_id,
+                "total_replies": ticket.totalreplies,
+                "posts": posts,
+                "notes": notes,
+                "linked_tickets": []  # Placeholder; add via sw_ticketlinks
+            }
+            chain_details["tickets"].append(ticket_data)
 
             return chain_details
         except Exception as e:
@@ -102,25 +159,23 @@ class TicketChainService:
             return None
 
     @staticmethod
-    def _infer_ticket_type(subject: str, status: str, tickettypeid: int, departmentid: int) -> str:
+    def _infer_ticket_type(subject: str, status: str) -> str:
         """
-        Infer the ticket type based on subject, status, tickettypeid, and departmentid.
+        Infer the ticket type based on subject and status.
         
         Args:
             subject (str): Ticket subject
             status (str): Ticket status
-            tickettypeid (int): Ticket type ID
-            departmentid (int): Department ID
             
         Returns:
             str: Inferred ticket type
         """
         subject_lower = subject.lower()
-        if "dispatch" in subject_lower or "billing" in subject_lower or departmentid in [/* Add dispatch department IDs */]:
+        if "dispatch" in subject_lower or "billing" in subject_lower:
             return "dispatch"
-        elif "turnup" in subject_lower or "p1" in subject_lower or "p2" in subject_lower or tickettypeid in [/* Add turnup type IDs */]:
+        elif "turnup" in subject_lower or "p1" in subject_lower or "p2" in subject_lower:
             return "turnup"
-        elif "project" in subject_lower or "cabling" in subject_lower or departmentid in [/* Add project department IDs */]:
+        elif "project" in subject_lower or "cabling" in subject_lower:
             return "project_management"
         elif "shipping" in subject_lower or "delivered" in status.lower():
             return "shipping"
