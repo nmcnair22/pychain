@@ -3,7 +3,7 @@ import json
 from typing import Optional, Dict, List, Any
 from sqlalchemy import create_engine, select, func, text
 from sqlalchemy.orm import sessionmaker, Session
-from app.models.ticket import Ticket, Posts
+from app.models.ticket import Ticket
 from config import TICKETING_DATABASE_URL
 import datetime
 
@@ -55,9 +55,9 @@ class TicketChainService:
         result = session.execute(query, {"ticket_id": ticket_id}).first()
         
         if result:
-            return result[0]  # Return the chainhash value
+            return result[0]
         return None
-
+    
     @staticmethod
     def get_linked_tickets_by_hash(session: Session, chain_hash: str) -> List[Dict[str, Any]]:
         """
@@ -148,12 +148,12 @@ class TicketChainService:
 
             # Query custom fields from sw_customfieldvalues
             custom_fields_query = select(
-                text('fieldid'), text('value')
+                text('customfieldid'), text('fieldvalue')
             ).select_from(text('sw_customfieldvalues')).where(
                 text('ticketid') == int(ticket_id)
             )
             custom_fields_result = session.execute(custom_fields_query).fetchall()
-            custom_fields = {row['fieldid']: row['value'] for row in custom_fields_result}
+            custom_fields = {row['customfieldid']: row['fieldvalue'] for row in custom_fields_result}
 
             # Map custom fields
             site_number = custom_fields.get(117)
@@ -295,26 +295,3 @@ class TicketChainService:
             "ticket_count": len(tickets_details),
             "tickets": tickets_details
         }
-
-    @staticmethod
-    def _infer_ticket_type(subject: str, status: str) -> str:
-        """
-        Infer the ticket type based on subject and status.
-        
-        Args:
-            subject (str): Ticket subject
-            status (str): Ticket status
-            
-        Returns:
-            str: Inferred ticket type
-        """
-        subject_lower = subject.lower()
-        if "dispatch" in subject_lower or "billing" in subject_lower:
-            return "dispatch"
-        elif "turnup" in subject_lower or "p1" in subject_lower or "p2" in subject_lower:
-            return "turnup"
-        elif "project" in subject_lower or "cabling" in subject_lower:
-            return "project_management"
-        elif "shipping" in subject_lower or "delivered" in status.lower():
-            return "shipping"
-        return "other"

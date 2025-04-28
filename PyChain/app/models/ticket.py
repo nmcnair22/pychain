@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.sql import func
 
 Base = declarative_base()
 
@@ -18,3 +17,4 @@ class Ticket(Base):
     tickettypetitle = Column(String(255))
     departmenttitle = Column(String(255))
     fullname = Column(String(255))
+    locationid = Column(Integer)
