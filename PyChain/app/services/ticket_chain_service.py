@@ -73,32 +73,32 @@ class TicketChainService:
         query = text("""
             WITH cte AS (
                 SELECT 
-                    st3.ticketlinkchainid,
-                    st3.dateline AS chain_dateline,
-                    st4.ticketid,
-                    st4.locationid,
-                    st4.tickettypetitle,
-                    st4.subject,
-                    st4.ticketstatustitle,
-                    st4.departmenttitle,
-                    st4.fullname,
-                    st4.dateline AS ticket_created,
-                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 117 AND typeid = st4.ticketid AND type = 1) AS site_number,
-                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 104 AND typeid = st4.ticketid AND type = 1) AS customer,
-                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 122 AND typeid = st4.ticketid AND type = 1) AS state,
-                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 121 AND typeid = st4.ticketid AND type = 1) AS city,
-                    FROM_UNIXTIME(st4.duedate) AS service_date,
-                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 248 AND typeid = st4.ticketid AND type = 1) AS project_id,
+                    tlc.ticketlinkchainid,
+                    tlc.dateline AS chain_dateline,
+                    t.ticketid,
+                    t.locationid,
+                    t.tickettypetitle,
+                    t.subject,
+                    t.ticketstatustitle,
+                    t.departmenttitle,
+                    t.fullname,
+                    t.dateline AS ticket_created,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 117 AND typeid = t.ticketid) AS site_number,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 104 AND typeid = t.ticketid) AS customer,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 122 AND typeid = t.ticketid) AS state,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 121 AND typeid = t.ticketid) AS city,
+                    FROM_UNIXTIME(t.duedate) AS service_date,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 248 AND typeid = t.ticketid) AS project_id,
                     CASE
-                        WHEN st4.resolutiondateline > 0 THEN FROM_UNIXTIME(st4.resolutiondateline)
+                        WHEN t.resolutiondateline > 0 THEN FROM_UNIXTIME(t.resolutiondateline)
                         ELSE NULL
                     END AS closed,
-                    st4.totalreplies AS total_replies,
+                    t.totalreplies AS total_replies,
                     CASE 
-                        WHEN st4.departmenttitle IN ('FST Accounting', 'Dispatch', 'Pro Services') THEN 'Dispatch Tickets'
-                        WHEN st4.departmenttitle = 'Turnups' THEN 'Turnup Tickets'
-                        WHEN st4.departmenttitle IN ('Shipping', 'Outbound', 'Inbound') THEN 'Shipping Tickets'
-                        WHEN st4.departmenttitle = 'Turn up Projects' THEN 'Project Management'
+                        WHEN t.departmenttitle IN ('FST Accounting', 'Dispatch', 'Pro Services') THEN 'Dispatch Tickets'
+                        WHEN t.departmenttitle = 'Turnups' THEN 'Turnup Tickets'
+                        WHEN t.departmenttitle IN ('Shipping', 'Outbound', 'Inbound') THEN 'Shipping Tickets'
+                        WHEN t.departmenttitle = 'Turn up Projects' THEN 'Project Management'
                         ELSE 'Other'
                     END AS TicketCategory,
                     FROM_UNIXTIME(first_post.dateline) AS first_post_date,
@@ -107,16 +107,16 @@ class TicketChainService:
                     FROM_UNIXTIME(last_post.dateline) AS last_post_date,
                     last_post.fullname AS last_posted_by,
                     last_post.contents AS last_post_content,
-                    st2.chainhash,
-                    ROW_NUMBER() OVER (PARTITION BY st4.ticketid ORDER BY st3.dateline DESC) AS row_num
+                    tlc.chainhash,
+                    ROW_NUMBER() OVER (PARTITION BY t.ticketid ORDER BY tlc.dateline DESC) AS row_num
                 FROM sw_tickets st
                 JOIN sw_ticketlinkchains st2 
                     ON st2.ticketid = st.ticketid
-                JOIN sw_ticketlinkchains st3 
-                    ON st2.chainhash = st3.chainhash
-                    AND st3.ticketid <> st2.ticketid
-                JOIN sw_tickets st4 
-                    ON st3.ticketid = st4.ticketid
+                JOIN sw_ticketlinkchains tlc 
+                    ON st2.chainhash = tlc.chainhash
+                    AND tlc.ticketid <> st2.ticketid
+                JOIN sw_tickets t 
+                    ON tlc.ticketid = t.ticketid
                 LEFT JOIN (
                     SELECT tp.ticketid, tp.dateline, tp.fullname, tp.contents
                     FROM sw_ticketposts tp
@@ -125,7 +125,7 @@ class TicketChainService:
                         FROM sw_ticketposts
                         GROUP BY ticketid
                     ) fp ON tp.ticketid = fp.ticketid AND tp.dateline = fp.first_dateline
-                ) first_post ON first_post.ticketid = st4.ticketid
+                ) first_post ON first_post.ticketid = t.ticketid
                 LEFT JOIN (
                     SELECT tp.ticketid, tp.dateline, tp.fullname, tp.contents
                     FROM sw_ticketposts tp
@@ -134,10 +134,10 @@ class TicketChainService:
                         FROM sw_ticketposts
                         GROUP BY ticketid
                     ) lp ON tp.ticketid = lp.ticketid AND tp.dateline = lp.last_dateline
-                ) last_post ON last_post.ticketid = st4.ticketid
+                ) last_post ON last_post.ticketid = t.ticketid
                 WHERE st2.chainhash = :chain_hash
-                  AND st4.departmenttitle NOT IN ('Add to NPM', 'Helpdesk Tier 1', 'Helpdesk Tier 2', 'Helpdesk Tier 3', 'Engineering')
-                  AND st4.tickettypetitle <> '3rd Party Turnup'
+                  AND t.departmenttitle NOT IN ('Add to NPM', 'Helpdesk Tier 1', 'Helpdesk Tier 2', 'Helpdesk Tier 3', 'Engineering')
+                  AND t.tickettypetitle <> '3rd Party Turnup'
             )
             SELECT 
                 ticketlinkchainid,
