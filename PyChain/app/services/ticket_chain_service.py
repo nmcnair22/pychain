@@ -71,31 +71,104 @@ class TicketChainService:
             List of dictionaries with ticket information
         """
         query = text("""
+            WITH cte AS (
+                SELECT 
+                    st3.ticketlinkchainid,
+                    st3.dateline AS chain_dateline,
+                    st4.ticketid,
+                    st4.locationid,
+                    st4.tickettypetitle,
+                    st4.subject,
+                    st4.ticketstatustitle,
+                    st4.departmenttitle,
+                    st4.fullname,
+                    st4.dateline AS ticket_created,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 117 AND typeid = st4.ticketid AND type = 1) AS site_number,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 104 AND typeid = st4.ticketid AND type = 1) AS customer,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 122 AND typeid = st4.ticketid AND type = 1) AS state,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 121 AND typeid = st4.ticketid AND type = 1) AS city,
+                    FROM_UNIXTIME(st4.duedate) AS service_date,
+                    (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 248 AND typeid = st4.ticketid AND type = 1) AS project_id,
+                    CASE
+                        WHEN st4.resolutiondateline > 0 THEN FROM_UNIXTIME(st4.resolutiondateline)
+                        ELSE NULL
+                    END AS closed,
+                    st4.totalreplies AS total_replies,
+                    CASE 
+                        WHEN st4.departmenttitle IN ('FST Accounting', 'Dispatch', 'Pro Services') THEN 'Dispatch Tickets'
+                        WHEN st4.departmenttitle = 'Turnups' THEN 'Turnup Tickets'
+                        WHEN st4.departmenttitle IN ('Shipping', 'Outbound', 'Inbound') THEN 'Shipping Tickets'
+                        WHEN st4.departmenttitle = 'Turn up Projects' THEN 'Project Management'
+                        ELSE 'Other'
+                    END AS TicketCategory,
+                    FROM_UNIXTIME(first_post.dateline) AS first_post_date,
+                    first_post.fullname AS first_posted_by,
+                    first_post.contents AS first_post_content,
+                    FROM_UNIXTIME(last_post.dateline) AS last_post_date,
+                    last_post.fullname AS last_posted_by,
+                    last_post.contents AS last_post_content,
+                    st2.chainhash,
+                    ROW_NUMBER() OVER (PARTITION BY st4.ticketid ORDER BY st3.dateline DESC) AS row_num
+                FROM sw_tickets st
+                JOIN sw_ticketlinkchains st2 
+                    ON st2.ticketid = st.ticketid
+                JOIN sw_ticketlinkchains st3 
+                    ON st2.chainhash = st3.chainhash
+                    AND st3.ticketid <> st2.ticketid
+                JOIN sw_tickets st4 
+                    ON st3.ticketid = st4.ticketid
+                LEFT JOIN (
+                    SELECT tp.ticketid, tp.dateline, tp.fullname, tp.contents
+                    FROM sw_ticketposts tp
+                    INNER JOIN (
+                        SELECT ticketid, MIN(dateline) AS first_dateline
+                        FROM sw_ticketposts
+                        GROUP BY ticketid
+                    ) fp ON tp.ticketid = fp.ticketid AND tp.dateline = fp.first_dateline
+                ) first_post ON first_post.ticketid = st4.ticketid
+                LEFT JOIN (
+                    SELECT tp.ticketid, tp.dateline, tp.fullname, tp.contents
+                    FROM sw_ticketposts tp
+                    INNER JOIN (
+                        SELECT ticketid, MAX(dateline) AS last_dateline
+                        FROM sw_ticketposts
+                        GROUP BY ticketid
+                    ) lp ON tp.ticketid = lp.ticketid AND tp.dateline = lp.last_dateline
+                ) last_post ON last_post.ticketid = st4.ticketid
+                WHERE st2.chainhash = :chain_hash
+                  AND st4.departmenttitle NOT IN ('Add to NPM', 'Helpdesk Tier 1', 'Helpdesk Tier 2', 'Helpdesk Tier 3', 'Engineering')
+                  AND st4.tickettypetitle <> '3rd Party Turnup'
+            )
             SELECT 
-                tlc.ticketlinkchainid,
-                tlc.dateline AS chain_dateline,
-                t.ticketid,
-                t.tickettypetitle,
-                t.subject,
-                t.ticketstatustitle,
-                t.departmenttitle,
-                t.fullname,
-                t.dateline AS ticket_created,
-                t.lastactivity,
-                CASE 
-                    WHEN t.departmenttitle IN ('FST Accounting', 'Dispatch', 'Pro Services') THEN 'Dispatch Tickets'
-                    WHEN t.departmenttitle = 'Turnups' THEN 'Turnup Tickets'
-                    WHEN t.departmenttitle = 'Turn up Projects' THEN 'Project Management'
-                    ELSE 'Other'
-                END AS TicketCategory
-            FROM sw_ticketlinkchains tlc
-            JOIN sw_tickets t 
-                ON tlc.ticketid = t.ticketid
-            WHERE tlc.chainhash = :chain_hash
-                AND t.departmenttitle NOT IN ('Add to NPM', 'Helpdesk Tier 1', 'Helpdesk Tier 2', 'Helpdesk Tier 3', 'Engineering')
-                AND t.tickettypetitle <> '3rd Party Turnup'
-            GROUP BY t.ticketid
-            ORDER BY TicketCategory, tlc.dateline
+                ticketlinkchainid,
+                chain_dateline,
+                ticketid,
+                locationid,
+                tickettypetitle,
+                subject,
+                ticketstatustitle,
+                departmenttitle,
+                fullname,
+                ticket_created,
+                site_number,
+                customer,
+                state,
+                city,
+                service_date,
+                project_id,
+                closed,
+                total_replies,
+                TicketCategory,
+                first_post_date,
+                first_posted_by,
+                first_post_content,
+                last_post_date,
+                last_posted_by,
+                last_post_content,
+                chainhash
+            FROM cte 
+            WHERE row_num = 1
+            ORDER BY TicketCategory, chain_dateline
         """)
         
         result = session.execute(query, {"chain_hash": chain_hash}).fetchall()
@@ -106,22 +179,35 @@ class TicketChainService:
                 "ticketlinkchainid": row.ticketlinkchainid,
                 "chain_dateline": row.chain_dateline,
                 "ticketid": row.ticketid,
+                "locationid": row.locationid,
                 "tickettypetitle": row.tickettypetitle,
                 "subject": row.subject,
                 "ticketstatustitle": row.ticketstatustitle,
                 "departmenttitle": row.departmenttitle,
                 "fullname": row.fullname,
                 "ticket_created": row.ticket_created,
-                "lastactivity": row.lastactivity,
-                "ticket_category": row.TicketCategory
+                "site_number": row.site_number,
+                "customer": row.customer,
+                "state": row.state,
+                "city": row.city,
+                "service_date": row.service_date,
+                "project_id": row.project_id,
+                "closed": row.closed,
+                "total_replies": row.total_replies,
+                "ticket_category": row.TicketCategory,
+                "first_post_date": row.first_post_date,
+                "first_posted_by": row.first_posted_by,
+                "first_post_content": row.first_post_content,
+                "last_post_date": row.last_post_date,
+                "last_posted_by": row.last_posted_by,
+                "last_post_content": row.last_post_content,
+                "chainhash": row.chainhash
             }
             
             if ticket["chain_dateline"]:
                 ticket["chain_dateline_datetime"] = datetime.datetime.fromtimestamp(ticket["chain_dateline"])
             if ticket["ticket_created"]:
                 ticket["ticket_created_datetime"] = datetime.datetime.fromtimestamp(ticket["ticket_created"])
-            if ticket["lastactivity"]:
-                ticket["lastactivity_datetime"] = datetime.datetime.fromtimestamp(ticket["lastactivity"])
                 
             tickets.append(ticket)
         
@@ -130,7 +216,7 @@ class TicketChainService:
     @staticmethod
     def get_ticket_details(session: Session, ticket_id: str) -> Optional[Dict[str, Any]]:
         """
-        Get detailed information for a specific ticket, including custom fields, posts, and notes
+        Get detailed information for a specific ticket, including posts and notes
         
         Args:
             session: Database session
@@ -145,36 +231,6 @@ class TicketChainService:
             if not ticket:
                 logging.error(f"No ticket found with ID: {ticket_id}")
                 return None
-
-            # Query custom fields from sw_customfieldvalues
-            custom_fields_query = text("""
-                SELECT customfieldid, fieldvalue
-                FROM sw_customfieldvalues
-                WHERE ticketid = :ticket_id
-            """)
-            custom_fields_result = session.execute(custom_fields_query, {"ticket_id": ticket_id}).fetchall()
-            custom_fields = {row['customfieldid']: row['fieldvalue'] for row in custom_fields_result}
-
-            # Map custom fields
-            site_number = custom_fields.get(117)
-            customer = custom_fields.get(104)
-            state = custom_fields.get(122)
-            city = custom_fields.get(121)
-            project_id = custom_fields.get(248)
-            location_name = ', '.join(filter(None, [
-                custom_fields.get(118),  # Address
-                custom_fields.get(121),  # City
-                custom_fields.get(122),  # State
-                custom_fields.get(123)   # ZIP
-            ]))
-
-            # Query last post
-            last_post_query = text("""
-                SELECT contents
-                FROM sw_ticketposts
-                WHERE ticketpostid = :lastpostid
-            """)
-            last_post_result = session.execute(last_post_query, {"lastpostid": ticket.lastpostid}).scalar()
 
             # Query posts with GROUP_CONCAT
             posts_query = text("""
@@ -220,23 +276,9 @@ class TicketChainService:
             notes_result = session.execute(notes_query, {"ticket_id": ticket_id}).scalar()
             notes = json.loads(notes_result) if notes_result and notes_result != '[]' else []
 
-            # Return ticket details
+            # Return ticket details (core fields populated in get_linked_tickets_by_hash)
             return {
                 "ticket_id": str(ticket.ticketid),
-                "subject": ticket.subject,
-                "site_number": site_number,
-                "customer": customer,
-                "state": state,
-                "city": city,
-                "service_date": ticket.duedate,
-                "location_name": location_name,
-                "location_id": str(ticket.locationid) if ticket.locationid else None,
-                "status": ticket.ticketstatustitle,
-                "last_post": last_post_result,
-                "created": ticket.dateline,
-                "closed": ticket.resolutiondateline,
-                "project_id": project_id,
-                "total_replies": ticket.totalreplies,
                 "posts": posts,
                 "notes": notes,
                 "linked_tickets": []  # Placeholder; populated in get_chain_details_by_ticket_id
@@ -280,13 +322,31 @@ class TicketChainService:
                 ticket_details.update({
                     "ticketlinkchainid": ticket["ticketlinkchainid"],
                     "chain_dateline": ticket["chain_dateline"],
+                    "ticketid": ticket["ticketid"],
+                    "locationid": ticket["locationid"],
                     "tickettypetitle": ticket["tickettypetitle"],
+                    "subject": ticket["subject"],
+                    "ticketstatustitle": ticket["ticketstatustitle"],
                     "departmenttitle": ticket["departmenttitle"],
                     "fullname": ticket["fullname"],
+                    "ticket_created": ticket["ticket_created"],
+                    "site_number": ticket["site_number"],
+                    "customer": ticket["customer"],
+                    "state": ticket["state"],
+                    "city": ticket["city"],
+                    "service_date": ticket["service_date"],
+                    "project_id": ticket["project_id"],
+                    "closed": ticket["closed"],
+                    "total_replies": ticket["total_replies"],
                     "ticket_category": ticket["ticket_category"],
+                    "first_post_date": ticket["first_post_date"],
+                    "first_posted_by": ticket["first_posted_by"],
+                    "first_post_content": ticket["first_post_content"],
+                    "last_post_date": ticket["last_post_date"],
+                    "last_posted_by": ticket["last_posted_by"],
+                    "last_post_content": ticket["last_post_content"],
                     "chain_dateline_datetime": ticket.get("chain_dateline_datetime"),
-                    "ticket_created_datetime": ticket.get("ticket_created_datetime"),
-                    "lastactivity_datetime": ticket.get("lastactivity_datetime")
+                    "ticket_created_datetime": ticket.get("ticket_created_datetime")
                 })
                 tickets_details.append(ticket_details)
         
