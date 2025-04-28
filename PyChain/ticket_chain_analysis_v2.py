@@ -17,8 +17,16 @@ from config import CISSDM_DB_CONFIG, OPENAI_API_KEY # Make sure OPENAI_API_KEY i
 from openai import OpenAI # <-- Add this missing import
 import tempfile
 
+# Debug Python path
+print("Current Python path:", sys.path)
+
 # Add parent directory to path for proper imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+    print(f"Added {parent_dir} to Python path")
+else:
+    print(f"Parent directory {parent_dir} already in Python path")
 
 # Load environment variables
 load_dotenv()
@@ -33,9 +41,18 @@ except ImportError:
 
 # --- Attempt to import services ---
 try:
-    from app.services.ticket_chain_service import TicketChainService 
-    from app.services.ai_service import AIService
-except ImportError:
+    print("Attempting to import services...")
+    from PyChain.app.services.ticket_chain_service import TicketChainService
+    print("Successfully imported TicketChainService")
+    from PyChain.app.services.ai_service import AIService
+    print("Successfully imported AIService")
+except ImportError as e:
+    print(f"ImportError: {e}")
+    print("Warning: app services not found. Running in standalone mode.")
+    TicketChainService = None
+    AIService = None
+except Exception as e:
+    print(f"Unexpected error during import: {e}")
     print("Warning: app services not found. Running in standalone mode.")
     TicketChainService = None
     AIService = None
@@ -911,9 +928,9 @@ def run_phase_1_report(chain_details):
     return summary_file, analysis
 
 
-# --- Phase 2 Core Logic (Using Updated Strategy) ---
+# --- Phase 2 Core Logic (Redesigned Batch and Iterative Approach) ---
 def run_phase_2_analysis(chain_details, phase1_analysis_text):
-    """Run Phase 2 analysis using the revised multi-stage query strategy."""
+    """Run Phase 2 analysis using batch processing and iterative questioning for detailed metrics."""
     assistant_id, vector_store_id = setup_vector_store_and_assistant()
     if not assistant_id or not vector_store_id: return
 
@@ -928,7 +945,7 @@ def run_phase_2_analysis(chain_details, phase1_analysis_text):
     file_paths_created = []
     session = None
     cissdm_session = None
-    final_responses = {"stages": {}} # Store results
+    final_responses = {"chain_hash": chain_hash, "ticket_count": len(expected_ticket_ids), "stages": {}}
 
     try:
         # --- Setup: DB & Files ---
@@ -943,32 +960,30 @@ def run_phase_2_analysis(chain_details, phase1_analysis_text):
         logging.info("Creating analysis files...")
         file_paths_created = create_ticket_files(chain_details, ticket_data, phase1_analysis_text)
 
-        # --- Upload & Process ---
-        logging.info("Uploading files...")
+        # --- Upload & Process (Minimal for Reference Only) ---
+        # Note: We will primarily use direct prompt transmission, not vector stores
+        logging.info("Uploading files for reference...")
         file_ids_uploaded = upload_files(file_paths_created)
         if not file_ids_uploaded: raise ValueError("File upload failed.")
 
-        logging.info(f"Adding {len(file_ids_uploaded)} files to vector store {vector_store_id}...")
-        successful_adds = [] # Track successful additions
+        logging.info(f"Adding {len(file_ids_uploaded)} files to vector store {vector_store_id} for reference...")
+        successful_adds = []
         for file_id in file_ids_uploaded:
             try:
-                # Wait for file processing before adding
-                add_wait_time = 0; timeout = 120 # 2 min timeout for file processing
+                add_wait_time = 0; timeout = 120
                 while add_wait_time < timeout:
-                     file_info = client.files.retrieve(file_id)
-                     if file_info.status == 'processed': break
-                     if file_info.status == 'failed': raise Exception(f"OpenAI file {file_id} processing failed.")
-                     # logging.debug(f"File {file_id} status: {file_info.status}, waiting {add_wait_time}s...")
-                     time.sleep(5)
-                     add_wait_time += 5
+                    file_info = client.files.retrieve(file_id)
+                    if file_info.status == 'processed': break
+                    if file_info.status == 'failed': raise Exception(f"OpenAI file {file_id} processing failed.")
+                    time.sleep(5)
+                    add_wait_time += 5
                 if client.files.retrieve(file_id).status != 'processed':
-                     raise TimeoutError(f"Timeout waiting for file {file_id} to process.")
-                # Add to vector store
+                    raise TimeoutError(f"Timeout waiting for file {file_id} to process.")
                 client.vector_stores.files.create(vector_store_id=vector_store_id, file_id=file_id)
                 successful_adds.append(file_id)
                 logging.info(f"Added file {file_id} to vector store.")
             except Exception as e:
-                 logging.error(f"Error adding file {file_id} to vector store: {e}. Skipping.")
+                logging.error(f"Error adding file {file_id} to vector store: {e}. Skipping.")
         if not successful_adds: raise ValueError("No files added to vector store.")
 
         logging.info("Waiting for vector store file processing...")
@@ -977,170 +992,135 @@ def run_phase_2_analysis(chain_details, phase1_analysis_text):
 
         # --- Link Assistant & Create Thread ---
         try:
-            client.beta.assistants.update(assistant_id=assistant_id, tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}})
-            logging.info(f"Assistant {assistant_id} linked to store {vector_store_id}.")
+            # First, check if the assistant exists
+            try:
+                client.beta.assistants.retrieve(assistant_id=assistant_id)
+                logging.info(f"Assistant {assistant_id} found, proceeding with update.")
+                client.beta.assistants.update(assistant_id=assistant_id, tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}})
+                logging.info(f"Assistant {assistant_id} linked to store {vector_store_id}.")
+            except openai.NotFoundError as not_found_err:
+                logging.warning(f"Assistant {assistant_id} not found: {not_found_err}. Creating a new assistant.")
+                # Clear the old ID and create a new assistant
+                assistant = setup_vector_store_and_assistant()[1]
+                if assistant:
+                    assistant_id = assistant.id
+                    update_env_file(assistant_id, vector_store_id)
+                    logging.info(f"New assistant created with ID: {assistant_id} and linked to store {vector_store_id}.")
+                else:
+                    logging.error("Failed to create a new assistant.")
+                    raise
             thread = client.beta.threads.create()
             if not thread or not thread.id: raise ConnectionError("Failed thread creation.")
             logging.info(f"Analysis thread created: {thread.id}")
         except Exception as e:
             logging.error(f"Error linking Assistant or creating Thread: {e}", exc_info=True)
-            raise # Abort if setup fails
+            raise
 
-        # --- Multi-Stage Query Execution ---
+        # --- Redesigned Phase 2: Batch Processing and Iterative Analysis ---
         ticket_ids_list_str = ", ".join(f'"{tid}"' for tid in expected_ticket_ids)
 
-        # Query 1: Full Narrative Analysis
-        logging.info("\n--- Running Query Stage 1: Full Narrative Analysis ---")
-        query1_prompt = f"""
-Read ALL provided files (`tickets_*.json`, `chain_*.json`, `phase1_analysis_*.json`, `relationships_*.json`, `Ticket_Records_Information_and_Rules.txt`).
-Provide a comprehensive NARRATIVE analysis of the ticket chain {chain_hash}. Include:
-1.  Job Overview: Summarize project goal, overall status (validate against rules/latest tickets), and timeline (use earliest/latest post timestamps if needed).
-2.  Key Events & Issues: Detail significant events like phase completions, cancellations (VALIDATE reasons like snowstorm for 2382726, no check-in for 2385184, customer unaware for 2389439/2389461/2382746), failures, revisits. Cite post evidence (author/timestamp).
-3.  Relationship Summary: Describe observed dispatch-to-turnup links (use parent_dispatch_id, phase matching), noting orphans or non-1:1s based on rules.
-4.  Scope Details: Summarize technical scope (e.g., Cat 6 cabling, rack install from 2376701, Fortinet details from 2376735).
-5.  Missing Data: List key info NOT found (cable counts, billable status, etc.).
-Follow instructions STRICTLY. No assumptions. Prioritize ticket data.
-"""
-        try:
-            full_analysis_text = run_assistant_query(thread.id, assistant_id, query1_prompt)
-            final_responses["stages"]["Full Narrative Analysis"] = full_analysis_text
-            print("\n--- Full Narrative Analysis Result ---")
-            print(full_analysis_text or "No narrative response.")
-            print("--------------------------------------")
-        except Exception as e:
-            logging.error(f"Query Stage 1 failed: {e}")
-            final_responses["stages"]["Full Narrative Analysis"] = {"error": str(e)}
+        # Step 1: Batch Analysis of Ticket Pairs/Groups
+        logging.info("\n--- Running Phase 2 Step 1: Batch Analysis of Tickets ---")
+        batches = create_ticket_batches(ticket_data, expected_ticket_ids)
+        batch_results = []
+        for i, batch in enumerate(batches):
+            logging.info(f"Analyzing Batch {i+1}/{len(batches)} with {len(batch['ticket_ids'])} tickets...")
+            batch_prompt = create_batch_analysis_prompt(chain_hash, batch, ticket_data)
+            try:
+                batch_response = run_assistant_query(thread.id, assistant_id, batch_prompt)
+                validated_json = validate_response(batch_response, batch['ticket_ids'])
+                batch_results.append({
+                    "batch_id": i+1,
+                    "ticket_ids": batch['ticket_ids'],
+                    "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": batch_response}
+                })
+                final_responses["stages"][f"Batch_{i+1}_Analysis"] = batch_results[-1]
+                print(f"\n--- Batch {i+1} Analysis Result (JSON) ---")
+                if validated_json: print(json.dumps(validated_json, indent=2))
+                else: print(f"ERROR: Invalid JSON.\nRaw:\n{batch_response}")
+                print("-----------------------------------")
+            except Exception as e:
+                logging.error(f"Batch {i+1} analysis failed: {e}")
+                batch_results.append({"batch_id": i+1, "ticket_ids": batch['ticket_ids'], "error": str(e)})
+                final_responses["stages"][f"Batch_{i+1}_Analysis"] = {"error": str(e)}
 
-        # Query 2: Relationship Validation
-        logging.info("\n--- Running Query Stage 2: Relationship Validation ---")
-        query2_prompt = f"""
-Based on your full analysis of all files for chain {chain_hash}, read `relationships_{chain_hash}.json`.
-Provide ONLY a valid JSON list. For EACH object in the predefined `relationships` list, return an object with:
-1.  `PredefinedRelationship`: The original relationship object.
-2.  `ValidationStatus`: 'Confirmed', 'Partially Confirmed', 'Incorrect', 'Cannot Validate'.
-3.  `Evidence`: Brief explanation citing ticket IDs or post details.
-4.  `SuggestedCorrection`: If incorrect/incomplete, suggest changes.
-Add a top-level key `AdditionalObservedRelationships` containing a list of *other* dispatch-turnup relationships you identified (with evidence and confidence) that were *not* predefined. Flag orphans.
-"""
-        try:
-            relationship_json_str = run_assistant_query(thread.id, assistant_id, query2_prompt)
-            validated_json = validate_response(relationship_json_str, expected_ticket_ids)
-            final_responses["stages"]["Relationship Validation"] = validated_json if validated_json else {"error": "Invalid JSON", "raw": relationship_json_str}
-            print("\n--- Relationship Validation Result (JSON) ---")
-            if validated_json: print(json.dumps(validated_json, indent=2))
-            else: print(f"ERROR: Invalid JSON.\nRaw:\n{relationship_json_str}")
-            print("---------------------------------------------")
-        except Exception as e:
-            logging.error(f"Query Stage 2 failed: {e}")
-            final_responses["stages"]["Relationship Validation"] = {"error": str(e)}
+        # Step 2: Issue Indexing
+        logging.info("\n--- Running Phase 2 Step 2: Issue Indexing ---")
+        issues_index = compile_issues_index(batch_results)
+        final_responses["stages"]["Issues_Index"] = issues_index
+        print("\n--- Issues Index ---")
+        print(json.dumps(issues_index, indent=2))
+        print("--------------------")
 
-        # Query 3: Job Details (Flexible JSON)
-        logging.info("\n--- Running Query Stage 3: Targeted JSON - Job Details ---")
-        query3_prompt = f"""
-Based on your full analysis for chain {chain_hash}, provide ONLY a valid JSON object summarizing job details. Structure naturally. Include:
-- `JobID`, `OverallStatus` (Validated), `StartDate` (Earliest Post), `EndDate` (Latest Post), `JobDescriptionSummary`.
-- `ListOfTicketIDs` (Unique list of ALL expected IDs: [{ticket_ids_list_str}]).
-- `KeyPhasesIdentified`.
-- `DetailedScopeHighlights` (Cat 6, rack, Fortinet, etc.).
-- `RelationshipSummary` (Validated links, orphans, non-1:1s).
-- `MajorIssuesSummary` (List key issues: cancellations, failures, revisits with IDs and validated reasons).
-- `MissingDataNotes` (List specific gaps).
-No unsupported fields. Cite evidence implicitly through accuracy.
-"""
+        # Step 3: Follow-up Question Generation
+        logging.info("\n--- Running Phase 2 Step 3: Follow-up Question Generation ---")
+        questions_prompt = create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str)
         try:
-            job_details_json_str = run_assistant_query(thread.id, assistant_id, query3_prompt)
-            # Apply duplicate removal during validation
-            validated_json = validate_response(job_details_json_str, expected_ticket_ids)
-            final_responses["stages"]["Job Details JSON"] = validated_json if validated_json else {"error": "Invalid JSON", "raw": job_details_json_str}
-            print("\n--- Job Details Result (JSON) ---")
-            if validated_json: print(json.dumps(validated_json, indent=2))
-            else: print(f"ERROR: Invalid JSON.\nRaw:\n{job_details_json_str}")
-            print("-----------------------------------")
+            questions_response = run_assistant_query(thread.id, assistant_id, questions_prompt)
+            questions_json = validate_response(questions_response, expected_ticket_ids)
+            final_responses["stages"]["Followup_Questions"] = questions_json if questions_json else {"error": "Invalid JSON", "raw": questions_response}
+            print("\n--- Follow-up Questions (JSON) ---")
+            if questions_json: print(json.dumps(questions_json, indent=2))
+            else: print(f"ERROR: Invalid JSON.\nRaw:\n{questions_response}")
+            print("--------------------------------")
         except Exception as e:
-            logging.error(f"Query Stage 3 failed: {e}")
-            final_responses["stages"]["Job Details JSON"] = {"error": str(e)}
+            logging.error(f"Follow-up question generation failed: {e}")
+            final_responses["stages"]["Followup_Questions"] = {"error": str(e)}
 
-        # Query 4: Cancellations (Flexible JSON)
-        logging.info("\n--- Running Query Stage 4: Targeted JSON - Cancellations ---")
-        query4_prompt = f"""
-Based on your full analysis for chain {chain_hash}, identify ALL cancellations/postponements/failures requiring reschedule across ALL tickets [{ticket_ids_list_str}].
-Provide ONLY a valid JSON list. For EACH event include:
-- `TicketID` (Where event noted, ensure 2382746 is checked)
-- `CancellationPhase`
-- `Reason` (Validated against posts/notes - e.g., 'Snowstorm', 'No Check-in', 'Customer Unaware')
-- `DateTime` (If available)
-- `Initiator` (If mentioned)
-Cite evidence implicitly. Structure naturally. Flag missing reasons.
-"""
+        # Step 4: User Input for Custom Questions
+        logging.info("\n--- Running Phase 2 Step 4: User Input for Custom Questions ---")
         try:
-            cancellations_json_str = run_assistant_query(thread.id, assistant_id, query4_prompt)
-            validated_json = validate_response(cancellations_json_str, expected_ticket_ids)
-            final_responses["stages"]["Cancellations JSON"] = validated_json if validated_json else {"error": "Invalid JSON", "raw": cancellations_json_str}
-            print("\n--- Cancellations Result (JSON) ---")
-            if validated_json: print(json.dumps(validated_json, indent=2))
-            else: print(f"ERROR: Invalid JSON.\nRaw:\n{cancellations_json_str}")
-            print("-------------------------------------")
+            user_question = input("\nDo you have a specific question about these dispatch events to ask for each relevant ticket? (type your question or 'no' to skip): ").strip()
+            user_questions = {}
+            if user_question.lower() != 'no' and user_question:
+                user_questions = {"global_question": user_question}
+                logging.info(f"User added custom question: {user_question}")
+            else:
+                logging.info("User skipped adding a custom question.")
+            final_responses["stages"]["User_Questions"] = user_questions
         except Exception as e:
-            logging.error(f"Query Stage 4 failed: {e}")
-            final_responses["stages"]["Cancellations JSON"] = {"error": str(e)}
+            logging.error(f"Error getting user input for custom questions: {e}")
+            final_responses["stages"]["User_Questions"] = {"error": str(e)}
 
-        # Example: Audit Phase Details
-        logging.info("\n--- Running Query Stage 5: Targeted JSON - Audit Phase Details ---")
-        query5_prompt = f"""
-Based on your full analysis for chain {chain_hash} and the context rules (`Ticket_Records_Information_and_Rules.txt`), identify tickets currently in an AUDIT PHASE (Dispatch/Pro Services queue with completed Turnup) or that have completed audit.
-Provide ONLY a valid JSON list. For EACH relevant ticket include:
-- `TicketID`
-- `AuditStatus` ('In Audit', 'Audit Complete', 'N/A')
-- `TurnupCompletionEvidence` (Cite post/status of linked Turnup)
-- `DispatchQueue` (Dispatch, Pro Services, FST Accounting)
-- `WasRevisitRequired` (Yes/No)
-- `RevisitBillable` ('Yes', 'No', 'Unclear' - based on validated reason)
-Include all tickets [{ticket_ids_list_str}], marking as N/A if not in audit. Flag missing data.
-"""
-        try:
-            audit_json_str = run_assistant_query(thread.id, assistant_id, query5_prompt)
-            validated_json = validate_response(audit_json_str, expected_ticket_ids)
-            final_responses["stages"]["Audit Phase JSON"] = validated_json if validated_json else {"error": "Invalid JSON", "raw": audit_json_str}
-            print("\n--- Audit Phase Result (JSON) ---")
-            if validated_json: print(json.dumps(validated_json, indent=2))
-            else: print(f"ERROR: Invalid JSON.\nRaw:\n{audit_json_str}")
-            print("---------------------------------")
-        except Exception as e:
-            logging.error(f"Query Stage 5 (Audit) failed: {e}")
-            final_responses["stages"]["Audit Phase JSON"] = {"error": str(e)}
+        # Step 5: Detailed Re-Analysis with Questions
+        logging.info("\n--- Running Phase 2 Step 5: Detailed Re-Analysis with Questions ---")
+        detailed_results = []
+        tickets_with_questions = get_tickets_with_questions(questions_json if questions_json else {}, user_questions, ticket_data)
+        for ticket_id, q_data in tickets_with_questions.items():
+            logging.info(f"Re-analyzing ticket {ticket_id} with specific questions...")
+            detail_prompt = create_detailed_analysis_prompt(chain_hash, ticket_id, ticket_data, q_data["questions"])
+            try:
+                detail_response = run_assistant_query(thread.id, assistant_id, detail_prompt)
+                detail_json = validate_response(detail_response, [ticket_id])
+                detailed_results.append({
+                    "ticket_id": ticket_id,
+                    "result": detail_json if detail_json else {"error": "Invalid JSON", "raw": detail_response}
+                })
+                final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = detailed_results[-1]
+                print(f"\n--- Detailed Analysis for Ticket {ticket_id} (JSON) ---")
+                if detail_json: print(json.dumps(detail_json, indent=2))
+                else: print(f"ERROR: Invalid JSON.\nRaw:\n{detail_response}")
+                print("-----------------------------------")
+            except Exception as e:
+                logging.error(f"Detailed analysis for ticket {ticket_id} failed: {e}")
+                detailed_results.append({"ticket_id": ticket_id, "error": str(e)})
+                final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = {"error": str(e)}
 
-        # Example: Billing Details
-        logging.info("\n--- Running Query Stage 6: Targeted JSON - Billing Details ---")
-        query6_prompt = f"""
-Based on your full analysis for chain {chain_hash}, identify all BILLING related tickets (e.g., 2401881, 2402063).
-Provide ONLY a valid JSON list. For EACH billing ticket include:
-- `TicketID`
-- `BillingType` ('Milestone - 50%', 'Complete', 'Other')
-- `Status` (Validated status)
-- `InvoiceAmount` (If mentioned)
-- `PaymentStatus` (If determinable from status/rules)
-- `AssociatedMilestone` (e.g., 'P1 Completion', 'Project End')
-Include all relevant tickets [{ticket_ids_list_str}]. Flag missing amounts/status.
-"""
-        try:
-            billing_json_str = run_assistant_query(thread.id, assistant_id, query6_prompt)
-            validated_json = validate_response(billing_json_str, expected_ticket_ids)
-            final_responses["stages"]["Billing Details JSON"] = validated_json if validated_json else {"error": "Invalid JSON", "raw": billing_json_str}
-            print("\n--- Billing Details Result (JSON) ---")
-            if validated_json: print(json.dumps(validated_json, indent=2))
-            else: print(f"ERROR: Invalid JSON.\nRaw:\n{billing_json_str}")
-            print("-------------------------------------")
-        except Exception as e:
-            logging.error(f"Query Stage 6 (Billing) failed: {e}")
-            final_responses["stages"]["Billing Details JSON"] = {"error": str(e)}
+        # Step 6: Final Consolidation
+        logging.info("\n--- Running Phase 2 Step 6: Final Consolidation ---")
+        consolidated_report = consolidate_final_report(batch_results, issues_index, detailed_results, ticket_data, chain_hash)
+        final_responses["consolidated_report"] = consolidated_report
+        print("\n--- Consolidated Final Report (JSON) ---")
+        print(json.dumps(consolidated_report, indent=2))
+        print("---------------------------------------")
 
         # --- Save Final Output ---
         logging.info("\nPhase 2 analysis complete.")
-        final_output_file = f"PyChain/data/analyses/Phase2_MultiStage_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        final_output_file = f"PyChain/data/analyses/Phase2_BatchIterative_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         try:
             with open(final_output_file, 'w') as f:
                 json.dump(final_responses, f, indent=2)
-            logging.info(f"Saved combined Phase 2 multi-stage results to {final_output_file}")
+            logging.info(f"Saved combined Phase 2 results to {final_output_file}")
         except Exception as e:
             logging.error(f"Failed to save combined Phase 2 JSON output: {e}")
 
@@ -1148,28 +1128,254 @@ Include all relevant tickets [{ticket_ids_list_str}]. Flag missing amounts/statu
         logging.error(f"CRITICAL ERROR during Phase 2 analysis: {e}", exc_info=True)
     finally:
         # Close DB sessions
-        if session: # Primary DB Session
-             try: session.close(); logging.info("Primary DB session closed.")
-             except Exception as db_close_err: logging.error(f"Error closing primary DB session: {db_close_err}")
-        if cissdm_session: # CISSDM Session
-             try: cissdm_session.close(); logging.info("CISSDM DB session closed.")
-             except Exception as db_close_err: logging.error(f"Error closing CISSDM DB session: {db_close_err}")
+        if session:
+            try: session.close(); logging.info("Primary DB session closed.")
+            except Exception as db_close_err: logging.error(f"Error closing primary DB session: {db_close_err}")
+        if cissdm_session:
+            try: cissdm_session.close(); logging.info("CISSDM DB session closed.")
+            except Exception as db_close_err: logging.error(f"Error closing CISSDM DB session: {db_close_err}")
         # Clean up local files
         logging.info("Cleaning up temporary local files...")
         for file_path in file_paths_created:
-             try:
-                 if os.path.exists(file_path): os.remove(file_path)
-             except Exception as e: logging.warning(f"Error removing local file {file_path}: {e}")
+            try:
+                if os.path.exists(file_path): os.remove(file_path)
+            except Exception as e: logging.warning(f"Error removing local file {file_path}: {e}")
         # Ask user about OpenAI cleanup
         if file_ids_uploaded:
-             try:
-                  cleanup_response = input("\nDo you want to clean up OpenAI resources (files)? (y/n): ").strip().lower()
-                  if cleanup_response == 'y':
-                      delete_store = input("Also delete the vector store? (y/n): ").strip().lower() == 'y'
-                      cleanup_openai_resources(file_ids_uploaded, vector_store_id, delete_store)
-             except EOFError: logging.warning("Skipping OpenAI cleanup prompt (non-interactive).")
-             except Exception as input_err: logging.error(f"Error during cleanup prompt: {input_err}")
+            try:
+                cleanup_response = input("\nDo you want to clean up OpenAI resources (files)? (y/n): ").strip().lower()
+                if cleanup_response == 'y':
+                    delete_store = input("Also delete the vector store? (y/n): ").strip().lower() == 'y'
+                    cleanup_openai_resources(file_ids_uploaded, vector_store_id, delete_store)
+            except EOFError: logging.warning("Skipping OpenAI cleanup prompt (non-interactive).")
+            except Exception as input_err: logging.error(f"Error during cleanup prompt: {input_err}")
         else: logging.info("Skipping OpenAI cleanup as no files were uploaded.")
+
+
+# --- Helper Functions for Redesigned Phase 2 ---
+def create_ticket_batches(ticket_data, expected_ticket_ids):
+    """Create batches of related tickets for analysis to manage token limits."""
+    batches = []
+    dispatch_to_turnups = {}
+    orphan_tickets = []
+
+    # Map dispatch to turnup tickets
+    for tid in expected_ticket_ids:
+        data = ticket_data.get(tid, {})
+        if data.get('category') == 'Turnup Tickets' and data.get('parent_dispatch_id'):
+            dispatch_id = str(data['parent_dispatch_id'])
+            if dispatch_id not in dispatch_to_turnups:
+                dispatch_to_turnups[dispatch_id] = []
+            dispatch_to_turnups[dispatch_id].append(tid)
+        elif data.get('category') not in ['Dispatch Tickets', 'Turnup Tickets'] or not data.get('parent_dispatch_id'):
+            orphan_tickets.append(tid)
+
+    # Create batches from dispatch-turnup mappings
+    for dispatch_id, turnup_ids in dispatch_to_turnups.items():
+        if dispatch_id in ticket_data:
+            batch = [dispatch_id] + turnup_ids
+            batches.append({
+                "ticket_ids": batch,
+                "focus": f"Dispatch {dispatch_id} and related Turnups"
+            })
+
+    # Handle orphans in small batches
+    orphan_batch_size = 3
+    for i in range(0, len(orphan_tickets), orphan_batch_size):
+        batch = orphan_tickets[i:i + orphan_batch_size]
+        batches.append({
+            "ticket_ids": batch,
+            "focus": "Orphan or Uncategorized Tickets"
+        })
+
+    if not batches:
+        # Fallback: Batch all tickets in groups if no clear mapping
+        batch_size = 5
+        for i in range(0, len(expected_ticket_ids), batch_size):
+            batch = expected_ticket_ids[i:i + batch_size]
+            batches.append({
+                "ticket_ids": batch,
+                "focus": "General Ticket Batch"
+            })
+
+    return batches
+
+def create_batch_analysis_prompt(chain_hash, batch, ticket_data):
+    """Create a prompt for analyzing a batch of tickets."""
+    ticket_ids_str = ", ".join(f'"{tid}"' for tid in batch['ticket_ids'])
+    prompt = f"""
+Analyze the following batch of tickets for chain {chain_hash}. Focus on {batch['focus']}.
+Ticket IDs in this batch: [{ticket_ids_str}].
+
+Extract detailed metrics and issues for each ticket. Include:
+- Ticket ID, Category, Status, and Subject.
+- Timeline: Creation date, service date, completion date (if available).
+- Scope: Technical details or work description (e.g., cabling, equipment).
+- Outcome: Was the scope completed? Any issues or cancellations?
+- Revisit: Was a revisit required? If so, why?
+- Metrics: Time on site (if determinable), delays (if any).
+
+Provide the response as a valid JSON list of objects, one per ticket. Cite evidence from ticket data where possible.
+
+Ticket Data for Reference:
+"""
+    for tid in batch['ticket_ids']:
+        data = ticket_data.get(tid, {})
+        technical_details = data.get('technical_details', 'N/A')
+        if len(technical_details) > 200:
+            technical_details = technical_details[:200] + "..."
+        prompt += f"- Ticket {tid}:\n"
+        prompt += f"  - Category: {data.get('category', 'N/A')}\n"
+        prompt += f"  - Subject: {data.get('subject', 'N/A')}\n"
+        prompt += f"  - Status: {data.get('status', 'N/A')}\n"
+        prompt += f"  - Created: {data.get('created_date', 'N/A')}\n"
+        prompt += f"  - Last Activity: {data.get('last_activity_date', 'N/A')}\n"
+        prompt += f"  - Technical Details: {technical_details}\n"
+        prompt += f"  - Posts/Notes Count: {len(data.get('posts', []))} posts, {len(data.get('notes', []))} notes\n"
+    prompt += "\nFollow instructions strictly. Output ONLY valid JSON."
+    return prompt
+
+def compile_issues_index(batch_results):
+    """Compile a list of issues/problems per ticket from batch analysis results."""
+    issues_index = {"tickets_with_issues": []}
+    for batch in batch_results:
+        if "result" in batch and isinstance(batch["result"], list):
+            for ticket_analysis in batch["result"]:
+                ticket_id = str(ticket_analysis.get("TicketID", ticket_analysis.get("ticket_id", "")))
+                issues = ticket_analysis.get("Issues", ticket_analysis.get("Outcome", {}).get("Issues", []))
+                if isinstance(issues, str):
+                    issues = [issues]
+                if issues and ticket_id:
+                    issues_index["tickets_with_issues"].append({
+                        "ticket_id": ticket_id,
+                        "issues": issues
+                    })
+    return issues_index
+
+def create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str):
+    """Create a prompt to generate follow-up questions for tickets with issues."""
+    prompt = f"""
+Based on the analysis for chain {chain_hash}, generate specific follow-up questions to clarify issues identified in the tickets.
+
+Issues Index:
+"""
+    for entry in issues_index.get("tickets_with_issues", []):
+        prompt += f"- Ticket {entry['ticket_id']}:\n  - Issues: {', '.join(entry['issues']) if isinstance(entry['issues'], list) else entry['issues']}\n"
+    prompt += f"""
+
+Provide ONLY a valid JSON object with a key `questions_by_ticket` mapping ticket IDs to a list of specific questions (max 3 per ticket) to clarify the issues.
+Include all tickets [{ticket_ids_list_str}], even if no issues were found (use empty list for no questions).
+"""
+    return prompt
+
+def get_tickets_with_questions(questions_json, user_questions, ticket_data):
+    """Compile tickets that need re-analysis with AI-generated and user questions."""
+    tickets_with_questions = {}
+    if questions_json and isinstance(questions_json, dict):
+        questions_by_ticket = questions_json.get("questions_by_ticket", {})
+        for ticket_id, questions in questions_by_ticket.items():
+            if questions and isinstance(questions, list):
+                tickets_with_questions[ticket_id] = {"questions": questions}
+
+    # Add user question to relevant tickets (dispatch or turnup)
+    user_q = user_questions.get("global_question", "")
+    if user_q:
+        for ticket_id, data in ticket_data.items():
+            if data.get("category") in ["Dispatch Tickets", "Turnup Tickets"]:
+                if ticket_id not in tickets_with_questions:
+                    tickets_with_questions[ticket_id] = {"questions": []}
+                tickets_with_questions[ticket_id]["questions"].append(user_q)
+
+    return tickets_with_questions
+
+def create_detailed_analysis_prompt(chain_hash, ticket_id, ticket_data, questions):
+    """Create a prompt for detailed re-analysis of a ticket with specific questions."""
+    data = ticket_data.get(ticket_id, {})
+    questions_str = "\n".join([f"- {q}" for q in questions])
+    prompt = f"""
+Perform a detailed analysis of ticket {ticket_id} for chain {chain_hash}. Focus on answering specific questions to clarify issues.
+
+Ticket Data:
+- Category: {data.get('category', 'N/A')}
+- Subject: {data.get('subject', 'N/A')}
+- Status: {data.get('status', 'N/A')}
+- Created: {data.get('created_date', 'N/A')}
+- Last Activity: {data.get('last_activity_date', 'N/A')}
+"""
+    technical_details = data.get('technical_details', 'N/A')
+    if len(technical_details) > 300:
+        technical_details = technical_details[:300] + "..."
+    prompt += f"- Technical Details: {technical_details}\n"
+    prompt += f"- Posts: {len(data.get('posts', []))} entries (first few for reference):\n"
+    for i, post in enumerate(data.get('posts', [])[:3]):
+        content = post.get('content', 'N/A')
+        if len(content) > 150:
+            content = content[:150] + "..."
+        prompt += f"  - Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}): {content}\n"
+    prompt += f"- Notes: {len(data.get('notes', []))} entries (first few for reference):\n"
+    for i, note in enumerate(data.get('notes', [])[:3]):
+        content = note.get('content', 'N/A')
+        if len(content) > 150:
+            content = content[:150] + "..."
+        prompt += f"  - Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}): {content}\n"
+    prompt += f"""
+
+Specific Questions to Answer:
+{questions_str}
+
+Provide the response as a valid JSON object with keys:
+- `ticket_id`: The ticket ID.
+- `category`: The ticket category.
+- `detailed_metrics`: Object with timeline, scope, outcome, revisit info, and metrics.
+- `answers`: Object mapping each question to its detailed answer with evidence cited.
+
+Output ONLY valid JSON.
+"""
+    return prompt
+
+def consolidate_final_report(batch_results, issues_index, detailed_results, ticket_data, chain_hash):
+    """Consolidate all analysis results into a final structured report."""
+    report = {
+        "chain_hash": chain_hash,
+        "timestamp": datetime.now().isoformat(),
+        "tickets_analyzed": [],
+        "metrics_summary": {},
+        "issues_summary": issues_index,
+        "detailed_analyses": []
+    }
+
+    # Compile ticket summaries from batch results
+    ticket_summaries = {}
+    for batch in batch_results:
+        if "result" in batch and isinstance(batch["result"], list):
+            for ticket_analysis in batch["result"]:
+                ticket_id = str(ticket_analysis.get("TicketID", ticket_analysis.get("ticket_id", "")))
+                if ticket_id:
+                    ticket_summaries[ticket_id] = ticket_analysis
+                    report["tickets_analyzed"].append(ticket_id)
+
+    # Add detailed analyses
+    for detail in detailed_results:
+        ticket_id = detail["ticket_id"]
+        if "result" in detail and detail["result"].get("ticket_id"):
+            report["detailed_analyses"].append(detail["result"])
+
+    # Summarize key metrics across tickets
+    total_tickets = len(report["tickets_analyzed"])
+    dispatch_count = sum(1 for tid in ticket_summaries if ticket_data.get(tid, {}).get("category") == "Dispatch Tickets")
+    turnup_count = sum(1 for tid in ticket_summaries if ticket_data.get(tid, {}).get("category") == "Turnup Tickets")
+    revisit_count = sum(1 for tid in ticket_summaries if ticket_summaries[tid].get("Revisit", {}).get("Required", False))
+    issue_count = len(issues_index.get("tickets_with_issues", []))
+
+    report["metrics_summary"] = {
+        "total_tickets": total_tickets,
+        "dispatch_tickets": dispatch_count,
+        "turnup_tickets": turnup_count,
+        "revisits_required": revisit_count,
+        "tickets_with_issues": issue_count
+    }
+
+    return report
 
 
 # --- Main Orchestration ---
@@ -1180,6 +1386,10 @@ def analyze_real_ticket(ticket_id):
         session = get_db_session("primary")
         if not session: return
         logging.info(f"Retrieving ticket chain for ticket ID: {ticket_id}")
+        if TicketChainService is None:
+            logging.error("TicketChainService is not available. Cannot retrieve ticket chain details.")
+            print("Error: Ticket chain analysis cannot proceed because required services are not available.")
+            return
         chain_details = TicketChainService.get_chain_details_by_ticket_id(session, ticket_id)
 
         chain_details_display = display_ticket_details(chain_details)

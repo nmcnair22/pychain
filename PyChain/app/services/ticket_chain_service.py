@@ -5,7 +5,6 @@ from app.models.ticket_chain import TicketChain
 from app.models.dispatch_ticket import DispatchTicket
 from app.models.turnup_ticket import TurnupTicket
 from app.models.ticket import Ticket
-from .ai_service import AIService
 import datetime
 from config import CISSDM_DB_CONFIG
 import os
@@ -254,6 +253,9 @@ class TicketChainService:
         Returns:
             Analysis text describing the relationships
         """
+        # Lazy import AIService to avoid circular dependency
+        from .ai_service import AIService
+        
         # Get the ticket chain
         chain_details = TicketChainService.get_chain_details_by_ticket_id(db, ticket_id)
         
