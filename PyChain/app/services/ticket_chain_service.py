@@ -1,5 +1,6 @@
 import logging
 import json
+import re
 from typing import Optional, Dict, List, Any
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, Session
@@ -12,6 +13,29 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 class TicketChainService:
     """Service to handle ticket chain operations and analysis"""
+
+    @staticmethod
+    def sanitize_json_content(content: str) -> str:
+        """
+        Sanitize content for JSON by escaping control characters and ensuring UTF-8 compatibility.
+        
+        Args:
+            content (str): The content to sanitize
+            
+        Returns:
+            str: Sanitized content safe for JSON parsing
+        """
+        if not content:
+            return ""
+        try:
+            # Replace control characters (ASCII 0-31) with escaped equivalents
+            sanitized = re.sub(r'[\x00-\x1F]', lambda m: f'\\u{ord(m.group(0)):04x}', content)
+            # Ensure UTF-8 encoding, replacing invalid characters
+            sanitized = sanitized.encode('utf-8', errors='ignore').decode('utf-8')
+            return sanitized
+        except Exception as e:
+            logging.error(f"Error sanitizing content: {str(e)}")
+            return ""
 
     @staticmethod
     def get_db_session(db_type: str = "primary") -> Optional[Session]:
@@ -205,9 +229,9 @@ class TicketChainService:
             }
             
             if ticket["chain_dateline"]:
-                ticket["chain_dateline_datetime"] = datetime.datetime.fromtimestamp(ticket["chain_dateline"])
+                ticket["chain_dateline_datetime"] = datetime.datetime.fromtimestamp(row.chain_dateline)
             if ticket["ticket_created"]:
-                ticket["ticket_created_datetime"] = datetime.datetime.fromtimestamp(ticket["ticket_created"])
+                ticket["ticket_created_datetime"] = datetime.datetime.fromtimestamp(row.ticket_created)
                 
             tickets.append(ticket)
         
@@ -232,49 +256,65 @@ class TicketChainService:
                 logging.error(f"No ticket found with ID: {ticket_id}")
                 return None
 
-            # Query posts with GROUP_CONCAT
+            # Query posts individually
             posts_query = text("""
-                SELECT CONCAT(
-                    '[',
-                    GROUP_CONCAT(
-                        CONCAT(
-                            '{"ticketpostid":"', stp.ticketpostid,
-                            '", "post_dateline":"', FROM_UNIXTIME(stp.dateline),
-                            '", "fullname":"', REPLACE(stp.fullname, '"', '\\"'),
-                            '", "contents":"', REPLACE(stp.contents, '"', '\\"'),
-                            '", "isprivate":"', stp.isprivate,
-                            '"}'
-                        )
-                    ),
-                    ']'
-                ) AS posts
-                FROM sw_ticketposts stp
-                WHERE stp.ticketid = :ticket_id
+                SELECT 
+                    ticketpostid,
+                    FROM_UNIXTIME(dateline) AS post_dateline,
+                    COALESCE(fullname, '') AS fullname,
+                    COALESCE(contents, '') AS contents,
+                    isprivate
+                FROM sw_ticketposts
+                WHERE ticketid = :ticket_id
+                ORDER BY dateline
             """)
-            posts_result = session.execute(posts_query, {"ticket_id": ticket_id}).scalar()
-            posts = json.loads(posts_result) if posts_result and posts_result != '[]' else []
+            logging.debug(f"Executing posts query for ticket {ticket_id}: {posts_query}")
+            posts_result = session.execute(posts_query, {"ticket_id": ticket_id}).fetchall()
+            posts = []
+            for row in posts_result:
+                try:
+                    sanitized_content = TicketChainService.sanitize_json_content(row.contents)
+                    post = {
+                        "ticketpostid": str(row.ticketpostid),
+                        "post_dateline": row.post_dateline,
+                        "fullname": row.fullname,
+                        "contents": sanitized_content,
+                        "isprivate": row.isprivate
+                    }
+                    posts.append(post)
+                except Exception as e:
+                    logging.error(f"Failed to process post {row.ticketpostid} for ticket {ticket_id}: {str(e)}")
+                    logging.error(f"Problematic post content: {row.contents[:200]}...")
 
-            # Query notes with GROUP_CONCAT
+            # Query notes individually
             notes_query = text("""
-                SELECT CONCAT(
-                    '[',
-                    GROUP_CONCAT(
-                        CONCAT(
-                            '{"ticketnoteid":"', n.ticketnoteid,
-                            '", "note_staffid":"', n.staffid,
-                            '", "note_dateline":"', FROM_UNIXTIME(n.dateline),
-                            '", "staffname":"', REPLACE(n.staffname, '"', '\\"'),
-                            '", "note":"', REPLACE(n.note, '"', '\\"'),
-                            '"}'
-                        )
-                    ),
-                    ']'
-                ) AS notes
-                FROM sw_ticketnotes n
-                WHERE n.linktypeid = :ticket_id
+                SELECT 
+                    ticketnoteid,
+                    staffid AS note_staffid,
+                    FROM_UNIXTIME(dateline) AS note_dateline,
+                    COALESCE(staffname, '') AS staffname,
+                    COALESCE(note, '') AS note
+                FROM sw_ticketnotes
+                WHERE linktypeid = :ticket_id
+                ORDER BY dateline
             """)
-            notes_result = session.execute(notes_query, {"ticket_id": ticket_id}).scalar()
-            notes = json.loads(notes_result) if notes_result and notes_result != '[]' else []
+            logging.debug(f"Executing notes query for ticket {ticket_id}: {notes_query}")
+            notes_result = session.execute(notes_query, {"ticket_id": ticket_id}).fetchall()
+            notes = []
+            for row in notes_result:
+                try:
+                    sanitized_note = TicketChainService.sanitize_json_content(row.note)
+                    note = {
+                        "ticketnoteid": str(row.ticketnoteid),
+                        "note_staffid": str(row.note_staffid),
+                        "note_dateline": row.note_dateline,
+                        "staffname": row.staffname,
+                        "note": sanitized_note
+                    }
+                    notes.append(note)
+                except Exception as e:
+                    logging.error(f"Failed to process note {row.ticketnoteid} for ticket {ticket_id}: {str(e)}")
+                    logging.error(f"Problematic note content: {row.note[:200]}...")
 
             # Return ticket details (core fields populated in get_linked_tickets_by_hash)
             return {
@@ -284,7 +324,7 @@ class TicketChainService:
                 "linked_tickets": []  # Placeholder; populated in get_chain_details_by_ticket_id
             }
         except Exception as e:
-            logging.error(f"Error retrieving ticket details for ticket {ticket_id}: {e}")
+            logging.error(f"Error retrieving ticket details for ticket {ticket_id}: {str(e)}")
             return None
 
     @staticmethod

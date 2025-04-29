@@ -1,0 +1,157 @@
+Here’s a comprehensive analysis of the ticket chain related to ticket 2380335, addressing your specific requests:
+
+---
+
+## 1. Parent-Child Relationships (linked_tickets)
+
+**Summary:**
+- **No explicit parent-child relationships.**  
+  - The `linked_tickets` field in all records is empty.
+  - All tickets are part of the same chain (common `chain_hash`), but formally, each is an individual record without direct system-level linkage.
+
+---
+
+## 2. Dispatch-Turnup-Billing Linkages
+
+We infer relationships thematically and by chronology, as formal linkage is missing.
+
+### **A. Dispatch to Turnup**
+
+- **2376830 (Turnup Assist Request):**  
+  - _Initial dispatch ticket_: Calls for remote resources for a network cutover.
+  - **Closeout post**: "Closing as clean up efforts of 2/6/2025".
+
+- **2376701 (Cabling/Network Upgrade Project Management):**  
+  - _Project-level overview_, including detailed cable schedule and demarcation of responsibilities.
+  - **Closed** as part of clean-up (2/6/2025).
+
+- **Discovery/Survey tickets:**  
+  - **2380335** ("SURVEY 2/4/2025 11:30 AM"):  
+    - Work completed, with cable run counts and site notes.
+    - _Links in post_ to **2376701** for further detail, indicates process continuity.
+    - **Completion status**: "Completed" & "closed".
+    - **Cable runs:** 28 needed, plus one more possible for label printer.
+
+  - **2382265** ("Site Survey, SCOPE OF WORK: Site Survey"):  
+    - Survey completed 2/4; same tech Joel listed here and in 2380335.
+    - **Note** links to 2380335 for continuity.
+
+- **Shipping/Installation Prep:**  
+  - **2376735 (Shipping Outbound)**:  
+    - Hardware prepared and delivered (detailed hardware and delivery times).
+    - "Did not ship, until Monday..." indicates initial shipping delay.
+
+### **B. Turnup/Install Phases**
+
+- **Phase 1 – Multiple Tickets:**
+  - **2382333 (P1)*, 2382726 (P1), 2389439 (P1)**:  
+    - Show scheduling, resource assignments, but **five tickets are On Hold, Failed, or Cancelled**—indicating repeated delays/reschedules on this project.
+    - **Delays** captured in posts: "On hold per Lucas", "Cancelled due to snow storm", and "pending reschedule".
+
+  - **Technicians:** Several named: Ritchie, Aaron Blackburn.
+
+- **Phase 2 – Multiple Tickets:**
+  - **2382746 (P2), 2389461 (P2)**:  
+    - _Both Cancelled_ – site not notified, pending reschedule.
+
+- **Outlet Install Tickets:**
+  - **2384350** (Scheduled, with almost no commentary — likely not completed).
+  - **2385184** (Failed; notes indicate reschedule required, "will be needed for tomorrow").
+
+---
+
+### **C. Billing Linkage**
+
+- **2401881 ("50 PERCENT BILLING")** and **2402063 ("Billing Complete Ticket")**:
+  - Both reference Coupa invoices and POs.
+  - **2402063 note gives cost breakdown**:
+    - "Full cabling sites - 3 night model ($5016+$460) $2,508.00"
+    - "Site survey $75"
+    - "Engineering/PM $25"
+    - "Remote turn up services $200"
+    - "Total $3,268.00"
+
+  - These are logically the "end of chain" regarding financials, referencing prior scope, work delivery, and survey/turnup records.
+
+---
+
+## 3. Orphaned or Unlinked Records
+
+- **All tickets lack system-linked parent/child reference**; they are "thematically" linked (shared site, chain_hash, and notes/internal links).
+- **Orphaned in the sense of lacking formal system linkage**, but posts and notes demonstrate procedural linkage.
+- Example: **2382265** has a note linking to 2380335, but via comment, not system field.
+
+---
+
+## 4. Extracted Details from Posts, Notes & Ticket Fields
+
+### **Cable Drop Counts**
+
+- **2376701 / 2380335 / 2380336 / 2382265** (all survey/project tickets)  
+  - Repeated breakdowns include a list of cable drops:
+    - **"28 cable runs needed."** (per tech's site survey in 2380335 post)
+    - Additional runs (e.g., "1 more...for a label printer")
+    - In SOW:
+      - DMB: 4
+      - Manager Station: 4
+      - POS: 4 (+3 for "POS with jumper")
+      - Kiosk: 4
+      - Prep: 1 (+2 for "Prep and Jumper")
+      - OCD & Outdoor DMB: 4
+    - Breakdown in main SOW (very detailed, see posts for full list).
+
+- **Hardware list (2376735):**
+  - 1 router, 2 switches, 2 APs, 1 FortiExtender, SIM, 4 SFPs.
+
+### **Completion Status**
+
+- Many tickets have explicit completions via post or status:
+  - "Closed" (e.g., 2376701, 2376830, 2380336)
+  - "Completed" (e.g., 2380335)
+  - "Failed" (e.g., 2382726, 2385184)
+  - "Cancelled - CIS" (e.g., 2382746, 2389439, 2389461)
+- **Explicit phrases:**
+  - "Closing as clean up efforts of 2/6/2025"
+  - "Closing - ticket is part of clean-up."
+  - "Survey completed 2/4"
+  - "Failed" or "Cancelled due to snow storm"
+  - "Pending reschedule"
+
+### **Revisit Requirements / Delays**
+
+- **Reschedule/pending requirements:**
+  - "Cancelled due to snow storm. Smartsheet updated..." (2382726)
+  - "Reschedule will be needed for tomorrow. Time to be determined..." (2385184)
+  - "Pending reschedule..." (2389439, 2389461)
+  - "On hold per Lucas" (2382333, note)
+  - On hold/billing references: "moving to accounting", "On Hold", "pending reschedule"
+
+- **Delays:**
+  - **Shipping delay:** "This did not ship out, until Monday" (2376735)
+  - **Repeated failed/cancelled installs:** Multiple P1/P2 install tickets with corresponding dates, showing attempts and repeated failures.
+
+---
+
+## **Summary Table**
+
+| Ticket      | Type/Role                     | Status         | Key Details                                                   | Linkages/Notes                                  |
+|-------------|------------------------------|----------------|---------------------------------------------------------------|-------------------------------------------------|
+| 2376701     | Cabling Project (PM/SOW)      | Closed         | SOW, cable drop counts, closed as clean up                    | Points to 2380335 in posts                      |
+| 2376735     | Hardware Shipping             | Delivered      | Inventory of equipment, delivery delays, proof of delivery    |                                                 |
+| 2376830     | Turnup Assist                 | Closed         | Initial dispatch, remote resource scheduling                  |                                                 |
+| 2380335     | Site Survey (Primary)         | Completed      | 28 cable runs, rack/ISP notes, full survey                   | Note links to 2376701, continued in 2382265     |
+| 2380336     | Turnup Assist                 | Closed         | SOW (identical to 2380335), closed for cleanup                |                                                 |
+| 2382265     | Site Survey RECAP             | Confirmed      | Survey completion, crosslinks to 2380335                      | Note links to 2380335                           |
+| 2382333     | P1 Turnup                     | On Hold        | Tech name/number, On Hold (per Lucas, weather), multiple posts| Note: On hold                                   |
+| 2382726     | P1 Turnup Attempt             | Failed         | Cancelled due to snow storm, reassigns lead tech              | Posts describe cancellation                     |
+| 2382746     | P2 Turnup Attempt             | Cancelled      | No tech details, cancelled                                   | Note: NPC name in MX portal for ARP             |
+| 2384350     | Outlet Install                | Scheduled      | No completion — likely not done yet                           |                                                 |
+| 2385184     | Outlet Install Attempt        | Failed         | Reschedule needed                                             |                                                 |
+| 2389439     | P1 Reattempt                  | Cancelled      | Pending reschedule, site not notified                         |                                                 |
+| 2389461     | P2 Reattempt                  | Cancelled      | Pending reschedule, site not notified                         |                                                 |
+| 2401881     | Initial Billing               | On Hold        | "Invoice for 50 percent up front"                             |                                                 |
+| 2402063     | Billing Completion            | On Hold        | Remaining 50%, detailed cost notes                            | Note: Price/Cost breakdown                      |
+
+---
+
+##

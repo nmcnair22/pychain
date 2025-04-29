@@ -1,0 +1,132 @@
+### Ticket Relationships and Chain Analysis for Ticket ID 2380335
+
+Based on the provided ticket chain, here’s a detailed summary:
+
+---
+
+## 1. **Parent-Child Relationships (Linked Tickets)**
+
+- **Linked Tickets Field Usage:**  
+    - All tickets have an empty `linked_tickets` field.  
+    - **Conclusion:** There are *no explicit parent-child links* defined between tickets in this chain using this field.  
+    - **Implication:** All tickets are *siblings* under the same chain context, likely related by project or site, rather than explicit parent-child relationships.
+
+---
+
+## 2. **Dispatch – Turnup – Billing Linkages**
+
+**Key Types:**
+- **Dispatch / Survey / Shipping:**  
+    - `2376830`: Turnup Assist Dispatch (Closed)
+    - `2376735`: Hardware Shipping (Delivered)
+    - `2382265`: Site Survey (Confirmed)
+
+- **Turnup / Hardware-Wiring / General Project Events:**  
+    - `2376701`: Cabling and Network Upgrade Project (Closed)
+    - `2380335`: Survey (Completed) [*subject ticket*]
+    - `2382333`, `2382726`, `2382746`, `2384350`, `2389439`, `2389461`: Various phases (P1, P2, Outlet Install) with mixed statuses (Failed/On Hold/Cancelled)
+    - `2380336`: Turnup Assist 2 (Closed)
+
+- **Billing / Accounting:**  
+    - `2401881`: 50% Billing (On Hold)
+    - `2402063`: Final Billing (On Hold)
+
+**Linkage Summary:**
+- **Dispatch sets up site readiness and shipping (2376830, 2376735)**
+- **Site Survey is conducted (2380335, 2382265).**
+- **Multiple Turnup/Hardware-Wiring tickets for different phases:**
+    - *Phase 1*: 2382333 (On Hold), 2382726 (Failed), 2389439 (Cancelled)
+    - *Phase 2*: 2382746 (Cancelled), 2389461 (Cancelled)
+    - *Outlet Install*: 2384350 (Scheduled), 2385184 (Failed)
+- **Turnup Support tickets may refer to survey results (notes in 2382265 mention 2380335 directly).**
+- **Billing kicks in after field activity (2401881, 2402063)—these are sequenced to bill for 50% and then final payment.**
+
+---
+
+## 3. **Orphaned or Unlinked Records**
+
+Because all `linked_tickets` fields are empty, all tickets are *effectively orphaned in terms of direct record linkage*.  
+- The only relationship between them is by chain inclusion (i.e., `chain_hash`), `project_id`, and site number.
+- However, **notes** in 2382265 (`https://staff.cissdm.com/ticketing/ticket/2380335`) demonstrate a *soft* linkage by explicit reference.
+- 2382333's note indicates it's "on hold per Lucas"—a process/people, not system, linkage.
+
+---
+
+## 4. **Extracted Specific Details from Posts and Notes**
+
+### **a. Cable Drop Counts (e.g., 'Qty. X')**
+
+**2380335** – Survey Ticket (subject ticket)
+- *Survey notes identify*:  
+    - "Cable Requirements: 28 cable runs needed. 1 additional cable run may be required for a label printer."
+- **First post (scope)** lists extensive cable details, including breakdowns such as:  
+    - "Install Qty. 1 – Siemon Cat 6 ... to AP location..."  
+    - "Install Qty. 4 – Siemon Cat 6 ... to 4 separate single drop DMB..."  
+    - Several "Install Qty. X" with different counts for sublocations (WAP, DMB, Timer, Music, Manager Station, POS, Kiosk, etc.)
+    - **Rack Installation:** 2 racks to be installed.
+
+### **b. Completion Status**
+
+- **Statuses:** (`ticketstatustitle`)
+    - **Closed**: 2376830, 2376701, 2380336
+    - **Confirmed**: 2382265 (Site Survey)
+    - **Completed**: 2380335 (Survey)
+    - **Delivered**: 2376735 (Shipping)
+    - **On Hold**: 2382333 (P1), 2401881 (Billing), 2402063 (Final Billing)
+    - **Scheduled**: 2384350 (Outlet Install, but no completion posts)
+    - **Failed**: 2382726 (P1), 2385184 (Outlet Install)
+    - **Cancelled - CIS**: 2382746 (P2), 2389439 (P1 – rescheduled), 2389461 (P2 – rescheduled)
+
+- **Post Content Extracts:**
+    - 2376830: "Closing as clean up efforts..." (Closed)
+    - 2376701/2380336: "Closing - ticket is part of clean-up." (Closed)
+    - 2380335: "Tech completed the site survey successfully. ... Tech will submit the survey results to the project manager ... was then approved for release by MOD..." (Completed)
+    - 2376735: "Delivered On ... Received By: MCALLISTER" (Delivered)
+
+### **c. Revisit Requirements / Pending / Reschedule**
+
+- **Reschedule Required:**
+    - 2385184 (Failed Outlet Install): "Reschedule will be needed for tomorrow..."
+    - 2389439, 2389461: "pending reschedule. The site has not been notified ... please update your schedule accordingly. A New date will be communicated..."
+
+- **Pending/On Hold:**
+    - 2382333 (P1): "On hold per Lucas" (note)
+    - 2401881, 2402063: Billing tickets (On Hold)—implying work not finished or completed billing not possible yet.
+
+### **d. Delays ('did not ship', 'on hold', etc.)**
+
+- **Delays/On Hold:**
+    - 2382333: Explicit "On hold per Lucas" (note)
+    - 2382736, 2389439, 2389461: "pending reschedule" due to site notification issues.
+    - 2385184: "Reschedule will be needed for tomorrow. Time to be determined ..."
+    - 2382746: "Cancelled - CIS" (possibly due to project management action)
+    - 2401881 & 2402063: Billing ‘On Hold’
+
+---
+
+## **Summary Table of Ticket Chain**
+
+| Ticket ID | Type                | Subject / Phase                        | Status               | Key Details                                                        |
+|-----------|---------------------|----------------------------------------|----------------------|--------------------------------------------------------------------|
+| 2376830   | Turnup Assist       | Turnup Assist Ticket                   | Closed               | Turnup coordination, closing after completion                      |
+| 2376701   | Hardware-Wiring     | Cabling/Network Upgrade                | Closed               | Project scope, closing as cleanup                                  |
+| 2376735   | Shipping/General    | Hardware Shipment                      | Delivered            | Delivered 2/12, proof of delivery                                  |
+| 2380335   | Survey              | Survey 2/4/25 11:30AM                  | Completed            | 28 cable runs, 2 racks, survey completed, submitted                |
+| 2382265   | Site Survey         | Hagerstown MD Site Survey              | Confirmed            | Notes reference 2380335                                            |
+| 2380336   | Turnup Assist 2     | Turnup on 2/12/25 PM                   | Closed               | Part of clean up                                                   |
+| 2382333   | Hardware-Wiring     | P1                                     | On Hold              | On hold – note per Lucas, phase 1                                  |
+| 2382726   | Hardware-Wiring     | P1 2/11/25                             | Failed               | Cancelled due to snow storm, reschedule needed, tech info          |
+| 2382746   | VPN Installation    | P2 2/12/25                             | Cancelled - CIS      | Cancelled/hold, possible project mgmt action (NPC note)            |
+| 2384350   | Repair              | Outlet Install                         | Scheduled            | No completion posts yet                                            |
+| 2385184   | Repair              | Outlet Install 2/13/25                 | Failed               | Needs reschedule, contractor: Dahan Electric                       |
+| 2389439   | Hardware-Wiring     | P1 2/24/25                             | Cancelled - CIS      | Pending reschedule, site not notified                              |
+| 2389461   | VPN Installation    | P2 2/25/25                             | Cancelled - CIS      | Pending reschedule, site not notified                              |
+| 2401881   | Billing             | 50% Billing                            | On Hold              | Invoice for first 50% requested, pending processing                |
+| 2402063   | Billing             | Final Billing                          | On Hold              | Invoice for final 50%, pending processing                          |
+
+---
+
+## **Conclusion (Key Points for Project Context and Management):**
+
+- **No explicit system parent-child links**; tickets related by chain and references in notes.
+- **Survey (2380335) confirmed 
