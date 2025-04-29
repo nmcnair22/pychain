@@ -30,20 +30,37 @@ def setup_vector_store_and_assistant(client: OpenAI, ticket_files: list[str]):
             return vector_store_id, os.getenv("ASSISTANT_ID")
         
         logging.info("No VECTOR_STORE_ID found, creating new vector store...")
-        vector_store = client.beta.vector_stores.create(
-            name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
-        )
+        # Vector stores moved out of beta in newer SDK versions
+        try:
+            vector_store = client.vector_stores.create(
+                name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
+            )
+        except AttributeError:
+            # Fallback to beta namespace for older SDK versions
+            vector_store = client.beta.vector_stores.create(
+                name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
+            )
         vector_store_id = vector_store.id
         
         logging.info(f"Created vector store with ID: {vector_store_id}")
         
-        assistant = client.beta.assistants.create(
-            name="Ticket Analysis Assistant",
-            instructions="You are an expert in analyzing ticket chains for field service operations. Provide detailed insights based on uploaded ticket data.",
-            model="gpt-4o",
-            tools=[{"type": "file_search"}],
-            tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
-        )
+        try:
+            assistant = client.assistants.create(
+                name="Ticket Analysis Assistant",
+                instructions="You are an expert in analyzing ticket chains for field service operations. Provide detailed insights based on uploaded ticket data.",
+                model="gpt-4o",
+                tools=[{"type": "file_search"}],
+                tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+            )
+        except AttributeError:
+            # Fallback to beta namespace for older SDK versions
+            assistant = client.beta.assistants.create(
+                name="Ticket Analysis Assistant",
+                instructions="You are an expert in analyzing ticket chains for field service operations. Provide detailed insights based on uploaded ticket data.",
+                model="gpt-4o",
+                tools=[{"type": "file_search"}],
+                tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+            )
         
         logging.info(f"Created assistant with ID: {assistant.id}")
         return vector_store_id, assistant.id
@@ -160,37 +177,77 @@ def analyze_real_ticket(ticket_id: str, phase: str = "all"):
             ticket_files = [f"PyChain/data/ticket_files/summary_{chain_details.get('chain_hash')}.json"]
             files = [client.files.create(file=open(f, 'rb'), purpose="assistants") for f in ticket_files]
             
-            client.beta.vector_stores.files.batch_create(
-                vector_store_id=vector_store_id,
-                file_ids=[f.id for f in files]
-            )
+            try:
+                client.vector_stores.files.batch_create(
+                    vector_store_id=vector_store_id,
+                    file_ids=[f.id for f in files]
+                )
+            except AttributeError:
+                # Fallback to beta namespace for older SDK versions
+                client.beta.vector_stores.files.batch_create(
+                    vector_store_id=vector_store_id,
+                    file_ids=[f.id for f in files]
+                )
             
-            thread = client.beta.threads.create()
-            client.beta.threads.messages.create(
-                thread_id=thread.id,
-                role="user",
-                content=f"""
-                Analyze the ticket chain data for ticket ID {ticket_id}. Provide a detailed multi-stage analysis:
-                1. Detailed timeline of visits and outcomes
-                2. Issues and incomplete work
-                3. Revisit requirements and classifications
-                Extract from posts and notes:
-                - Cable drop counts
-                - Completion status
-                - Delays and reasons
-                - Technician time on site
-                """
-            )
+            try:
+                thread = client.threads.create()
+            except AttributeError:
+                thread = client.beta.threads.create()
+                
+            try:
+                client.threads.messages.create(
+                    thread_id=thread.id,
+                    role="user",
+                    content=f"""
+                    Analyze the ticket chain data for ticket ID {ticket_id}. Provide a detailed multi-stage analysis:
+                    1. Detailed timeline of visits and outcomes
+                    2. Issues and incomplete work
+                    3. Revisit requirements and classifications
+                    Extract from posts and notes:
+                    - Cable drop counts
+                    - Completion status
+                    - Delays and reasons
+                    - Technician time on site
+                    """
+                )
+            except AttributeError:
+                client.beta.threads.messages.create(
+                    thread_id=thread.id,
+                    role="user",
+                    content=f"""
+                    Analyze the ticket chain data for ticket ID {ticket_id}. Provide a detailed multi-stage analysis:
+                    1. Detailed timeline of visits and outcomes
+                    2. Issues and incomplete work
+                    3. Revisit requirements and classifications
+                    Extract from posts and notes:
+                    - Cable drop counts
+                    - Completion status
+                    - Delays and reasons
+                    - Technician time on site
+                    """
+                )
             
-            run = client.beta.threads.runs.create(
-                thread_id=thread.id,
-                assistant_id=assistant_id
-            )
+            try:
+                run = client.threads.runs.create(
+                    thread_id=thread.id,
+                    assistant_id=assistant_id
+                )
+            except AttributeError:
+                run = client.beta.threads.runs.create(
+                    thread_id=thread.id,
+                    assistant_id=assistant_id
+                )
             
             while run.status != "completed":
-                run = client.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
+                try:
+                    run = client.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
+                except AttributeError:
+                    run = client.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
             
-            messages = client.beta.threads.messages.list(thread_id=thread.id)
+            try:
+                messages = client.threads.messages.list(thread_id=thread.id)
+            except AttributeError:
+                messages = client.beta.threads.messages.list(thread_id=thread.id)
             phase2_result = messages.data[0].content[0].text.value
             
             print("\n==================================================")
