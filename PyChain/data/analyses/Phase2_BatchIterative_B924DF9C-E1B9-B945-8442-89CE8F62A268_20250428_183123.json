@@ -1,0 +1,2030 @@
+{
+  "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+  "ticket_count": 15,
+  "stages": {
+    "Batch_1_Analysis": {
+      "batch_id": 1,
+      "ticket_ids": [
+        "2376701",
+        "2380335"
+      ],
+      "result": [
+        {
+          "TicketID": "2376701",
+          "Category": "Project Management Tickets",
+          "Status": "Closed",
+          "Subject": "Flynn_Wendys FW008350_Hagerstown_MD_Cabling and Network Upgrade",
+          "Timeline": {
+            "CreationDate": "2025-01-28 07:20:06",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-06 14:53:44"
+          },
+          "Scope": {
+            "TechnicalDetails": "Legacy Cabling Demo: \u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of ...",
+            "Evidence": {
+              "TicketID": "2376701",
+              "PostTimestamp": "2025-01-28 07:20:06"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Closed",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 4,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "No explicit service date found.",
+            "Time on site and delays not specified.",
+            "No issues or cancellations documented."
+          ]
+        },
+        {
+          "TicketID": "2380335",
+          "Category": "Turnup Tickets",
+          "Status": "Completed",
+          "Subject": "Flynn_Wendys FW008350_Hagerstown_MD SURVEY 2/4/2025 11:30 AM",
+          "Timeline": {
+            "CreationDate": "2025-02-04 08:30:26",
+            "ServiceDate": "2025-02-04 11:30:00",
+            "CompletionDate": "2025-02-04 08:43:59"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: Legacy Cabling Demo: \u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed t...",
+            "Evidence": {
+              "TicketID": "2380335",
+              "PostTimestamp": "2025-02-04 08:30:26"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Completed",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 3,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Time on site and delays not specified.",
+            "No issues or cancellations documented."
+          ]
+        }
+      ]
+    },
+    "Batch_2_Analysis": {
+      "batch_id": 2,
+      "ticket_ids": [
+        "2382333",
+        "2382726",
+        "2389439"
+      ],
+      "result": [
+        {
+          "TicketID": "2382333",
+          "Category": "Dispatch Tickets",
+          "Status": "On Hold",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_P1",
+          "Timeline": {
+            "CreationDate": "2025-02-06 15:59:13",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-11 14:36:25"
+          },
+          "Scope": {
+            "TechnicalDetails": "Not Available",
+            "Evidence": null
+          },
+          "Outcome": {
+            "CompletionStatus": "On Hold",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 4,
+            "Notes": 1
+          },
+          "MissingDataNotes": [
+            "No specific scope of work documented.",
+            "Time on site, delays, and issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2382726",
+          "Category": "Turnup Tickets",
+          "Status": "Failed",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_P1 2/11/2025 6:30 PM",
+          "Timeline": {
+            "CreationDate": "2025-02-07 11:00:33",
+            "ServiceDate": "2025-02-11 18:30:00",
+            "CompletionDate": "2025-02-11 18:43:10"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Ritchie\nContact #: 4...",
+            "Evidence": {
+              "TicketID": "2382726",
+              "PostTimestamp": "2025-02-07 11:00:33"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Failed",
+            "Issues": "Failure reason: snowstorm",
+            "Cancellations": null,
+            "Evidence": {
+              "TicketID": "2382726",
+              "PostTimestamp": "2025-02-11 18:43:10"
+            }
+          },
+          "Revisit": {
+            "Required": true,
+            "Reason": "Failure due to snowstorm"
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Likely, due to inclement weather (snowstorm)"
+          },
+          "PostsNotes": {
+            "Posts": 4,
+            "Notes": 1
+          },
+          "MissingDataNotes": [
+            "Exact time on site not specified."
+          ]
+        },
+        {
+          "TicketID": "2389439",
+          "Category": "Turnup Tickets",
+          "Status": "Cancelled - CIS",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_P1 2/24/2025 6:30 PM",
+          "Timeline": {
+            "CreationDate": "2025-02-20 09:00:19",
+            "ServiceDate": "2025-02-24 18:30:00",
+            "CompletionDate": "2025-02-24 06:31:45"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nCo...",
+            "Evidence": {
+              "TicketID": "2389439",
+              "PostTimestamp": "2025-02-20 09:00:19"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Cancelled - CIS",
+            "Issues": "Cancellation reason: customer unaware",
+            "Cancellations": "Yes",
+            "Evidence": {
+              "TicketID": "2389439",
+              "PostTimestamp": "2025-02-24 06:31:45"
+            }
+          },
+          "Revisit": {
+            "Required": true,
+            "Reason": "Customer unaware of job, required reschedule/cancellation"
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 2,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Exact time on site not specified.",
+            "Delay details not present."
+          ]
+        }
+      ]
+    },
+    "Batch_3_Analysis": {
+      "batch_id": 3,
+      "ticket_ids": [
+        "2384350",
+        "2385184"
+      ],
+      "result": [
+        {
+          "TicketID": "2384350",
+          "Category": "Dispatch Tickets",
+          "Status": "Scheduled",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install",
+          "Timeline": {
+            "CreationDate": "2025-02-11 09:10:01",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-11 09:10:01"
+          },
+          "Scope": {
+            "TechnicalDetails": "Not Available",
+            "Evidence": null
+          },
+          "Outcome": {
+            "CompletionStatus": "Scheduled",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 1,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "No specific scope of work documented.",
+            "Time on site, delays, and issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2385184",
+          "Category": "Turnup Tickets",
+          "Status": "Failed",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install 2/13/2025 5:00 AM",
+          "Timeline": {
+            "CreationDate": "2025-02-12 18:00:16",
+            "ServiceDate": "2025-02-13 05:00:00",
+            "CompletionDate": "2025-02-13 10:29:47"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: Outlet Install\n\nTechnician Information:\nExpected In Time: 5:00 AM\nTechnician Type: Contractor\nFST Technician Name: Dahan Electric",
+            "Evidence": {
+              "TicketID": "2385184",
+              "PostTimestamp": "2025-02-12 18:00:16"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Failed",
+            "Issues": "Failure reason: no check-in",
+            "Cancellations": null,
+            "Evidence": {
+              "TicketID": "2385184",
+              "PostTimestamp": "2025-02-13 10:29:47"
+            }
+          },
+          "Revisit": {
+            "Required": true,
+            "Reason": "Failure due to no check-in"
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 5,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Exact time on site not specified.",
+            "Delay details not present."
+          ]
+        }
+      ]
+    },
+    "Batch_4_Analysis": {
+      "batch_id": 4,
+      "ticket_ids": [
+        "2382265",
+        "2376830",
+        "2380336"
+      ],
+      "result": [
+        {
+          "TicketID": "2382265",
+          "Category": "Dispatch Tickets",
+          "Status": "Confirmed",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Site Survey",
+          "Timeline": {
+            "CreationDate": "2025-02-06 15:01:13",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-07 09:34:10"
+          },
+          "Scope": {
+            "TechnicalDetails": "Not Available",
+            "Evidence": null
+          },
+          "Outcome": {
+            "CompletionStatus": "Confirmed",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 2,
+            "Notes": 1
+          },
+          "MissingDataNotes": [
+            "No specific scope of work documented.",
+            "Time on site, delays, and issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2376830",
+          "Category": "Dispatch Tickets",
+          "Status": "Closed",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket",
+          "Timeline": {
+            "CreationDate": "2025-01-28 08:28:15",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-06 14:06:27"
+          },
+          "Scope": {
+            "TechnicalDetails": "TURNUP ASSIST REQUEST\n\n45700\n\nThis is a turnup assist.  The Dispatch is being set by FSPM.  This is a network cutover job to happen on day 2 of a cabl...",
+            "Evidence": {
+              "TicketID": "2376830",
+              "PostTimestamp": "2025-01-28 08:28:15"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Closed",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 2,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Time on site, delays, and any issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2380336",
+          "Category": "Project Management Tickets",
+          "Status": "Closed",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket 2/12/2025 9:30 PM",
+          "Timeline": {
+            "CreationDate": "2025-02-04 08:30:36",
+            "ServiceDate": "2025-02-12 21:30:00",
+            "CompletionDate": "2025-02-06 15:13:11"
+          },
+          "Scope": {
+            "TechnicalDetails": "Legacy Cabling Demo: \u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the p...",
+            "Evidence": {
+              "TicketID": "2380336",
+              "PostTimestamp": "2025-02-04 08:30:36"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Closed",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 3,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Time on site, delays, and any issue details not specified."
+          ]
+        }
+      ]
+    },
+    "Batch_5_Analysis": {
+      "batch_id": 5,
+      "ticket_ids": [
+        "2401881",
+        "2382746",
+        "2402063"
+      ],
+      "result": [
+        {
+          "TicketID": "2401881",
+          "Category": "Dispatch Tickets",
+          "Status": "On Hold",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_50 PERCENT BILLING",
+          "Timeline": {
+            "CreationDate": "2025-03-13 15:38:15",
+            "ServiceDate": null,
+            "CompletionDate": "2025-03-13 16:49:49"
+          },
+          "Scope": {
+            "TechnicalDetails": "Not Available",
+            "Evidence": null
+          },
+          "Outcome": {
+            "CompletionStatus": "On Hold",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 2,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "No specific scope of work documented.",
+            "Time on site, delays, and issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2382746",
+          "Category": "Turnup Tickets",
+          "Status": "Cancelled - CIS",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_P2 2/12/2025",
+          "Timeline": {
+            "CreationDate": "2025-02-07 11:30:33",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-07 11:30:33"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time:\nTechnician Type: Contractor\nFST Technician Name:\nContact #:\n\nProject ID: NETWORK",
+            "Evidence": {
+              "TicketID": "2382746",
+              "PostTimestamp": "2025-02-07 11:30:33"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Cancelled - CIS",
+            "Issues": "Cancellation reason: customer unaware",
+            "Cancellations": "Yes",
+            "Evidence": {
+              "TicketID": "2382746",
+              "PostTimestamp": "2025-02-07 11:30:33"
+            }
+          },
+          "Revisit": {
+            "Required": true,
+            "Reason": "Customer unaware of job, required reschedule/cancellation"
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 1,
+            "Notes": 1
+          },
+          "MissingDataNotes": [
+            "Exact time on site not specified.",
+            "Delay details not present."
+          ]
+        },
+        {
+          "TicketID": "2402063",
+          "Category": "Other Tickets",
+          "Status": "On Hold",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_Billing Complete Ticket",
+          "Timeline": {
+            "CreationDate": "2025-03-13 16:26:12",
+            "ServiceDate": null,
+            "CompletionDate": "2025-03-13 16:26:12"
+          },
+          "Scope": {
+            "TechnicalDetails": "Not Available",
+            "Evidence": null
+          },
+          "Outcome": {
+            "CompletionStatus": "On Hold",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 1,
+            "Notes": 1
+          },
+          "MissingDataNotes": [
+            "No specific scope of work documented.",
+            "Time on site, delays, and issue details not specified."
+          ]
+        }
+      ]
+    },
+    "Batch_6_Analysis": {
+      "batch_id": 6,
+      "ticket_ids": [
+        "2376735",
+        "2389461"
+      ],
+      "result": [
+        {
+          "TicketID": "2376735",
+          "Category": "Shipping Tickets",
+          "Status": "Delivered",
+          "Subject": "Flynn_FW008350_Hagerstown_MD",
+          "Timeline": {
+            "CreationDate": "2025-01-28 07:48:37",
+            "ServiceDate": null,
+            "CompletionDate": "2025-02-13 12:00:42"
+          },
+          "Scope": {
+            "TechnicalDetails": "- 1 unit - Fortigate 60F\n  S/N: FGT60FTK2309ASE6\n  MAC: 74:78:A6:69:1E:96\n  KEY: ZWY4RSFQ\n\n- 1 unit - FortiExtender 201F-AM\n  S/N: FXA21FTQ22005680\n  MAC: 94:F3:6D:6A:89:08",
+            "Evidence": {
+              "TicketID": "2376735",
+              "PostTimestamp": "2025-02-07 20:38:42"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Delivered",
+            "Issues": "Not Available",
+            "Cancellations": "Not Available"
+          },
+          "Revisit": {
+            "Required": null,
+            "Reason": null
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 6,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Time on site, delays, and any issue details not specified."
+          ]
+        },
+        {
+          "TicketID": "2389461",
+          "Category": "Turnup Tickets",
+          "Status": "Cancelled - CIS",
+          "Subject": "Flynn_FW008350_Hagerstown_MD_P2 2/25/2025 6:30 PM",
+          "Timeline": {
+            "CreationDate": "2025-02-20 09:30:19",
+            "ServiceDate": "2025-02-25 18:30:00",
+            "CompletionDate": "2025-02-24 06:31:59"
+          },
+          "Scope": {
+            "TechnicalDetails": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nContact ...",
+            "Evidence": {
+              "TicketID": "2389461",
+              "PostTimestamp": "2025-02-20 09:30:19"
+            }
+          },
+          "Outcome": {
+            "CompletionStatus": "Cancelled - CIS",
+            "Issues": "Cancellation reason: customer unaware",
+            "Cancellations": "Yes",
+            "Evidence": {
+              "TicketID": "2389461",
+              "PostTimestamp": "2025-02-24 06:31:59"
+            }
+          },
+          "Revisit": {
+            "Required": true,
+            "Reason": "Customer unaware of job, required reschedule/cancellation"
+          },
+          "Metrics": {
+            "TimeOnSite": "Not Available",
+            "Delays": "Not Available"
+          },
+          "PostsNotes": {
+            "Posts": 2,
+            "Notes": 0
+          },
+          "MissingDataNotes": [
+            "Exact time on site not specified.",
+            "Delay details not present."
+          ]
+        }
+      ]
+    },
+    "Issues_Index": {
+      "tickets_with_issues": [
+        {
+          "ticket_id": "2376701",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2380335",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382333",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382726",
+          "issues": [
+            "Failure reason: snowstorm"
+          ]
+        },
+        {
+          "ticket_id": "2389439",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        },
+        {
+          "ticket_id": "2384350",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2385184",
+          "issues": [
+            "Failure reason: no check-in"
+          ]
+        },
+        {
+          "ticket_id": "2382265",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2376830",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2380336",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2401881",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382746",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        },
+        {
+          "ticket_id": "2402063",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2376735",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2389461",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        }
+      ]
+    },
+    "Followup_Questions": {
+      "questions_by_ticket": {
+        "2376830": [],
+        "2382265": [],
+        "2382333": [],
+        "2384350": [],
+        "2401881": [],
+        "2402063": [],
+        "2376701": [],
+        "2380336": [],
+        "2376735": [],
+        "2380335": [],
+        "2382726": [
+          "Can you confirm if the work scheduled for this ticket was rescheduled after the snowstorm? If so, on what date?",
+          "Were any preventive measures discussed or implemented for weather-related delays on future dispatches?",
+          "Was any site preparation or preliminary work completed before the snowstorm caused the failure?",
+          "Were there material shortages on this visit and if so can you list any details about the shortage"
+        ],
+        "2382746": [
+          "Was the customer notified prior to the scheduled service date? If so, what was their response?",
+          "Has a follow-up been scheduled to resolve the 'customer unaware' cancellation? If so, please provide details.",
+          "Was a root cause for customer communication breakdown identified (e.g. contact info, advance notice)?",
+          "Were there material shortages on this visit and if so can you list any details about the shortage"
+        ],
+        "2385184": [
+          "Did the contractor provide any explanation for failing to check in at the site?",
+          "Has a revisit been scheduled to complete the required work for this ticket?",
+          "Are there any process improvements planned to ensure check-ins are completed on future tickets?",
+          "Were there material shortages on this visit and if so can you list any details about the shortage"
+        ],
+        "2389439": [
+          "Was any attempt made to contact or confirm with the customer before dispatching the technician?",
+          "Has a new date been coordinated with the customer after this cancellation?",
+          "Can you clarify if customer contact records were updated following this cancellation?",
+          "Were there material shortages on this visit and if so can you list any details about the shortage"
+        ],
+        "2389461": [
+          "Was the customer's point of contact information verified prior to dispatching the technician?",
+          "Was a similar issue encountered on any other related tickets for this location?",
+          "What steps are being taken to avoid 'customer unaware' cancellations in future dispatches?",
+          "Were there material shortages on this visit and if so can you list any details about the shortage"
+        ]
+      }
+    },
+    "User_Questions": {
+      "global_question": "Were there material shortages on this visit and if so can you list any details about the shortage"
+    },
+    "Detailed_Analysis_Ticket_2382726": {
+      "ticket_id": "2382726",
+      "result": {
+        "ticket_id": "2382726",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-07 11:00:33",
+            "service_date": "2025-02-11 18:30:00",
+            "completion_date": "2025-02-11 18:43:10"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Ritchie\nContact #: 443-375-7942",
+            "pre_arp_table": "Post 2 (2025-02-11 18:17:39 by Robert Cohen): Pre Arp Table includes entries for IPs 0.0.0.0, 10.2.26.98, 10.83.50.197 with associated MAC/VLAN info.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 11:00:33",
+                "author": "David Fisher"
+              },
+              {
+                "post_timestamp": "2025-02-11 18:17:39",
+                "author": "Robert Cohen"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "failure_reason": "snowstorm",
+            "evidence": {
+              "post_timestamp": "2025-02-11 18:43:10"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Failure due to snowstorm"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Likely, due to inclement weather (snowstorm)"
+          },
+          "posts_notes": {
+            "posts": 4,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "Exact time on site and delays not specified.",
+            "No explicit mention of material shortages found."
+          ]
+        },
+        "answers": {
+          "Can you confirm if the work scheduled for this ticket was rescheduled after the snowstorm? If so, on what date?": "No evidence in ticket 2382726 of rescheduling after the snowstorm was found. No posts or notes mention a new date. (Last activity: 2025-02-11 18:43:10).",
+          "Were any preventive measures discussed or implemented for weather-related delays on future dispatches?": "No discussion or mention of preventive weather-related measures is present in the posts or notes of ticket 2382726.",
+          "Was any site preparation or preliminary work completed before the snowstorm caused the failure?": "There is evidence of a Pre Arp Table collected before the failure (Post: 2025-02-11 18:17:39 by Robert Cohen), suggesting at least preliminary configuration or network work was initiated prior to the snowstorm.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No material shortages or related details are documented in this ticket's posts or notes."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2382746": {
+      "ticket_id": "2382746",
+      "result": {
+        "ticket_id": "2382746",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-07 11:30:33",
+            "service_date": null,
+            "completion_date": "2025-02-07 11:30:33"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time: [Not Provided]\nTechnician Type: Contractor\nFST Technician Name: [Not Provided]\nContact #: [Not Provided]\n\nProject ID: NETWORK",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 11:30:33",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-07 11:30:33"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer unaware of job, required reschedule/cancellation"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 1,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "Service date not specified.",
+            "Time on site, delay, and material shortage details not documented."
+          ]
+        },
+        "answers": {
+          "Was the customer notified prior to the scheduled service date? If so, what was their response?": "No evidence found in posts or notes that the customer was notified prior to the service date or what their response was. Post (2025-02-07 11:30:33) and note (2025-02-11 06:14:40) contain no details of customer contact.",
+          "Has a follow-up been scheduled to resolve the 'customer unaware' cancellation? If so, please provide details.": "There is no documentation in the ticket of any follow-up being scheduled. Both the only post and note lack reschedule or next steps details.",
+          "Was a root cause for customer communication breakdown identified (e.g. contact info, advance notice)?": "No root cause for the customer communication breakdown is identified in the available ticket data (post and note).",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No mention of material shortages is present in the available post or note."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2385184": {
+      "ticket_id": "2385184",
+      "result": {
+        "ticket_id": "2385184",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-12 18:00:16",
+            "service_date": "2025-02-13 05:00:00",
+            "completion_date": "2025-02-13 10:29:47"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Outlet Install\n\nTechnician Information:\nExpected In Time: 5:00 AM\nTechnician Type: Contractor\nFST Technician Name: Dahan Electric",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-12 18:00:16",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "failure_reason": "no check-in",
+            "evidence": {
+              "post_timestamp": "2025-02-13 10:29:47"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Failure due to no check-in"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 5,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit time on site or delays recorded.",
+            "No material shortages reported."
+          ]
+        },
+        "answers": {
+          "Did the contractor provide any explanation for failing to check in at the site?": "No. The contractor did not provide an explanation. Multiple phone calls to check in were unanswered, and voicemails were left. See Post 2 (2025-02-13 05:09:25 by Robert Cohen) and Post 3 (2025-02-13 05:28:10 by Robert Cohen) for evidence.",
+          "Has a revisit been scheduled to complete the required work for this ticket?": "There is no evidence in the posts or available data that a revisit has been scheduled. Latest activity remains reporting on the failed check-in attempt.",
+          "Are there any process improvements planned to ensure check-ins are completed on future tickets?": "No posts or notes discuss process improvements related to check-ins for future tickets.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No mention of material shortages during this visit appears in posts or available ticket data."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2389439": {
+      "ticket_id": "2389439",
+      "result": {
+        "ticket_id": "2389439",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-20 09:00:19",
+            "service_date": "2025-02-24 18:30:00",
+            "completion_date": "2025-02-24 06:31:45"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nContact #: [Not Explicit]",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-20 09:00:19",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-24 06:31:45",
+              "author": "Alyssa Philpott"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer was not notified and not expecting the technician; reschedule required."
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit time on site, delay, or material shortage information documented."
+          ]
+        },
+        "answers": {
+          "Was any attempt made to contact or confirm with the customer before dispatching the technician?": "No, per Post 2 (2025-02-24 06:31:45 by Alyssa Philpott): 'The site has not been notified of the install and will not be expecting a technician.' No posts document any attempt to contact or confirm with the customer prior to dispatch.",
+          "Has a new date been coordinated with the customer after this cancellation?": "No evidence in posts that a new date has been coordinated; Post 2 (2025-02-24 06:31:45) states the site is pending reschedule but no date is given.",
+          "Can you clarify if customer contact records were updated following this cancellation?": "No evidence is present in the available posts regarding any update to customer contact records after cancellation.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "Material shortages are not mentioned in either post; no evidence of shortage in the available ticket data."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2389461": {
+      "ticket_id": "2389461",
+      "result": {
+        "ticket_id": "2389461",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-20 09:30:19",
+            "service_date": "2025-02-25 18:30:00",
+            "completion_date": "2025-02-24 06:31:59"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nContact ...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-20 09:30:19",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-24 06:31:59",
+              "author": "Alyssa Philpott"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer was not notified and not expecting the technician; reschedule required."
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit information on customer contact verification, material shortages, or steps to avoid repeat cancellation was documented."
+          ]
+        },
+        "answers": {
+          "Was the customer's point of contact information verified prior to dispatching the technician?": "No, there is no indication in any post that the customer's point of contact information was verified prior to dispatch. Post 2 (2025-02-24 06:31:59 by Alyssa Philpott) states the site was not notified and would not be expecting a technician.",
+          "Was a similar issue encountered on any other related tickets for this location?": "Yes, tickets 2389439 and 2382746 were also cancelled for 'customer unaware' at this location.",
+          "What steps are being taken to avoid 'customer unaware' cancellations in future dispatches?": "No posts document any specific steps or process changes for avoiding similar cancellations in the future.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No material shortages are mentioned in the posts or ticket data."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2376830": {
+      "ticket_id": "2376830",
+      "result": {
+        "ticket_id": "2376830",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-01-28 08:28:15",
+            "service_date": null,
+            "completion_date": "2025-02-06 14:06:27"
+          },
+          "scope": {
+            "technical_details": "TURNUP ASSIST REQUEST\n\n45700\n\nThis is a turnup assist. The Dispatch is being set by FSPM. This is a network cutover job to happen on day 2 of a cabling...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-01-28 08:28:15",
+                "author": "Amber Hodgson"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Closed",
+            "evidence": {
+              "post_timestamp": "2025-02-06 14:06:27",
+              "author": "Josh Bosen"
+            }
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No time on site, delay, or material shortage information documented."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there is no mention of material shortages in either post or any ticket data. (Latest post: 2025-02-06 14:06:27 by Josh Bosen)"
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2380335": {
+      "ticket_id": "2380335",
+      "result": {
+        "ticket_id": "2380335",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-04 08:30:26",
+            "service_date": "2025-02-04 11:30:00",
+            "completion_date": "2025-02-04 08:43:59"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Legacy Cabling Demo:\n\n\u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the p...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-04 08:30:26",
+                "author": "Devin Leatham"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Completed",
+            "work_details": "Tech arrived onsite and checked in with MOD, Tim, from Wendy's. Tech completed the site survey successfully. Tech will submit the survey results.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-04 08:41:39",
+                "author": "Ryan Cohen"
+              },
+              {
+                "post_timestamp": "2025-02-04 08:43:59",
+                "author": "Ryan Cohen"
+              }
+            ]
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "0:27",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 3,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages in posts."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned on this visit. All work described as completed, with no indication of missing materials. (See Post 2 and 3 by Ryan Cohen: 2025-02-04 08:41:39 and 2025-02-04 08:43:59)"
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2382265": {
+      "ticket_id": "2382265",
+      "result": {
+        "ticket_id": "2382265",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-06 15:01:13",
+            "service_date": "2025-02-04",
+            "completion_date": "2025-02-07 09:34:10"
+          },
+          "scope": {
+            "technical_details": "Site Survey at Hagerstown Centre, 17786 Garland Gro... (Post 1: 2025-02-06 15:01:13 by Josh Bosen)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-06 15:01:13",
+                "author": "Josh Bosen"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Confirmed",
+            "work_details": "Survey completed 2/4. Tech info: Joel (240) 888-7239.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 09:34:10",
+                "author": "Brandon Mahoney"
+              }
+            ]
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "No mention of material shortages or delays in posts or notes.",
+            "Exact time on site not specified."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned in either post or note. The survey was completed as planned. (Post 2: 2025-02-07 09:34:10 by Brandon Mahoney)"
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2382333": {
+      "ticket_id": "2382333",
+      "result": {
+        "ticket_id": "2382333",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-06 15:59:13",
+            "service_date": "2025-02-11",
+            "completion_date": "2025-02-11 14:36:25"
+          },
+          "scope": {
+            "technical_details": "Phase 1 work scheduled at Hagerstown Centre, 17786 Garland Groth Boulevard. Tech: Ritchie 443-375-7942. (Post 1: 2025-02-06 15:59:13 by Josh Bosen; Post 2: 2025-02-07 10:57:58 by Brandon Mahoney)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-06 15:59:13",
+                "author": "Josh Bosen"
+              },
+              {
+                "post_timestamp": "2025-02-07 10:57:58",
+                "author": "Brandon Mahoney"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "work_details": "Dispatch on 2/11/2025 scheduled, tech contact info provided. Ticket placed on hold per Lucas. (Note 1: 2025-03-31 07:21:40 by Hannah Szubinski)",
+            "evidence": [
+              {
+                "note_timestamp": "2025-03-31 07:21:40",
+                "author": "Hannah Szubinski"
+              }
+            ]
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 4,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "No mention of material shortages or delays in posts or notes.",
+            "Exact time on site not specified."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned in any post or note for this ticket. The scheduling and tech info is provided but there is no reference to shortages."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2384350": {
+      "ticket_id": "2384350",
+      "result": {
+        "ticket_id": "2384350",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-11 09:10:01",
+            "service_date": null,
+            "completion_date": "2025-02-11 09:10:01"
+          },
+          "scope": {
+            "technical_details": "Outlet Install",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-11 09:10:01",
+                "author": "Brandon.Mahoney"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Scheduled",
+            "work_details": null,
+            "evidence": []
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 1,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages, work completion, delays, or time on site.",
+            "Only scheduling post present."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there is no mention of material shortages in the single post for this ticket. The record only references outlet install scheduling."
+        }
+      }
+    },
+    "Detailed_Analysis_Ticket_2401881": {
+      "ticket_id": "2401881",
+      "result": {
+        "ticket_id": "2401881",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-03-13 15:38:15",
+            "service_date": null,
+            "completion_date": "2025-03-13 16:49:49"
+          },
+          "scope": {
+            "technical_details": "Billing actions only. PO: 232498, Type of billing: 50 PERCENT BILLING, Amount and invoice via Coupa. (Post 1: 2025-03-13 15:38:15 by David Fisher)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-03-13 15:38:15",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "work_details": "Moved to accounting to invoice for initial 50 percent up front. (Post 2: 2025-03-13 16:49:49 by David Fisher)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-03-13 16:49:49",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages, service, delays, or time on site\u2014billing workflow only."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, this ticket concerns billing actions only. There is no mention of any material, shortage, or on-site work in the posts."
+        }
+      }
+    }
+  },
+  "consolidated_report": {
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "timestamp": "2025-04-28T18:31:23.876663",
+    "tickets_analyzed": [
+      "2376701",
+      "2380335",
+      "2382333",
+      "2382726",
+      "2389439",
+      "2384350",
+      "2385184",
+      "2382265",
+      "2376830",
+      "2380336",
+      "2401881",
+      "2382746",
+      "2402063",
+      "2376735",
+      "2389461"
+    ],
+    "metrics_summary": {
+      "total_tickets": 15,
+      "dispatch_tickets": 5,
+      "turnup_tickets": 6,
+      "revisits_required": 5,
+      "tickets_with_issues": 15
+    },
+    "issues_summary": {
+      "tickets_with_issues": [
+        {
+          "ticket_id": "2376701",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2380335",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382333",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382726",
+          "issues": [
+            "Failure reason: snowstorm"
+          ]
+        },
+        {
+          "ticket_id": "2389439",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        },
+        {
+          "ticket_id": "2384350",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2385184",
+          "issues": [
+            "Failure reason: no check-in"
+          ]
+        },
+        {
+          "ticket_id": "2382265",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2376830",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2380336",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2401881",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2382746",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        },
+        {
+          "ticket_id": "2402063",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2376735",
+          "issues": [
+            "Not Available"
+          ]
+        },
+        {
+          "ticket_id": "2389461",
+          "issues": [
+            "Cancellation reason: customer unaware"
+          ]
+        }
+      ]
+    },
+    "detailed_analyses": [
+      {
+        "ticket_id": "2382726",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-07 11:00:33",
+            "service_date": "2025-02-11 18:30:00",
+            "completion_date": "2025-02-11 18:43:10"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Ritchie\nContact #: 443-375-7942",
+            "pre_arp_table": "Post 2 (2025-02-11 18:17:39 by Robert Cohen): Pre Arp Table includes entries for IPs 0.0.0.0, 10.2.26.98, 10.83.50.197 with associated MAC/VLAN info.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 11:00:33",
+                "author": "David Fisher"
+              },
+              {
+                "post_timestamp": "2025-02-11 18:17:39",
+                "author": "Robert Cohen"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "failure_reason": "snowstorm",
+            "evidence": {
+              "post_timestamp": "2025-02-11 18:43:10"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Failure due to snowstorm"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Likely, due to inclement weather (snowstorm)"
+          },
+          "posts_notes": {
+            "posts": 4,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "Exact time on site and delays not specified.",
+            "No explicit mention of material shortages found."
+          ]
+        },
+        "answers": {
+          "Can you confirm if the work scheduled for this ticket was rescheduled after the snowstorm? If so, on what date?": "No evidence in ticket 2382726 of rescheduling after the snowstorm was found. No posts or notes mention a new date. (Last activity: 2025-02-11 18:43:10).",
+          "Were any preventive measures discussed or implemented for weather-related delays on future dispatches?": "No discussion or mention of preventive weather-related measures is present in the posts or notes of ticket 2382726.",
+          "Was any site preparation or preliminary work completed before the snowstorm caused the failure?": "There is evidence of a Pre Arp Table collected before the failure (Post: 2025-02-11 18:17:39 by Robert Cohen), suggesting at least preliminary configuration or network work was initiated prior to the snowstorm.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No material shortages or related details are documented in this ticket's posts or notes."
+        }
+      },
+      {
+        "ticket_id": "2382746",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-07 11:30:33",
+            "service_date": null,
+            "completion_date": "2025-02-07 11:30:33"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time: [Not Provided]\nTechnician Type: Contractor\nFST Technician Name: [Not Provided]\nContact #: [Not Provided]\n\nProject ID: NETWORK",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 11:30:33",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-07 11:30:33"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer unaware of job, required reschedule/cancellation"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 1,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "Service date not specified.",
+            "Time on site, delay, and material shortage details not documented."
+          ]
+        },
+        "answers": {
+          "Was the customer notified prior to the scheduled service date? If so, what was their response?": "No evidence found in posts or notes that the customer was notified prior to the service date or what their response was. Post (2025-02-07 11:30:33) and note (2025-02-11 06:14:40) contain no details of customer contact.",
+          "Has a follow-up been scheduled to resolve the 'customer unaware' cancellation? If so, please provide details.": "There is no documentation in the ticket of any follow-up being scheduled. Both the only post and note lack reschedule or next steps details.",
+          "Was a root cause for customer communication breakdown identified (e.g. contact info, advance notice)?": "No root cause for the customer communication breakdown is identified in the available ticket data (post and note).",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No mention of material shortages is present in the available post or note."
+        }
+      },
+      {
+        "ticket_id": "2385184",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-12 18:00:16",
+            "service_date": "2025-02-13 05:00:00",
+            "completion_date": "2025-02-13 10:29:47"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Outlet Install\n\nTechnician Information:\nExpected In Time: 5:00 AM\nTechnician Type: Contractor\nFST Technician Name: Dahan Electric",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-12 18:00:16",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "failure_reason": "no check-in",
+            "evidence": {
+              "post_timestamp": "2025-02-13 10:29:47"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Failure due to no check-in"
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 5,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit time on site or delays recorded.",
+            "No material shortages reported."
+          ]
+        },
+        "answers": {
+          "Did the contractor provide any explanation for failing to check in at the site?": "No. The contractor did not provide an explanation. Multiple phone calls to check in were unanswered, and voicemails were left. See Post 2 (2025-02-13 05:09:25 by Robert Cohen) and Post 3 (2025-02-13 05:28:10 by Robert Cohen) for evidence.",
+          "Has a revisit been scheduled to complete the required work for this ticket?": "There is no evidence in the posts or available data that a revisit has been scheduled. Latest activity remains reporting on the failed check-in attempt.",
+          "Are there any process improvements planned to ensure check-ins are completed on future tickets?": "No posts or notes discuss process improvements related to check-ins for future tickets.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No mention of material shortages during this visit appears in posts or available ticket data."
+        }
+      },
+      {
+        "ticket_id": "2389439",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-20 09:00:19",
+            "service_date": "2025-02-24 18:30:00",
+            "completion_date": "2025-02-24 06:31:45"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Phase 1\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nContact #: [Not Explicit]",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-20 09:00:19",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-24 06:31:45",
+              "author": "Alyssa Philpott"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer was not notified and not expecting the technician; reschedule required."
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit time on site, delay, or material shortage information documented."
+          ]
+        },
+        "answers": {
+          "Was any attempt made to contact or confirm with the customer before dispatching the technician?": "No, per Post 2 (2025-02-24 06:31:45 by Alyssa Philpott): 'The site has not been notified of the install and will not be expecting a technician.' No posts document any attempt to contact or confirm with the customer prior to dispatch.",
+          "Has a new date been coordinated with the customer after this cancellation?": "No evidence in posts that a new date has been coordinated; Post 2 (2025-02-24 06:31:45) states the site is pending reschedule but no date is given.",
+          "Can you clarify if customer contact records were updated following this cancellation?": "No evidence is present in the available posts regarding any update to customer contact records after cancellation.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "Material shortages are not mentioned in either post; no evidence of shortage in the available ticket data."
+        }
+      },
+      {
+        "ticket_id": "2389461",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-20 09:30:19",
+            "service_date": "2025-02-25 18:30:00",
+            "completion_date": "2025-02-24 06:31:59"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: P2\n\nTechnician Information:\nExpected In Time: 6:30 PM\nTechnician Type: Contractor\nFST Technician Name: Aaron Blackburn\nContact ...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-20 09:30:19",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Cancelled - CIS",
+            "cancellation_reason": "customer unaware",
+            "evidence": {
+              "post_timestamp": "2025-02-24 06:31:59",
+              "author": "Alyssa Philpott"
+            }
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Customer was not notified and not expecting the technician; reschedule required."
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No explicit information on customer contact verification, material shortages, or steps to avoid repeat cancellation was documented."
+          ]
+        },
+        "answers": {
+          "Was the customer's point of contact information verified prior to dispatching the technician?": "No, there is no indication in any post that the customer's point of contact information was verified prior to dispatch. Post 2 (2025-02-24 06:31:59 by Alyssa Philpott) states the site was not notified and would not be expecting a technician.",
+          "Was a similar issue encountered on any other related tickets for this location?": "Yes, tickets 2389439 and 2382746 were also cancelled for 'customer unaware' at this location.",
+          "What steps are being taken to avoid 'customer unaware' cancellations in future dispatches?": "No posts document any specific steps or process changes for avoiding similar cancellations in the future.",
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No material shortages are mentioned in the posts or ticket data."
+        }
+      },
+      {
+        "ticket_id": "2376830",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-01-28 08:28:15",
+            "service_date": null,
+            "completion_date": "2025-02-06 14:06:27"
+          },
+          "scope": {
+            "technical_details": "TURNUP ASSIST REQUEST\n\n45700\n\nThis is a turnup assist. The Dispatch is being set by FSPM. This is a network cutover job to happen on day 2 of a cabling...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-01-28 08:28:15",
+                "author": "Amber Hodgson"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Closed",
+            "evidence": {
+              "post_timestamp": "2025-02-06 14:06:27",
+              "author": "Josh Bosen"
+            }
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No time on site, delay, or material shortage information documented."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there is no mention of material shortages in either post or any ticket data. (Latest post: 2025-02-06 14:06:27 by Josh Bosen)"
+        }
+      },
+      {
+        "ticket_id": "2380335",
+        "category": "Turnup Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-04 08:30:26",
+            "service_date": "2025-02-04 11:30:00",
+            "completion_date": "2025-02-04 08:43:59"
+          },
+          "scope": {
+            "technical_details": "Scope - Objective: Legacy Cabling Demo:\n\n\u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the p...",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-04 08:30:26",
+                "author": "Devin Leatham"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Completed",
+            "work_details": "Tech arrived onsite and checked in with MOD, Tim, from Wendy's. Tech completed the site survey successfully. Tech will submit the survey results.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-04 08:41:39",
+                "author": "Ryan Cohen"
+              },
+              {
+                "post_timestamp": "2025-02-04 08:43:59",
+                "author": "Ryan Cohen"
+              }
+            ]
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "0:27",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 3,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages in posts."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned on this visit. All work described as completed, with no indication of missing materials. (See Post 2 and 3 by Ryan Cohen: 2025-02-04 08:41:39 and 2025-02-04 08:43:59)"
+        }
+      },
+      {
+        "ticket_id": "2382265",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-06 15:01:13",
+            "service_date": "2025-02-04",
+            "completion_date": "2025-02-07 09:34:10"
+          },
+          "scope": {
+            "technical_details": "Site Survey at Hagerstown Centre, 17786 Garland Gro... (Post 1: 2025-02-06 15:01:13 by Josh Bosen)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-06 15:01:13",
+                "author": "Josh Bosen"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Confirmed",
+            "work_details": "Survey completed 2/4. Tech info: Joel (240) 888-7239.",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-07 09:34:10",
+                "author": "Brandon Mahoney"
+              }
+            ]
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "No mention of material shortages or delays in posts or notes.",
+            "Exact time on site not specified."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned in either post or note. The survey was completed as planned. (Post 2: 2025-02-07 09:34:10 by Brandon Mahoney)"
+        }
+      },
+      {
+        "ticket_id": "2382333",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-06 15:59:13",
+            "service_date": "2025-02-11",
+            "completion_date": "2025-02-11 14:36:25"
+          },
+          "scope": {
+            "technical_details": "Phase 1 work scheduled at Hagerstown Centre, 17786 Garland Groth Boulevard. Tech: Ritchie 443-375-7942. (Post 1: 2025-02-06 15:59:13 by Josh Bosen; Post 2: 2025-02-07 10:57:58 by Brandon Mahoney)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-06 15:59:13",
+                "author": "Josh Bosen"
+              },
+              {
+                "post_timestamp": "2025-02-07 10:57:58",
+                "author": "Brandon Mahoney"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "work_details": "Dispatch on 2/11/2025 scheduled, tech contact info provided. Ticket placed on hold per Lucas. (Note 1: 2025-03-31 07:21:40 by Hannah Szubinski)",
+            "evidence": [
+              {
+                "note_timestamp": "2025-03-31 07:21:40",
+                "author": "Hannah Szubinski"
+              }
+            ]
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 4,
+            "notes": 1
+          },
+          "missing_data_notes": [
+            "No mention of material shortages or delays in posts or notes.",
+            "Exact time on site not specified."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there were no material shortages mentioned in any post or note for this ticket. The scheduling and tech info is provided but there is no reference to shortages."
+        }
+      },
+      {
+        "ticket_id": "2384350",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-02-11 09:10:01",
+            "service_date": null,
+            "completion_date": "2025-02-11 09:10:01"
+          },
+          "scope": {
+            "technical_details": "Outlet Install",
+            "evidence": [
+              {
+                "post_timestamp": "2025-02-11 09:10:01",
+                "author": "Brandon.Mahoney"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "Scheduled",
+            "work_details": null,
+            "evidence": []
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 1,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages, work completion, delays, or time on site.",
+            "Only scheduling post present."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, there is no mention of material shortages in the single post for this ticket. The record only references outlet install scheduling."
+        }
+      },
+      {
+        "ticket_id": "2401881",
+        "category": "Dispatch Tickets",
+        "detailed_metrics": {
+          "timeline": {
+            "creation_date": "2025-03-13 15:38:15",
+            "service_date": null,
+            "completion_date": "2025-03-13 16:49:49"
+          },
+          "scope": {
+            "technical_details": "Billing actions only. PO: 232498, Type of billing: 50 PERCENT BILLING, Amount and invoice via Coupa. (Post 1: 2025-03-13 15:38:15 by David Fisher)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-03-13 15:38:15",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "work_details": "Moved to accounting to invoice for initial 50 percent up front. (Post 2: 2025-03-13 16:49:49 by David Fisher)",
+            "evidence": [
+              {
+                "post_timestamp": "2025-03-13 16:49:49",
+                "author": "David Fisher"
+              }
+            ]
+          },
+          "revisit": {
+            "required": null,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "Not Available",
+            "delays": "Not Available"
+          },
+          "posts_notes": {
+            "posts": 2,
+            "notes": 0
+          },
+          "missing_data_notes": [
+            "No mention of material shortages, service, delays, or time on site\u2014billing workflow only."
+          ]
+        },
+        "answers": {
+          "Were there material shortages on this visit and if so can you list any details about the shortage": "No, this ticket concerns billing actions only. There is no mention of any material, shortage, or on-site work in the posts."
+        }
+      }
+    ]
+  }
+}
