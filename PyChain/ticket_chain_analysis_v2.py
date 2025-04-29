@@ -178,16 +178,22 @@ def analyze_real_ticket(ticket_id: str, phase: str = "all"):
             files = [client.files.create(file=open(f, 'rb'), purpose="assistants") for f in ticket_files]
             
             try:
-                client.vector_stores.files.batch_create(
+                client.vector_stores.file_batches.create(
                     vector_store_id=vector_store_id,
                     file_ids=[f.id for f in files]
                 )
             except AttributeError:
-                # Fallback to beta namespace for older SDK versions
-                client.beta.vector_stores.files.batch_create(
-                    vector_store_id=vector_store_id,
-                    file_ids=[f.id for f in files]
-                )
+                # Fallback to beta namespace or alternative method for older SDK versions
+                try:
+                    client.vector_stores.files.batch_create(
+                        vector_store_id=vector_store_id,
+                        file_ids=[f.id for f in files]
+                    )
+                except AttributeError:
+                    client.beta.vector_stores.files.batch_create(
+                        vector_store_id=vector_store_id,
+                        file_ids=[f.id for f in files]
+                    )
             
             try:
                 thread = client.threads.create()

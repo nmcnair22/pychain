@@ -1,0 +1,161 @@
+Certainly! Here’s a structured analysis of the ticket chain for ticket ID **2380335** with the relationships and extracted field service details:
+
+---
+
+## 1. **Parent-Child Relationships**
+
+- **Linked Tickets:**  
+  - **All tickets in this chain have an empty `linked_tickets` field.**  
+    - **Interpretation:** No explicit parent-child (direct linkage) relationships are in place using the system’s ticket linking feature.
+
+---
+
+## 2. **Dispatch-Turnup-Billing Linkages**
+
+### **Dispatch Tickets**
+- **2376830** (`Turnup Assist Request`)
+  - Purpose: High-level coordination/dispatch for remote assist during network cutover.
+  - Status: **Closed**
+  - Completion noted: “Closing as clean up efforts of 2/6/2025”
+- **2382265** (`Site Survey`)
+  - Scope: Site survey (2/4) for planned cabling upgrade.
+  - Status: **Confirmed**, not yet closed.
+  - Completion: “Survey completed 2/4”
+- **2382333** (`P1 - Phase 1 Installation`)
+  - Scope: Onsite dispatch for network recabling and hardware installation.
+  - Status: **On Hold** (per note: “On hold per Lucas”)
+- **2384350, 2385184** (`Outlet Install` repairs)
+  - Scopes: Scheduling/sending electrician for outlet installation.
+  - 2385184 failed (“Reschedule needed…”)
+
+### **Turnup/Project Management Tickets**
+- **2376701** (`Cabling and Network Upgrade`)
+  - Scope: Master project SOW with detailed cabling drops (see below).
+  - Status: **Closed** (per: “Closing - ticket is part of clean-up.”)
+- **2380336** (`Turnup Assist Ticket`)
+  - Master SOW for scheduled network turnup (closed as duplicate/cleanup).
+- **2380335** (this ticket)
+  - Scope: Site survey, physical drop counts, and local notes.
+  - Status: **Completed**
+- **2382726, 2382746, 2389439, 2389461** (`P1/P2 Tickets`)
+  - Phase tickets (installment and VPN):  
+    - 2382726: **Failed** (cancelled due to snowstorm)
+    - 2382746, 2389439, 2389461: **Cancelled** or “pending reschedule”
+
+### **Billing Tickets**
+- **2401881** (“50 PERCENT BILLING”)
+  - Status: **On Hold**
+  - Progress: Invoicing for the initial 50%
+- **2402063** (“Billing Complete Ticket”)
+  - Status: **On Hold**
+  - Note: Detailed cost breakdown attached.
+
+#### **Overall Flow:**
+- **Initial Dispatch / Survey (2376830, 2382265, 2380335/2380336) → Turnup/Phase Work Orders (2382333, 2382726, 2382746, etc) → Billing/Accounting (2401881, 2402063)**
+- **Physical infrastructure dependencies:** Outlet installations and equipment shipments are scheduled around the main install phases.
+
+---
+
+## 3. **Orphaned or Unlinked Records**
+
+- **All tickets in this chain are unlinked** in the database (no `linked_tickets`).
+- **Functional relationships exist** (site, subject, project IDs), but no formal ticket-level linking.
+- **Orphaned Tickets:**
+  - **Shipping Ticket (2376735):** Documents hardware shipment, no direct link to dispatch or install tickets.
+  - **Individual phase tickets (e.g., 2382746, 2389439, 2389461)**: Cancelled or failed and not formally tied to replacements or reschedules.
+
+---
+
+## 4. **Extracted Specific Details**
+
+### **Cable Drop Counts and Install Quantities**  
+(Extracted from SOW posts; found in 2376701, 2380335, and similar SOW tickets)
+
+#### **From SOWs (2376701, 2380335, 2380336):**
+- **WAP:** Qty. 1 (AP location)
+- **DMB (Digital Menu Bar):** Qty. 4  
+- **Timer:** Qty. 1  
+- **Music:** Qty. 1  
+- **Manager Station:** Qty. 4 (quad drop)
+- **POS:** Qty. 4 (2 dual drop locations)
+- **POS with Jumper:** Qty. 3 (triple drop)
+- **Kiosk:** Qty. 4 (2 dual drop locations)
+- **Prep:** Qty. 1 (single drop)
+- **Prep and Jumper:** Qty. 2 (at DMB)
+- **OCD/Outdoor DMB:** Qty. 4
+- **Racks:** Qty. 2 (see survey and SOW)
+- **Label Printer:** 1 additional possible (per survey 2380335)
+
+#### **From survey (2380335):**  
+- **“28 cable runs needed. 1 additional cable run may be required for a label printer.”**
+
+---
+
+### **Completion Status and Closing Info**
+- **2376830, 2376701, 2380336:**  
+  - Marked “Closing” or “Closed” for SOW completion/cleanup.
+- **2380335:**  
+  - Status: “Completed” (site survey confirmed, notes posted by tech; closed by timestamp)
+- **2382265:**  
+  - Status: “Confirmed” (**not closed yet**; survey complete)
+- **2382333:**  
+  - Status: “On Hold” (per note by Hannah Szubinski: “On hold per Lucas”)
+- **2382726:**  
+  - Status: **Failed** (“Cancelled due to snow storm”)
+- **2382746, 2389439, 2389461:**  
+  - Status: **Cancelled/Pending reschedule**
+- **Billing:**  
+  - Tickets are “On Hold,” moving toward closeout phase.
+
+---
+
+### **Revisit/Reschedule Requirements & Pending Issues**
+- **2385184 (`Outlet Install`):**  
+  - Post: “Reschedule will be needed for tomorrow. Time to be determined later tonight.”
+- **2389439, 2389461:**  
+  - Posts/notes: “Pending reschedule… not scheduled… new date to be communicated.”
+- **2382333:**  
+  - Note: “On hold per Lucas”
+- **2382726:**  
+  - Cancelled due to snowstorm—install did not proceed
+
+---
+
+### **Delays/Shipment Issues/On Hold**
+- **2376735 (`Shipping`):**
+  - “This did not ship out, until monday will be going out – Notifying dispatch”
+  - Shipped later; delivered 2/12 at 10:51am.
+- **2382333:**  
+  - “On Hold per Lucas”
+- **2382726:**  
+  - “Cancelled due to snow storm”
+
+---
+
+## 5. **Other Notable Relationships/Findings**
+
+- **Dispatch-to-Turnup Linkages are inferred** by site numbers, subjects, and datelines—not by formal ticket links (i.e., you must track project progress via dates and descriptions).
+- **Survey and SOW tickets (2376701, 2380335)** both include required drop counts and rack quantities for installers.
+- **Shipping ticket (2376735)** aligns with the install’s planned hardware inventory.
+- **Service interruptions:**  
+  - Bad weather (snowstorm) directly impacts field service schedule and site readiness.
+  - “Pending reschedule” posts indicate live projects are delayed—not complete cancellations.
+- **Accounting/Billing barrier:**  
+  - Transition to billing is held “on hold” until site work is confirmed as complete.
+
+---
+
+## **Summary Table**
+
+| Ticket ID | Type/Phase                           | Completion Status   | Drops/Qty | Revisit/Reschedule      | Delay/On Hold/Note       |
+|:----------|:-------------------------------------|:-------------------|:----------|:------------------------|:-------------------------|
+| 2376830   | Turnup (Dispatch Assist)             | Closed             | n/a       | No                     | Closed as clean up       |
+| 2382265   | Site Survey                         | Confirmed          | Surveyed  | No                      |                         |
+| 2382333   | P1 (Phase 1)                        | On Hold            | -         | Yes                     | “On hold per Lucas”      |
+| 2376701   | Project/Cabling SOW                 | Closed             | See SOW   | No                      | Closed for clean up      |
+| 2380335   | Survey (this ticket)                | Completed          | 28+1*     | No                      | Closed                   |
+| 2380336   | Turnup SOW                          | Closed             | See SOW   | No                      | Closed as clean up       |
+| 2376735   | Shipping                            | Delivered          | Hardware  | No                      | “Did not ship until Mon” |
+| 2401881   | Billing (50%)                       | On Hold            | n/a       | n/a                     | Billing in progress      |
+| 2402063   | Billing Complete                    | On Hold            | n/a       | n/a                     | Billing in progress      |
+| 2382726   | Turnup P1                           | Failed             | -         | Yes                     | Cancelled
