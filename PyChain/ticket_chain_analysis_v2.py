@@ -72,7 +72,7 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
     ticket_data = {}
     logging.info(f"Fetching details for {len(ticket_ids_str)} unique tickets: {ticket_ids_str}")
 
-    # Fetch from Primary Database
+    # Fetch from Primary Database (sw_tickets)
     try:
         from sqlalchemy import text
         placeholders = ','.join([':id_' + str(i) for i in range(len(ticket_ids_str))])
@@ -81,15 +81,13 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                 t.ticketid, t.subject, t.ticketstatustitle, t.departmenttitle,
                 FROM_UNIXTIME(t.dateline) AS created_date,
                 FROM_UNIXTIME(t.lastactivity) AS last_activity_date,
-                FROM_UNIXTIME(t.dateclosed) AS closed_date,
-                t.project_id, t.total_replies, t.posts, t.notes,
-                t.site_number, t.customer, t.state, t.city, t.service_date,
-                t.location_name, t.location_id
+                FROM_UNIXTIME(t.resolutiondateline) AS closed_date,
+                t.totalreplies, t.locationid, t.isresolved
             FROM sw_tickets t
             WHERE t.ticketid IN ({placeholders})
         """)
         params = {f'id_{i}': tid for i, tid in enumerate(ticket_ids_str)}
-        init_result = session Voting on this page is not allowed.execute(init_query, params).mappings().all()
+        init_result = session.execute(init_query, params).mappings().all()
 
         if not init_result:
             logging.warning("No results from primary database")
@@ -102,7 +100,7 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
             subject = row.get('subject')
             status = row.get('ticketstatustitle')
 
-            # Categorize ticket
+            # Categorize ticket (aligned with old version)
             category = "Other Tickets"
             queue = None
             if dept == 'Turnups':
@@ -121,22 +119,76 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                 category = "Dispatch Tickets"
                 queue = "Dispatch Projects"
 
-            # Parse posts and notes
-            posts = json.loads(row.get('posts', '[]')) if row.get('posts') else []
-            notes = json.loads(row.get('notes', '[]')) if row.get('notes') else []
+            ticket_data[ticket_id] = {
+                'ticket_id': ticket_id,
+                'subject': subject,
+                'status': status,
+                'department': dept,
+                'category': category,
+                'queue': queue,
+                'audit_status': 'Audited' if queue == 'FST Accounting' else ('Cleanup' if 'clean-up' in subject.lower() else None),
+                'parent_dispatch_id': None,
+                'created_date': str(row.get('created_date')) if row.get('created_date') else None,
+                'last_activity_date': str(row.get('last_activity_date')) if row.get('last_activity_date') else None,
+                'closed_date': str(row.get('closed_date')) if row.get('closed_date') and row.get('isresolved') else None,
+                'total_replies': row.get('totalreplies'),
+                'location_id': row.get('locationid'),
+                'posts': [],
+                'notes': [],
+                'technical_details': "N/A",
+                'accounting_details': None,
+                'issues': []
+            }
+
+    except Exception as e:
+        logging.error(f"Error fetching from primary database: {e}")
+        raise
+
+    # Fetch Posts and Notes from Primary Database
+    try:
+        for ticket_id_str in ticket_ids_str:
+            if ticket_id_str not in ticket_data:
+                logging.warning(f"Skipping posts/notes fetch for missing ticket {ticket_id_str}")
+                continue
+
+            # Fetch Posts
+            posts_query = text("""
+                SELECT ticketpostid, dateline AS post_dateline, userid, fullname, contents
+                FROM sw_ticketposts
+                WHERE ticketid = :ticket_id
+                ORDER BY dateline
+            """)
+            posts_result = session.execute(posts_query, {'ticket_id': ticket_id_str}).mappings().all()
+
+            # Fetch Notes
+            notes_query = text("""
+                SELECT ticketnoteid, linktypeid, dateline AS note_dateline, staffname, note
+                FROM sw_ticketnotes
+                WHERE linktypeid = :ticket_id
+                ORDER BY note_dateline
+            """)
+            notes_result = session.execute(notes_query, {'ticket_id': ticket_id_str}).mappings().all()
+
+            # Process Posts
             technical_details = []
             issues = []
-            accounting_details = None
-
-            for post in posts:
+            posts = []
+            for post_mapping in posts_result:
+                post = dict(post_mapping)
                 content = post.get('contents', '').lower()
+                posts.append({
+                    'post_id': post.get('ticketpostid'),
+                    'timestamp': str(datetime.fromtimestamp(post.get('post_dateline'))) if post.get('post_dateline') else None,
+                    'author': post.get('fullname'),
+                    'content': post.get('contents')
+                })
                 if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment']):
                     technical_details.append(f"Post ({post.get('post_dateline')}): {content[:150]}...")
                 if 'po:' in content or 'billing' in content or 'invoice' in content:
                     po_match = re.search(r'PO:\s*(\w+)', content)
                     amount_match = re.search(r'Amount:\s*(\d+)', content)
                     billing_type_match = re.search(r'Type of billing:\s*([^\n]+)', content)
-                    accounting_details = {
+                    ticket_data[ticket_id_str]['accounting_details'] = {
                         'po': po_match.group(1) if po_match else None,
                         'billing_type': billing_type_match.group(1).strip() if billing_type_match else None,
                         'amount': int(amount_match.group(1)) if amount_match else None,
@@ -145,15 +197,23 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                 if any(kw in content for kw in ['snowstorm', 'weather', 'unaware', 'no check-in', 'reschedule']):
                     issues.append(f"Issue from post ({post.get('post_dateline')}): {content[:150]}...")
 
-            for note in notes:
+            # Process Notes
+            for note_mapping in notes_result:
+                note = dict(note_mapping)
                 content = note.get('note', '').lower()
+                posts.append({
+                    'note_id': note.get('ticketnoteid'),
+                    'timestamp': str(datetime.fromtimestamp(note.get('note_dateline'))) if note.get('note_dateline') else None,
+                    'author': note.get('staffname'),
+                    'content': note.get('note')
+                })
                 if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment']):
                     technical_details.append(f"Note ({note.get('note_dateline')}): {content[:150]}...")
                 if 'po:' in content or 'billing' in content or 'invoice' in content:
                     po_match = re.search(r'PO:\s*(\w+)', content)
                     amount_match = re.search(r'Amount:\s*(\d+)', content)
                     billing_type_match = re.search(r'Type of billing:\s*([^\n]+)', content)
-                    accounting_details = {
+                    ticket_data[ticket_id_str]['accounting_details'] = {
                         'po': po_match.group(1) if po_match else None,
                         'billing_type': billing_type_match.group(1).strip() if billing_type_match else None,
                         'amount': int(amount_match.group(1)) if amount_match else None,
@@ -162,60 +222,12 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                 if any(kw in content for kw in ['snowstorm', 'weather', 'unaware', 'no check-in', 'reschedule']):
                     issues.append(f"Issue from note ({note.get('note_dateline')}): {content[:150]}...")
 
-            ticket_data[ticket_id] = {
-                'ticket_id': ticket_id,
-                'subject': subject,
-                'status': status,
-                'department': dept,
-                'category': category,
-                'queue': queue,
-                'audit_status': 'Audited' if queue == 'FST Accounting' else ('Cleanup' if 'clean-up' in str(posts + notes).lower() else None),
-                'parent_dispatch_id': None,
-                'created_date': str(row.get('created_date')) if row.get('created_date') else None,
-                'last_activity_date': str(row.get('last_activity_date')) if row.get('last_activity_date') else None,
-                'closed_date': str(row.get('closed_date')) if row.get('closed_date') else None,
-                'project_id': row.get('project_id'),
-                'site_number': row.get('site_number'),
-                'customer': row.get('customer'),
-                'location': {
-                    'name': row.get('location_name'),
-                    'city': row.get('city'),
-                    'state': row.get('state'),
-                    'service_date': str(row.get('service_date')) if row.get('service_date') else None
-                },
-                'posts': [
-                    {
-                        'post_id': p.get('ticketpostid'),
-                        'timestamp': p.get('post_dateline'),
-                        'author': p.get('fullname'),
-                        'content': p.get('contents')
-                    } for p in posts
-                ],
-                'notes': [
-                    {
-                        'note_id': n.get('ticketnoteid'),
-                        'timestamp': n.get('note_dateline'),
-                        'author': n.get('staffname'),
-                        'content': n.get('note')
-                    } for n in notes
-                ],
-                'technical_details': "\n".join(technical_details) or "N/A",
-                'accounting_details': accounting_details,
-                'issues': issues
-            }
-
-            # Check for epoch dates
-            if ticket_data[ticket_id]['closed_date'] and '1969-12-31' in ticket_data[ticket_id]['closed_date']:
-                ticket_data[ticket_id]['issues'].append("Epoch closed date (1969-12-31), indicating data error")
-            if ticket_data[ticket_id]['location']['service_date'] and '1969-12-31' in ticket_data[ticket_id]['location']['service_date']:
-                ticket_data[ticket_id]['issues'].append("Epoch service date (1969-12-31), indicating data error")
-
-            # Check location consistency
-            if row.get('city') and (row.get('city') != 'Hagerstown' or row.get('state') != 'MD'):
-                ticket_data[ticket_id]['issues'].append(f"Location mismatch: {row.get('city')}, {row.get('state')} vs. Hagerstown, MD")
+            ticket_data[ticket_id_str]['posts'] = posts
+            ticket_data[ticket_id_str]['technical_details'] = "\n".join(technical_details) or "N/A"
+            ticket_data[ticket_id_str]['issues'] = issues
 
     except Exception as e:
-        logging.error(f"Error fetching from primary database: {e}")
+        logging.error(f"Error fetching posts/notes from primary database: {e}")
         raise
 
     # Fetch from CISSDM Database (Dispatch and Turnup)
@@ -223,87 +235,91 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
         try:
             from sqlalchemy import text
             # Dispatch Tickets
-            dispatch_placeholders = ','.join([f':did_{i}' for i in range(len(ticket_ids_str))])
-            dispatch_query = text(f"""
-                SELECT id, dispatch_subject, dispatch_status, dispatch_ticket_type, serviceDate, serviceTime,
-                       inTime, outTime, durationJob, siteNumber, projectId, customer_name, location_address,
-                       location_city, location_state, location_zipcode, location_phone, location_timezone
-                FROM dispatches WHERE id IN ({dispatch_placeholders})
-            """)
-            params = {f'did_{i}': tid for i, tid in enumerate(ticket_ids_str)}
-            dispatch_results = cissdm_session.execute(dispatch_query, params).mappings().all()
-            for row_mapping in dispatch_results:
-                row = dict(row_mapping)
-                tid_str = str(row.get('id'))
-                if tid_str in ticket_data:
-                    ticket_data[tid_str]['dispatch_data'] = {
-                        'status': row.get('dispatch_status'),
-                        'ticket_type': row.get('dispatch_ticket_type'),
-                        'service_date': str(row.get('serviceDate')) if row.get('serviceDate') else None,
-                        'service_time': row.get('serviceTime'),
-                        'in_time': row.get('inTime'),
-                        'out_time': row.get('outTime'),
-                        'duration': row.get('durationJob'),
-                        'site_number': row.get('siteNumber'),
-                        'project_id': row.get('projectId'),
-                        'location': {
-                            'address': row.get('location_address'),
-                            'city': row.get('location_city'),
-                            'state': row.get('location_state'),
-                            'zipcode': row.get('location_zipcode'),
-                            'phone': row.get('location_phone'),
-                            'timezone': row.get('location_timezone')
+            dispatch_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Dispatch Tickets']
+            if dispatch_ids:
+                dispatch_placeholders = ','.join([f':did_{i}' for i in range(len(dispatch_ids))])
+                dispatch_query = text(f"""
+                    SELECT id, dispatch_subject, dispatch_status, dispatch_ticket_type, serviceDate, serviceTime,
+                           inTime, outTime, durationJob, siteNumber, projectId, customer_name, location_address,
+                           location_city, location_state, location_zipcode, location_phone, location_timezone
+                    FROM dispatches WHERE id IN ({dispatch_placeholders})
+                """)
+                params = {f'did_{i}': tid for i, tid in enumerate(dispatch_ids)}
+                dispatch_results = cissdm_session.execute(dispatch_query, params).mappings().all()
+                for row_mapping in dispatch_results:
+                    row = dict(row_mapping)
+                    tid_str = str(row.get('id'))
+                    if tid_str in ticket_data:
+                        ticket_data[tid_str]['dispatch_data'] = {
+                            'status': row.get('dispatch_status'),
+                            'ticket_type': row.get('dispatch_ticket_type'),
+                            'service_date': str(row.get('serviceDate')) if row.get('serviceDate') else None,
+                            'service_time': row.get('serviceTime'),
+                            'in_time': row.get('inTime'),
+                            'out_time': row.get('outTime'),
+                            'duration': row.get('durationJob'),
+                            'site_number': row.get('siteNumber'),
+                            'project_id': row.get('projectId'),
+                            'location': {
+                                'address': row.get('location_address'),
+                                'city': row.get('location_city'),
+                                'state': row.get('location_state'),
+                                'zipcode': row.get('location_zipcode'),
+                                'phone': row.get('location_phone'),
+                                'timezone': row.get('location_timezone')
+                            }
                         }
-                    }
-                    if row.get('location_city') and (row.get('location_city') != 'Hagerstown' or row.get('location_state') != 'MD'):
-                        ticket_data[tid_str]['issues'].append(f"Dispatch location mismatch: {row.get('location_city')}, {row.get('location_state')} vs. Hagerstown, MD")
+                        if row.get('location_city') and (row.get('location_city') != 'Hagerstown' or row.get('location_state') != 'MD'):
+                            ticket_data[tid_str]['issues'].append(f"Dispatch location mismatch: {row.get('location_city')}, {row.get('location_state')} vs. Hagerstown, MD")
 
             # Turnup Tickets
-            turnup_placeholders = ','.join([f':tid_{i}' for i in range(len(ticket_ids_str))])
-            turnup_query = text(f"""
-                SELECT ticketid, DispatchId, turnup_subject, turnup_status, ServiceDate, CISTechnicianName,
-                       InTime, OutTime, TurnupNotes, DispatchNotes, technicianGrade, technicianComment,
-                       FailureCode, FailureCodeOther, pmreview, closeOutNotes, brief_summary_for_invoice,
-                       isresolved, turnup_created, turnup_last_activity, turnup_updated, turnup_closed, SiteNumber
-                FROM turnups WHERE ticketid IN ({turnup_placeholders})
-            """)
-            params = {f'tid_{i}': tid for i, tid in enumerate(ticket_ids_str)}
-            turnup_results = cissdm_session.execute(turnup_query, params).mappings().all()
-            for row_mapping in turnup_results:
-                row = dict(row_mapping)
-                tid_str = str(row.get('ticketid'))
-                if tid_str in ticket_data:
-                    ticket_data[tid_str]['parent_dispatch_id'] = str(row.get('DispatchId')) if row.get('DispatchId') else None
-                    ticket_data[tid_str]['turnup_data'] = {
-                        'status': row.get('turnup_status'),
-                        'service_date': str(row.get('ServiceDate')) if row.get('ServiceDate') else None,
-                        'technician_name': row.get('CISTechnicianName'),
-                        'in_time': row.get('InTime'),
-                        'out_time': row.get('OutTime'),
-                        'duration': None,  # Calculate duration if times are available
-                        'notes': row.get('TurnupNotes'),
-                        'dispatch_notes': row.get('DispatchNotes'),
-                        'failure_code': row.get('FailureCode'),
-                        'failure_code_other': row.get('FailureCodeOther'),
-                        'is_resolved': bool(row.get('isresolved')),
-                        'created_date': str(row.get('turnup_created')) if row.get('turnup_created') else None,
-                        'last_activity_date': str(row.get('turnup_last_activity')) if row.get('turnup_last_activity') else None,
-                        'closed_date': str(row.get('turnup_closed')) if row.get('turnup_closed') else None
-                    }
-                    if row.get('InTime') and row.get('OutTime'):
-                        try:
-                            in_time = datetime.strptime(row.get('InTime'), '%H:%M:%S')
-                            out_time = datetime.strptime(row.get('OutTime'), '%H:%M:%S')
-                            duration = (out_time - in_time).total_seconds() / 60
-                            ticket_data[tid_str]['turnup_data']['duration'] = f"{duration:.2f} minutes"
-                        except ValueError:
-                            pass
-                    if not row.get('InTime') or not row.get('OutTime'):
-                        ticket_data[tid_str]['issues'].append("Missing visit times (InTime/OutTime)")
-                    if row.get('FailureCode'):
-                        ticket_data[tid_str]['issues'].append(f"Failed/Cancelled: {row.get('FailureCode')} - {row.get('FailureCodeOther', '')}")
-                    if row.get('ServiceDate') and '1969-12-31' in str(row.get('ServiceDate')):
-                        ticket_data[tid_str]['issues'].append("Epoch turnup service date (1969-12-31), indicating data error")
+            turnup_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Turnup Tickets']
+            if turnup_ids:
+                turnup_placeholders = ','.join([f':tid_{i}' for i in range(len(turnup_ids))])
+                turnup_query = text(f"""
+                    SELECT ticketid, DispatchId, turnup_subject, turnup_status, ServiceDate, CISTechnicianName,
+                           InTime, OutTime, TurnupNotes, DispatchNotes, technicianGrade, technicianComment,
+                           FailureCode, FailureCodeOther, pmreview, closeOutNotes, brief_summary_for_invoice,
+                           isresolved, turnup_created, turnup_last_activity, turnup_updated, turnup_closed, SiteNumber
+                    FROM turnups WHERE ticketid IN ({turnup_placeholders})
+                """)
+                params = {f'tid_{i}': tid for i, tid in enumerate(turnup_ids)}
+                turnup_results = cissdm_session.execute(turnup_query, params).mappings().all()
+                for row_mapping in turnup_results:
+                    row = dict(row_mapping)
+                    tid_str = str(row.get('ticketid'))
+                    if tid_str in ticket_data:
+                        ticket_data[tid_str]['parent_dispatch_id'] = str(row.get('DispatchId')) if row.get('DispatchId') else None
+                        ticket_data[tid_str]['turnup_data'] = {
+                            'status': row.get('turnup_status'),
+                            'service_date': str(row.get('ServiceDate')) if row.get('ServiceDate') else None,
+                            'technician_name': row.get('CISTechnicianName'),
+                            'in_time': row.get('InTime'),
+                            'out_time': row.get('OutTime'),
+                            'duration': None,
+                            'notes': row.get('TurnupNotes'),
+                            'dispatch_notes': row.get('DispatchNotes'),
+                            'failure_code': row.get('FailureCode'),
+                            'failure_code_other': row.get('FailureCodeOther'),
+                            'is_resolved': bool(row.get('isresolved')),
+                            'created_date': str(row.get('turnup_created')) if row.get('turnup_created') else None,
+                            'last_activity_date': str(row.get('turnup_last_activity')) if row.get('turnup_last_activity') else None,
+                            'closed_date': str(row.get('turnup_closed')) if row.get('turnup_closed') else None
+                        }
+                        if row.get('InTime') and row.get('OutTime'):
+                            try:
+                                in_time = datetime.strptime(row.get('InTime'), '%H:%M:%S')
+                                out_time = datetime.strptime(row.get('OutTime'), '%H:%M:%S')
+                                duration = (out_time - in_time).total_seconds() / 60
+                                ticket_data[tid_str]['turnup_data']['duration'] = f"{duration:.2f} minutes"
+                            except ValueError:
+                                pass
+                        if not row.get('InTime') or not row.get('OutTime'):
+                            ticket_data[tid_str]['issues'].append("Missing visit times (InTime/OutTime)")
+                        if row.get('FailureCode'):
+                            ticket_data[tid_str]['issues'].append(f"Failed/Cancelled: {row.get('FailureCode')} - {row.get('FailureCodeOther', '')}")
+                        if row.get('ServiceDate') and '1969-12-31' in str(row.get('ServiceDate')):
+                            ticket_data[tid_str]['issues'].append("Epoch turnup service date (1969-12-31), indicating data error")
 
         except Exception as e:
             logging.error(f"Error fetching from CISSDM database: {e}")
