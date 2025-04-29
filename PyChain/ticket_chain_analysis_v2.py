@@ -279,11 +279,32 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
             if turnup_ids:
                 turnup_placeholders = ','.join([f':tid_{i}' for i in range(len(turnup_ids))])
                 turnup_query = text(f"""
-                    SELECT ticketid, DispatchId, turnup_subject, turnup_status, ServiceDate, CISTechnicianName,
-                           InTime, OutTime, TurnupNotes, DispatchNotes, technicianGrade, technicianComment,
-                           FailureCode, FailureCodeOther, pmreview, closeOutNotes, brief_summary_for_invoice,
-                           isresolved, turnup_created, turnup_last_activity, turnup_updated, turnup_closed, SiteNumber
-                    FROM turnups WHERE ticketid IN ({turnup_placeholders})
+                    SELECT 
+                        ticketid, 
+                        DispatchId, 
+                        subject, 
+                        ticketstatustitle AS turnup_status, 
+                        ServiceDate, 
+                        CISTechnicianName,
+                        InTime, 
+                        OutTime, 
+                        TurnupNotes, 
+                        DispatchNotes, 
+                        technicianGrade, 
+                        technicianComment,
+                        FailureCode, 
+                        FailureCodeOther, 
+                        pmreview, 
+                        closeOutNotes, 
+                        brief_summary_for_invoice,
+                        isresolved, 
+                        created_at AS turnup_created, 
+                        last_activity AS turnup_last_activity, 
+                        updated_at AS turnup_updated, 
+                        closed_at AS turnup_closed, 
+                        SiteNumber
+                    FROM turnups 
+                    WHERE ticketid IN ({turnup_placeholders})
                 """)
                 params = {f'tid_{i}': tid for i, tid in enumerate(turnup_ids)}
                 turnup_results = cissdm_session.execute(turnup_query, params).mappings().all()
