@@ -239,9 +239,11 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
             if dispatch_ids:
                 dispatch_placeholders = ','.join([f':did_{i}' for i in range(len(dispatch_ids))])
                 dispatch_query = text(f"""
-                    SELECT id, dispatch_subject, dispatch_status, dispatch_ticket_type, serviceDate, serviceTime,
-                           inTime, outTime, durationJob, siteNumber, projectId, customer_name, location_address,
-                           location_city, location_state, location_zipcode, location_phone, location_timezone
+                    SELECT id, id_turnup, id_wo, id_customer, customername, subject,
+                        statusDispatch, statusTurnup, ticketType, serviceDate, serviceTime,
+                        ticketPriority, postFirstDetails, postLastDetails, dateCreated,
+                        department, projectId, billableRate, FSTHourlyCosts, FSTHourlyCostsToCustomer,
+                        FSTFinalBilledToCIS, siteNumber, created_at, updated_at
                     FROM dispatches WHERE id IN ({dispatch_placeholders})
                 """)
                 params = {f'did_{i}': tid for i, tid in enumerate(dispatch_ids)}
@@ -825,23 +827,49 @@ def compile_issues_index(batch_results):
     return issues_index
 
 def create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str):
-    """Generate follow-up questions for tickets with issues."""
-    prompt = f"""
-Based on the analysis for chain {chain_hash}, generate specific follow-up questions to clarify issues.
+        """Generate follow-up questions for tickets with issues, focusing on dispatch, planning, work, and operational issues."""
+        prompt = f"""
+    Based on the analysis for chain {chain_hash}, generate specific follow-up questions to clarify issues identified in the tickets. Questions MUST focus on the dispatch itself, planning, work performed during the visit, issues requiring more details, reasons for failure or incomplete status, or other operational concerns. Do NOT generate questions about ticket relationships, missing relationships, or dispatch-turnup linkages (e.g., avoid questions like "Why is this turnup not linked to a dispatch?").
 
-Issues Index:
-"""
-    for entry in issues_index.get("tickets_with_issues", []):
-        prompt += f"- Ticket {entry['ticket_id']}:\n  Issues: {', '.join(entry['issues']) if isinstance(entry['issues'], list) else entry['issues']}\n"
-    prompt += f"""
-Provide a JSON object with `questions_by_ticket` mapping ticket IDs to a list of up to 3 questions to clarify issues. Examples:
-- For cancellations: "What caused the cancellation of this ticket?"
-- For non-1:1 relationships: "Why was this dispatch reused for multiple turnups?"
-- For missing data: "Why are visit times missing for this turnup?"
-- For data quality: "Why is an epoch date present in this ticket's closed date?"
-Include all tickets [{ticket_ids_list_str}], using empty lists for tickets without questions.
-"""
-    return prompt
+    Issues Index (filtered to exclude relationship-related issues):
+    """
+        # Filter out relationship-related issues
+        filtered_issues = []
+        for entry in issues_index.get("tickets_with_issues", []):
+            filtered_entry = {
+                "ticket_id": entry["ticket_id"],
+                "issues": [
+                    issue for issue in (entry["issues"] if isinstance(entry["issues"], list) else [entry["issues"]])
+                    if not any(kw in issue.lower() for kw in ["orphaned", "linked", "relationship"])
+                ]
+            }
+            if filtered_entry["issues"]:  # Only include entries with non-empty filtered issues
+                filtered_issues.append(filtered_entry)
+
+        if filtered_issues:
+            for entry in filtered_issues:
+                prompt += f"- Ticket {entry['ticket_id']}:\n  - Issues: {', '.join(entry['issues'])}\n"
+        else:
+            prompt += "No relevant issues found after filtering relationship-related issues.\n"
+
+        prompt += f"""
+    Provide ONLY a valid JSON object with a key `questions_by_ticket` mapping ticket IDs to a list of up to 3 specific questions to clarify the issues. Questions should address:
+    - Details of the dispatch planning (e.g., scheduling, resource allocation).
+    - Work performed during the visit (e.g., tasks completed, equipment installed).
+    - Specific issues needing clarification (e.g., delays, missing materials).
+    - Reasons for failure, cancellation, or incomplete status (e.g., environmental factors, technician issues).
+    - Operational concerns (e.g., communication with site, safety issues).
+
+    Examples of acceptable questions:
+    - "What specific tasks were completed during the visit for this dispatch?"
+    - "Why was the dispatch delayed, and what resources were missing?"
+    - "What caused the cancellation of this turnup due to a snowstorm?"
+    - "What additional details are needed to understand the technician's no-check-in issue?"
+    - "Why was the work incomplete, and what is required to finish it?"
+
+    Include all tickets [{ticket_ids_list_str}], using empty lists for tickets without questions. Output ONLY valid JSON.
+    """
+        return prompt
 
 def get_tickets_with_questions(questions_json, user_questions, full_ticket_data):
     """Compile tickets needing re-analysis with questions."""
@@ -966,7 +994,7 @@ def consolidate_final_report(batch_results, issues_index, detailed_results, full
     for tid, data in full_ticket_data.items():
         if data.get('category') == 'Turnup Tickets' and not data.get('parent_dispatch_id'):
             report["relationships"].append({
-                "dispatch_ticket_id": null,
+                "dispatch_ticket_id": None,  # Fixed: Changed null to None
                 "turnup_ticket_ids": [tid],
                 "confidence": "Low",
                 "notes": "Orphaned turnup, no linked dispatch"
@@ -1012,8 +1040,6 @@ def consolidate_final_report(batch_results, issues_index, detailed_results, full
             missing_notes.append(f"Ticket {tid} missing visit times (InTime/OutTime)")
         if data.get('closed_date') and '1969-12-31' in data.get('closed_date'):
             missing_notes.append(f"Ticket {tid} has epoch closed date")
-        if data.get('location', {}).get('city') and data['location']['city'] != 'Hagerstown':
-            missing_notes.append(f"Ticket {tid} location mismatch: {data['location']['city']}")
         if not data.get('technical_details') or data.get('technical_details') == 'N/A':
             missing_notes.append(f"Ticket {tid} lacks technical details")
     report["missing_data_notes"] = list(set(missing_notes))
