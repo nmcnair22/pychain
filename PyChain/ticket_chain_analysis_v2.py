@@ -8,6 +8,7 @@ import time
 import shutil
 from datetime import datetime
 from openai import OpenAI
+from sqlalchemy import text
 from app.services.ticket_chain_service import TicketChainService
 from app.services.ai_service import AIService, openai_client
 
@@ -58,25 +59,24 @@ def get_db_session(db_type="primary"):
                     logging.error("Max retries reached for CISSDM session")
                     return None
                 time.sleep(retry_delay * (2 ** attempt))
+        return None
     else:
         logging.error(f"Invalid database type: {db_type}")
         return None
 
 def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
-    """Fetch detailed ticket data from primary and CISSDM databases."""
+    """Fetch detailed data for all tickets in chain."""
     if not ticket_ids:
-        logging.warning("No ticket IDs provided to fetch_full_ticket_data")
         return {}
-
-    ticket_ids_str = [str(tid) for tid in set(ticket_ids)]
+    
     ticket_data = {}
-    logging.info(f"Fetching details for {len(ticket_ids_str)} unique tickets: {ticket_ids_str}")
-
-    # Fetch from Primary Database (sw_tickets)
+    
     try:
-        from sqlalchemy import text
-        placeholders = ','.join([':id_' + str(i) for i in range(len(ticket_ids_str))])
-        init_query = text(f"""
+        # Create placeholders for SQL query
+        placeholders = ','.join([f':tid_{i}' for i in range(len(ticket_ids))])
+        
+        # Primary table query (tickets)
+        base_query = text(f"""
             SELECT
                 t.ticketid, t.subject, t.ticketstatustitle, t.departmenttitle,
                 FROM_UNIXTIME(t.dateline) AS created_date,
@@ -86,194 +86,173 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
             FROM sw_tickets t
             WHERE t.ticketid IN ({placeholders})
         """)
-        params = {f'id_{i}': tid for i, tid in enumerate(ticket_ids_str)}
-        init_result = session.execute(init_query, params).mappings().all()
-
-        if not init_result:
-            logging.warning("No results from primary database")
-            return {}
-
-        for row_mapping in init_result:
+        
+        # Execute query with parameters
+        params = {f'tid_{i}': int(tid) for i, tid in enumerate(ticket_ids)}
+        results = session.execute(base_query, params).mappings().all()
+        
+        # Process all tickets in chain
+        for row_mapping in results:
             row = dict(row_mapping)
-            ticket_id = str(row.get('ticketid'))
-            dept = row.get('departmenttitle')
-            subject = row.get('subject')
-            status = row.get('ticketstatustitle')
-
-            # Categorize ticket (aligned with old version)
-            category = "Other Tickets"
-            queue = None
-            if dept == 'Turnups':
-                category = "Turnup Tickets"
-            elif dept in ['Dispatch', 'Pro Services']:
-                category = "Dispatch Tickets"
-                queue = dept
-            elif dept == 'FST Accounting':
-                category = "Dispatch Tickets"
-                queue = "FST Accounting"
-            elif dept in ['Shipping', 'Outbound', 'Inbound']:
-                category = "Shipping Tickets"
-            elif dept == 'Turn up Projects':
-                category = "Project Management Tickets"
-            elif dept == 'Dispatch Projects':
-                category = "Dispatch Tickets"
-                queue = "Dispatch Projects"
-
-            ticket_data[ticket_id] = {
-                'ticket_id': ticket_id,
-                'subject': subject,
-                'status': status,
-                'department': dept,
-                'category': category,
-                'queue': queue,
-                'audit_status': 'Audited' if queue == 'FST Accounting' else ('Cleanup' if 'clean-up' in subject.lower() else None),
-                'parent_dispatch_id': None,
-                'created_date': str(row.get('created_date')) if row.get('created_date') else None,
-                'last_activity_date': str(row.get('last_activity_date')) if row.get('last_activity_date') else None,
-                'closed_date': str(row.get('closed_date')) if row.get('closed_date') and row.get('isresolved') else None,
-                'total_replies': row.get('totalreplies'),
-                'location_id': row.get('locationid'),
+            tid_str = str(row['ticketid'])
+            
+            # Initialize ticket_data structure
+            ticket_data[tid_str] = {
+                'ticket_id': tid_str,
+                'subject': row['subject'],
+                'status': row['ticketstatustitle'],
+                'department': row['departmenttitle'],
+                'created_date': str(row['created_date']),
+                'last_activity_date': str(row['last_activity_date']),
+                'closed_date': str(row['closed_date']) if row['closed_date'] else None,
+                'is_resolved': bool(row['isresolved']),
+                'is_dispatch': False,
+                'is_turnup': False,
                 'posts': [],
                 'notes': [],
-                'technical_details': "N/A",
-                'accounting_details': None,
-                'issues': []
+                'user_posts': [],
+                'timeline': [],
+                'issues': [],
+                'category': 'Unknown',
+                'site': {
+                    'number': 'N/A',
+                    'address': 'N/A',
+                    'city': 'N/A',
+                    'state': 'N/A'
+                }
             }
-
-    except Exception as e:
-        logging.error(f"Error fetching from primary database: {e}")
-        raise
-
-    # Fetch Posts and Notes from Primary Database
-    try:
-        for ticket_id_str in ticket_ids_str:
-            if ticket_id_str not in ticket_data:
-                logging.warning(f"Skipping posts/notes fetch for missing ticket {ticket_id_str}")
+            
+            # Categorize by department
+            if row['departmenttitle'] == 'Dispatch Tickets':
+                ticket_data[tid_str]['category'] = 'Dispatch Tickets'
+                ticket_data[tid_str]['is_dispatch'] = True
+            elif row['departmenttitle'] == 'Turnup Tickets':
+                ticket_data[tid_str]['category'] = 'Turnup Tickets'
+                ticket_data[tid_str]['is_turnup'] = True
+            
+        # Get posts for each ticket
+        for tid in ticket_ids:
+            tid_str = str(tid)
+            if tid_str not in ticket_data:
                 continue
-
-            # Fetch Posts
+                
             posts_query = text("""
                 SELECT ticketpostid, dateline AS post_dateline, userid, fullname, contents
                 FROM sw_ticketposts
                 WHERE ticketid = :ticket_id
                 ORDER BY dateline
             """)
-            posts_result = session.execute(posts_query, {'ticket_id': ticket_id_str}).mappings().all()
-
-            # Fetch Notes
+            posts_results = session.execute(posts_query, {'ticket_id': int(tid)}).mappings().all()
+            
+            for post_row in posts_results:
+                post_dict = dict(post_row)
+                post_time = datetime.fromtimestamp(post_dict['post_dateline'])
+                
+                # Add to main posts list
+                post_data = {
+                    'id': post_dict['ticketpostid'],
+                    'time': str(post_time),
+                    'user': post_dict['fullname'],
+                    'user_id': post_dict['userid'],
+                    'contents': post_dict['contents'],
+                    'is_staff': True if post_dict['userid'] != 0 else False
+                }
+                ticket_data[tid_str]['posts'].append(post_data)
+                
+                # Add user posts to separate list
+                if post_dict['userid'] == 0:
+                    ticket_data[tid_str]['user_posts'].append(post_data)
+                
+                # Add to unified timeline
+                ticket_data[tid_str]['timeline'].append({
+                    'time': str(post_time),
+                    'type': 'post',
+                    'user': post_dict['fullname'],
+                    'content': post_dict['contents']
+                })
+            
+            # First and last post shortcuts
+            if ticket_data[tid_str]['posts']:
+                ticket_data[tid_str]['first_post'] = ticket_data[tid_str]['posts'][0]['contents']
+                ticket_data[tid_str]['last_post'] = ticket_data[tid_str]['posts'][-1]['contents']
+            
+            # Get notes for each ticket
             notes_query = text("""
                 SELECT ticketnoteid, linktypeid, dateline AS note_dateline, staffname, note
                 FROM sw_ticketnotes
                 WHERE linktypeid = :ticket_id
                 ORDER BY note_dateline
             """)
-            notes_result = session.execute(notes_query, {'ticket_id': ticket_id_str}).mappings().all()
-
-            # Process Posts
-            technical_details = []
-            issues = []
-            posts = []
-            for post_mapping in posts_result:
-                post = dict(post_mapping)
-                content = post.get('contents', '').lower()
-                posts.append({
-                    'post_id': post.get('ticketpostid'),
-                    'timestamp': str(datetime.fromtimestamp(post.get('post_dateline'))) if post.get('post_dateline') else None,
-                    'author': post.get('fullname'),
-                    'content': post.get('contents')
+            notes_results = session.execute(notes_query, {'ticket_id': int(tid)}).mappings().all()
+            
+            for note_row in notes_results:
+                note_dict = dict(note_row)
+                note_time = datetime.fromtimestamp(note_dict['note_dateline'])
+                
+                note_data = {
+                    'id': note_dict['ticketnoteid'],
+                    'time': str(note_time),
+                    'user': note_dict['staffname'],
+                    'contents': note_dict['note']
+                }
+                ticket_data[tid_str]['notes'].append(note_data)
+                
+                # Add to unified timeline
+                ticket_data[tid_str]['timeline'].append({
+                    'time': str(note_time),
+                    'type': 'note',
+                    'user': note_dict['staffname'],
+                    'content': note_dict['note']
                 })
-                if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment']):
-                    technical_details.append(f"Post ({post.get('post_dateline')}): {content[:150]}...")
-                if 'po:' in content or 'billing' in content or 'invoice' in content:
-                    po_match = re.search(r'PO:\s*(\w+)', content)
-                    amount_match = re.search(r'Amount:\s*(\d+)', content)
-                    billing_type_match = re.search(r'Type of billing:\s*([^\n]+)', content)
-                    ticket_data[ticket_id_str]['accounting_details'] = {
-                        'po': po_match.group(1) if po_match else None,
-                        'billing_type': billing_type_match.group(1).strip() if billing_type_match else None,
-                        'amount': int(amount_match.group(1)) if amount_match else None,
-                        'status': 'Pending invoice' if 'invoice' in content else 'Unknown'
-                    }
-                if any(kw in content for kw in ['snowstorm', 'weather', 'unaware', 'no check-in', 'reschedule']):
-                    issues.append(f"Issue from post ({post.get('post_dateline')}): {content[:150]}...")
-
-            # Process Notes
-            for note_mapping in notes_result:
-                note = dict(note_mapping)
-                content = note.get('note', '').lower()
-                posts.append({
-                    'note_id': note.get('ticketnoteid'),
-                    'timestamp': str(datetime.fromtimestamp(note.get('note_dateline'))) if note.get('note_dateline') else None,
-                    'author': note.get('staffname'),
-                    'content': note.get('note')
-                })
-                if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment']):
-                    technical_details.append(f"Note ({note.get('note_dateline')}): {content[:150]}...")
-                if 'po:' in content or 'billing' in content or 'invoice' in content:
-                    po_match = re.search(r'PO:\s*(\w+)', content)
-                    amount_match = re.search(r'Amount:\s*(\d+)', content)
-                    billing_type_match = re.search(r'Type of billing:\s*([^\n]+)', content)
-                    ticket_data[ticket_id_str]['accounting_details'] = {
-                        'po': po_match.group(1) if po_match else None,
-                        'billing_type': billing_type_match.group(1).strip() if billing_type_match else None,
-                        'amount': int(amount_match.group(1)) if amount_match else None,
-                        'status': 'Pending invoice' if 'invoice' in content else 'Unknown'
-                    }
-                if any(kw in content for kw in ['snowstorm', 'weather', 'unaware', 'no check-in', 'reschedule']):
-                    issues.append(f"Issue from note ({note.get('note_dateline')}): {content[:150]}...")
-
-            ticket_data[ticket_id_str]['posts'] = posts
-            ticket_data[ticket_id_str]['technical_details'] = "\n".join(technical_details) or "N/A"
-            ticket_data[ticket_id_str]['issues'] = issues
-
-    except Exception as e:
-        logging.error(f"Error fetching posts/notes from primary database: {e}")
-        raise
-
-    # Fetch from CISSDM Database (Dispatch and Turnup)
-    if cissdm_session:
-        try:
-            from sqlalchemy import text
-            # Dispatch Tickets
+        
+        # Sort timeline for each ticket
+        for tid_str in ticket_data:
+            ticket_data[tid_str]['timeline'].sort(key=lambda x: x['time'])
+        
+        if cissdm_session:
+            # Dispatch Tickets from CISSDM
             dispatch_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Dispatch Tickets']
             if dispatch_ids:
-                dispatch_placeholders = ','.join([f':did_{i}' for i in range(len(dispatch_ids))])
+                dispatch_placeholders = ','.join([f':tid_{i}' for i in range(len(dispatch_ids))])
                 dispatch_query = text(f"""
-                    SELECT id, id_turnup, id_wo, id_customer, customername, subject,
+                    SELECT
+                        id, id_turnup, id_wo, id_customer, customername, subject,
                         statusDispatch, statusTurnup, ticketType, serviceDate, serviceTime,
                         ticketPriority, postFirstDetails, postLastDetails, dateCreated,
                         department, projectId, billableRate, FSTHourlyCosts, FSTHourlyCostsToCustomer,
                         FSTFinalBilledToCIS, siteNumber, created_at, updated_at
                     FROM dispatches WHERE id IN ({dispatch_placeholders})
                 """)
-                params = {f'did_{i}': tid for i, tid in enumerate(dispatch_ids)}
+                params = {f'tid_{i}': tid for i, tid in enumerate(dispatch_ids)}
                 dispatch_results = cissdm_session.execute(dispatch_query, params).mappings().all()
+                
                 for row_mapping in dispatch_results:
                     row = dict(row_mapping)
-                    tid_str = str(row.get('id'))
+                    tid_str = str(row['id'])
                     if tid_str in ticket_data:
                         ticket_data[tid_str]['dispatch_data'] = {
-                            'status': row.get('dispatch_status'),
-                            'ticket_type': row.get('dispatch_ticket_type'),
-                            'service_date': str(row.get('serviceDate')) if row.get('serviceDate') else None,
-                            'service_time': row.get('serviceTime'),
-                            'in_time': row.get('inTime'),
-                            'out_time': row.get('outTime'),
-                            'duration': row.get('durationJob'),
-                            'site_number': row.get('siteNumber'),
-                            'project_id': row.get('projectId'),
+                            'status': row.get('statusDispatch', 'N/A'),
+                            'type': row.get('ticketType', 'N/A'),
+                            'service_date': str(row.get('serviceDate')) if row.get('serviceDate') else 'N/A',
+                            'service_time': row.get('serviceTime', 'N/A'),
+                            'priority': row.get('ticketPriority', 'N/A'),
+                            'customer_name': row.get('customername', 'N/A'),
+                            'wo_id': row.get('id_wo', 'N/A'),
+                            'turnup_id': row.get('id_turnup', 'N/A'),
+                            'site_number': row.get('siteNumber', 'N/A'),
+                            'project_id': row.get('projectId', 'N/A'),
                             'location': {
-                                'address': row.get('location_address'),
-                                'city': row.get('location_city'),
-                                'state': row.get('location_state'),
-                                'zipcode': row.get('location_zipcode'),
-                                'phone': row.get('location_phone'),
-                                'timezone': row.get('location_timezone')
+                                'address': row.get('location_address', 'N/A') if 'location_address' in row else 'N/A',
+                                'city': row.get('location_city', 'N/A') if 'location_city' in row else 'N/A',
+                                'state': row.get('location_state', 'N/A') if 'location_state' in row else 'N/A',
+                                'zipcode': row.get('location_zipcode', 'N/A') if 'location_zipcode' in row else 'N/A',
+                                'phone': row.get('location_phone', 'N/A') if 'location_phone' in row else 'N/A',
+                                'timezone': row.get('location_timezone', 'N/A') if 'location_timezone' in row else 'N/A'
                             }
                         }
                         if row.get('location_city') and (row.get('location_city') != 'Hagerstown' or row.get('location_state') != 'MD'):
                             ticket_data[tid_str]['issues'].append(f"Dispatch location mismatch: {row.get('location_city')}, {row.get('location_state')} vs. Hagerstown, MD")
-
+            
             # Turnup Tickets
             turnup_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Turnup Tickets']
             if turnup_ids:
@@ -314,20 +293,20 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                     if tid_str in ticket_data:
                         ticket_data[tid_str]['parent_dispatch_id'] = str(row.get('DispatchId')) if row.get('DispatchId') else None
                         ticket_data[tid_str]['turnup_data'] = {
-                            'status': row.get('turnup_status'),
-                            'service_date': str(row.get('ServiceDate')) if row.get('ServiceDate') else None,
-                            'technician_name': row.get('CISTechnicianName'),
-                            'in_time': row.get('InTime'),
-                            'out_time': row.get('OutTime'),
+                            'status': row.get('turnup_status', 'N/A'),
+                            'service_date': str(row.get('ServiceDate')) if row.get('ServiceDate') else 'N/A',
+                            'technician_name': row.get('CISTechnicianName', 'N/A'),
+                            'in_time': row.get('InTime', 'N/A'),
+                            'out_time': row.get('OutTime', 'N/A'),
                             'duration': None,
-                            'notes': row.get('TurnupNotes'),
-                            'dispatch_notes': row.get('DispatchNotes'),
-                            'failure_code': row.get('FailureCode'),
-                            'failure_code_other': row.get('FailureCodeOther'),
-                            'is_resolved': bool(row.get('isresolved')),
-                            'created_date': str(row.get('turnup_created')) if row.get('turnup_created') else None,
-                            'last_activity_date': str(row.get('turnup_last_activity')) if row.get('turnup_last_activity') else None,
-                            'closed_date': str(row.get('turnup_closed')) if row.get('turnup_closed') else None
+                            'notes': row.get('TurnupNotes', 'N/A'),
+                            'dispatch_notes': row.get('DispatchNotes', 'N/A'),
+                            'failure_code': row.get('FailureCode', 'N/A'),
+                            'failure_code_other': row.get('FailureCodeOther', 'N/A'),
+                            'is_resolved': bool(row.get('isresolved', False)),
+                            'created_date': str(row.get('turnup_created')) if row.get('turnup_created') else 'N/A',
+                            'last_activity_date': str(row.get('turnup_last_activity')) if row.get('turnup_last_activity') else 'N/A',
+                            'closed_date': str(row.get('turnup_closed')) if row.get('turnup_closed') else 'N/A'
                         }
                         if row.get('InTime') and row.get('OutTime'):
                             try:
@@ -344,8 +323,9 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
                         if row.get('ServiceDate') and '1969-12-31' in str(row.get('ServiceDate')):
                             ticket_data[tid_str]['issues'].append("Epoch turnup service date (1969-12-31), indicating data error")
 
-        except Exception as e:
-            logging.error(f"Error fetching from CISSDM database: {e}")
+    except Exception as e:
+        logging.error(f"Error fetching from primary database: {e}")
+        raise
 
     # Detect orphaned turnups and non-1:1 relationships
     dispatch_to_turnups = {}
@@ -475,7 +455,7 @@ def setup_vector_store_and_assistant(client: OpenAI, ticket_files: list[str]):
         raise
 
 def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
-    """Create JSON files for ticket data, chain metadata, and analysis."""
+    """Create JSON files for ticket data, chain metadata, and analysis with standardized structure for AI ingestion."""
     output_dir = 'PyChain/data/ticket_files'
     os.makedirs(output_dir, exist_ok=True)
     chain_hash = chain_details['chain_hash']
@@ -485,7 +465,7 @@ def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
     chain_file = os.path.join(output_dir, f'chain_{chain_hash}.json')
     try:
         chain_meta = {
-            "chain_hash": chain_hash,
+             "chain_hash": chain_hash,
             "ticket_count": chain_details.get('ticket_count', len(chain_details.get('tickets', []))),
             "ticket_ids": list(full_ticket_data.keys())
         }
@@ -496,13 +476,52 @@ def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
     except Exception as e:
         logging.error(f"Error creating chain metadata file {chain_file}: {e}")
 
-    # Consolidated ticket data
+    # Consolidated ticket data with standardized structure
     tickets_file = os.path.join(output_dir, f'tickets_{chain_hash}.json')
     try:
+        # Standardize the ticket data structure for AI ingestion
+        standardized_ticket_data = {}
+        for ticket_id, data in full_ticket_data.items():
+            standardized_ticket_data[ticket_id] = {
+                "basic_info": {
+                    "ticket_id": data.get('ticket_id', 'N/A'),
+                    "subject": data.get('subject', 'N/A'),
+                    "status": data.get('status', 'N/A'),
+                    "department": data.get('department', 'N/A'),
+                    "category": data.get('category', 'N/A'),
+                    "queue": data.get('queue', 'N/A'),
+                    "audit_status": data.get('audit_status', 'N/A'),
+                    "parent_dispatch_id": data.get('parent_dispatch_id', 'N/A'),
+                    "location_id": data.get('location_id', 'N/A'),
+                    "site_number": data.get('site_number', 'N/A') if 'site_number' in data else 'N/A',
+                    "project_id": data.get('project_id', 'N/A') if 'project_id' in data else 'N/A'
+                },
+                "timeline": {
+                    "created_date": data.get('created_date', 'N/A'),
+                    "last_activity_date": data.get('last_activity_date', 'N/A'),
+                    "closed_date": data.get('closed_date', 'N/A'),
+                    "service_date": data.get('turnup_data', {}).get('service_date', 'N/A') if 'turnup_data' in data else 'N/A'
+                },
+                "details": {
+                    "total_replies": data.get('total_replies', 0),
+                    "technical_details": data.get('technical_details', 'N/A'),
+                    "issues": data.get('issues', []),
+                    "accounting_details": data.get('accounting_details', None)
+                },
+                "interactions": {
+                    "posts": data.get('posts', []),
+                    "notes": data.get('notes', [])
+                },
+                "related_data": {
+                    "dispatch_data": data.get('dispatch_data', None),
+                    "turnup_data": data.get('turnup_data', None)
+                }
+            }
+
         with open(tickets_file, 'w') as f:
-            json.dump(full_ticket_data, f, indent=2, default=str)
+            json.dump(standardized_ticket_data, f, indent=2, default=str)
         file_paths.append(tickets_file)
-        logging.info(f"Created tickets file: {tickets_file}")
+        logging.info(f"Created standardized tickets file: {tickets_file}")
     except Exception as e:
         logging.error(f"Error creating tickets file {tickets_file}: {e}")
 
@@ -529,8 +548,8 @@ def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
                 if tid not in dispatch_to_turnups[dispatch_id]:
                     dispatch_to_turnups[dispatch_id].append(tid)
         relationships_data = {
-            "chain_hash": chain_hash,
-            "relationships": [
+          "chain_hash": chain_hash,
+          "relationships": [
                 {"dispatch_ticket_id": disp_id, "turnup_ticket_ids": turnups, "confidence": "High"}
                 for disp_id, turnups in dispatch_to_turnups.items()
             ]
@@ -581,20 +600,17 @@ def upload_files(client, file_paths, max_retries=3):
     return file_ids
 
 def wait_for_vector_store_processing(client, vector_store_id, file_ids, timeout=300):
-    """Wait for vector store files to process."""
+    """Wait for files to be processed by the vector store."""
     start_time = time.time()
     processed_files = set()
     all_files = set(file_ids)
-    if not all_files:
-        return True
-    logging.info(f"Waiting for {len(file_ids)} files in vector store {vector_store_id}")
+    
     while time.time() - start_time < timeout:
-        remaining_files = list(all_files - processed_files)
-        if not remaining_files:
-            logging.info("All files processed")
+        if len(all_files) == 0:
+            logging.info("No files to process")
             return True
         all_processed = True
-        for file_id in remaining_files:
+        for file_id in list(all_files - processed_files):
             try:
                 file_status = client.vector_stores.files.retrieve(vector_store_id=vector_store_id, file_id=file_id)
                 if file_status.status == 'completed':
@@ -658,26 +674,26 @@ def validate_response(response_text, expected_ticket_ids):
                 unique_tasks = []
                 seen_task_ids = set()
                 for task in response_json["JobScopeTasks"]:
-                    tid = task.get("TicketID", task.get("TaskID"))
-                    if tid:
-                        tid_str = str(tid)
-                        found_ids.add(tid_str)
-                        if tid_str not in seen_task_ids:
-                            unique_tasks.append(task)
-                            seen_task_ids.add(tid_str)
-                        else:
-                            logging.warning(f"Removed duplicate task ID {tid_str}")
-                    else:
-                        unique_tasks.append(task)
+                         tid = task.get("TicketID", task.get("TaskID"))
+                         if tid:
+                             tid_str = str(tid)
+                             found_ids.add(tid_str)
+                             if tid_str not in seen_task_ids:
+                                 unique_tasks.append(task)
+                                 seen_task_ids.add(tid_str)
+                             else:
+                                 logging.warning(f"Removed duplicate task ID {tid_str}")
+                         else:
+                             unique_tasks.append(task)
                 response_json["JobScopeTasks"] = unique_tasks
                 processed_json = response_json
 
         missing_tickets = expected_ids - found_ids
         if missing_tickets:
             logging.warning(f"Missing ticket IDs: {missing_tickets}")
-        extra_tickets = found_ids - expected_ids
-        if extra_tickets:
-            logging.warning(f"Unexpected ticket IDs: {extra_tickets}")
+            extra_tickets = found_ids - expected_ids
+            if extra_tickets:
+                logging.warning(f"Unexpected ticket IDs: {extra_tickets}")
 
         unsupported_indicators = ["Customer Feedback Score", "Skill Match", "Completion Percentage"]
         response_str_lower = response_text.lower()
@@ -694,52 +710,69 @@ def validate_response(response_text, expected_ticket_ids):
         return None
 
 def run_assistant_query(client, thread_id, assistant_id, prompt, timeout_seconds=600):
-    """Run an assistant query and retrieve response."""
+    """Run a query against an assistant and return the response."""
+    logging.info(f"Running query against assistant {assistant_id}")
+    
     try:
-        client.beta.threads.messages.create(thread_id=thread_id, role="user", content=prompt)
-        run = client.beta.threads.runs.create(thread_id=thread_id, assistant_id=assistant_id)
-        logging.info(f"Run created (ID: {run.id}) for prompt: {prompt[:100]}...")
-        start_time = time.time()
-        while time.time() - start_time < timeout_seconds:
-            try:
-                run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
-            except AttributeError:
-                run_status = client.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
-            
-            if run_status.status == "completed":
-                logging.info(f"Run {run.id} completed")
-                break
-            elif run_status.status in ["failed", "cancelled", "expired"]:
-                logging.error(f"Run {run.id} failed with status: {run_status.status}. Error: {run_status.last_error}")
-                raise Exception(f"Run failed: {run_status.status}")
-            elif run_status.status == "requires_action":
-                logging.warning(f"Run {run.id} requires action: {run_status.required_action}")
-                time.sleep(15)
-            else:
-                logging.info(f"Waiting for run {run.id} (Status: {run_status.status})... ({int(time.time() - start_time)}s)")
-                time.sleep(10)
-        else:
-            raise TimeoutError(f"Run {run.id} timed out after {timeout_seconds} seconds")
-
+        message = client.beta.threads.messages.create(
+            thread_id=thread_id,
+            role="user",
+            content=prompt
+        )
+    except AttributeError:
+        message = client.threads.messages.create(
+            thread_id=thread_id,
+            role="user",
+            content=prompt
+        )
+    
+    try:
+        run = client.beta.threads.runs.create(
+            thread_id=thread_id,
+            assistant_id=assistant_id
+        )
+    except AttributeError:
+        run = client.threads.runs.create(
+            thread_id=thread_id,
+            assistant_id=assistant_id
+        )
+    
+    logging.info(f"Run {run.id} started")
+    
+    start_time = time.time()
+    while time.time() - start_time < timeout_seconds:
         try:
-            messages = client.beta.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+            run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
         except AttributeError:
-            messages = client.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+            run_status = client.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
         
-        for msg in messages.data:
-            if msg.role == "assistant" and msg.run_id == run.id:
-                if msg.content and isinstance(msg.content, list) and len(msg.content) > 0:
-                    content_block = msg.content[0]
-                    if hasattr(content_block, 'text') and content_block.text:
-                        return content_block.text.value
-                    else:
-                        logging.warning(f"Non-text content block: {content_block}")
-                else:
-                    logging.warning(f"Empty/invalid message content: {msg.content}")
-        raise Exception("No valid assistant message found")
-    except Exception as e:
-        logging.error(f"Error in run_assistant_query: {e}")
-        raise
+        if run_status.status == "completed":
+            logging.info(f"Run {run.id} completed")
+            break
+        elif run_status.status in ["failed", "cancelled", "expired"]:
+            logging.error(f"Run {run.id} {run_status.status}")
+            raise Exception(f"Run {run.id} {run_status.status}")
+        elif run_status.status == "requires_action":
+            logging.warning(f"Run {run.id} requires action: {run_status.required_action}")
+            time.sleep(15)
+        else:
+            logging.info(f"Waiting for run {run.id} (Status: {run_status.status})... ({int(time.time() - start_time)}s)")
+            time.sleep(10)
+    else:
+        raise TimeoutError(f"Run {run.id} timed out after {timeout_seconds} seconds")
+
+    try:
+        messages = client.beta.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+    except AttributeError:
+        messages = client.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+    
+    for msg in messages.data:
+        if msg.role == "assistant" and msg.run_id == run.id:
+            content = msg.content[0].text.value
+            return content
+    
+    logging.error("No response from assistant")
+    return "No response from assistant"
 
 def create_ticket_batches(full_ticket_data):
     """Create batches of related tickets, prioritizing dispatch-turnup relationships."""
@@ -1067,13 +1100,10 @@ def consolidate_final_report(batch_results, issues_index, detailed_results, full
 
     return report
 
-def cleanup_openai_resources(client, file_ids, vector_store_id, delete_vector_store=False):
-    """Cleanup OpenAI resources."""
+def cleanup_openai_resources(client, file_ids, vector_store_id=None, delete_vector_store=False):
+    """Clean up OpenAI resources (files and vector store) when done."""
     logging.info("Cleaning up OpenAI resources...")
-    if not file_ids and not vector_store_id:
-        logging.info("No resources to clean up")
-        return
-
+    
     if vector_store_id:
         for file_id in file_ids:
             try:
@@ -1091,23 +1121,198 @@ def cleanup_openai_resources(client, file_ids, vector_store_id, delete_vector_st
 
     if delete_vector_store and vector_store_id:
         try:
-            client.vector_stores.delete(vector_store_id=vector_store_id)
+            client.vector_stores.delete(vector_store_id)
             logging.info(f"Deleted vector store {vector_store_id}")
-            if os.path.exists(".env"):
-                with open(".env", "r") as f:
-                    lines = f.readlines()
-                with open(".env", "w") as f:
-                    for line in lines:
-                        if not line.startswith("VECTOR_STORE_ID="):
-                            f.write(line)
         except Exception as e:
             logging.error(f"Error deleting vector store {vector_store_id}: {e}")
+    return True
+
+def create_nlp_extraction_prompt(chain_hash, ticket_id, ticket_data):
+    """Create a prompt for advanced NLP data extraction from ticket text."""
+    prompt = f"""
+Analyze ticket {ticket_id} in chain {chain_hash} to extract structured data from the provided notes and posts.
+
+Ticket Data:
+- Category: {ticket_data.get('category', 'N/A')}
+- Subject: {ticket_data.get('subject', 'N/A')}
+- Status: {ticket_data.get('status', 'N/A')}
+- Created: {ticket_data.get('created_date', 'N/A')}
+- Last Activity: {ticket_data.get('last_activity_date', 'N/A')}
+- Closed: {ticket_data.get('closed_date', 'N/A')}
+"""
+    technical_details = ticket_data.get('technical_details', 'N/A')
+    if len(technical_details) > 300:
+        technical_details = technical_details[:300] + "..."
+    prompt += f"- Technical Details: {technical_details}\n"
+    prompt += f"- Posts: {len(ticket_data.get('posts', []))} entries (first few):\n"
+    for i, post in enumerate(ticket_data.get('posts', [])[:5]):
+        content = post.get('content', 'N/A')
+        if len(content) > 150:
+            content = content[:150] + "..."
+        prompt += f"  Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}): {content}\n"
+    prompt += f"- Notes: {len(ticket_data.get('notes', []))} entries (first few):\n"
+    for i, note in enumerate(ticket_data.get('notes', [])[:5]):
+        content = note.get('content', 'N/A')
+        if len(content) > 150:
+            content = content[:150] + "..."
+        prompt += f"  Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}): {content}\n"
+    prompt += """
+From the provided ticket notes/posts, explicitly extract the following structured data fields:
+- Ticket ID, Date, Start/End times
+- Site Address, Site Contact
+- Technicians (names, roles)
+- Vendor name associated clearly
+- SLA Metrics (response time, compliance status)
+- Customer Feedback (rating/comments)
+- Tasks performed (task ID, description, status, notes, dependencies)
+- Issues encountered (issue ID, description, mitigation, remediation notes, root cause, status, escalations)
+- Visit Outcomes (success/failure/partial, completion percentage, closeout notes)
+- Materials & Inventory used (part numbers, quantities)
+- Revisit required (Yes/No, reasons)
+- Audit trail events (timestamps, actions, users)
+
+Provide output strictly as structured JSON matching the following schema. Use 'not specified' or empty arrays for fields with no data:
+{
+  "ticket_id": "string or number",
+  "date": "string (YYYY-MM-DD)",
+  "start_time": "string (HH:MM)",
+  "end_time": "string (HH:MM)",
+  "site_id": "string",
+  "vendor_id": "string",
+  "technicians": [
+    {
+      "technician_id": "string",
+      "name": "string",
+      "role": "string"
+    }
+  ],
+  "sla_metrics": {
+    "response_time": "string",
+    "completion_deadline": "string (YYYY-MM-DDTHH:MM)",
+    "sla_compliance": "boolean"
+  },
+  "customer_feedback": {
+    "rating": "number (1-5)",
+    "comments": "string"
+  },
+  "tasks": [
+    {
+      "task_id": "string",
+      "description": "string",
+      "status": "string",
+      "completed": "boolean",
+      "notes": "string",
+      "dependencies": ["string"]
+    }
+  ],
+  "tasks_closeout": {
+    "tasks_completed_percentage": "number (0-100)",
+    "all_tasks_completed": "boolean",
+    "total_tasks": "number",
+    "tasks_failed": "number",
+    "closeout_notes": "string"
+  },
+  "status": "string",
+  "site_address": "string",
+  "site_contact": "string",
+  "customer_name": "string",
+  "customer_signature": "string",
+  "actual_duration_minutes": "number",
+  "travel_time_minutes": "number",
+  "materials_used": [
+    {
+      "item": "string",
+      "quantity": "number",
+      "part_number": "string"
+    }
+  ],
+  "inventory": {
+    "items": [
+      {
+        "item_id": "string",
+        "description": "string",
+        "quantity_used": "number",
+        "stock_remaining": "number"
+      }
+    ]
+  },
+  "issues_encountered": [
+    {
+      "issue_id": "string",
+      "description": "string",
+      "time_impact": "string",
+      "mitigation": "string",
+      "information": "string",
+      "remediation_notes": "string",
+      "status": "string",
+      "escalation": {
+        "escalated_to": "string",
+        "status": "string"
+      },
+      "root_cause": "string"
+    }
+  ],
+  "issues_closeout": {
+    "total_issues": "number",
+    "issues_resolved": "number",
+    "issues_unresolved": "number",
+    "revisits_triggered": "number",
+    "closeout_notes": "string"
+  },
+  "resolutions": ["string"],
+  "revisit_required": "boolean",
+  "revisits_required": ["string"],
+  "notes": "string",
+  "attachments": [
+    {
+      "type": "string",
+      "url": "string"
+    }
+  ],
+  "financials": [
+    {
+      "cost_id": "string",
+      "type": "string",
+      "description": "string",
+      "amount": "number",
+      "notes": "string"
+    }
+  ],
+  "financials_closeout": {
+    "total_cost": "number",
+    "cost_breakdown": {
+      "Labor": "number",
+      "Materials": "number",
+      "Trip Charge": "number",
+      "Tax": "number",
+      "Equipment Rental": "number"
+    },
+    "tax_included": "boolean",
+    "closeout_notes": "string"
+  },
+  "task_outcome": "string",
+  "completion_percentage": "number (0-100)",
+  "audit_trail": [
+    {
+      "timestamp": "string (YYYY-MM-DDTHH:MM:SSZ)",
+      "change": "string",
+      "user": "string"
+    }
+  ]
+}
+Output ONLY valid JSON matching this schema.
+"""
+    return prompt
 
 def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
-    """Run multi-stage Phase 2 analysis."""
-    vector_store_id, assistant_id = setup_vector_store_and_assistant(client, [])
-    if not assistant_id or not vector_store_id:
-        logging.error("Failed to set up assistant or vector store")
+    """Run multi-stage Phase 2 analysis with advanced NLP data extraction."""
+    try:
+        vector_store_id, assistant_id = setup_vector_store_and_assistant(client, [])
+        if not assistant_id or not vector_store_id:
+            logging.error("Failed to set up assistant or vector store")
+            return
+    except Exception as e:
+        logging.error(f"Error in setup: {e}")
         return
 
     logging.info(f"Starting Phase 2 Analysis (Assistant: {assistant_id}, Store: {vector_store_id})")
@@ -1123,160 +1328,187 @@ def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
     cissdm_session = None
     final_responses = {"chain_hash": chain_hash, "ticket_count": len(expected_ticket_ids), "stages": {}}
 
+    # Setup
+    session = get_db_session("primary")
+    cissdm_session = get_db_session("cissdm")
+    if not session:
+        raise ConnectionError("Failed to connect to primary database")
+
+    logging.info("Fetching full ticket data...")
+    full_ticket_data = fetch_full_ticket_data(session, cissdm_session, expected_ticket_ids)
+    if not full_ticket_data:
+        raise ValueError("Failed to fetch ticket data")
+
+    logging.info("Creating analysis files...")
+    file_paths_created = create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text)
+
+    logging.info("Uploading files...")
+    file_ids_uploaded = upload_files(client, file_paths_created)
+    if not file_ids_uploaded:
+        raise ValueError("File upload failed")
+
+    logging.info(f"Adding {len(file_ids_uploaded)} files to vector store {vector_store_id}...")
+    successful_adds = []
+    for file_id in file_ids_uploaded:
+        try:
+            client.vector_stores.files.create(vector_store_id=vector_store_id, file_id=file_id)
+            successful_adds.append(file_id)
+            logging.info(f"Added file {file_id} to vector store")
+        except Exception as e:
+            logging.error(f"Error adding file {file_id}: {e}")
+    if not successful_adds:
+        raise ValueError("No files added to vector store")
+
+    logging.info("Waiting for vector store processing...")
+    if not wait_for_vector_store_processing(client, vector_store_id, successful_adds):
+        raise TimeoutError("Vector store processing timed out")
+
     try:
-        # Setup
-        session = get_db_session("primary")
-        cissdm_session = get_db_session("cissdm")
-        if not session:
-            raise ConnectionError("Failed to connect to primary database")
+        thread = client.beta.threads.create()
+        logging.info(f"Analysis thread created: {thread.id}")
+    except AttributeError:
+        thread = client.threads.create()
+        logging.info(f"Analysis thread created: {thread.id}")
 
-        logging.info("Fetching full ticket data...")
-        full_ticket_data = fetch_full_ticket_data(session, cissdm_session, expected_ticket_ids)
-        if not full_ticket_data:
-            raise ValueError("Failed to fetch ticket data")
-
-        logging.info("Creating analysis files...")
-        file_paths_created = create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text)
-
-        logging.info("Uploading files...")
-        file_ids_uploaded = upload_files(client, file_paths_created)
-        if not file_ids_uploaded:
-            raise ValueError("File upload failed")
-
-        logging.info(f"Adding {len(file_ids_uploaded)} files to vector store {vector_store_id}...")
-        successful_adds = []
-        for file_id in file_ids_uploaded:
-            try:
-                client.vector_stores.files.create(vector_store_id=vector_store_id, file_id=file_id)
-                successful_adds.append(file_id)
-                logging.info(f"Added file {file_id} to vector store")
-            except Exception as e:
-                logging.error(f"Error adding file {file_id}: {e}")
-        if not successful_adds:
-            raise ValueError("No files added to vector store")
-
-        logging.info("Waiting for vector store processing...")
-        if not wait_for_vector_store_processing(client, vector_store_id, successful_adds):
-            raise TimeoutError("Vector store processing timed out")
-
+    # Step 1: Advanced NLP Data Extraction
+    logging.info("Running Phase 2 Step 1: Advanced NLP Data Extraction")
+    nlp_extraction_results = []
+    for ticket_id in expected_ticket_ids:
+        logging.info(f"Extracting data for ticket {ticket_id}")
+        ticket_data = full_ticket_data.get(ticket_id, {})
+        nlp_prompt = create_nlp_extraction_prompt(chain_hash, ticket_id, ticket_data)
         try:
-            thread = client.beta.threads.create()
-            logging.info(f"Analysis thread created: {thread.id}")
-        except AttributeError:
-            thread = client.threads.create()
-            logging.info(f"Analysis thread created: {thread.id}")
-
-        # Step 1: Batch Analysis
-        logging.info("Running Phase 2 Step 1: Batch Analysis")
-        batches = create_ticket_batches(full_ticket_data)
-        batch_results = []
-        ticket_ids_list_str = ", ".join(f'"{tid}"' for tid in expected_ticket_ids)
-        for i, batch in enumerate(batches):
-            logging.info(f"Analyzing Batch {i+1}/{len(batches)} with {len(batch['ticket_ids'])} tickets")
-            batch_prompt = create_batch_analysis_prompt(chain_hash, batch, full_ticket_data)
-            try:
-                batch_response = run_assistant_query(client, thread.id, assistant_id, batch_prompt)
-                validated_json = validate_response(batch_response, batch['ticket_ids'])
-                batch_results.append({
-                    "batch_id": i+1,
-                    "ticket_ids": batch['ticket_ids'],
-                    "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": batch_response}
-                })
-                final_responses["stages"][f"Batch_{i+1}_Analysis"] = batch_results[-1]
-                print(f"\n--- Batch {i+1} Analysis Result (JSON) ---")
-                if validated_json:
-                    print(json.dumps(validated_json, indent=2))
-                else:
-                    print(f"ERROR: Invalid JSON.\nRaw:\n{batch_response}")
-                print("-----------------------------------")
-            except Exception as e:
-                logging.error(f"Batch {i+1} analysis failed: {e}")
-                batch_results.append({"batch_id": i+1, "ticket_ids": batch['ticket_ids'], "error": str(e)})
-                final_responses["stages"][f"Batch_{i+1}_Analysis"] = {"error": str(e)}
-
-        # Step 2: Issue Indexing
-        logging.info("Running Phase 2 Step 2: Issue Indexing")
-        issues_index = compile_issues_index(batch_results)
-        final_responses["stages"]["Issues_Index"] = issues_index
-        print("\n--- Issues Index ---")
-        print(json.dumps(issues_index, indent=2))
-        print("--------------------")
-
-        # Step 3: Follow-up Questions
-        logging.info("Running Phase 2 Step 3: Follow-up Questions")
-        questions_prompt = create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str)
-        try:
-            questions_response = run_assistant_query(client, thread.id, assistant_id, questions_prompt)
-            questions_json = validate_response(questions_response, expected_ticket_ids)
-            final_responses["stages"]["Followup_Questions"] = questions_json if questions_json else {"error": "Invalid JSON", "raw": questions_response}
-            print("\n--- Follow-up Questions (JSON) ---")
-            if questions_json:
-                print(json.dumps(questions_json, indent=2))
+            nlp_response = run_assistant_query(client, thread.id, assistant_id, nlp_prompt)
+            validated_json = validate_response(nlp_response, [ticket_id])
+            nlp_extraction_results.append({
+                "ticket_id": ticket_id,
+                "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": nlp_response}
+            })
+            final_responses["stages"][f"NLP_Extraction_Ticket_{ticket_id}"] = nlp_extraction_results[-1]
+            print(f"\n--- NLP Extraction for Ticket {ticket_id} (JSON) ---")
+            if validated_json:
+                print(json.dumps(validated_json, indent=2))
             else:
-                print(f"ERROR: Invalid JSON.\nRaw:\n{questions_response}")
-            print("--------------------------------")
+                print(f"ERROR: Invalid JSON.\nRaw:\n{nlp_response}")
+            print("-----------------------------------")
         except Exception as e:
-            logging.error(f"Follow-up question generation failed: {e}")
-            final_responses["stages"]["Followup_Questions"] = {"error": str(e)}
+            logging.error(f"NLP extraction for ticket {ticket_id} failed: {e}")
+            nlp_extraction_results.append({"ticket_id": ticket_id, "error": str(e)})
+            final_responses["stages"][f"NLP_Extraction_Ticket_{ticket_id}"] = {"error": str(e)}
 
-        # Step 4: User Input
-        logging.info("Running Phase 2 Step 4: User Input")
+    # Step 2: Batch Analysis (previously Step 1)
+    logging.info("Running Phase 2 Step 2: Batch Analysis")
+    batches = create_ticket_batches(full_ticket_data)
+    batch_results = []
+    ticket_ids_list_str = ", ".join(f'"{tid}"' for tid in expected_ticket_ids)
+    for i, batch in enumerate(batches):
+        logging.info(f"Analyzing Batch {i+1}/{len(batches)} with {len(batch['ticket_ids'])} tickets")
+        batch_prompt = create_batch_analysis_prompt(chain_hash, batch, full_ticket_data)
         try:
-            user_question = input("\nEnter a specific question about the ticket chain (or 'no' to skip): ").strip()
-            user_questions = {}
-            if user_question.lower() != 'no' and user_question:
-                user_questions = {"global_question": user_question}
-                logging.info(f"User question: {user_question}")
+            batch_response = run_assistant_query(client, thread.id, assistant_id, batch_prompt)
+            validated_json = validate_response(batch_response, batch['ticket_ids'])
+            batch_results.append({
+                "batch_id": i+1,
+                "ticket_ids": batch['ticket_ids'],
+                "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": batch_response}
+            })
+            final_responses["stages"][f"Batch_{i+1}_Analysis"] = batch_results[-1]
+            print(f"\n--- Batch {i+1} Analysis Result (JSON) ---")
+            if validated_json:
+                print(json.dumps(validated_json, indent=2))
             else:
-                logging.info("User skipped custom question")
-            final_responses["stages"]["User_Questions"] = user_questions
+                print(f"ERROR: Invalid JSON.\nRaw:\n{batch_response}")
+            print("-----------------------------------")
         except Exception as e:
-            logging.error(f"Error getting user input: {e}")
-            final_responses["stages"]["User_Questions"] = {"error": str(e)}
+            logging.error(f"Batch {i+1} analysis failed: {e}")
+            batch_results.append({"batch_id": i+1, "ticket_ids": batch['ticket_ids'], "error": str(e)})
+            final_responses["stages"][f"Batch_{i+1}_Analysis"] = {"error": str(e)}
 
-        # Step 5: Detailed Re-Analysis
-        logging.info("Running Phase 2 Step 5: Detailed Re-Analysis")
-        detailed_results = []
-        tickets_with_questions = get_tickets_with_questions(questions_json if questions_json else {}, user_questions, full_ticket_data)
-        for ticket_id, q_data in tickets_with_questions.items():
-            logging.info(f"Re-analyzing ticket {ticket_id}")
-            detail_prompt = create_detailed_analysis_prompt(chain_hash, ticket_id, full_ticket_data, q_data["questions"])
-            try:
-                detail_response = run_assistant_query(client, thread.id, assistant_id, detail_prompt)
-                detail_json = validate_response(detail_response, [ticket_id])
-                detailed_results.append({
-                    "ticket_id": ticket_id,
-                    "result": detail_json if detail_json else {"error": "Invalid JSON", "raw": detail_response}
-                })
-                final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = detailed_results[-1]
-                print(f"\n--- Detailed Analysis for Ticket {ticket_id} (JSON) ---")
-                if detail_json:
-                    print(json.dumps(detail_json, indent=2))
-                else:
-                    print(f"ERROR: Invalid JSON.\nRaw:\n{detail_response}")
-                print("-----------------------------------")
-            except Exception as e:
-                logging.error(f"Detailed analysis for ticket {ticket_id} failed: {e}")
-                detailed_results.append({"ticket_id": ticket_id, "error": str(e)})
-                final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = {"error": str(e)}
+    # Step 3: Issue Indexing (previously Step 2)
+    logging.info("Running Phase 2 Step 3: Issue Indexing")
+    issues_index = compile_issues_index(batch_results)
+    final_responses["stages"]["Issues_Index"] = issues_index
+    print("\n--- Issues Index ---")
+    print(json.dumps(issues_index, indent=2))
+    print("--------------------")
 
-        # Step 6: Consolidation
-        logging.info("Running Phase 2 Step 6: Final Consolidation")
-        consolidated_report = consolidate_final_report(batch_results, issues_index, detailed_results, full_ticket_data, chain_hash)
-        final_responses["consolidated_report"] = consolidated_report
-        print("\n--- Consolidated Final Report (JSON) ---")
-        print(json.dumps(consolidated_report, indent=2))
-        print("---------------------------------------")
+    # Step 4: Follow-up Questions (previously Step 3)
+    logging.info("Running Phase 2 Step 4: Follow-up Questions")
+    questions_prompt = create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str)
+    try:
+        questions_response = run_assistant_query(client, thread.id, assistant_id, questions_prompt)
+        questions_json = validate_response(questions_response, expected_ticket_ids)
+        final_responses["stages"]["Followup_Questions"] = questions_json if questions_json else {"error": "Invalid JSON", "raw": questions_response}
+        print("\n--- Follow-up Questions (JSON) ---")
+        if questions_json:
+            print(json.dumps(questions_json, indent=2))
+        else:
+            print(f"ERROR: Invalid JSON.\nRaw:\n{questions_response}")
+        print("--------------------------------")
+    except Exception as e:
+        logging.error(f"Follow-up question generation failed: {e}")
+        final_responses["stages"]["Followup_Questions"] = {"error": str(e)}
 
-        # Save Output
-        final_output_file = f"PyChain/data/analyses/Phase2_BatchIterative_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    # Step 5: User Input (previously Step 4)
+    logging.info("Running Phase 2 Step 5: User Input")
+    try:
+        user_question = input("\nEnter a specific question about the ticket chain (or 'no' to skip): ").strip()
+        userQuestions = {}
+        if user_question.lower() != 'no' and user_question:
+            user_questions = {"global_question": user_question}
+            logging.info(f"User question: {user_question}")
+        else:
+            logging.info("User skipped custom question")
+        final_responses["stages"]["User_Questions"] = user_questions
+    except Exception as e:
+        logging.error(f"Error getting user input: {e}")
+        final_responses["stages"]["User_Questions"] = {"error": str(e)}
+
+    # Step 6: Detailed Re-Analysis (previously Step 5)
+    logging.info("Running Phase 2 Step 6: Detailed Re-Analysis")
+    detailed_results = []
+    tickets_with_questions = get_tickets_with_questions(questions_json if questions_json else {}, user_questions, full_ticket_data)
+    for ticket_id, q_data in tickets_with_questions.items():
+        logging.info(f"Re-analyzing ticket {ticket_id}")
+        detail_prompt = create_detailed_analysis_prompt(chain_hash, ticket_id, full_ticket_data, q_data["questions"])
         try:
-            with open(final_output_file, 'w') as f:
-                json.dump(final_responses, f, indent=2)
-            logging.info(f"Saved Phase 2 results to {final_output_file}")
+            detail_response = run_assistant_query(client, thread.id, assistant_id, detail_prompt)
+            detail_json = validate_response(detail_response, [ticket_id])
+            detailed_results.append({
+                "ticket_id": ticket_id,
+                "result": detail_json if detail_json else {"error": "Invalid JSON", "raw": detail_response}
+            })
+            final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = detailed_results[-1]
+            print(f"\n--- Detailed Analysis for Ticket {ticket_id} (JSON) ---")
+            if detail_json:
+                print(json.dumps(detail_json, indent=2))
+            else:
+                print(f"ERROR: Invalid JSON.\nRaw:\n{detail_response}")
+            print("-----------------------------------")
         except Exception as e:
-            logging.error(f"Failed to save Phase 2 JSON: {e}")
+            logging.error(f"Detailed analysis for ticket {ticket_id} failed: {e}")
+            detailed_results.append({"ticket_id": ticket_id, "error": str(e)})
+            final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = {"error": str(e)}
 
+    # Step 7: Consolidation (previously Step 6)
+    logging.info("Running Phase 2 Step 7: Final Consolidation")
+    consolidated_report = consolidate_final_report(batch_results, issues_index, detailed_results, full_ticket_data, chain_hash)
+    final_responses["consolidated_report"] = consolidated_report
+    print("\n--- Consolidated Final Report (JSON) ---")
+    print(json.dumps(consolidated_report, indent=2))
+    print("---------------------------------------")
+
+    # Save Output
+    final_output_file = f"PyChain/data/analyses/Phase2_BatchIterative_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    try:
+        with open(final_output_file, 'w') as f:
+            json.dump(final_responses, f, indent=2)
+        logging.info(f"Saved Phase 2 results to {final_output_file}")
+    except Exception as e:
+        logging.error(f"Failed to save Phase 2 JSON: {e}")
+    except KeyboardInterrupt:
+        logging.info("User interrupted Phase 2 analysis")
+        print("\nPhase 2 analysis interrupted by user.")
     except Exception as e:
         logging.error(f"Critical error in Phase 2: {e}")
     finally:
@@ -1305,10 +1537,14 @@ def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
                 if cleanup_response == 'y':
                     delete_store = input("Delete vector store? (y/n): ").strip().lower() == 'y'
                     cleanup_openai_resources(client, file_ids_uploaded, vector_store_id, delete_store)
+            except KeyboardInterrupt:
+                logging.info("User interrupted during cleanup prompt")
+                print("\nCleanup interrupted by user. Resources may not be fully cleaned up.")
             except Exception as e:
                 logging.error(f"Error during cleanup prompt: {e}")
-
+                
 def analyze_real_ticket(ticket_id: str, phase: str = "all"):
+    """Analyze a ticket chain starting from the given ticket ID."""
     logging.info(f"Retrieving ticket chain for ticket ID: {ticket_id}")
     session = TicketChainService.get_db_session("primary")
     if not session:
@@ -1343,17 +1579,17 @@ def analyze_real_ticket(ticket_id: str, phase: str = "all"):
             if category not in category_groups:
                 category_groups[category] = []
             category_groups[category].append(ticket)
-            logging.debug(f"Ticket {ticket['ticket_id']} categorized as {category}")
         
         for category, tickets in category_groups.items():
             if tickets:
                 print(f"{category} Tickets: {len(tickets)}")
-            for ticket in tickets:
-                print(f"  - {ticket.get('ticket_id')}: {ticket.get('subject')}")
+                for ticket in tickets:
+                    print(f"  - {ticket.get('ticket_id')}: {ticket.get('subject')}")
         print()
 
         ai_service = AIService()
 
+        result = ""
         if phase in ["all", "phase1"]:
             logging.info(f"Running Phase 1 for chain {chain_details.get('chain_hash')}")
             prompt = f"""
@@ -1410,8 +1646,9 @@ def analyze_real_ticket(ticket_id: str, phase: str = "all"):
             run_phase_2_analysis(openai_client, chain_details, result if phase in ["all", "phase1"] else "")
 
     finally:
-        logging.info("Primary database session closed")
-        session.close()
+        if session:
+            logging.info("Primary database session closed")
+            session.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a ticket chain")

@@ -1,0 +1,196 @@
+Certainly! Below is a comprehensive analysis of the ticket chain **B924DF9C-E1B9-B945-8442-89CE8F62A268** with respect to relationships, content, and extracted operational details, referencing ticket IDs and explicit post/note content:
+
+---
+
+## 1. **Parent-Child Relationships**
+- **linked_tickets** is empty for all 15 tickets in the chain. 
+- **Conclusion**: There are **no explicit parent-child links** set via the `linked_tickets` field. All tickets are effectively "siblings" within a logical project grouping, but not formally structured as parent-children via direct links.
+
+---
+
+## 2. **Dispatch – Turnup – Billing Linkages**
+
+### **Survey & Scope Tickets**
+- **2380335**  
+  - **Type:** Hardware-Wiring (Survey)  
+  - **Summary:** Initial site survey; extracted cable drop counts, rack installation requirements.
+  - **Relations:** Early activity in the chain sets ground for following jobs.
+  - **Reference in Another Ticket:** Note in **2382265**:  
+    > "https://staff.cissdm.com/ticketing/ticket/2380335"  
+    (Establishes relationship from **2382265** back to this survey.)
+
+- **2382265**  
+  - **Type:** Site Survey  
+  - **Note:** Contains direct link to **2380335** – shows the flow:  
+    Site Survey (**2380335**) ➔ Project Site Survey (**2382265**).
+
+---
+
+### **Turnup and Project Implementation Tickets**
+- **2376701**  
+  - **Type:** Hardware-Wiring (Project management)  
+  - **Scope:** Extremely detailed cabling and device installation ("Qty X" for each drop/location).
+  - **Status:** Closed  
+  - **Completion:** Marked as closed for clean-up; "Moving these to: Turnu up Projects > Audit" (Post by Josh Bosen).
+  - **Orphaned:** No direct links to child or parent, but referenced from survey ticket (see survey notes in **2380335**).
+
+- **2376830**  
+  - **Type:** Turnup Assist  
+  - **Status:** Closed  
+  - **Completion:** Marked as closed as part of 2/6/2025 clean-up.
+  - **Relation:** Parallel to the project management ticket (possibly tracks dispatch/turnup assist efforts).  
+  - **No explicit parent-child** links.
+
+- **2380336**  
+  - **Type:** Turnup  
+  - **Completion:** Closed as "part of clean-up".  
+  - **Mission:** "Turnup assist" for 2/12/2025, referencing the same cable/install scope as initial project/survey tickets.
+  - **Explicit closure for project clean-up** noted in posts.
+
+- **2382333, 2382726, 2389439**  
+  - **Type:** Hardware-Wiring/Phase tickets (P1, etc.)  
+  - **Status:** "On Hold", "Failed", "Cancelled - CIS"  
+  - **Details:**
+      - **2382333:** Put "On Hold per Lucas" (note on 2025-03-31).
+      - **2382726:** Marked as "Failed" — "Cancelled due to snow storm" (Robert Cohen, 2025-02-11).
+      - **2389439:** "Pending reschedule. The site has not been notified..." (Alyssa Philpott, 2025-02-24).
+
+- **2382746, 2389461**  
+  - **Type:** Phase P2  
+  - **Status:** Both "Cancelled - CIS"  
+  - **Reason:** "Pending reschedule. The site has not been notified..." (Alyssa Philpott).
+
+---
+
+### **Shipping/Equipment Readiness**
+- **2376735**  
+  - **Type:** Shipping  
+  - **Status:** Delivered  
+  - **Key Content:** Lists all delivered networking equipment/QTYs ("1 router, 2 switches...").
+  - **Delays:** "This did not ship out, until monday will be going out" (Eric Morales, 2025-02-08).  
+  - **Final Delivery:** Confirmed delivered on 2/12/2025.
+
+---
+
+### **Repair/Outlet Install Tickets**
+- **2384350, 2385184**  
+  - **Type:** Repair / Outlet Install  
+  - **2384350:** Scheduled, no replies.  
+  - **2385184:** "Failed" — multiple attempts, ended with need to "Reschedule for tomorrow" (Robert Cohen, 2025-02-13).  
+  - **Delays/Revisit:** Clearly referenced as reschedule required.
+
+---
+
+### **Billing & Closeout**
+- **2401881**  
+  - **Type:** Hardware-Wiring (Billing, 50% up front)  
+  - **Status:** On Hold  
+  - **Action:** "Please invoice customer via Coupa..." (David Fisher).  
+  - **Operational Flow:** Directs accounting to invoice for initial 50%.
+
+- **2402063**  
+  - **Type:** VPN Cutover (Billing Complete)  
+  - **Status:** On Hold  
+  - **Action:** "Please invoice customer via Coupa for the remaining 50% to close out billing."  
+  - **Notes:** Financial details broken down in note (Josh Bosen):  
+    > "Full cabling sites - 3 night model ($5016+$460)... Site survey $75, Engineering/PM $25, Remote turn up $200..."
+
+---
+
+## 3. **Orphaned or Unlinked Records**
+
+- **All tickets are technically unlinked via `linked_tickets`**.  
+- The chain hash itself, shared subject/notes, and cross-references in notes and post content create a **logical project grouping**, but not a formal structural linkage as some ticketing systems provide.
+
+---
+
+## **Extracted Details from Posts/Notes**
+
+### **Cable Drop Counts / Installation QTY**
+- **Tickets 2376701, 2380335, 2380336**  
+  - Scope posts (Brett Pearson, Devin Leatham, David Fisher):
+    - "Install Qty. 1 – Open-frame Network Equipment Rack"
+    - "Install Qty. 2 – Network switches inside the racks"
+    - "Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to DMB"
+    - "Install Qty. 28 cable runs needed. 1 additional… for a label printer." (Ryan Cohen, 2380335)
+  - Posts enumerate all structured wiring drops for WAP, DMB, Timer, Music, Manager Station, POS, Kiosk, Prep, OCD/Outdoor DMB, Cameras, etc.
+
+### **Completion Status / Clean-up Closures**
+- **2376701, 2376830, 2380336**  
+  - Posts by Josh Bosen ("Moving these to: Turnu up Projects > Audit as clean up efforts...") and Rachel Salinas ("Closing - ticket is part of clean-up").
+- **2380335**:  
+  - Reply by Ryan Cohen: "Work Completed... Tech completed site survey successfully... Tech was then approved for release by MOD, Tim. Survey Notes: 28 cable runs..."
+  - Status: Completed
+
+### **Shipping Delays**
+- **2376735**:  
+  - Eric Morales post (2025-02-08): "This did not ship out, until monday will be going out."
+- Resolved: "Delivered On Wednesday, February 12 at 10:51 A.M. at Front Desk..." (Rachel Salinas)
+
+### **Revisit / Reschedule Requirements**
+- **2385184**:  
+  - Robert Cohen (2025-02-13): "Reschedule will be needed for tomorrow. Time to be determined later tonight."
+- **2389439, 2389461, 2382746**:  
+  - Alyssa Philpott: "Site is pending reschedule. The site has not been notified of the install and will not be expecting a technician..."
+- **Delays / On Hold**
+  - **2382333**: "On hold per Lucas" (note by Hannah Szubinski)
+  - **2382726**: "Cancelled due to snow storm" (Robert Cohen)
+  - **2385184**: Series of failed check-in attempts; concludes with reschedule required.
+
+### **Dispatch & Technicians**
+- **Phase & Turnup tickets** include tech names and contacts:
+  - Ritchie 443-375-7942 (**2382333, 2382726**)
+  - Aaron Blackburn 215-771-8788 (**2382333, 2389439, 2389461**)
+  - Dahan Electric 240 603-8778 (**2385184**)
+
+### **Billing Details (Amounts, PO)**
+- **2401881, 2402063**
+  - PO numbers: "PO: 232498" / "PO: 232499"
+  - Amounts: "$2808" (first invoice), "Remaining 50% to close out billing"
+  - Note in **2402063**: "Full cabling sites - 3 night model ($5016+$460)... Site survey $75, Engineering/PM $25, Remote turn up $200..."
+
+### **Other Extracted Key Notes / Facts**
+- **Access/Network Problems**:  
+  - Tech on survey (**2380335**): "ISP Circuit: Technician was unable to locate the ISP circuit. Further investigation may be required."
+- **Hardware**:  
+  - **2376735**: Detailed asset and S/N/MAC for all devices shipped and installed.
+
+---
+
+## **Summary Table**
+
+| Ticket | Type/Subject                                    | Status          | Key Linkage / Note      | Content Extracts                                             | Action / Issue             |
+|--------|-------------------------------------------------|-----------------|-------------------------|-------------------------------------------------------------|----------------------------|
+| 2376701| Project Mgmt/Cabling & Network Upgrade          | Closed          | N/A                    | Extensive QTY counts, closing as clean-up                   | Complete, closed as clean-up|
+| 2376830| Turnup Assist                                   | Closed          | N/A                    | Closing as clean-up of 2/6/2025                             | Closed                     |
+| 2376735| Shipping Hardware                               | Delivered       | N/A                    | QTY: 1 router, 2 switches, 2AP, 1 FEXT, 4 SFP, delay notice | Shipped late, delivered    |
+| 2380335| Survey                                          | Completed       | Linked (2382265 note)  | 28 cable runs, 2 racks, "Power outlet needed"               | Survey complete            |
+| 2380336| Turnup Assist                                   | Closed          | N/A                    | Closing as part of clean-up, same scope repeated            | Clean-up closure           |
+| 2382265| Site Survey                                     | Confirmed       | Links to 2380335 note   | Survey completed, "Joel (240) 888-7239" tech info           | Survey complete            |
+| 2382333| P1 Hardware-Wiring                              | On Hold         | N/A                    | "On hold per Lucas", tech contact updates                   | On hold                    |
+| 2384350| Outlet Install (Repair)                         | Scheduled       | N/A                    | Outlet Install                                              | No completion; scheduled   |
+| 2401881| Billing 50% upfront                             | On Hold         | N/A                    | PO: 232498, $2808, move to accounting                       | Billing                    |
+| 2402063| Billing complete                                | On Hold         | N/A                    | PO: 232499, remaining $2808, billing breakdown note         | Closeout billing           |
+| 2382726| P1 Turnup                                       | Failed          | N/A                    | "Cancelled due to snow storm"                               | Failed - snow delay        |
+| 2382746| P2 Turnup                                       | Cancelled (CIS) | N/A                    | "Pending reschedule..." (note: NPC for ARP)                 | Cancelled, not attempted   |
+| 2385184| Outlet Install (Repair)                         | Failed          | N/A                    | Multiple voicemails, "reschedule for tomorrow"              | Reschedule needed          |
+| 2389439| P1 Turnup (Revisit)                             | Cancelled (CIS) | N/A                    | "Pending reschedule..."                                     | Site not notified; pended  |
+| 2389461| P2 Turnup (Revisit)                             | Cancelled (CIS) | N/A                    | "Pending reschedule..."                                     | Site not notified; pended  |
+
+---
+
+## **Conclusion / Insights**
+
+- **Logical linkage exists** between survey, scope, project, dispatch/turnup, and billing tickets, but **no formal parent-child or explicit ticket linking via system fields**.
+- **Multiple tickets close as "clean-up"** — a project management step to clear out redundant or completed work entries.
+- **Shipping delays and weather caused knock-on delays**, leading to "on hold," "failed," and repeated **need for rescheduling** (particularly for field/turnup/repair work).
+- **Billing is split**: 50% up-front, 50% on completion, with financials noted and invoked via specific tickets.
+- **Tech contact details, QTYs, and schedule/cabling requirements** are consistently documented in both initial scope/survey and phase implementation tickets.
+
+---
+
+**References:**  
+- Ticket IDs and post/notes as cited above per detail.  
+- For complex project reconciliation, use of chain hash, project id, and cross-referencing in posts/notes is crucial—formal linking is not enforced at the ticket level.
+
+If you need further visual mapping, a flow diagram, or a specific ticket-by-ticket relationship table, let me know!

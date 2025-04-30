@@ -1,0 +1,2269 @@
+{
+  "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+  "ticket_count": 15,
+  "stages": {
+    "NLP_Extraction_Ticket_2376830": {
+      "ticket_id": "2376830",
+      "result": {
+        "ticket_id": "2376830",
+        "date": "2025-01-28",
+        "start_time": "08:28",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Turnup assist request for network cutover job on day 2 of cabling.",
+            "status": "not specified",
+            "completed": false,
+            "notes": "Dispatch is being set by FSPM.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 1,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "Closed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "turnup assist request. 45700. This is a turnup assist. The dispatch is being set by FSPM. This is a network cutover job to happen on day 2 of cabling.",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": [
+          {
+            "timestamp": "2025-01-28T08:28:15Z",
+            "change": "Initial turnup assist request posted.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2382265": {
+      "ticket_id": "2382265",
+      "result": {
+        "ticket_id": "2382265",
+        "date": "not specified",
+        "start_time": "not specified",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 0,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "Confirmed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "not specified",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": []
+      }
+    },
+    "NLP_Extraction_Ticket_2382333": {
+      "ticket_id": "2382333",
+      "result": {
+        "ticket_id": "2382333",
+        "date": "not specified",
+        "start_time": "not specified",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 0,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "On Hold",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "not specified",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": []
+      }
+    },
+    "NLP_Extraction_Ticket_2384350": {
+      "ticket_id": "2384350",
+      "result": {
+        "ticket_id": "2384350",
+        "date": "not specified",
+        "start_time": "not specified",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 0,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "Scheduled",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "not specified",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": []
+      }
+    },
+    "NLP_Extraction_Ticket_2401881": {
+      "ticket_id": "2401881",
+      "result": {
+        "ticket_id": "2401881",
+        "date": "not specified",
+        "start_time": "not specified",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 0,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "On Hold",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "not specified",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": []
+      }
+    },
+    "NLP_Extraction_Ticket_2402063": {
+      "ticket_id": "2402063",
+      "result": {
+        "ticket_id": "2402063",
+        "date": "not specified",
+        "start_time": "not specified",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 0,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "On Hold",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "not specified",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": []
+      }
+    },
+    "NLP_Extraction_Ticket_2376701": {
+      "ticket_id": "2376701",
+      "result": {
+        "ticket_id": "2376701",
+        "date": "2025-01-28",
+        "start_time": "07:20",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Proper demo of all legacy data cabling in the building after installation of new cabling, per post 2025-01-28 07:20:06.",
+            "status": "not specified",
+            "completed": false,
+            "notes": "CIS technicians responsible for demo after new install.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 1,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "Closed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "legacy cabling demo: \u2022 cis technicians will properly demo all legacy data cabling in the building after they have completed the installation of ... (see post 2025-01-28 07:20:06)",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": [
+          {
+            "timestamp": "2025-01-28T07:20:06Z",
+            "change": "Legacy cabling demo scope posted.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2380336": {
+      "ticket_id": "2380336",
+      "result": {
+        "ticket_id": "2380336",
+        "date": "2025-02-04",
+        "start_time": "08:30",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Proper demo of all legacy data cabling in the building after installation of the project-specified new cabling.",
+            "status": "not specified",
+            "completed": false,
+            "notes": "CIS technicians responsible for cabling demo after install. See post 2025-02-04 08:30:36.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": null,
+          "all_tasks_completed": null,
+          "total_tasks": 1,
+          "tasks_failed": null,
+          "closeout_notes": "not specified"
+        },
+        "status": "Closed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "not specified"
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "legacy cabling demo: \u2022 cis technicians will properly demo all legacy data cabling in the building after they have completed the installation of the project-specified new cabling. (see post 2025-02-04 08:30:36)",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "not specified",
+        "completion_percentage": null,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-04T08:30:36Z",
+            "change": "Legacy cabling demo scope posted.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2376735": {
+      "ticket_id": "2376735",
+      "result": {
+        "ticket_id": "2376735",
+        "date": "2025-02-07",
+        "start_time": "20:38",
+        "end_time": "23:10",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Shipped and delivered Fortigate 60F, Fortiextender 201f-am. Configuration of Fortigate (firmware 7.2.10) and Fortiswitches.",
+            "status": "Completed",
+            "completed": true,
+            "notes": "See post 2025-02-07 20:38:42 for unit details; configuration completed as of 2025-02-07 23:10:26.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 100,
+          "all_tasks_completed": true,
+          "total_tasks": 1,
+          "tasks_failed": 0,
+          "closeout_notes": "Device delivered and configured."
+        },
+        "status": "Delivered",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": 152,
+        "travel_time_minutes": null,
+        "materials_used": [
+          {
+            "item": "Fortigate 60F",
+            "quantity": 1,
+            "part_number": "fgt60ftk2309ase6"
+          },
+          {
+            "item": "Fortiextender 201f-am",
+            "quantity": 1,
+            "part_number": "fxa21ftq22005680"
+          }
+        ],
+        "inventory": {
+          "items": [
+            {
+              "item_id": "fgt60ftk2309ase6",
+              "description": "Fortigate 60F",
+              "quantity_used": 1,
+              "stock_remaining": null
+            },
+            {
+              "item_id": "fxa21ftq22005680",
+              "description": "Fortiextender 201f-am",
+              "quantity_used": 1,
+              "stock_remaining": null
+            }
+          ]
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "No issues encountered."
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "- 1 unit - fortigate 60f\ns/n: fgt60ftk2309ase6\nmac: 74:78:a6:69:1e:96\nkey: zwy4rsfq\n\n- 1 unit - fortiextender 201f-am\ns/n: fxa21ftq22005680\nmac: 94:f3:56:44:ae:2d\n\nFirmware/configuration: Fortigate 60F (v7.2.10), Fortiswitches configured. (See posts 2025-02-07 20:38:42, 23:10:26)",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Completed",
+        "completion_percentage": 100,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-07T20:38:42Z",
+            "change": "Device shipping and serial details posted",
+            "user": "not specified"
+          },
+          {
+            "timestamp": "2025-02-07T23:10:26Z",
+            "change": "Device configuration completed",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2380335": {
+      "ticket_id": "2380335",
+      "result": {
+        "ticket_id": "2380335",
+        "date": "2025-02-04",
+        "start_time": "08:30",
+        "end_time": "08:41",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "not specified",
+            "role": "technician"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Demo legacy data cabling after install; onsite survey with check-in to Wendy's MOD Tim.",
+            "status": "Completed",
+            "completed": true,
+            "notes": "Work completed. Tech checked in with MOD Tim onsite. (Post 2025-02-04 08:41:39)",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 100,
+          "all_tasks_completed": true,
+          "total_tasks": 1,
+          "tasks_failed": 0,
+          "closeout_notes": "All survey and demo prep tasks completed."
+        },
+        "status": "Completed",
+        "site_address": "not specified",
+        "site_contact": "MOD Tim (Wendy's)",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": 11,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [],
+        "issues_closeout": {
+          "total_issues": 0,
+          "issues_resolved": 0,
+          "issues_unresolved": 0,
+          "revisits_triggered": 0,
+          "closeout_notes": "No issues encountered."
+        },
+        "resolutions": [],
+        "revisit_required": false,
+        "revisits_required": [],
+        "notes": "Legacy cabling demo prepared as per project scope. Tech checked in with Wendy's MOD Tim and completed work on site. (See posts 2025-02-04 08:30:26 and 08:41:39)",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Completed",
+        "completion_percentage": 100,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-04T08:30:26Z",
+            "change": "Scope post for survey/legacy cabling demo.",
+            "user": "not specified"
+          },
+          {
+            "timestamp": "2025-02-04T08:41:39Z",
+            "change": "Work completion post, technician checked in with MOD Tim.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2382726": {
+      "ticket_id": "2382726",
+      "result": {
+        "ticket_id": "2382726",
+        "date": "2025-02-07",
+        "start_time": "11:00",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "ritchie",
+            "role": "contractor"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Phase 1 - Network Turnup scheduled for 2/11/2025 6:30 PM.",
+            "status": "Failed",
+            "completed": false,
+            "notes": "Technician ritchie expected 6:30 PM; job failed.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 0,
+          "all_tasks_completed": false,
+          "total_tasks": 1,
+          "tasks_failed": 1,
+          "closeout_notes": "Job failed due to snowstorm; technician unable to reach site."
+        },
+        "status": "Failed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [
+          {
+            "issue_id": "1",
+            "description": "Technician unable to arrive at site for scheduled turnup.",
+            "time_impact": "Full delay; job not performed.",
+            "mitigation": "None possible due to severe weather.",
+            "information": "Snowstorm on 2/11/2025.",
+            "remediation_notes": "Reschedule after weather clears.",
+            "status": "Unresolved",
+            "escalation": {
+              "escalated_to": "not specified",
+              "status": "not specified"
+            },
+            "root_cause": "Snowstorm"
+          }
+        ],
+        "issues_closeout": {
+          "total_issues": 1,
+          "issues_resolved": 0,
+          "issues_unresolved": 1,
+          "revisits_triggered": 1,
+          "closeout_notes": "Turnup failed due to snowstorm; revisit will be required."
+        },
+        "resolutions": [],
+        "revisit_required": true,
+        "revisits_required": [
+          "Reschedule turnup after snowstorm"
+        ],
+        "notes": "Failure due to snowstorm. Technician (ritchie, contractor) expected at 6:30 pm but unable to reach site. See post 2025-02-07 11:00:33.",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Failed",
+        "completion_percentage": 0,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-07T11:00:33Z",
+            "change": "Job failed due to snowstorm, technician could not reach site.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2382746": {
+      "ticket_id": "2382746",
+      "result": {
+        "ticket_id": "2382746",
+        "date": "2025-02-07",
+        "start_time": "11:30",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "not specified",
+            "role": "contractor"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Objective P2 scheduled for 2/12/2025.",
+            "status": "Cancelled",
+            "completed": false,
+            "notes": "Turnup ticket cancelled by CIS.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 0,
+          "all_tasks_completed": false,
+          "total_tasks": 1,
+          "tasks_failed": 1,
+          "closeout_notes": "Turnup ticket cancelled by CIS; customer was unaware of scheduled work."
+        },
+        "status": "Cancelled - CIS",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [
+          {
+            "issue_id": "1",
+            "description": "Customer was unaware of scheduled work.",
+            "time_impact": "Full cancellation",
+            "mitigation": "Project management notified for reschedule.",
+            "information": "Customer not informed.",
+            "remediation_notes": "Work to be rescheduled after customer communication.",
+            "status": "Unresolved",
+            "escalation": {
+              "escalated_to": "Project Management",
+              "status": "Pending"
+            },
+            "root_cause": "Customer Unaware"
+          }
+        ],
+        "issues_closeout": {
+          "total_issues": 1,
+          "issues_resolved": 0,
+          "issues_unresolved": 1,
+          "revisits_triggered": 1,
+          "closeout_notes": "Ticket cancelled due to customer unawareness. Revisit required."
+        },
+        "resolutions": [],
+        "revisit_required": true,
+        "revisits_required": [
+          "Reschedule after confirming with customer"
+        ],
+        "notes": "Cancelled due to customer being unaware of scheduled work (Post 2025-02-07 11:30:33).",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Cancelled",
+        "completion_percentage": 0,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-07T11:30:33Z",
+            "change": "Turnup ticket cancelled due to customer unawareness.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2385184": {
+      "ticket_id": "2385184",
+      "result": {
+        "ticket_id": "2385184",
+        "date": "2025-02-12",
+        "start_time": "18:00",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "dahan electric",
+            "role": "contractor"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Outlet install scheduled for 2/13/2025, tech expected 5:00am.",
+            "status": "Failed",
+            "completed": false,
+            "notes": "Technician (dahan electric) did not check in, job not performed.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 0,
+          "all_tasks_completed": false,
+          "total_tasks": 1,
+          "tasks_failed": 1,
+          "closeout_notes": "Outlet install failed; no check-in from technician."
+        },
+        "status": "Failed",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [
+          {
+            "issue_id": "1",
+            "description": "No check-in; technician did not start scheduled installation.",
+            "time_impact": "Full failure, job not performed.",
+            "mitigation": "Contact technician/vendor for explanation and reschedule.",
+            "information": "No further details provided.",
+            "remediation_notes": "Reschedule required; confirm technician will check in.",
+            "status": "Unresolved",
+            "escalation": {
+              "escalated_to": "not specified",
+              "status": "not specified"
+            },
+            "root_cause": "No check-in"
+          }
+        ],
+        "issues_closeout": {
+          "total_issues": 1,
+          "issues_resolved": 0,
+          "issues_unresolved": 1,
+          "revisits_triggered": 1,
+          "closeout_notes": "Failure due to technician no check-in. Revisit required."
+        },
+        "resolutions": [],
+        "revisit_required": true,
+        "revisits_required": [
+          "Reschedule outlet install; ensure check-in confirmed"
+        ],
+        "notes": "Scheduled outlet install failed due to no check-in from technician (dahan electric, contractor). See post 2025-02-12 18:00:16.",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Failed",
+        "completion_percentage": 0,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-12T18:00:16Z",
+            "change": "Post on scope/objective and technician assigned; failure due to no check-in.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2389439": {
+      "ticket_id": "2389439",
+      "result": {
+        "ticket_id": "2389439",
+        "date": "2025-02-20",
+        "start_time": "09:00",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "aaron blackburn",
+            "role": "contractor"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "Phase 1 - Turnup scheduled for 2/24/2025 6:30 PM. Objective phase 1.",
+            "status": "Cancelled",
+            "completed": false,
+            "notes": "Cancelled by CIS as customer was unaware.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 0,
+          "all_tasks_completed": false,
+          "total_tasks": 1,
+          "tasks_failed": 1,
+          "closeout_notes": "Turnup cancelled by CIS due to customer unawareness."
+        },
+        "status": "Cancelled - CIS",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [
+          {
+            "issue_id": "1",
+            "description": "Customer unaware of scheduled work.",
+            "time_impact": "Full cancellation.",
+            "mitigation": "Notify and coordinate with customer for future scheduling.",
+            "information": "Work was scheduled, but customer was not informed.",
+            "remediation_notes": "Confirm awareness before rescheduling.",
+            "status": "Unresolved",
+            "escalation": {
+              "escalated_to": "not specified",
+              "status": "not specified"
+            },
+            "root_cause": "Customer Unaware"
+          }
+        ],
+        "issues_closeout": {
+          "total_issues": 1,
+          "issues_resolved": 0,
+          "issues_unresolved": 1,
+          "revisits_triggered": 1,
+          "closeout_notes": "Visit cancelled due to customer unawareness, revisit required."
+        },
+        "resolutions": [],
+        "revisit_required": true,
+        "revisits_required": [
+          "Reschedule turnup after customer notification"
+        ],
+        "notes": "Cancelled due to customer being unaware of the scheduled turnup (Post 2025-02-20 09:00:19).",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Cancelled",
+        "completion_percentage": 0,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-20T09:00:19Z",
+            "change": "Turnup cancelled due to customer unawareness.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "NLP_Extraction_Ticket_2389461": {
+      "ticket_id": "2389461",
+      "result": {
+        "ticket_id": "2389461",
+        "date": "2025-02-20",
+        "start_time": "09:30",
+        "end_time": "not specified",
+        "site_id": "not specified",
+        "vendor_id": "not specified",
+        "technicians": [
+          {
+            "technician_id": "not specified",
+            "name": "aaron blackburn",
+            "role": "contractor"
+          }
+        ],
+        "sla_metrics": {
+          "response_time": "not specified",
+          "completion_deadline": "not specified",
+          "sla_compliance": null
+        },
+        "customer_feedback": {
+          "rating": null,
+          "comments": "not specified"
+        },
+        "tasks": [
+          {
+            "task_id": "not specified",
+            "description": "P2 turnup scheduled for 2/25/2025 6:30 PM.",
+            "status": "Cancelled",
+            "completed": false,
+            "notes": "Turnup cancelled by CIS due to customer being unaware.",
+            "dependencies": []
+          }
+        ],
+        "tasks_closeout": {
+          "tasks_completed_percentage": 0,
+          "all_tasks_completed": false,
+          "total_tasks": 1,
+          "tasks_failed": 1,
+          "closeout_notes": "Cancelled by CIS as customer was unaware."
+        },
+        "status": "Cancelled - CIS",
+        "site_address": "not specified",
+        "site_contact": "not specified",
+        "customer_name": "not specified",
+        "customer_signature": "not specified",
+        "actual_duration_minutes": null,
+        "travel_time_minutes": null,
+        "materials_used": [],
+        "inventory": {
+          "items": []
+        },
+        "issues_encountered": [
+          {
+            "issue_id": "1",
+            "description": "Customer unaware of scheduled work.",
+            "time_impact": "Full cancellation.",
+            "mitigation": "Notify and coordinate with customer before rescheduling.",
+            "information": "Customer did not receive notification of scheduled turnup.",
+            "remediation_notes": "Reschedule once customer is properly informed.",
+            "status": "Unresolved",
+            "escalation": {
+              "escalated_to": "not specified",
+              "status": "not specified"
+            },
+            "root_cause": "Customer Unaware"
+          }
+        ],
+        "issues_closeout": {
+          "total_issues": 1,
+          "issues_resolved": 0,
+          "issues_unresolved": 1,
+          "revisits_triggered": 1,
+          "closeout_notes": "Visit cancelled due to customer unawareness; revisit needed after confirming communication."
+        },
+        "resolutions": [],
+        "revisit_required": true,
+        "revisits_required": [
+          "Reschedule after confirming customer awareness"
+        ],
+        "notes": "Turnup cancelled by CIS because the customer was unaware (Post 2025-02-20 09:30:19).",
+        "attachments": [],
+        "financials": [],
+        "financials_closeout": {
+          "total_cost": null,
+          "cost_breakdown": {
+            "Labor": null,
+            "Materials": null,
+            "Trip Charge": null,
+            "Tax": null,
+            "Equipment Rental": null
+          },
+          "tax_included": null,
+          "closeout_notes": "not specified"
+        },
+        "task_outcome": "Cancelled",
+        "completion_percentage": 0,
+        "audit_trail": [
+          {
+            "timestamp": "2025-02-20T09:30:19Z",
+            "change": "Turnup cancelled due to customer unawareness.",
+            "user": "not specified"
+          }
+        ]
+      }
+    },
+    "Batch_1_Analysis": {
+      "batch_id": 1,
+      "ticket_ids": [
+        "2376701",
+        "2380335"
+      ],
+      "result": {
+        "error": "Invalid JSON",
+        "raw": "[\n  {\n    \"ticket_id\": \"2376701\",\n    \"category\": \"Project Management\",\n    \"status\": \"Closed\",\n    \"subject\": \"Flynn_Wendys FW008350_Hagerstown_MD_Cabling and Network Upgrade\",\n    \"department\": \"not specified\",\n    \"queue\": \"not specified\",\n    \"audit_status\": \"not specified\",\n    \"timeline\": {\n      \"creation_date\": \"not specified\",\n      \"service_date\": \"2025-01-28\", \n      \"completion_date\": \"not specified\",\n      \"closed_date\": \"not specified\"\n    },\n    \"scope\": {\n      \"technical_details\": \"Legacy cabling demo: cis technicians will properly demo all legacy data cabling in the building after they have completed the installation of ... (Post 2025-01-28 07:20:06)\",\n      \"technician_details\": \"cis technicians (names not specified)\",\n      \"cabling_scope\": \"legacy data cabling demo after new installation\"\n    },\n    \"outcome\": {\n      \"completion_status\": \"Closed\",\n      \"issues\": [],\n      \"cancellation_reason\": null,\n      \"failure_reason\": null\n    },\n    \"revisit\": {\n      \"required\": false,\n      \"reason\": null\n    },\n    \"metrics\": {\n      \"time_on_site\": \"not specified\",\n      \"delays\": \"not specified\",\n      \"accounting\": {\n        \"PO\": \"not specified\",\n        \"amount\": \"not specified\",\n        \"billing_status\": \"not specified\"\n      }\n    },\n    \"relationships\": {\n      \"parent_dispatch_id\": null,\n      \"linked_tickets\": [\"2380335\"]  // based on parent_dispatch_id of 2380335\n    },\n    \"issues_data_quality\": {\n      \"epoch_dates\": false,\n      \"location_mismatches\": false,\n      \"non_1_to_1_relationships\": false,\n      \"orphaned_records\": false\n    },\n    \"sources\": [\n      \"Post 2025-01-28 07:20:06\"\n    ]\n  },\n  {\n    \"ticket_id\": \"2380335\",\n    \"category\": \"Turnup Tickets\",\n    \"status\": \"Completed\",\n    \"subject\": \"Flynn_Wendys FW008350_Hagerstown_MD SURVEY 2/4/2025 11:30 AM\",\n    \"department\": \"not specified\",\n    \"queue\": \"not specified\",\n    \"audit_status\": \"not specified\",\n    \"timeline\": {\n      \"creation_date\": \"not specified\",\n      \"service_date\": \"2025-02-04\",\n      \"completion_date\": \"2025-02-04\",\n      \"closed_date\": \"not specified\"\n    },\n    \"scope\": {\n      \"technical_details\": \"Scope - objective: legacy cabling demo: cis technicians will properly demo all legacy data cabling in the building after they have completed t... (Post 2025-02-04 08:30:26)\",\n      \"technician_details\": \"^Jeff.Cohen (role: technician)\",\n      \"cabling_scope\": \"legacy data cabling demo survey; checked in with Wendy's MOD Tim\"\n    },\n    \"outcome\": {\n      \"completion_status\": \"Completed\",\n      \"issues\": [],\n      \"cancellation_reason\": null,\n      \"failure_reason\": null\n    },\n    \"revisit\": {\n      \"required\": false,\n      \"reason\": null\n    },\n    \"metrics\": {\n      \"time_on_site\": 11,\n      \"delays\": \"not specified\",\n      \"accounting\": {\n        \"PO\": \"not specified\",\n        \"amount\": \"not specified\",\n        \"billing_status\": \"not specified\"\n      }\n    },\n    \"relationships\": {\n      \"parent_dispatch_id\": \"2376701\",\n      \"linked_tickets\": []\n    },\n    \"issues_data_quality\": {\n      \"epoch_dates\": false,\n      \"location_mismatches\": false,\n      \"non_1_to_1_relationships\": false,\n      \"orphaned_records\": false\n    },\n    \"sources\": [\n      \"Post 2025-02-04 08:30:26\",\n      \"Post 2025-02-04 08:41:39\"\n    ]\n  }\n]"
+      }
+    },
+    "Batch_2_Analysis": {
+      "batch_id": 2,
+      "ticket_ids": [
+        "2382333",
+        "2382726",
+        "2389439"
+      ],
+      "result": [
+        {
+          "ticket_id": "2382333",
+          "category": "Dispatch Tickets",
+          "status": "On Hold",
+          "subject": "Flynn_FW008350_Hagerstown_MD_P1",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "issues": [
+              "Non-1:1 relationship: linked to multiple turnups (2382726, 2389439)"
+            ],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": [
+              "2382726",
+              "2389439"
+            ]
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": true,
+            "orphaned_records": false
+          },
+          "sources": [
+            "4 posts, 1 note from dispatch record"
+          ]
+        },
+        {
+          "ticket_id": "2382726",
+          "category": "Turnup Tickets",
+          "status": "Failed",
+          "subject": "Flynn_FW008350_Hagerstown_MD_P1 2/11/2025 6:30 PM",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-02-11",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Post (2025-02-07 11:00:33): phase 1 turnup, technician info, contractor, ritchie.",
+            "technician_details": "Technician: ritchie (contractor)"
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "issues": [
+              "Missing visit times (InTime/OutTime); see posts",
+              "Failure reason: Snowstorm - Tech unable to reach site (Post 2025-02-07 11:00:33)"
+            ],
+            "cancellation_reason": null,
+            "failure_reason": "Snowstorm"
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Job failed due to snowstorm; technician unable to reach site. Reschedule required."
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "Full delay due to weather",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": "2382333",
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": true,
+            "orphaned_records": false
+          },
+          "sources": [
+            "Post 2025-02-07 11:00:33",
+            "4 posts, 1 note"
+          ]
+        },
+        {
+          "ticket_id": "2389439",
+          "category": "Turnup Tickets",
+          "status": "Cancelled - CIS",
+          "subject": "Flynn_FW008350_Hagerstown_MD_P1 2/24/2025 6:30 PM",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-02-24",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Post (2025-02-20 09:00:19): phase 1 - turnup, technician: aaron blackburn (contractor)",
+            "technician_details": "Technician: aaron blackburn (contractor)"
+          },
+          "outcome": {
+            "completion_status": "Cancelled",
+            "issues": [
+              "Customer unaware of scheduled install - see Post 2025-02-24 06:31:45, 2025-02-20 09:00:19",
+              "Missing visit times (InTime/OutTime)"
+            ],
+            "cancellation_reason": "Customer unaware",
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Work cancelled due to customer being unaware; revisit after customer notification."
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "Full cancellation",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": "2382333",
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": true,
+            "orphaned_records": false
+          },
+          "sources": [
+            "Post 2025-02-20 09:00:19",
+            "Post 2025-02-24 06:31:45"
+          ]
+        }
+      ]
+    },
+    "Batch_3_Analysis": {
+      "batch_id": 3,
+      "ticket_ids": [
+        "2384350",
+        "2385184"
+      ],
+      "result": [
+        {
+          "ticket_id": "2384350",
+          "category": "Dispatch Tickets",
+          "status": "Scheduled",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "Scheduled",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": [
+              "2385184"
+            ]
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": false
+          },
+          "sources": [
+            "1 post, 0 notes"
+          ]
+        },
+        {
+          "ticket_id": "2385184",
+          "category": "Turnup Tickets",
+          "status": "Failed",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install 2/13/2025 5:00 AM",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-02-13",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Post (2025-02-12 18:00:16): objective: outlet install, expected time: 5:00 am, technician: dahan electric (contractor)",
+            "technician_details": "Technician: dahan electric (contractor)"
+          },
+          "outcome": {
+            "completion_status": "Failed",
+            "issues": [
+              "No check-in from technician; installation not performed",
+              "Post (2025-02-13 10:29:47): reschedule will be needed for tomorrow",
+              "Missing visit times (InTime/OutTime)"
+            ],
+            "cancellation_reason": "Tech Cancel",
+            "failure_reason": "No check-in"
+          },
+          "revisit": {
+            "required": true,
+            "reason": "Reschedule required due to technician no check-in"
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "Full failure, job not performed (Post 2025-02-13 10:29:47)",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": "2384350",
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": false
+          },
+          "sources": [
+            "Post 2025-02-12 18:00:16",
+            "Post 2025-02-13 10:29:47",
+            "5 posts, 0 notes"
+          ]
+        }
+      ]
+    },
+    "Batch_4_Analysis": {
+      "batch_id": 4,
+      "ticket_ids": [
+        "2376701",
+        "2376735",
+        "2376830"
+      ],
+      "result": [
+        {
+          "ticket_id": "2376701",
+          "category": "Project Management",
+          "status": "Closed",
+          "subject": "Flynn_Wendys FW008350_Hagerstown_MD_Cabling and Network Upgrade",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-01-28",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Legacy cabling demo: cis technicians will properly demo all legacy data cabling in the building after they have completed the installation of ... (Post 2025-01-28 07:20:06)",
+            "technician_details": "cis technicians (names not specified)"
+          },
+          "outcome": {
+            "completion_status": "Closed",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "Post 2025-01-28 07:20:06"
+          ]
+        },
+        {
+          "ticket_id": "2376735",
+          "category": "Shipping Tickets",
+          "status": "Delivered",
+          "subject": "Flynn_FW008350_Hagerstown_MD",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-02-07",
+            "completion_date": "2025-02-07",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "- 1 unit - fortigate 60f, s/n: fgt60ftk2309ase6. - 1 unit - fortiextender 201f-am, s/n: fxa21ftq22005680. Fortigate configured firmware: 7.2.10. (Posts 2025-02-07 20:38:42, 23:10:26)",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "Delivered",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "Posts 2025-02-07 20:38:42, 2025-02-07 23:10:26"
+          ]
+        },
+        {
+          "ticket_id": "2376830",
+          "category": "Dispatch Tickets",
+          "status": "Closed",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-01-28",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Turnup assist request for network cutover job to happen on day 2 of a cabling project. Dispatch set by FSPM. (Post 2025-01-28 08:28:15)",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "Closed",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "Post 2025-01-28 08:28:15"
+          ]
+        }
+      ]
+    },
+    "Batch_5_Analysis": {
+      "batch_id": 5,
+      "ticket_ids": [
+        "2380336",
+        "2382265",
+        "2382333"
+      ],
+      "result": [
+        {
+          "ticket_id": "2380336",
+          "category": "Project Management",
+          "status": "Closed",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket 2/12/2025 9:30 PM",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "2025-02-04",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "Legacy cabling demo: cis technicians will properly demo all legacy data cabling in the building after they have completed the installation of the project-specified new cabling. (Post 2025-02-04 08:30:36)",
+            "technician_details": "cis technicians (names not specified)"
+          },
+          "outcome": {
+            "completion_status": "Closed",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "Post 2025-02-04 08:30:36"
+          ]
+        },
+        {
+          "ticket_id": "2382265",
+          "category": "Dispatch Tickets",
+          "status": "Confirmed",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Site Survey",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "Confirmed",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "2 posts, 1 note"
+          ]
+        },
+        {
+          "ticket_id": "2382333",
+          "category": "Dispatch Tickets",
+          "status": "On Hold",
+          "subject": "Flynn_FW008350_Hagerstown_MD_P1",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "issues": [
+              "Non-1:1 relationship: linked to two turnups (2382726, 2389439)"
+            ],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": [
+              "2382726",
+              "2389439"
+            ]
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": true,
+            "orphaned_records": false
+          },
+          "sources": [
+            "4 posts, 1 note"
+          ]
+        }
+      ]
+    },
+    "Batch_6_Analysis": {
+      "batch_id": 6,
+      "ticket_ids": [
+        "2384350",
+        "2401881",
+        "2402063"
+      ],
+      "result": [
+        {
+          "ticket_id": "2384350",
+          "category": "Dispatch Tickets",
+          "status": "Scheduled",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "Scheduled",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "1 post, 0 notes"
+          ]
+        },
+        {
+          "ticket_id": "2401881",
+          "category": "Dispatch Tickets",
+          "status": "On Hold",
+          "subject": "Flynn_FW008350_Hagerstown_MD_50 PERCENT BILLING",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "2 posts, 0 notes"
+          ]
+        },
+        {
+          "ticket_id": "2402063",
+          "category": "Other",
+          "status": "On Hold",
+          "subject": "Flynn_FW008350_Hagerstown_MD_Billing Complete Ticket",
+          "department": "not specified",
+          "queue": "not specified",
+          "audit_status": "not specified",
+          "timeline": {
+            "creation_date": "not specified",
+            "service_date": "not specified",
+            "completion_date": "not specified",
+            "closed_date": "not specified"
+          },
+          "scope": {
+            "technical_details": "not specified",
+            "technician_details": "not specified"
+          },
+          "outcome": {
+            "completion_status": "On Hold",
+            "issues": [],
+            "cancellation_reason": null,
+            "failure_reason": null
+          },
+          "revisit": {
+            "required": false,
+            "reason": null
+          },
+          "metrics": {
+            "time_on_site": "not specified",
+            "delays": "not specified",
+            "accounting": {
+              "PO": "not specified",
+              "amount": "not specified",
+              "billing_status": "not specified"
+            }
+          },
+          "relationships": {
+            "parent_dispatch_id": null,
+            "linked_tickets": []
+          },
+          "issues_data_quality": {
+            "epoch_dates": false,
+            "location_mismatches": false,
+            "non_1_to_1_relationships": false,
+            "orphaned_records": true
+          },
+          "sources": [
+            "1 post, 1 note"
+          ]
+        }
+      ]
+    },
+    "Issues_Index": {
+      "tickets_with_issues": []
+    },
+    "Followup_Questions": {
+      "questions_by_ticket": {
+        "2376830": [],
+        "2382265": [],
+        "2382333": [],
+        "2384350": [],
+        "2401881": [],
+        "2402063": [],
+        "2376701": [],
+        "2380336": [],
+        "2376735": [],
+        "2380335": [],
+        "2382726": [],
+        "2382746": [],
+        "2385184": [],
+        "2389439": [],
+        "2389461": []
+      }
+    },
+    "User_Questions": {}
+  },
+  "consolidated_report": {
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "timestamp": "2025-04-29T17:12:02.652921",
+    "project_id": "NETWORK UPGRADE INSTALLATION - WENDYS",
+    "site_number": "N/A",
+    "customer": "Flynn",
+    "location": {
+      "name": "Wendy's FW008350",
+      "address": "17786 Garland Groh Blvd",
+      "city": "Hagerstown",
+      "state": "MD",
+      "zipcode": "21740",
+      "phone": "301-797-4818",
+      "timezone": "America/New_York"
+    },
+    "relationships": [
+      {
+        "dispatch_ticket_id": "2376701",
+        "turnup_ticket_ids": [
+          "2380335"
+        ],
+        "confidence": "High",
+        "notes": "Direct linkage via DispatchId"
+      },
+      {
+        "dispatch_ticket_id": "2382333",
+        "turnup_ticket_ids": [
+          "2382726",
+          "2389439"
+        ],
+        "confidence": "Medium",
+        "notes": "Direct linkage via DispatchId (Non-1:1, 2 turnups)"
+      },
+      {
+        "dispatch_ticket_id": "2382382",
+        "turnup_ticket_ids": [
+          "2382746",
+          "2389461"
+        ],
+        "confidence": "Medium",
+        "notes": "Direct linkage via DispatchId (Non-1:1, 2 turnups)"
+      },
+      {
+        "dispatch_ticket_id": "2384350",
+        "turnup_ticket_ids": [
+          "2385184"
+        ],
+        "confidence": "High",
+        "notes": "Direct linkage via DispatchId"
+      }
+    ],
+    "tickets_analyzed": [
+      "2382333",
+      "2382726",
+      "2389439",
+      "2384350",
+      "2385184",
+      "2376701",
+      "2376735",
+      "2376830",
+      "2380336",
+      "2382265",
+      "2382333",
+      "2384350",
+      "2401881",
+      "2402063"
+    ],
+    "metrics_summary": {
+      "total_tickets": 14,
+      "dispatch_tickets": 5,
+      "turnup_tickets": 3,
+      "shipping_tickets": 1,
+      "project_management_tickets": 0,
+      "revisits_required": 0,
+      "orphaned_records": 0,
+      "non_1_to_1_relationships": 2,
+      "cancellations": 1,
+      "failures": 2,
+      "audit_pending": 0,
+      "audit_completed": 0,
+      "location_mismatches": 0,
+      "epoch_dates": 0
+    },
+    "issues_summary": {
+      "tickets_with_issues": []
+    },
+    "detailed_analyses": [],
+    "missing_data_notes": [
+      "Ticket 2382746 missing visit times (InTime/OutTime)",
+      "Ticket 2382333 lacks technical details",
+      "Ticket 2382726 missing visit times (InTime/OutTime)",
+      "Ticket 2384350 lacks technical details",
+      "Ticket 2382265 lacks technical details",
+      "Ticket 2385184 missing visit times (InTime/OutTime)",
+      "Ticket 2401881 lacks technical details",
+      "Ticket 2389461 missing visit times (InTime/OutTime)",
+      "Ticket 2389439 missing visit times (InTime/OutTime)",
+      "Ticket 2402063 lacks technical details"
+    ]
+  }
+}
