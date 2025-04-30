@@ -1,0 +1,237 @@
+Certainly! Below is an **analysis of relationships** and a **data-driven summary** using citations from the provided ticket chain (hash: 15AF838E-5411-C44E-B4D4-CF4E76E02B76, 18 tickets). The structure covers:
+
+1. **Parent-child relationships**
+2. **Dispatch-turnup-billing linkages**
+3. **Orphaned/unlinked tickets**
+4. **Extracted details**: cable drop counts, completion, revisits, delays, with post/note citations.
+
+---
+
+## 1. Parent-Child Relationships
+
+- **No formal linked_tickets structure** was used (all `"linked_tickets": []`), so logical relationships are inferred from:
+    - Ticket categories
+    - Subjects/descriptions
+    - Direct post cross-references
+
+**Logical Hierarchy:**
+
+### A. Project/Scope Parent
+- **2367830** ("Flynn_5579_Fishers_IN_Cabling and Network Upgrade")  
+  - Main project management ticket, scope/plan owner
+- **2374738, 2376373, 2377027, 2378430**  
+  - Turnup/installation events for rollout, structured as sequenced appointments ("12:00 PM", "6:30 PM", night 2/cutover, etc.)
+
+These are not parent-child codestructurally, but 2367830 acts as the project umbrella, while the others are sequential turnup events.
+
+### B. Revisits (Child of prior installs)
+- **2384454, 2387576, 2391200, 2391754, 2401701, 2401728**  
+  - All are titled "Revisit X" – representing follow-up dispatches to complete or correct work identified in prior (parent) install/turnup tickets.
+
+### C. Billing (Children of Install/Service)
+- **2382228, 2424333, 2424336, 2381165, 2382162**  
+  - Accounting/invoicing for specific dispatches/revisits, often referencing originating work tickets (e.g., "Billing to the client will be completed on 2401704", "A bill was created under this ticket: 2382228").
+
+### D. Outbound/Shipping/Monitoring/Comcast Issues
+- **2368088**: Shipping hardware; support for project.
+- **2381460**: Addresses Comcast modem (backhaul/NAT mode issue).
+- **2382162, 2381165**: Accounting/monitoring setup for the main site.
+
+**Special Case: 2378430**  
+- Heavily referenced as a parent status ticket, with closeout leads referenced from other tickets, e.g., 2384454:  
+  > "See tony's closeout notes in 2378430" (Post by Christopher Hagen, 2384454)
+
+---
+
+## 2. Dispatch–Turnup–Billing Linkages
+
+### **Typical Flow (for this chain):**
+1. **Project Initiation & Scope:**  
+   - Ticket **2367830** defines end-to-end project scope, device/cable counts, and task lists.
+
+2. **Turnup/Install Appointments:**  
+   - **2374738** (first survey/visit 1, 1/23/2025)
+   - **2376373** (night install, 6:30 PM 1/27/2025, incomplete)
+   - **2377027** (follow-up work 1/28/2025, completed)
+   - **2378430** (turnup day 2, network cutover 2/4/2025, completed)
+
+3. **Revisits/Additional Dispatches:**  
+   - If incomplete, or if deficiencies discovered, further "Revisit X" tickets issued, e.g.,  
+     - **2384454** (Revisit 1, confirmed)
+     - **2387576** (Revisit 2, canceled)
+     - **2391200** (Revisit 4, open)
+     - **2391754** (Revisit 4, incomplete)
+     - **2401701** (Revisit 5, audit)
+     - **2401728** (Revisit 5, completed)
+
+4. **Billing/Accounting:**  
+   - Separate tickets for FST Accounting or client billing tied to install/revisit events:
+     - e.g.,  
+       - **2382228**—Refers to bill for site work, cites that billing to customer will be done on ticket 2401704.
+       - **2424333**, **2424336**—Bill to customer for site survey, or client billing for specific line items/work completed.
+
+### **Post/Billing Citations**
+- **2382228:**  
+  > "Tech invoice attached ... FST cost: 488.19 ... Billing to the client will be completed on 2401704" (Post by Brandon Mahoney)
+
+- **2424336:**  
+  > "Client billing ticket ... FST invoice was processed on CIS ID 2382228 ... FST cost: 0.00, Cust cost: 600.00" (Post by Brandon Mahoney)
+
+---
+
+## 3. Orphaned or Unlinked Records
+
+**Tickets with no apparent linkage to main project flow** (no linked_tickets, no explicit in-chain cross reference):
+
+- **2368088**: Shipping ticket—pre-project hardware logistics; closed upon reassignment.
+- **2381460**: Comcast modem problem—supports main project, but stands alone as troubleshooting event.
+- **2381165** and **2382162**: Billing/accounting setup—linked via description, not explicit ticket structure.
+
+---
+
+## 4. Extracted Details by Ticket
+
+### Cable Drop Counts
+
+#### Source: SOW in 2367830, Survey Notes in 2374738
+
+- **2367830 SOW** contains detailed drop counts for cable types:
+    - **WAP**: QTY 1
+    - **DMB (Digital Menu Bar)**: QTY 4
+    - **Timer**: QTY 1
+    - **Music**: QTY 1
+    - **Manager Station**: QTY 4 (quad drop)
+    - **POS**: QTY 4 (2 dual drops)
+    - **POS w/ Jumper**: QTY 3 (triple drop)
+    - **Kiosk**: QTY 4 (2 dual drop)
+    - **Prep**: QTY 1 (single drop)
+    - **Prep & Jumper**: QTY 2
+    - **Timer (again?)**: QTY 1
+    - **OCD/Outdoor DMB**: QTY 4
+
+#### Survey & Revisit 4 (2391754/2401728)
+
+- Repeated requests for **10 blank inserts** and **1 blank faceplate** (for patch panel) (2391200, 2391754)
+- Requests for **25 patch cables**, colored clips (details in 2391754, post by John Box)
+
+### Status / Completion
+
+- **Completed**:
+    - **2374738**: First site survey—closed (post: "Tech completed the site survey ... Tech was then approved for release ...")
+    - **2377027**: "Turnup/Upgrade" 1/28/2025—status: "Completed"
+    - **2378430**: Day 2 cutover—status: "Completed", site operational (post: "Site cutover is successful and store confirmed operational.")
+    - **2401728**: Revisit 5, status: "Completed" ("Technician completed final cabling ... Final photos were taken ... Incomplete/remaining items, if any: N/A")
+- **Closed**:
+    - **2382228, 2424333, 2424336, 2381460, 2381165, 2382162, 2368088, 2387576**: Closed after work, billing, or as unnecessary ("Closing this ticket per Chris - it is no longer needed", 2387576)
+- **Audit / Incomplete**:
+    - **2391200, 2401701**: Both in "Audit" for billing/QA.
+    - **2391754**: "Incomplete"—pending patch cables, colored clips, AP terminations (2391754, post by John Box: "What we need to complete the site ...", "PM notes ... Replacement of patch cabling ... ")
+- **Confirmed**:
+    - **2384454**: Confirmed revisit.
+
+### Revisit Requirements / Pending Items
+
+- **Reschedule / Revisit**:
+    - **2374738**: "Confirm the availability for a 3rd revisit if we are not able to finish tonight" — post by Devin Leatham.
+    - **Early posts in 2367830, notes**: Scheduling/confirming sitewalks, technician info, re-scheduling Night 3 network flip (post: "Move night 3 (network flip) to 2/4", "We can reschedule for February 4, no problem.")
+    - **Revisit 4 (2391754)**: Pending colored clips and patch cables, AP Z-plug terminations
+
+### Delays
+
+- **Delays in Shipping/Material**:
+    - **2368088, post by Eric Morales**: Site moved; hardware being reassigned; closed because "the client shipped the hardware themselves."
+    - **2376373, posts by Tony Dinh**: "The store received two 8U racks when the diagram specifies 12Us"; backboard too small, "Brandon can be back tomorrow with bigger back board."
+    - **2376373, 2377027, 2378430**: Delays due to missing materials, site closures, lack of power, technician laptop issues ("Kedrick is running home to grab a laptop and console cable", "Kedrick … new laptop not working with serial-to-USB adapter…")
+    - **2391754**: "they don't have the new cable with the colored clips ...", "what is needed to complete the site: 25 patch cables, 8 blue clips...", etc.
+
+- **On Hold**:
+    - **2368088, post by Eric Morales**: "On hold for further instructions ... Site still exist on FortiManager as they work on config for this CLOE location"
+
+---
+
+## 5. Ticket-by-Ticket Highlights
+
+**Example: 2367830 (Main Project Ticket)**
+- **Cable drop counts:** Multiple as detailed above.
+- **Notes:** Site walk required "any day prior to the installation at 2:30PM" (note by Devin Leatham).
+- **Completion:** Status: Audit/incomplete (referenced in clean-up posts for 2/6/2025 by Josh Bosen).
+- **Delays:** Site walk, reschedule, material delivery issues.
+
+**Example: 2391754 (Revisit 4)**
+- **Status:** Incomplete, "PM notes … Replacement of patch cabling...", "they don't have the new cable with colored clips …"
+- **Pending items:** "25 patch cables, 8 blue clips..." (post by John Box)
+- **Delays:** Material shipment not on site.
+
+**Example: 2382228 (Billing Ticket)**
+- **Billing:** FST cost billed, $488.19, invoice attached, billing yet to be completed on 2401704.
+- **Completion:** Status: Closed.
+
+**Example: 2384454 (Revisit 1)**
+- **Reference:** Directs users to parent/previous closeout: "See tony's closeout notes in 2378430."
+
+**Example: 2368088 (Shipping Logistics)**
+- **Delays:** Hardware reassigned as site already shipped equipment themselves; ticket closed.
+
+---
+
+## 6. Relationship Summary Table
+
+| Ticket ID | Category / Role         | Parent/Child                              | Status/Completion         | Revisit/Delay | Extracts/Citations |
+|-----------|------------------------|-------------------------------------------|---------------------------|---------------|--------------------|
+| 2367830   | Project Mgmt/Main Scope| Parent (scope, SOW, cable counts)         | Audit, incomplete         | Yes           | SOW, scope, notes  |
+| 2374738   | Turnup/Survey          | Sibling/child of 2367830                  | Completed                 | Confirmed 3rd visit if needed | "confirm the availability for a 3rd revisit" |
+| 2376373   | Turnup/Install         | Sibling/child of 2367830                  | Incomplete                | Delays        | "rack too small", "missing power"|
+| 2377027   | Turnup/Upgrade         | Sibling/child                             | Completed                 | --            | Turnup completed 1/28/2025     |
+| 2378430   | Turnup/Cutover         | Sibling/child                             | Completed, referenced by others | --      | Multiple closeout notes, cited in revisit tickets|
+| 2384454   | Revisit 1              | Follows 2378430/cites it                  | Confirmed                 | --            | "See tony's closeout notes in 2378430"       |
+| 2387576   | Revisit 2              | Successor/Revisit                         | Closed, not needed        | --            | "Closing this ticket per Chris"              |
+| 2391200   | Revisit 4              | Successor/Revisit                         | Audit                     | See revisit 4 | Needs further audit/review                  |
+| 2391754   | Revisit 4              | Successor/Revisit                         | Incomplete                | Delays        | "25 patch cables", "colored clips" needed    |
+| 2401701   | Revisit 5              | Successor/Revisit                         | Audit                     | Pending audit | Invoice/billing pending                     |
+| 2401728   | Revisit 5              | Successor/Revisit                         | Completed                 | --            | "final cabling ... photos taken ... N/A"    |
+| 2382228   | Billing                | Follows work in 2367830 et al.            | Closed                    | --            | "Billing to the client will be completed on 2401704"|
+| 2424333   | Billing                | Follows dispatch/visit                    | Closed                    | --            | "A bill was created under this ticket: 2424333"|
+| 2424336   | Billing (Client)       | Follows dispatch/visit                    | Closed                    | --            | "A bill was created under this ticket: 2424336"|
+| 2368088   | Shipping               | Hardware support                          | Closed (orphan)           | On hold/logistics| "On hold", "closed … client shipped hardware"|
+| 2381460   | Comcast NAT Issue      | Trouble/support for main project          | Closed (orphan)           | Issue resolved| Multiple modem resets, static IP refs        |
+| 2381165, 2382162 | Billing/Add-to-monitor | Accounting setup                      | Closed (orphan-support)    | --            | Invoice/client monitor posts                |
+
+---
+
+## 7. Summary Conclusions
+
+- There is a clear **hierarchy** inferred from descriptions: project --> turnup/dispatch --> revisit (child/next-step) --> billing (child of work).
+- **No direct code-level parent-child links** (linked_tickets:[] always empty), but references in posts and subject lines provide traceability.
+- **Revisit tickets** identify ongoing or pending work or deficiencies, often citing material delays, shortage, or lack of required parts ("25 patch cables … needed for completion", etc.).
+- **Billing/accounting** tickets close the ticket chain for each completed event or set of work, always referencing the originating SOW/visit or revisit.
+
+**All tickets are coherently orchestrated as steps in the field service workflow**, with delays, revisits, and billing follow-up all well-captured in the ticket chain, even if technical parent/child relationships are not explicitly coded.
+
+---
+
+## 8. Notable Citations (Direct Quotes)
+
+- **Cable Drops**:  
+  _2367830 SOW, first post_: "Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 4 separate single drop Digital Menu Bar location(s) specified..."
+- **Delays**:  
+  _2376373, Tony Dinh_: "Brandon can be back tomorrow with a bigger back board. Told Brandon I want to avoid pushing things to night 2."
+- **Incomplete/Needs Revisit**:  
+  _2391754, John Box_: "PM notes – Replacement of patch cabling at the device end and color clips... What we need to complete the site...25 patch cables..."
+- **Revisit Scheduling**:  
+  _2374738, Devin Leatham_: "confirm the availability for a 3rd revisit if we are not able to finish tonight"
+- **Billing Reference**:  
+  _2382228, Brandon Mahoney_: "Billing to the client will be completed on 2401704"
+- **Closure, Billing**:  
+  _2424333, Kayla Gonzalez_: "A bill was created under this ticket: 2424333<br/>Total Bill to Customer : $0.00<br/>Total Bill to CISSDM  : $380.00"
+
+---
+
+## 9. In Summary
+
+- **Parent-child** logic is present, but tracked via subject-line and post content (not `linked_tickets`). Main project and turnup tickets act as parents; revisits as children; billing as closure children.
+- **Dispatch-turnup-billing** is explicitly followed, with specific posts linking each phase.
+- **Orphaned** tickets such as shipping and accounting setup tickets are present; these provide logistical context but aren't linked directly.
+- **Details** on cable quantities, delays, rescheduling, and completion are explicitly referenced in posts and notes across multiple tickets.
+- **All transitions and dependencies are adequately documented via internal ticket references and post cross-citations.**
+
+If you need a visual relationship map or more granular breakdown, let me know!

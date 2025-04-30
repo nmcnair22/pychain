@@ -1,0 +1,117 @@
+==== DEBUG: posts_json_raw Query Results ====
+
+[{"ticketpostid":"15502174","post_dateline":"2025-01-28 11:00:03","fullname":"Devin Leatham","contents":"Scope - Objective: Verify QC/BOM checklist and
+confirm all materials are delivered.
+
+Technician will need to install backerboard that was not included in last nights work
+
+Pull ARP table data at the beginning
+of the night.
+
+Ensure all worked-on areas are clean
+and free of obstacles.
+
+Run new cables alongside the old
+cabling to their endpoints.
+
+Perform cable management for the
+new runs.
+
+Capture photos of ceiling cable
+pathways, including the use of Jhooks.
+
+
+Install the new rack alongside the
+old rack only if site conditions allow.
+
+Install the new patch panel into the
+new rack.
+
+Install and terminate new cables at
+the new patch panel.
+
+Pre-stage Fortinet hardware
+(Firewall, switches, extender).
+
+ Perform cleanup of all areas affected
+by installation of cabling and racks.
+ Technician Information: Expected In Time: 6:30 PM Technician Type: ContractorFST Technician Name: Brandon LoweryContact #: (317) 625 - 1776 Project ID: NETWORK RE-CABLING - WENDY'S  Customer Name: FlynnStore Type: ExistingStore Name: FLN_5579_Fishers_INSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number: 317-578-8544 New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ","isprivate":"0","creator":"2"},{"ticketpostid":"15504232","post_dateline":"2025-01-28 18:58:12","fullname":"Robert Cohen","contents":"FST Technician Name: Brandon Lowery
+Contact #: (317) 625 - 1776
+
+Check in time: 6:15 PM PST
+
+Check in email sent.
+
+Tech did not grab MOD name.
+
+Escalated for info to run pre-arp table. 
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504234","post_dateline":"2025-01-28 18:58:56","fullname":"Robert Cohen","contents":"Not a site that can have pre-arp table run. 
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504240","post_dateline":"2025-01-28 19:02:00","fullname":"Robert Cohen","contents":"Email sent out. 
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504394","post_dateline":"2025-01-28 20:22:52","fullname":"Robert Cohen","contents":"RTE Checkout time: 8:22 PM PST
+
+Site passed on to Tony. 
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504591","post_dateline":"2025-01-28 21:35:29","fullname":"Tony Dinh","contents":"- The network racks are installed
+- Techs mounting the hardware and terminating the cabling to patch panels
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504815","post_dateline":"2025-01-28 23:03:14","fullname":"Tony Dinh","contents":"- Patch panel terminations ongoing
+- Brandon states several drops are not pulled down as the existing cabling is using the conduit
+- He is unable to terminate the cabling until the existing cabling is removed
+- Advised he pull what he can in preparation for cutover
+- The two front registers have their cabling pulled down along with the drive-thru POS 4
+- The firewall and switches are racked with the mounted FEX connected to WAN2
+- Both the FEX and FGT show offline in FMG and no response from DDNS
+- None of the FSTs have a laptop; Kedrick is running home to grab a laptop and console cable
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504882","post_dateline":"2025-01-28 23:18:39","fullname":"Tony Dinh","contents":"- The existing kiosk cable runs also need to be removed before the new runs can be dropped as well
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15504989","post_dateline":"2025-01-29 00:00:51","fullname":"Tony Dinh","contents":"- Nearly two hours later and Kedrick states he'll be back to the site in a bit
+- He will reach out once the laptop is connected
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505116","post_dateline":"2025-01-29 00:36:38","fullname":"Tony Dinh","contents":"- Reached out to Kedrick
+- He's bacl onsite but getting errors when connecting his USB-to-serial adapter for the console connection
+- He is troubleshooting the issue and will call back when ready
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505214","post_dateline":"2025-01-29 01:08:46","fullname":"Tony Dinh","contents":"- Brandon states they are still terminating the cabling
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505283","post_dateline":"2025-01-29 01:47:20","fullname":"Tony Dinh","contents":"- Kedrick called back stating he's got a new laptop and it's not working with the serial-to-USB adapter despite his efforts
+- Kedrick asked if there was anything else we can do
+- Asked him to make a temp run from the broadband modem to FGT WAN1
+- Waiting on Kedrick to make a 15-20ft long cable for the connection
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505356","post_dateline":"2025-01-29 02:37:29","fullname":"Tony Dinh","contents":"- The cable modem has two existing connections connected to it (ports 1 and 4)
+- Plugged the temp cable into port 2 with the other end in the new firewall
+- Cycled both firewall and modem
+- DDNS started resolving to 10.1.10.222
+- FMG continues to show firewall down
+- Disconnected the existing store firewall from port 4 and connected the new firewall
+- Cycled both firewall and modem and still no change on connectivity
+- Disconnected the device in modem port 1 so the firewall was the sole connection in port 4
+- Cycled both the firewall and modem but still no connectivity shown via FMG and no IP change with DDNS
+- Removed the temp cable, restored the existing store devices to ports 1 and 4, and cycled the modem again
+- Awaiting completion of the patch panel terminations; ETA 1 hr
+- Since the cabling cannot be pulled down on the floor, FSTs terminated what they could namely the APs and front registers
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505591","post_dateline":"2025-01-29 05:16:22","fullname":"Tony Dinh","contents":"- Reached out to Brandon a few times since 4am PST to start site wrap-up
+- Brandon kept telling me they were close to finishing
+- Over an hour later and he's been cleaning up, performing cable mgmt, and cutting the ceiling tile to accomodate the cabling
+- Requested he check with MOD that all systerms are online and to provide the requested rack photos
+- There were 3 FSTs onsite tonight but we lost some time with the laptop
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505595","post_dateline":"2025-01-29 05:18:11","fullname":"Tony Dinh","contents":"- Additional hardware requested
+(3) black jack and colored clip
+(3) 4-port face plates
+(55) blanks for patch panel
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15505636","post_dateline":"2025-01-29 05:36:51","fullname":"Tony Dinh","contents":"- Rack photos provided
+- Cables managed
+- MOD confirmed all systems are online
+- Cable modem was issuing NAT addresses; will need to work with carrier for passthru mode
+- Brandon released at 5:30am PST
+
+","isprivate":"1","creator":"1"},{"ticketpostid":"15507557","post_dateline":"2025-01-29 11:33:17","fullname":"Lili Kim","contents":"Ticket left open; status is required.  Escalating to TAC. 
+
+","isprivate":"1","creator":"1"}]

@@ -1,0 +1,199 @@
+Certainly! Here is a systematic analysis of the **ticket chain B924DF9C-E1B9-B945-8442-89CE8F62A268** based on your requirements:
+
+---
+
+# 1. Parent-Child Relationships
+
+- **linked_tickets** is empty for all tickets:  
+  **No explicit parent-child relationships** defined via the data model. All relationships must be inferred from context, posts, and subjects.
+
+---
+
+# 2. Dispatch–Turnup–Billing Linkages
+
+## **Dispatch Tickets**
+- **2376830**  
+  - *Title*: Turnup Assist
+  - *Dept*: Dispatch
+  - *Summary*: This is a request to arrange remote resource coverage for a network cutover (Referenced: "please arrange for a remote resource to be available ... around 1130pm").
+  - *Completion Status*: Closed ("Closing as clean up efforts of 2/6/2025")  
+  - **Linkage**: Initiates project workflow; referenced in subject lines of subsequent turnup and survey tickets.
+
+## **Site Survey / Survey Tickets**
+- **2380335**  
+  - *Title*: Site Survey 2/4/2025 11:30 AM
+  - *Cable Drops*: "28 cable runs needed" + "1 additional cable run may be required for label printer." (Post by Ryan Cohen)
+  - *Rack Installation*: "2 racks to be installed."
+  - *Completion*: Completed and Closed ("Tech completed the site survey successfully.")
+  - *Revisit*: "Technician was unable to locate the ISP circuit. Further investigation may be required."
+  - *Cross-link Reference*: Links to external ticket 2376701 ([see post](https://portal.cissdm.com/customer/dispatch/2376701)).
+  - *No explicit parent, but functionally subordinate to 2376830.*
+
+- **2382265**  
+  - *Title*: Site Survey (Pro Services)
+  - *Cable Drops/Site Info*: Not detailed, but completed with a tech named Joel (240-888-7239) (Post by Brandon Mahoney)
+  - *Completion*: Survey completed.
+  - *Relationships*: Refers back to ticket 2380335 in note (by Hannah Szubinski)
+
+## **Turnup/Implementation Tickets**
+- **2376701**  
+  - *Title*: Cabling and Network Upgrade Project
+  - *Cable Drops*: Contains the longest list of *detailed quantities*:  
+    - Manager Station: "Qty. 4"
+    - POS: "Qty. 4" (2 dual drop)
+    - POS w/ Jumper: "Qty. 3"
+    - Kiosk: "Qty. 4" (2 dual drop)
+    - DMB: "Qty. 4"
+    - Prep: "Qty. 1"
+    - Prep and Jumper: "Qty. 2"
+    - Timer: "Qty. 1" (twice)
+    - Music: "Qty. 1"
+    - OCD/Outdoor DMB: "Qty. 4"
+    - Rack installations: "Qty. 1 data rack"; "Qty. 2 2u shelf"; etc.
+  - *Completion*: Closed ("Closing - ticket is part of clean-up.")
+  - *Relationship*: Reference in completion post of 2380335 suggests 2376701 is a project-orchestrating parent.
+
+*The following tickets appear to represent execution or phased implementation:*
+
+- **2382333** (Phase 1—Hardware/Wiring, On Hold, "Tech tonight: Aaron Blackburn")  
+    - *Delays*: On hold per Lucas (note). Multiple techs listed, and phases scheduled.
+- **2382726** (Phase 1—Hardware/Wiring, Failed, "Cancelled due to snow storm")  
+    - *Revisit*: Cancelled and closed, will require reschedule.
+- **2382746** (P2—VPN Install, Cancelled, no tech details, "NPC name in MX portal for ARP: 6614")
+- **2389439** (Phase 1—Next attempt, Cancelled, "pending reschedule")
+- **2389461** (P2—VPN Install, Cancelled, "pending reschedule")
+- **2380336** (Turnup Assist Ticket, Closed, clean-up effort)
+
+## **Hardware/Shipping Tickets**
+- **2376735**  
+  - *Objective*: Outbound hardware list (router, switches, APs, SIM, SFPs).
+  - *Shipping Delays*: "This did not ship out, until monday will be going out. Notifying dispatch." (Post by Eric Morales)
+  - *Proof of delivery*: Confirmed later.
+  - *Completion*: Delivered (Closed 2/13/2025).
+
+## **Repair/Support/Outlet Tickets**
+- **2384350** (Repair, Scheduled)
+- **2385184** (Repair, Failed)
+  - *Delays*: "Reschedule will be needed for tomorrow... Time to be determined later" (Post by Robert Cohen)
+  - *Revisit*: Required.
+
+## **Billing Tickets**
+- **2401881** – 50% billing initial; *Amount: 2808* (Post by David Fisher)
+  - *Completion*: On Hold, moved to accounting, not yet invoiced.
+- **2402063** – Final 50% to close; *Amount: 2808* (note: Full cabling sites, line-item costs; see note by Josh Bosen)
+  - *Status*: On Hold
+
+
+---
+
+# 3. Orphaned or Unlinked Records
+
+Since **linked_tickets** is empty everywhere, **no ticket is formally "parented" or "childed"** by another.  
+However, in practical process flow:
+
+- **2376830** is *dispatch parent* initiating project.
+- **2376701** is *project parent* describing full scope.
+- **2380335** and **2382265** are *survey/report children*.
+- **Implementation/turnup tickets** (**2382333**, **2382726**, **2382746**, **2389439**, **2389461**) are *phased children*, each covering distinct attempts or technical phases.  
+- **2384350** / **2385184** are *support/outlet installs* related to project needs (i.e., adding required infrastructure per survey or implementation requirements).
+- **Billing tickets** (**2401881**, **2402063**) are *project financial outcomes* (typically created after substantial completion).
+- **2376735** is *orphaned in structure but functionally part of project*, shipping required hardware.
+
+---
+
+# 4. Extracted Details (Cite Ticket IDs & Post/Note Details)
+
+## **Cable Drop Counts & Scope**  
+(Most details from **2376701**, **2380335**, **2380336**):
+
+- **2376701** (also in **2380335** and **2380336**):  
+  - "WAP: Qty. 1"
+  - "DMB: Qty. 4"
+  - "Timer: Qty. 1" (appears twice)
+  - "Music: Qty. 1"
+  - "Manager Station: Qty. 4"
+  - "POS: Qty. 4" (two dual drop)
+  - "POS w/ Jumper: Qty. 3"
+  - "Kiosk: Qty. 4" (two dual drop)
+  - "Prep: Qty. 1"
+  - "Prep and Jumper: Qty. 2"
+  - "OCD/Outdoor DMB: Qty. 4"
+  - "Cameras: assumes all are existing/active"
+- **2380335**: "28 cable runs needed. 1 additional cable run may be required for a label printer."
+- **Rack Installation**: "2 racks to be installed." (2380335, post by Ryan Cohen)
+- **Power Note**: "A power outlet is needed at the new rack location." (2380335)
+- **Obstructions**: "No obstructions identified." (2380335)
+
+## **Completion Status / Delays**
+- **2376830**: *Closed* ("Closing as clean up efforts of 2/6/2025")
+- **2376701**: *Closed* ("Closing - ticket is part of clean-up.")
+- **2380335**: *Completed* ("Tech completed the site survey successfully... Tech was then approved for release by MOD, Tim.")
+- **2380336**: *Closed* ("Closing - ticket is part of clean-up.")
+- **2382333**: *On Hold* ("On hold per Lucas" in note)
+- **2382726**: *Failed* ("Lead Tech - Aaron Blackburn 215-771-8788. Cancelled due to snow storm.")
+- **2382746**: *Cancelled - CIS* ("NPC name in MX portal for ARP: 6614")
+- **2389439**, **2389461**: *Cancelled - CIS* ("This site is pending reschedule. The site has not been notified of the install and will not be expecting a technician.")
+- **2385184**: *Failed* ("Reschedule will be needed for tomorrow. Time to be determined later tonight.")
+- **2376735**: *Delivered* ("Your shipment... Delivered On Wednesday, February 12 at 10:51 A.M.")
+
+## **Revisit Requirements / Pending Work**
+- **2380335**: Survey Tech: "Technician was unable to locate the ISP circuit. Further investigation may be required." (Needs revisit/ISP investigation)
+- **2382726**: Phase 1 cancelled due to snowstorm, requires reschedule.
+- **2389439**, **2389461**: "Pending reschedule."
+- **2385184**: "Reschedule will be needed for tomorrow. Time to be determined later tonight."
+- **2382333**: "On hold per Lucas" (Note)
+- **2376735**: "This did not ship out, until monday will be going out. Notifying dispatch." (shipping delay, resolved later)
+
+## **Delays**
+- **2376735**: Delay in hardware shipping (post by Eric Morales, 2/8/2025)
+- **2382333**: Placed on hold due to circumstances as per Lucas (note).
+- **2382726**: Cancelled due to weather.
+- **2385184**: Reschedule required due to incomplete work.
+
+## **Billing**
+- **2401881**: "Please invoice customer via Coupa ... PO: 232498 ... Type of billing: 50 PERCENT BILLING ... Amount: 2808" (David Fisher)
+- **2402063**: "Please invoice customer via Coupa ... PO: 232499 ... Remaining 50% to close out billing ... Amount: 2808"  
+  - Note: Line item breakdown for full cabling/remote/PM work; *Total $3,268.00* per Josh Bosen.
+- Both billing tickets: On Hold, awaiting invoice action/accounting.
+
+---
+
+# 5. Orphaned or Unlinked Records
+
+- All tickets are **unlinked** via the `linked_tickets` field but maintain an indirect relationship by **chain_hash** and subject/project context.
+- **2376735** (shipping), **2384350** (repair/outlet), **2385184** (repair/failure/reschedule), and the **billing tickets** function as siblings to project tickets rather than formal children.
+
+---
+
+## **Summary Table**
+
+| Ticket ID | Type           | Status                | Key Details / Relationships                                               | Issues / Needs              |
+|-----------|----------------|-----------------------|-----------------------------------------------------------------------------|------------------------------|
+| 2376830   | Dispatch       | Closed                | Initiates project chain                                                     | N/A                          |
+| 2380335   | Survey         | Completed/Closed      | 28+ drops, 2 racks, survey results; linked to 2376701, 2382265              | ISP circuit not found        |
+| 2382265   | Survey         | Confirmed             | Site Survey, tech Joel, notes reference 2380335                             | N/A                          |
+| 2376701   | Project        | Closed                | Cabling scope master, all qty's listed                                      | N/A (project orchestrator)   |
+| 2380336   | Turnup/Assist  | Closed                | Clean-up flow, matches scope above                                          | N/A                          |
+| 2376735   | Shipping       | Delivered             | Hardware list, Proof and delay in shipping                                  | Shipping delay (resolved)    |
+| 2382333   | Phase 1        | On Hold               | On hold per Lucas, techs scheduled Aaron/Ritchie                            | On Hold                     |
+| 2382726   | Phase 1        | Failed                | Cancelled due to snowstorm; reschedule required                             | Revisit/reschedule           |
+| 2382746   | Phase 2        | Cancelled - CIS       | No tech worked; NPC: 6614 in ARP                                            | Cancelled, revisit needed    |
+| 2384350   | Repair/Outlet  | Scheduled             | Outlet Install (possible to support new rack)                               | N/A                          |
+| 2385184   | Repair/Outlet  | Failed                | First attempt failed/reschedule needed                                      | Revisit pending              |
+| 2389439   | Phase 1        | Cancelled - CIS       | Pending reschedule, site not notified; Aaron Blackburn listed                | Pending                      |
+| 2389461   | Phase 2        | Cancelled - CIS       | Pending reschedule, site not notified; Aaron Blackburn listed                | Pending                      |
+| 2401881   | Billing (1st)  | On Hold               | 50% up front; PO: 232498; Amount: 2808                                      | Accounting follow-up         |
+| 2402063   | Billing (2nd)  | On Hold               | Remaining 50%; PO: 232499; Amount: 2808; line item in note                  | Accounting follow-up         |
+
+---
+
+### **Conclusions**
+
+- **Project is a multi-phase cabling/network cutover with both technical and logistical dependencies.**
+- All official relationships are **inferred via chain, subject line, dates, and internal post referencing.**
+- **Billing, survey, and implementation tickets each act as functional children or siblings, but not technical children.**
+- Numerous **delays and reschedule requirements** due to weather, on-hold situations, and site readiness.
+- **Cable drop details** and technical scope are **repeated across multiple survey and project tickets**.
+- **No tickets are formally orphaned** in business sense, but several (shipping, repair) are functionally peripheral.
+
+If you need a specific, field-by-field breakdown for each ticket or full post/note content extraction, let me know!

@@ -1,0 +1,1 @@
+Comcast static addressIP: 96.94.12.57SM: 255.255.255.252GW: 96.94.12.58-  Configured the static on the Fortigate and confirmed the link is online

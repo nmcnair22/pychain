@@ -1,0 +1,21 @@
+{
+  "ticketid": "2387576",
+  "department": "Pro Services",
+  "subject": "Flynn_FW005579_Fishers_IN_Revisit 2",
+  "status": "Closed",
+  "created_time": null,
+  "created_date": "2025-02-17T13:45:59",
+  "creator_name": "alyssa.philpott",
+  "creator_email": "alyssa.philpott@cisvpn.com",
+  "closed_date": "2025-02-19T12:59:04",
+  "category": "Dispatch Tickets",
+  "site_number": "5579",
+  "customer": "131",
+  "state": "IN",
+  "city": "Fishers",
+  "street": "46037",
+  "service_date": "1969-12-31T16:00:00",
+  "project_id": "3912",
+  "posts": [],
+  "notes": []
+}

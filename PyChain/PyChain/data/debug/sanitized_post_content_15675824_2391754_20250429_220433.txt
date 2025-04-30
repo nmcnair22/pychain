@@ -1,0 +1,1 @@
+PM notes •Replacement of patch cabling at the device end and color clips for patch cables•Replacement of AP terminations to Z-plugs instead of data jacks at device endWhat we need to complete the site25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips AP terminations to Z-plugs

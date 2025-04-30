@@ -1,0 +1,21 @@
+{
+  "ticketid": "2378430",
+  "department": "Turnups",
+  "subject": "Flynn_5579_Fishers_IN Turnup Day 2 Cutover 2/4/2025 6:30 pm PST (9:30 PM EST)",
+  "status": "Completed",
+  "created_time": null,
+  "created_date": "2025-01-30T15:30:02",
+  "creator_name": "Devin Leatham",
+  "creator_email": "devin.leatham@cisvpn.com",
+  "closed_date": "2025-02-05T07:46:33",
+  "category": "Turnup Tickets",
+  "site_number": "5579",
+  "customer": "131",
+  "state": "IN",
+  "city": "Fishers",
+  "street": "46037",
+  "service_date": "2025-02-04T00:00:00",
+  "project_id": "3912",
+  "posts": [],
+  "notes": []
+}

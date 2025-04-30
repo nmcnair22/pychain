@@ -1,0 +1,1430 @@
+{
+  "2367830": {
+    "ticketid": "2367830",
+    "department": "Turn up Projects",
+    "subject": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade",
+    "status": "Audit",
+    "created_time": null,
+    "created_date": "2025-01-08T12:47:19",
+    "creator_name": "Devin Leatham via Triton",
+    "creator_email": "no.reply@cisvpn.com",
+    "closed_date": null,
+    "category": "Project Management",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-01-29T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15422999",
+        "time": "2025-01-08 12:47:19",
+        "user": "Devin Leatham via Triton",
+        "contents": "Legacy Cabling Demo:• CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the parallel network to reduce downtime. This will be done carefully to avoid damaging other trades.Network Buildout:• Upon completion of the demolition of existing data cabling, technicians will decommission existing networking equipment as required.• If required, legacy networking devices will be left will local management or dropped off at a local shipping provider to be sent back to a centralized location.• Rack installation:• Install Qty. 1 – Open-frame Network Equipment Rack, wall-mounted with plywood backboard in the Crew area.• Rack to be mounted within 6” from the ceiling.• Plywood will be securely fastened to the wall using structural wall supports for the racks to mount to.• Equipment Stack:• Install Qty. 1 – 2U shelf for the Meraki switch and ISP modem to sit on inside the rack.• Supply a coaxial demarc extension to the new rack location.• Install Qty. 2 – Network switches inside the racks for data connections.• Install Qty. 1 – PDU in the data rack• Install Qty. 1 – customer provided UPS inside the data rack.• Install Qty. 2 – 2u shelf inside the security rack for the Actineon Nodes and the Mood Media devices.• Install Qty. 2 – Unloaded, Modular Patch Panel, 24-port inside the new racks for data cabling.• Unloaded patch panel will be populated with the correct, color-coded data jacks in the alignment that the customer provided.• Install Qty. 1 – Wireless Access Point in predetermined locations.• All devices will be cross-connected following wiring diagrams/port mapping.• All devices will be tested and turned up with the tech team.Horizontal (Cat 6) Cabling:• From Rack 1 – Data Rack• WAP• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cable(s) from the new data rack location to an AP location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a male RJ45 Siemon Z-plug on the device end and to a black Cat 6 data jack on the server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• DMB• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 4 separate single drop Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon yellow Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Timer• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Music• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Manager Station• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a quad drop Manager Station location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to Siemon ivory, red, blue, and white Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• POS• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop POS location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• POS with Jumper• Install Qty. 3 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a triple drop POS with jumper location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green, violet, and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Kiosk• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop kiosk location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Prep• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a single drop prep location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon orange Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Prep and Jumper• Install Qty. 2 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon orange and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Timer• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• OCD and Outdoor DMB• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Outdoor pedestals for a single drop OCD and quad drop Outdoor DMB location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon male RJ-45 on the device end and to black and yellow Cat 6 data jacks on the server end, black for OCD and yellow for DMB.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• From Rack 2 – Security Rack• Cameras• This scope of work assumes all cameras are installed and active, currently. After cabling is installed, technicians will work with customer tech team to ensure all cameras maintain proper operations and field of view. ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15461766",
+        "time": "2025-01-17 13:09:15",
+        "user": "Brett Pearson",
+        "contents": "CIS ID 2367830Hello Flynn Team,Thank you for the opportunity.  We have received this request and will begin working on it right away.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15480985",
+        "time": "2025-01-22 11:21:17",
+        "user": "Devin Leatham",
+        "contents": "CIS ID 2367830Hello all,The site survey for this location has been scheduled for 3:00 PM EST 1/23/2025. Technician contact information will be provided shortly. ",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15498486",
+        "time": "2025-01-27 13:48:58",
+        "user": "Brett Pearson",
+        "contents": "Good Morning Jesse and Stephen,Just wanted to reach out to confirm that we are still good on the schedule for the Wendy's install tonight starting at 930 PM EST . Could you please send the name of the lead that will be onsite for this install and let us know if there is anything you need from us. Devin, Ben and Brett can answer any specific questions you might have about the install.Best Regards,Lucas Berends | Vendor Coordinator",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15498489",
+        "time": "2025-01-27 13:49:10",
+        "user": "Brett Pearson",
+        "contents": "Yes, we are.Brandon Lowery (copied) is our Project Lead.(317) 625 - 1776brandon.lowery@comlinkns.com  Thanks!  StephenArnold, Operations Manager",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15502091",
+        "time": "2025-01-28 10:45:31",
+        "user": "Devin Leatham",
+        "contents": "Tony (CIS tech support) is working to get the materials from your end.ComLink will provide a 32x48 plywood backboard for tonight.Power was installed at the rack location.ComLink is providing an extra technician (4 total) for tonight to try to get back on schedule.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15502160",
+        "time": "2025-01-28 10:56:26",
+        "user": "Devin Leatham",
+        "contents": "FST Brandon Lowery (317) 625 - 1776Verify QC/BOM checklist andconfirm all materials are delivered.Technician will need to install backerboard that was not included in last nights workPull ARP table data at the beginningof the night.Ensure all worked-on areas are cleanand free of obstacles.Run new cables alongside the oldcabling to their endpoints.Perform cable management for thenew runs.Capture photos of ceiling cablepathways, including the use of Jhooks.Install the new rack alongside theold rack only if site conditions allow.Install the new patch panel into thenew rack.Install and terminate new cables atthe new patch panel.Pre-stage Fortinet hardware(Firewall, switches, extender). Perform cleanup of all areas affectedby installation of cabling and racks.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15508483",
+        "time": "2025-01-29 14:45:02",
+        "user": "Devin Leatham",
+        "contents": "Per Kiran - 5579 – Move night 3 (network flip) to 2/4",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15508485",
+        "time": "2025-01-29 14:45:14",
+        "user": "Devin Leatham",
+        "contents": "Stephen,I just got word that the customer would like to reschedule night 3 (Network flip) and push to 2/4/2025. Please let me know that this is received and let me know if your team can confirm the new date.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15508555",
+        "time": "2025-01-29 15:03:16",
+        "user": "Devin Leatham",
+        "contents": "Hello DevinWe can reschedule for February 4, no problem. Thanks! StephenArnold, Operations Manager",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15511777",
+        "time": "2025-01-30 08:33:33",
+        "user": "Devin Leatham",
+        "contents": "CIS ID 2367830Confirmed for 9:30 PM local on 2/04/2025Thank you,Devin Leatham",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15518640",
+        "time": "2025-01-31 14:21:39",
+        "user": "Brandon Mahoney",
+        "contents": "Tech info:Brandon Lowery 317-625-1776",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15529447",
+        "time": "2025-02-04 07:46:51",
+        "user": "Christopher Hagen",
+        "contents": "I just called and confirmed with Brandon that he is good to go tonight. ",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15545011",
+        "time": "2025-02-06 13:56:18",
+        "user": "Josh Bosen",
+        "contents": "Moving these to: Turnu up Projects > Auditas clean up efforts of 2/6/2025",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": [
+      {
+        "id": "638398",
+        "time": "2025-01-09 11:00:20",
+        "user": "Devin Leatham",
+        "contents": "TECHNICIAN WILL NEED TO DO A SITE WALK ANY DAY PRIOR TO THE INSTALLATION AT 230PM Site walk is to identify any variables and get a count of Kiosks and their cable pathwaysTechnician will need to contact Flynn during site walk - *Tony Dinh 949.916.7588*"
+      },
+      {
+        "id": "639450",
+        "time": "2025-01-22 10:47:01",
+        "user": "Lucas Berends",
+        "contents": "Progressive has agreed to take all east coast sites scheduling for site surveys and installations has begun"
+      },
+      {
+        "id": "639837",
+        "time": "2025-01-27 14:05:34",
+        "user": "Brett Pearson",
+        "contents": "Reached out to Stephen with ComLink to make sure that we are still good to go for tonight's visit, left a couple of messaged and tried to call a multiple times"
+      }
+    ]
+  },
+  "2368088": {
+    "ticketid": "2368088",
+    "department": "Outbound",
+    "subject": "FLN_FW005579_Fishers_IN",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-01-09T03:53:01",
+    "creator_name": "Amber Hodgson",
+    "creator_email": "amber.hodgson@cisvpn.com",
+    "closed_date": "2025-01-27T10:01:31",
+    "category": "Shipping Tickets",
+    "site_number": "FW005579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3316",
+    "posts": [
+      {
+        "id": "15425364",
+        "time": "2025-01-09 03:53:01",
+        "user": "Amber Hodgson",
+        "contents": "Please use both bubble wrap and hot pink tape for packaging  Hardware list:  1 router, 2 switches, 2 indoor AP's, 1 FEXT, SIM VZW, and 4 SFP's GBIC",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15453247",
+        "time": "2025-01-15 17:43:11",
+        "user": "Eric Morales",
+        "contents": "This site number is already existing in FortiManagerSite looks to be already converted as EQ showing online on FortiManager SWITCH TEMPLATES - CLOE SW1 / SW2",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15482647",
+        "time": "2025-01-22 19:23:05",
+        "user": "Eric Morales",
+        "contents": "On hold for further instructionsSite still exist on FortiManager as they work on config for this CLOE location ",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15492788",
+        "time": "2025-01-25 22:34:26",
+        "user": "Eric Morales",
+        "contents": "- 1 unit - Fortigate 60FS/N: FGT60FTK2309A1M8MAC: 84:39:8F:E5:88:5AKEY: HJE99DDK3 - 1 unit - FortiExtender 201F-AMS/N: FXA21FTQ22005585MAC: 94:F3:92:9F:0E:F2IMEI: 356280111296289KEY: 7M2FBWEP Verizon SIM: 89148000010950592758- 1 unit - FEXT POWERSP-FEX12V3A-PA-1-US-10 - 2 units - FortiSwitch 148FSW1S/N: S148FPTF23018490MAC: 80:80:2C:8B:BE:1CKEY: UGSEQD8KSW2S/N: S148FPTF23022119MAC: 78:18:EC:3B:AB:C4KEY: NXJ5X5N4 - 2 units - FortiAP 231GAP1S/N: FP231GTF24063675MAC: 04:01:A1:19:D0:38KEY: 8YUZD8R2AP2S/N: FP231GTF24063338MAC: 04:01:A1:19:A6:18KEY: F72GT2SZ- 4 units - SFP ModulesCSGE2NB6255CSGE2NB6257CSGE2NB6260CSGE2NB6256",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15492908",
+        "time": "2025-01-25 23:48:23",
+        "user": "Eric Morales",
+        "contents": "Left off on Task 13: FortiExtender Configuration",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15495152",
+        "time": "2025-01-26 19:47:12",
+        "user": "Eric Morales",
+        "contents": "WAN1 IP infoIP: 96.94.224.185SNM: 255.255.255.248GW: 96.94.224.190",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15495158",
+        "time": "2025-01-26 19:49:39",
+        "user": "Eric Morales",
+        "contents": "Fortigate configured and on proper firmware- Firmware: v.7.2.9-build1688FortiSwitches configured and on proper firmware- Firmware: v7.2.8-build495FortiAPs configured and on proper firmware- Firmware: v7.4-build0540FortiExtender configured and on proper firmware- Firmware: v7.2.5-build164- IP: 166.142.26.241- APN: mw01.vzwstatic- NO DATA PLAN ASSIGNEDNOTE: - FortiDDNS (FW005579.fortiddns.com) was claimed as this was assigned on Flynn LAB setup- FortiDDNS claimed for this location will be FW0005579.fortiddns.com",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15495159",
+        "time": "2025-01-26 19:50:02",
+        "user": "Eric Morales",
+        "contents": "EQ configuredReady to ship",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15497354",
+        "time": "2025-01-27 10:01:30",
+        "user": "Eric Morales",
+        "contents": "Per PM we will close this requestI will be factory reset these and using hardware for another locationNote: This was closed because the client shipped the hardware themselves. ",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2374738": {
+    "ticketid": "2374738",
+    "department": "Turnups",
+    "subject": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade  12:00 PM",
+    "status": "Completed",
+    "created_time": null,
+    "created_date": "2025-01-23T07:30:01",
+    "creator_name": "Devin Leatham",
+    "creator_email": "devin.leatham@cisvpn.com",
+    "closed_date": "2025-01-23T13:31:41",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15483765",
+        "time": "2025-01-23 07:30:01",
+        "user": "Devin Leatham",
+        "contents": "Scope - Objective: FIRST VISIT SURVEY ONLY - 1/23/2025Legacy Cabling Demo:• CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the parallel network to reduce downtime. This will be done carefully to avoid damaging other trades.Network Buildout:• Upon completion of the demolition of existing data cabling, technicians will decommission existing networking equipment as required.• If required, legacy networking devices will be left will local management or dropped off at a local shipping provider to be sent back to a centralized location.• Rack installation:• Install Qty. 1 – Open-frame Network Equipment Rack, wall-mounted with plywood backboard in the Crew area.• Rack to be mounted within 6” from the ceiling.• Plywood will be securely fastened to the wall using structural wall supports for the racks to mount to.• Equipment Stack:• Install Qty. 1 – 2U shelf for the Meraki switch and ISP modem to sit on inside the rack.• Supply a coaxial demarc extension to the new rack location.• Install Qty. 2 – Network switches inside the racks for data connections.• Install Qty. 1 – PDU in the data rack• Install Qty. 1 – customer provided UPS inside the data rack.• Install Qty. 2 – 2u shelf inside the security rack for the Actineon Nodes and the Mood Media devices.• Install Qty. 2 – Unloaded, Modular Patch Panel, 24-port inside the new racks for data cabling.• Unloaded patch panel will be populated with the correct, color-coded data jacks in the alignment that the customer provided.• Install Qty. 1 – Wireless Access Point in predetermined locations.• All devices will be cross-connected following wiring diagrams/port mapping.• All devices will be tested and turned up with the tech team.Horizontal (Cat 6) Cabling:• From Rack 1 – Data Rack• WAP• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cable(s) from the new data rack location to an AP location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a male RJ45 Siemon Z-plug on the device end and to a black Cat 6 data jack on the server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• DMB• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 4 separate single drop Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon yellow Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Timer• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Music• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Manager Station• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a quad drop Manager Station location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to Siemon ivory, red, blue, and white Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• POS• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop POS location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• POS with Jumper• Install Qty. 3 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a triple drop POS with jumper location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green, violet, and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Kiosk• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop kiosk location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Prep• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a single drop prep location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon orange Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Prep and Jumper• Install Qty. 2 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon orange and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• Timer• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• OCD and Outdoor DMB• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Outdoor pedestals for a single drop OCD and quad drop Outdoor DMB location(s) specified on the floorplan.• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.• Terminate cabling to a Siemon male RJ-45 on the device end and to black and yellow Cat 6 data jacks on the server end, black for OCD and yellow for DMB.• All cabling will be tested and labeled on both ends of the cable to ensure proper function.• From Rack 2 – Security Rack• Cameras• This scope of work assumes all cameras are installed and active, currently. After cabling is installed, technicians will work with customer tech team to ensure all cameras maintain proper operations and field of view.  Technician Information: Expected In Time: 12:00 PM Technician Type: ContractorFST Technician Name: Eric NicholsonContact #: (317) 559-5535 Project ID: NETWORK RE-CABLING - WENDY'S  Customer Name: FlynnStore Type: ExistingStore Name: FLN_5579_Fishers_INSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number: 317-578-8544 New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15485159",
+        "time": "2025-01-23 12:01:47",
+        "user": "Robert Cohen",
+        "contents": "FST Technician Name: Eric NicholsonContact #: (317) 559-5535Called FST for check in, no answer left vm.Possible Cell: 8126610050",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15485181",
+        "time": "2025-01-23 12:05:46",
+        "user": "Robert Cohen",
+        "contents": "Tech is running 5-10 minutes late. Late email sent. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15485213",
+        "time": "2025-01-23 12:14:22",
+        "user": "Robert Cohen",
+        "contents": "FST Technician Name: Eric NicholsonContact #: 8126610050Check in time: 12:12 PM PSTCheck in email sent.",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15485552",
+        "time": "2025-01-23 13:31:40",
+        "user": "Robert Cohen",
+        "contents": "Work Completed:Tech arrived onsite and checked in with the local contact.Tech completed the site survey and will have the results sent over as soon as possible.Tech was then approved for release by the local contact.Notes:36 total cable on patch panel.30 are patched into a switch24 are in use/showing lights.Not a true office, rack above cabinet,s no room for normal rack situation.Check out time: 1:27 PM PSTCheck out email sent.",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15485559",
+        "time": "2025-01-23 13:32:29",
+        "user": "Robert Cohen",
+        "contents": "In: 12:12 PMOut: 1:27 PMWork Completed:Tech arrived onsite and checked in with the local contact.Tech completed the site survey and will have the results sent over as soon as possible.Tech was then approved for release by the local contact.Notes:36 total cable on patch panel.30 are patched into a switch24 are in use/showing lights.Not a true office, rack above cabinet,s no room for normal rack situation.Check out time: 1:27 PM PSTCheck out email sent.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15486339",
+        "time": "2025-01-23 17:27:28",
+        "user": "Robert Cohen",
+        "contents": "Photos attached and email sent out.MOD Name: Kevona Wilson.",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15502170",
+        "time": "2025-01-28 10:59:21",
+        "user": "Devin Leatham",
+        "contents": "CIS ID 2367830Hello team,Our customer has asked us that we confirm the availability for a 3rd revisit if we are not able to finish tonight. If we cannot complete this site this evening, can you confirm that we would be able to schedule a follow up dispatch for the evening of 1/29/2025?Thank you,Devin Leatham",
+        "private": "1",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2376373": {
+    "ticketid": "2376373",
+    "department": "Turnups",
+    "subject": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade  6:30 PM",
+    "status": "Incomplete",
+    "created_time": null,
+    "created_date": "2025-01-27T13:00:04",
+    "creator_name": "Devin Leatham",
+    "creator_email": "devin.leatham@cisvpn.com",
+    "closed_date": "2025-01-28T13:29:17",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [],
+    "notes": []
+  },
+  "2377027": {
+    "ticketid": "2377027",
+    "department": "Turnups",
+    "subject": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade 1/28/2025 6:30 PM",
+    "status": "Completed",
+    "created_time": null,
+    "created_date": "2025-01-28T11:00:03",
+    "creator_name": "Devin Leatham",
+    "creator_email": "devin.leatham@cisvpn.com",
+    "closed_date": "2025-01-29T13:58:58",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-01-28T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15502174",
+        "time": "2025-01-28 11:00:03",
+        "user": "Devin Leatham",
+        "contents": "Scope - Objective: Verify QC/BOM checklist andconfirm all materials are delivered.Technician will need to install backerboard that was not included in last nights workPull ARP table data at the beginningof the night.Ensure all worked-on areas are cleanand free of obstacles.Run new cables alongside the oldcabling to their endpoints.Perform cable management for thenew runs.Capture photos of ceiling cablepathways, including the use of Jhooks.Install the new rack alongside theold rack only if site conditions allow.Install the new patch panel into thenew rack.Install and terminate new cables atthe new patch panel.Pre-stage Fortinet hardware(Firewall, switches, extender). Perform cleanup of all areas affectedby installation of cabling and racks. Technician Information: Expected In Time: 6:30 PM Technician Type: ContractorFST Technician Name: Brandon LoweryContact #: (317) 625 - 1776 Project ID: NETWORK RE-CABLING - WENDY'S  Customer Name: FlynnStore Type: ExistingStore Name: FLN_5579_Fishers_INSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number: 317-578-8544 New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15504232",
+        "time": "2025-01-28 18:58:12",
+        "user": "Robert Cohen",
+        "contents": "FST Technician Name: Brandon LoweryContact #: (317) 625 - 1776Check in time: 6:15 PM PSTCheck in email sent.Tech did not grab MOD name.Escalated for info to run pre-arp table. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504234",
+        "time": "2025-01-28 18:58:56",
+        "user": "Robert Cohen",
+        "contents": "Not a site that can have pre-arp table run. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504240",
+        "time": "2025-01-28 19:02:00",
+        "user": "Robert Cohen",
+        "contents": "Email sent out. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504394",
+        "time": "2025-01-28 20:22:52",
+        "user": "Robert Cohen",
+        "contents": "RTE Checkout time: 8:22 PM PSTSite passed on to Tony. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504591",
+        "time": "2025-01-28 21:35:29",
+        "user": "Tony Dinh",
+        "contents": "- The network racks are installed- Techs mounting the hardware and terminating the cabling to patch panels",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504815",
+        "time": "2025-01-28 23:03:14",
+        "user": "Tony Dinh",
+        "contents": "- Patch panel terminations ongoing- Brandon states several drops are not pulled down as the existing cabling is using the conduit- He is unable to terminate the cabling until the existing cabling is removed- Advised he pull what he can in preparation for cutover- The two front registers have their cabling pulled down along with the drive-thru POS 4- The firewall and switches are racked with the mounted FEX connected to WAN2- Both the FEX and FGT show offline in FMG and no response from DDNS- None of the FSTs have a laptop; Kedrick is running home to grab a laptop and console cable",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504882",
+        "time": "2025-01-28 23:18:39",
+        "user": "Tony Dinh",
+        "contents": "- The existing kiosk cable runs also need to be removed before the new runs can be dropped as well",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15504989",
+        "time": "2025-01-29 00:00:51",
+        "user": "Tony Dinh",
+        "contents": "- Nearly two hours later and Kedrick states he'll be back to the site in a bit- He will reach out once the laptop is connected",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505116",
+        "time": "2025-01-29 00:36:38",
+        "user": "Tony Dinh",
+        "contents": "- Reached out to Kedrick- He's bacl onsite but getting errors when connecting his USB-to-serial adapter for the console connection- He is troubleshooting the issue and will call back when ready",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505214",
+        "time": "2025-01-29 01:08:46",
+        "user": "Tony Dinh",
+        "contents": "- Brandon states they are still terminating the cabling",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505283",
+        "time": "2025-01-29 01:47:20",
+        "user": "Tony Dinh",
+        "contents": "- Kedrick called back stating he's got a new laptop and it's not working with the serial-to-USB adapter despite his efforts- Kedrick asked if there was anything else we can do- Asked him to make a temp run from the broadband modem to FGT WAN1- Waiting on Kedrick to make a 15-20ft long cable for the connection",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505356",
+        "time": "2025-01-29 02:37:29",
+        "user": "Tony Dinh",
+        "contents": "- The cable modem has two existing connections connected to it (ports 1 and 4)- Plugged the temp cable into port 2 with the other end in the new firewall- Cycled both firewall and modem- DDNS started resolving to 10.1.10.222- FMG continues to show firewall down- Disconnected the existing store firewall from port 4 and connected the new firewall- Cycled both firewall and modem and still no change on connectivity- Disconnected the device in modem port 1 so the firewall was the sole connection in port 4- Cycled both the firewall and modem but still no connectivity shown via FMG and no IP change with DDNS- Removed the temp cable, restored the existing store devices to ports 1 and 4, and cycled the modem again- Awaiting completion of the patch panel terminations; ETA 1 hr- Since the cabling cannot be pulled down on the floor, FSTs terminated what they could namely the APs and front registers",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505591",
+        "time": "2025-01-29 05:16:22",
+        "user": "Tony Dinh",
+        "contents": "- Reached out to Brandon a few times since 4am PST to start site wrap-up- Brandon kept telling me they were close to finishing- Over an hour later and he's been cleaning up, performing cable mgmt, and cutting the ceiling tile to accomodate the cabling- Requested he check with MOD that all systerms are online and to provide the requested rack photos- There were 3 FSTs onsite tonight but we lost some time with the laptop",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505595",
+        "time": "2025-01-29 05:18:11",
+        "user": "Tony Dinh",
+        "contents": "- Additional hardware requested(3) black jack and colored clip(3) 4-port face plates(55) blanks for patch panel",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15505636",
+        "time": "2025-01-29 05:36:51",
+        "user": "Tony Dinh",
+        "contents": "- Rack photos provided- Cables managed- MOD confirmed all systems are online- Cable modem was issuing NAT addresses; will need to work with carrier for passthru mode- Brandon released at 5:30am PST",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15507557",
+        "time": "2025-01-29 11:33:17",
+        "user": "Lili Kim",
+        "contents": "Ticket left open; status is required.  Escalating to TAC. ",
+        "private": "1",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2378430": {
+    "ticketid": "2378430",
+    "department": "Turnups",
+    "subject": "Flynn_5579_Fishers_IN Turnup Day 2 Cutover 2/4/2025 6:30 pm PST (9:30 PM EST)",
+    "status": "Completed",
+    "created_time": null,
+    "created_date": "2025-01-30T15:30:02",
+    "creator_name": "Devin Leatham",
+    "creator_email": "devin.leatham@cisvpn.com",
+    "closed_date": "2025-02-05T07:46:33",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-02-04T00:00:00",
+    "project_id": "3912",
+    "posts": [],
+    "notes": []
+  },
+  "2381165": {
+    "ticketid": "2381165",
+    "department": "Accounting",
+    "subject": "Flynn_FW005579_Fishers_IN Billing",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-02-05T07:49:58",
+    "creator_name": "Tony Dinh",
+    "creator_email": "tony.dinh@cis.us",
+    "closed_date": "2025-02-17T11:41:57",
+    "category": "Other",
+    "site_number": "",
+    "customer": "3535",
+    "state": "",
+    "city": "",
+    "street": "",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": null,
+    "posts": [
+      {
+        "id": "15536435",
+        "time": "2025-02-05 07:49:58",
+        "user": "Tony Dinh",
+        "contents": "- The site was successfully cutover to the new network- Please initiate billing for this location. Thank you.Site NameFLN_FW005579_Fishers_INSite NumberFW005579Address8000 E 96th StFishers, IN, 46037Telephone317-578-8544",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15588898",
+        "time": "2025-02-17 11:41:55",
+        "user": "Kayla Gonzalez",
+        "contents": "Added on ticket 2382162",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2381460": {
+    "ticketid": "2381460",
+    "department": "Monitoring",
+    "subject": "Flynn_FW005579_Fishers_IN Comcast Modem in NAT Mode",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-02-05T16:50:21",
+    "creator_name": "Tony Dinh",
+    "creator_email": "tony.dinh@cis.us",
+    "closed_date": "2025-02-06T18:06:01",
+    "category": "Other",
+    "site_number": null,
+    "customer": "3535",
+    "state": null,
+    "city": null,
+    "street": null,
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": null,
+    "posts": [
+      {
+        "id": "15539300",
+        "time": "2025-02-05 16:50:21",
+        "user": "Tony Dinh",
+        "contents": "- The Comcast modem at this location is handing out a 10.x.x.x address to the FortiGate- A dispatch was scheduled this morning for a modem swap but the FortiGate continues to show a 10.x.x.x addressACCT:8529200866871784TT:CR18469563102/05/258 am ~ 11 amSOW: check RX power issues with the modem, repair or replace as needed and place the device in IP passthrough mode before leaving",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15539309",
+        "time": "2025-02-05 16:55:40",
+        "user": "Philip Smith",
+        "contents": "Reviewing ticket.Updates to follow.",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15539409",
+        "time": "2025-02-05 17:10:27",
+        "user": "Philip Smith",
+        "contents": "Calling Comcast to check for updates on TT CR184695631Comcast: 866-511-6489",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15539572",
+        "time": "2025-02-05 17:16:56",
+        "user": "Philip Smith",
+        "contents": "Spoke with Comcast agent Kayne and asked him for an update on the TT. Kayne said he checked the modem and saw it was showing a 10. x.x.x. IP and he was able to reset the modem to passthrough mode with NAT, FW, and Wi-Fi off. Kayne said the connection was restored and no longer showing a 10. x.x.x. IP address.Comcast: 866-511-6489Info: 8529 2008 6687 1784Comcast TT: CR 184695631",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15539685",
+        "time": "2025-02-05 17:21:37",
+        "user": "Philip Smith",
+        "contents": "Holding for an update from Tony D. per Peter",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15539807",
+        "time": "2025-02-05 17:54:03",
+        "user": "Philip Smith",
+        "contents": "Received a message from Tony D. asking to call Comcast back and check for a static IP on the modem. Tony bounced the WAN port and he did not pick up any IP from the Comcast modem.Calling Comcast.Comcast: 866-511-6489Info: 8529 2008 6687 1784Comcast TT: CR 184695631",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15539818",
+        "time": "2025-02-05 17:56:51",
+        "user": "Tony Dinh",
+        "contents": "Comcast static addressIP: 96.94.12.57SM: 255.255.255.252GW: 96.94.12.58-  Configured the static on the Fortigate and confirmed the link is online",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15539832",
+        "time": "2025-02-05 18:02:13",
+        "user": "Philip Smith",
+        "contents": "Spoke with Comcast agent Derrick and asked him to check the modem for a static IP. Derrick said he found a static on the modem and he provided the modem credentials. After providing Tony D. with them he was able to apply configuration and restore the connection.  Modem static IP: 96.94.12.57GW: 96.94.12.58Subnet: 255.255.255.252Modem MAC: 94F3 92C2 D0A8  (DHCP is disabled)Comcast: 866-511-6489Info: 8529 2008 6687 1784Previous Comcast TT: CR 184695631 New Comcast TT: 19108837",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2382162": {
+    "ticketid": "2382162",
+    "department": "Accounting",
+    "subject": "Flynn_FW005579_Fishers_IN - Add to billing",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-02-06T12:58:41",
+    "creator_name": "Landon McLean",
+    "creator_email": "accounting@cisvpn.com",
+    "closed_date": "2025-02-17T11:41:27",
+    "category": "Other",
+    "site_number": "",
+    "customer": "3535",
+    "state": "",
+    "city": "",
+    "street": "",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": null,
+    "posts": [
+      {
+        "id": "15544682",
+        "time": "2025-02-06 12:58:41",
+        "user": "Landon McLean",
+        "contents": "The below site was added to the CIS monitor. Please invoice client appropriately.Add to Monitor•Customer: Flynn•Site: Flynn_FW005579_Fishers_IN•Address: 8000 E 96th StFishersIN46037•       Site Phone Number (NOT GC's Contact): 317-578-8544•Carrier: Comcast•Install Date: 2/6/2025•Type of service (primary, back up): Primary and cell backup",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15588897",
+        "time": "2025-02-17 11:41:26",
+        "user": "Kayla Gonzalez",
+        "contents": "Added to billing.",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2382228": {
+    "ticketid": "2382228",
+    "department": "FST Accounting",
+    "subject": "Flynn_FW005579_Fishers_IN_Electrician",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-02-06T14:41:08",
+    "creator_name": "Josh Bosen",
+    "creator_email": "josh.bosen@cisvpn.com",
+    "closed_date": null,
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-01-25T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15545397",
+        "time": "2025-02-06 14:41:08",
+        "user": "Josh Bosen",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15857525",
+        "time": "2025-04-11 10:58:54",
+        "user": "Brandon Mahoney",
+        "contents": "Tech invoice attachedFST cost: 488.19Cost to customer: 0.00Billing to the client will be completed on 2401704",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15870125",
+        "time": "2025-04-14 10:39:34",
+        "user": "Dana Tompkins",
+        "contents": "A bill was created under this ticket: 2382228<br/>Total Bill to Customer : $0.00<br/>Total Bill to CISSDM  : $488.19",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2384454": {
+    "ticketid": "2384454",
+    "department": "Pro Services",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 1",
+    "status": "Confirmed",
+    "created_time": null,
+    "created_date": "2025-02-11T11:11:54",
+    "creator_name": "noreply@cisvpn.com",
+    "creator_email": "noreply@cisvpn.com",
+    "closed_date": null,
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15562077",
+        "time": "2025-02-11 11:11:54",
+        "user": "Brandon.Mahoney",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15589494",
+        "time": "2025-02-17 13:40:22",
+        "user": "Christopher Hagen",
+        "contents": "See tony's closeout notes in 2378430",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2387576": {
+    "ticketid": "2387576",
+    "department": "Pro Services",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 2",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-02-17T13:45:59",
+    "creator_name": "alyssa.philpott",
+    "creator_email": "alyssa.philpott@cisvpn.com",
+    "closed_date": "2025-02-19T12:59:04",
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [],
+    "notes": []
+  },
+  "2391200": {
+    "ticketid": "2391200",
+    "department": "Pro Services",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 4",
+    "status": "Audit",
+    "created_time": null,
+    "created_date": "2025-02-24T13:47:38",
+    "creator_name": "alyssa.philpott",
+    "creator_email": "alyssa.philpott@cisvpn.com",
+    "closed_date": "2025-02-24T13:47:38",
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15620502",
+        "time": "2025-02-24 13:47:38",
+        "user": "alyssa.philpott",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15620510",
+        "time": "2025-02-24 13:49:16",
+        "user": "Alyssa Philpott",
+        "contents": "Please create a redispatch for this site the week of 3/2 after hours. Store closes at 1am, would be 1am arrival, start work at 1:30am.Scope: Complete the following:Materials:- FST requested a few additional items for the store10 blank inserts for the patch panel1 blank face plate- There are two temp cable runs for NVR connectivity",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15637014",
+        "time": "2025-02-27 12:35:12",
+        "user": "Alyssa Philpott",
+        "contents": "add to their scopes: take proper closeout photos again",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15672769",
+        "time": "2025-03-06 12:46:03",
+        "user": "Christopher Hagen",
+        "contents": "Scope to be added: 5579- Blanks and blank faceplate are on order- install, There are two temp cable runs for NVR connectivity- Run and terminate, No new patch cords, No color clips, smbs not mounted to furniture, Cannot see photos of jack colors, abatement, strighten AP, Photo of lag bolts, 6' loop in ceiling. ",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15739737",
+        "time": "2025-03-20 13:51:12",
+        "user": "Brandon Mahoney",
+        "contents": "Good Afternoon:Your invoice-#7851 for $801.00 is attached.Thank you for your business - we appreciate it very much.Sincerely,ComLink Network Services, Inc.Accounts Receivable Dept.(317) 786-3496 Ext 300",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15739914",
+        "time": "2025-03-20 14:28:45",
+        "user": "Brandon Mahoney",
+        "contents": "Hello,Due to an internal program causing a few incomplete projects, in our system, to be marked as “Ready to Invoice”, ComLink invoices were submitted to CIS today in error.Please disregard the following ComLink invoices dated 03/20/2025.Invoice #7849 - for Wendy’s Store FW007898Invoice #7850 – for Wendy’s Store FW001840Invoice #7851 – for Wendy’s Store FW005579Invoice #7852 – for Wendy’s Store FW0012304Invoice #7853 – for Wendy’s Store FW0013208Once the above projects have been fully finalized in our system, proper invoices will be submitted to CIS.We apologize for any inconvenience or confusion this may have caused.Thank you,Peggy Stevens /Office Manager1106 S. Meridian St. Indianapolis, IN 46225",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15884774",
+        "time": "2025-04-16 13:54:53",
+        "user": "Brandon Mahoney",
+        "contents": "FST invoice attachedFST cost: $801Moving to Audit for review",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2391754": {
+    "ticketid": "2391754",
+    "department": "Turnups",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 4 3/6/2025 10:00 PM",
+    "status": "Incomplete",
+    "created_time": null,
+    "created_date": "2025-02-25T13:30:29",
+    "creator_name": "David Fisher",
+    "creator_email": "david.fisher@cisvpn.com",
+    "closed_date": "2025-03-07T04:14:44",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-03-06T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15625725",
+        "time": "2025-02-25 13:30:29",
+        "user": "David Fisher",
+        "contents": "Scope - Objective: Revisit 4Scope: Complete the following:Materials:- FST requested a few additional items for the store10 blank inserts for the patch panel1 blank face plate- There are two temp cable runs for NVR connectivity Technician Information: Expected In Time: 10:00 PM Technician Type: ContractorFST Technician Name: Tim KellerContact #: (317) 954-0286 Project ID: NETWORK RE-CABLING - WENDYS  Customer Name: FlynnStore Type: ExistingStore Name: East 96th StSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number:  New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15637018",
+        "time": "2025-02-27 12:35:21",
+        "user": "Alyssa Philpott",
+        "contents": "add to their scopes: take proper closeout photos again",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675016",
+        "time": "2025-03-06 21:32:46",
+        "user": "Christopher Hagen",
+        "contents": "Scope: Blanks and blank faceplate are on order- install, There are two temp cable runs for NVR connectivity- Run and terminate, No new patch cords, No color clips, smbs not mounted to furniture, Cannot see photos of jack colors, abatement, strighten AP, Photo of lag bolts, 6' loop in ceiling. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675064",
+        "time": "2025-03-06 22:01:09",
+        "user": "John Box",
+        "contents": "calling FST",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675073",
+        "time": "2025-03-06 22:05:58",
+        "user": "John Box",
+        "contents": "FST is on site and he is getting started",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675088",
+        "time": "2025-03-06 22:15:17",
+        "user": "John Box",
+        "contents": "pre ARP table FW005579 # get sys arp | grep 10.55.79.10.55.79.197      2689       c4:00:ad:12:6e:3e CLOE_PAY10.55.79.1        2          e0:4f:43:55:df:7d CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.55.79.29       0          6c:0b:84:a3:42:30 CLOE_PCI10.55.79.2        1          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        2          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.12       0          1c:ee:c9:0c:1b:89 CLOE_PCI10.55.79.22       1          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI FW005579 # get sys arp Address           Age(min)   Hardware Addr      Interface192.168.170.3     87         f8:0d:ac:da:6e:35 CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink192.168.170.95    0          c0:74:ad:49:93:be CLOE_Bridge10.55.79.197      2689       c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          fa:0c:23:9e:f7:fc WAN2_FEX192.168.170.97    0          00:30:18:00:9b:61 CLOE_Bridge10.55.79.1        2          e0:4f:43:55:df:7d CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      0          80:80:2c:f1:96:f8 FW_MGMT10.55.79.29       0          6c:0b:84:a3:42:30 CLOE_PCI192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    0          00:10:be:20:7d:6b CLOE_Bridge10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.2        1          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.12       0          1c:ee:c9:0c:1b:89 CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       1          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      0          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     1          20:4b:22:91:d4:e6 CLOE_Bridge",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675169",
+        "time": "2025-03-06 22:44:56",
+        "user": "John Box",
+        "contents": "FST is getting the rack corrected  ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675267",
+        "time": "2025-03-06 23:32:22",
+        "user": "John Box",
+        "contents": "FST is getting close on getting the jack in the patch panel correct and the cables to the correct ports on the SWs ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675351",
+        "time": "2025-03-07 00:08:07",
+        "user": "John Box",
+        "contents": "FST is getting the rack corrected",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675497",
+        "time": "2025-03-07 01:01:11",
+        "user": "John Box",
+        "contents": "the FST got all of the cables to the correct spots they are working on cable management ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675608",
+        "time": "2025-03-07 02:05:25",
+        "user": "John Box",
+        "contents": "they are working on cable management",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675647",
+        "time": "2025-03-07 02:31:39",
+        "user": "John Box",
+        "contents": "FST is about done he said he need 15 to 30 mins and he will be getting me pics ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675695",
+        "time": "2025-03-07 03:13:55",
+        "user": "John Box",
+        "contents": "FW005579 # get sys arp | grep 10.55.7910.55.79.197      0          c4:00:ad:12:6e:3e CLOE_PAY10.55.79.201      0          38:ef:e3:e8:81:04 CLOE_PAY10.55.79.1        0          e0:4f:43:55:df:7d CLOE_PCI10.55.79.203      0          38:ef:e3:e4:26:1f CLOE_PAY10.55.79.3        0          30:0e:d5:38:50:ea CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.55.79.29       2          6c:0b:84:a3:42:30 CLOE_PCI10.55.79.196      0          c4:00:ad:12:6e:3e CLOE_PAY10.55.79.202      0          38:ef:e3:e5:39:4c CLOE_PAY10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.204      0          10:1e:da:7e:c1:c3 CLOE_PAY10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.22       0          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI FW005579 # get sys arpAddress           Age(min)   Hardware Addr      Interface192.168.170.3     10         f8:0d:ac:da:6e:35 CLOE_Bridge192.168.170.95    0          c0:74:ad:49:93:be CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink10.55.79.197      0          c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          c6:ff:51:53:68:6d WAN2_FEX10.55.79.201      0          38:ef:e3:e8:81:04 CLOE_PAY10.55.79.1        1          e0:4f:43:55:df:7d CLOE_PCI10.55.79.203      0          38:ef:e3:e4:26:1f CLOE_PAY10.55.79.3        0          30:0e:d5:38:50:ea CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      0          80:80:2c:f1:96:f8 FW_MGMT10.55.79.29       2          6c:0b:84:a3:42:30 CLOE_PCI192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    1          00:10:be:20:7d:6b CLOE_Bridge10.55.79.196      0          c4:00:ad:12:6e:3e CLOE_PAY10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.202      0          38:ef:e3:e5:39:4c CLOE_PAY10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.204      0          10:1e:da:7e:c1:c3 CLOE_PAY10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       0          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      1          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     0          20:4b:22:91:d4:e6 CLOE_Bridge",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675718",
+        "time": "2025-03-07 03:31:54",
+        "user": "John Box",
+        "contents": "they don't have the new cable with the colored clips to replace the cables at the devices site",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675779",
+        "time": "2025-03-07 04:01:36",
+        "user": "John Box",
+        "contents": "Benjamin give approval to release the FST FST is leaving ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675788",
+        "time": "2025-03-07 04:02:43",
+        "user": "John Box",
+        "contents": "what is needed to complete the site 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675804",
+        "time": "2025-03-07 04:07:45",
+        "user": "John Box",
+        "contents": "Flynn site number: Flynn_FW005579_Fishers_IN_Revisit 4 3/6/2025 10:00 PM Visit date: 3/6/2025Number of technicians onsite: Check-in time: 10:00 PM PSTCheck-out time:  4:00 AM PSTTotal hours 6 hours Cutover status: yesFST name and number: Tim Keller (317) 954-0286Manager name upon arrival:  Adrian Additional materials needed: 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips a. Cutover to Fortinet stack completed: Yesb. All validation steps completed: Yesc. Record Cradlepoint IMEI and SIM: Yesd. Pre/Post-change ARP table verified: Yese. Network validated by Service Desk: Yesf. Legacy hardware decommissioned: Yesg. Location of decommissioned hardware: not fully h. Cable abatement completed: Yesi. Photos attached to the turn-up ticket: Yesj. Incomplete / remaining items, if any: needing to replace the patch cables going to the devices k. Notes of any issues experienced:",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15675823",
+        "time": "2025-03-07 04:14:47",
+        "user": "John Box",
+        "contents": "In: 10:00 PMOut: 4:01 AMBrief notes on Turnup start to finish: Got before pics FST worked on getting the cable to the corrected ports on the switches Got the jacks to the correct color on the patch panel Installed the blacks in the patch panel Did cable management of the IT rack Got pics of the IT rack, jacks, and cables Got approval from Benjemin what is needed to complete the site 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips Brief notes on significant sources of delay: List of any Materials Used by FST:Approximate time and description of client driven time spent on out of scope work: Unresolved Issues this installation:•Replacement of patch cabling at the device end and color clips for patch cables•Replacement of AP terminations to Z-plugs instead of data jacks at device endLocal Contact on Site: AdrianCIS ticket completion approved by: BenjeminClient ticket completion approved by: ",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15675824",
+        "time": "2025-03-07 04:15:25",
+        "user": "John Box",
+        "contents": "PM notes •Replacement of patch cabling at the device end and color clips for patch cables•Replacement of AP terminations to Z-plugs instead of data jacks at device endWhat we need to complete the site25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips AP terminations to Z-plugs",
+        "private": "1",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2401701": {
+    "ticketid": "2401701",
+    "department": "Pro Services",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 5",
+    "status": "Audit",
+    "created_time": null,
+    "created_date": "2025-03-13T12:56:23",
+    "creator_name": "alyssa.philpott",
+    "creator_email": "alyssa.philpott@cisvpn.com",
+    "closed_date": null,
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-03-18T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15705880",
+        "time": "2025-03-13 12:56:23",
+        "user": "alyssa.philpott",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15884892",
+        "time": "2025-04-16 14:18:32",
+        "user": "Brandon Mahoney",
+        "contents": "FST invoice attachedFST cost: 821.77Moving to audit for Revisit pricing",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2401728": {
+    "ticketid": "2401728",
+    "department": "Turnups",
+    "subject": "Flynn_FW005579_Fishers_IN_Revisit 5 3/17/2025 9:00 PM",
+    "status": "Completed",
+    "created_time": null,
+    "created_date": "2025-03-13T13:00:36",
+    "creator_name": "David Fisher",
+    "creator_email": "david.fisher@cisvpn.com",
+    "closed_date": "2025-03-18T03:44:18",
+    "category": "Turnup Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "2025-03-17T00:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15705922",
+        "time": "2025-03-13 13:00:36",
+        "user": "David Fisher",
+        "contents": "Scope - Objective: Revisit 5 Technician Information: Expected In Time: 9:00 PM Technician Type: ContractorFST Technician Name: Tim KellerContact #: (317) 954-0286 Project ID: NETWORK RE-CABLING - WENDYS  Customer Name: FlynnStore Type: ExistingStore Name: East 96th StSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number:  New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15722259",
+        "time": "2025-03-17 21:06:50",
+        "user": "Timothy Smith",
+        "contents": "Called tech for check-in but got no answer and left a VMsending text ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722267",
+        "time": "2025-03-17 21:10:03",
+        "user": "Timothy Smith",
+        "contents": "ETA 30 to 40 minutes Tech advised he was told to be on the site closer to 1AM and smartsheet says the same thing",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722408",
+        "time": "2025-03-17 22:07:02",
+        "user": "Timothy Smith",
+        "contents": "Check-in 10:00 PM PST Technician Type: ContractorFST Technician Name: Tim KellerContact #: (317) 954-0286Manager: Irene ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722615",
+        "time": "2025-03-17 22:49:14",
+        "user": "Timothy Smith",
+        "contents": "Tech working to complete the remaining scope ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722623",
+        "time": "2025-03-17 22:52:18",
+        "user": "Timothy Smith",
+        "contents": "Tech located the shipment of materials and is working to complete the remaining scope ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722651",
+        "time": "2025-03-17 23:05:49",
+        "user": "Timothy Smith",
+        "contents": "Packing list confirmed and attached ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722681",
+        "time": "2025-03-17 23:17:10",
+        "user": "Timothy Smith",
+        "contents": "Tech working on patch cables and clips ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722695",
+        "time": "2025-03-17 23:21:12",
+        "user": "Timothy Smith",
+        "contents": "Pre Arp Table FW005579 # get sys arpAddress           Age(min)   Hardware Addr      Interface192.168.170.3     9          f8:0d:ac:da:6e:35 CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink10.55.79.197      15558      c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          c6:ff:51:53:68:6d WAN2_FEX192.168.170.97    1          00:30:18:00:9b:61 CLOE_Bridge10.55.79.1        1          e0:4f:43:55:df:7d CLOE_PCI10.55.79.3        0          30:0e:d5:38:50:ea CLOE_PCI10.55.79.11       0          1c:ee:c9:0c:1b:b4 CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       1          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      1          80:80:2c:f1:96:f8 FW_MGMT10.55.79.29       0          6c:0b:84:a3:42:30 CLOE_PCI192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    2          00:10:be:20:7d:6b CLOE_Bridge10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       0          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      0          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     0          20:4b:22:91:d4:e6 CLOE_Bridge  ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722819",
+        "time": "2025-03-17 23:41:02",
+        "user": "Timothy Smith",
+        "contents": "Tech working to install clips and patch cables ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15722942",
+        "time": "2025-03-18 00:05:30",
+        "user": "Timothy Smith",
+        "contents": "Update:Tech reports he is 50 percent finished with getting the new cables and clips in and has been getting the needed photos ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723052",
+        "time": "2025-03-18 00:23:16",
+        "user": "Timothy Smith",
+        "contents": "Tech still working to complete the cabling and clips",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723128",
+        "time": "2025-03-18 00:42:48",
+        "user": "Timothy Smith",
+        "contents": "Tech still working to complete the cabling and clips",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723182",
+        "time": "2025-03-18 01:10:49",
+        "user": "Timothy Smith",
+        "contents": "Tech still working to complete the remaining work ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723213",
+        "time": "2025-03-18 01:26:08",
+        "user": "Timothy Smith",
+        "contents": "Tech still working to complete the remaining work",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723282",
+        "time": "2025-03-18 01:43:17",
+        "user": "Timothy Smith",
+        "contents": "Tech still working to complete the remaining work",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723306",
+        "time": "2025-03-18 01:44:27",
+        "user": "Timothy Smith",
+        "contents": "Tech sent over final pictures ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723387",
+        "time": "2025-03-18 02:06:45",
+        "user": "Timothy Smith",
+        "contents": "Summary: Work Completed:Technician arrived on site and checked in with Irene, Manager on Duty (MOD).Technician installed all remaining needed patch cables.Technician mounted all remaining needed cable clips.Technician mounted surface mount boxes in the ceiling for the access points.Technician installed remaining blanks into the patch panel. Technician took final pictures.",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723443",
+        "time": "2025-03-18 02:32:02",
+        "user": "Timothy Smith",
+        "contents": "Standing by  for release approval  converting pictures to jpeg ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723447",
+        "time": "2025-03-18 02:35:59",
+        "user": "Timothy Smith",
+        "contents": "Tech getting the missing blanks from vehicle for the rack and installing them ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723463",
+        "time": "2025-03-18 02:47:54",
+        "user": "Timothy Smith",
+        "contents": "Tech completed the installation of missing blanks ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723499",
+        "time": "2025-03-18 02:58:16",
+        "user": "Timothy Smith",
+        "contents": "Tech removing dangling patch cables for the future use printers  ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723525",
+        "time": "2025-03-18 03:16:25",
+        "user": "Timothy Smith",
+        "contents": "Tech standing by for approval All old equipment including WAN2 cradlepoint+sim card have been removed from this site. No new pictures possible of old equipment. ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723564",
+        "time": "2025-03-18 03:36:24",
+        "user": "Timothy Smith",
+        "contents": "Requested post arp ",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723568",
+        "time": "2025-03-18 03:37:26",
+        "user": "Timothy Smith",
+        "contents": "Post ArpFW005579 # get system arpAddress           Age(min)   Hardware Addr      Interface192.168.170.3     59         f8:0d:ac:da:6e:35 CLOE_Bridge192.168.170.95    0          c0:74:ad:49:93:be CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink10.55.79.197      15815      c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          c6:ff:51:53:68:6d WAN2_FEX192.168.170.97    1          00:30:18:00:9b:61 CLOE_Bridge10.55.79.3        1          30:0e:d5:38:50:ea CLOE_PCI10.55.79.11       0          1c:ee:c9:0c:1b:b4 CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       1          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      0          80:80:2c:f1:96:f8 FW_MGMT192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    0          00:10:be:20:7d:6b CLOE_Bridge10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        1          3c:e1:a1:3b:db:bc CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       1          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      0          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     0          20:4b:22:91:d4:e6 CLOE_Bridge",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723571",
+        "time": "2025-03-18 03:40:39",
+        "user": "Timothy Smith",
+        "contents": "Checkout: 3:40 AM PST Flynn site number:005579Visit date: 3/18/25Number of technicians onsite: 1Check-in time: 10:00 PM PSTCheck-out time: 3:40 AM PST Total hours: 5 hours and 40 minutesCutover status: Completed FST name and number: Tim Keller (317) 954-0286Manager name upon arrival: Irene Additional materials needed: None Summary:Technician completed final cabling and mounting work. Patch cables, clips, surface mount boxes, and patch panel blanks were installed. Final photos were takena. Cutover to Fortinet stack completed: Previously completed b. All validation steps completed: Yesc. Record cellular modem IMEI and SIM: Previously completed d. Pre/Post-change ARP table verified: Yese. Device issues escalated to Flynn Group: N/A f. Legacy hardware decommissioned: Previously completed g. Location of decommissioned hardware: Has been removed from the site/Previously completed h. Photos attached to Smartsheet and turn-up ticket: Yesi. Incomplete / remaining items, if any: N/A",
+        "private": "1",
+        "creator": "1"
+      },
+      {
+        "id": "15723576",
+        "time": "2025-03-18 03:44:21",
+        "user": "Timothy Smith",
+        "contents": "In: 10:00 PMOut: 3:40 AMFlynn site number:005579Visit date: 3/18/25Number of technicians onsite: 1Check-in time: 10:00 PM PSTCheck-out time: 3:40 AM PSTTotal hours: 5 hours and 40 minutesCutover status: CompletedFST name and number: Tim Keller (317) 954-0286Manager name upon arrival: IreneAdditional materials needed: NoneSummary:Technician completed final cabling and mounting work. Patch cables, clips, surface mount boxes, and patch panel blanks were installed. Final photos were takena. Cutover to Fortinet stack completed: Previously completedb. All validation steps completed: Yesc. Record cellular modem IMEI and SIM: Previously completedd. Pre/Post-change ARP table verified: Yese. Device issues escalated to Flynn Group: N/Af. Legacy hardware decommissioned: Previously completedg. Location of decommissioned hardware: Has been removed from the site/Previously completedh. Photos attached to Smartsheet and turn-up ticket: Yesi. Incomplete / remaining items, if any: N/A",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15723586",
+        "time": "2025-03-18 03:50:19",
+        "user": "Timothy Smith",
+        "contents": "Photos ",
+        "private": "1",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2424333": {
+    "ticketid": "2424333",
+    "department": "FST Accounting",
+    "subject": "Flynn_FW005579_Fishers_IN_Site Survey",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-04-17T14:22:00",
+    "creator_name": "Brandon.Mahoney",
+    "creator_email": "brandon.mahoney@cisvpn.com",
+    "closed_date": "2025-04-17T14:22:00",
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15891793",
+        "time": "2025-04-17 14:22:00",
+        "user": "Brandon.Mahoney",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15891812",
+        "time": "2025-04-17 14:23:50",
+        "user": "Brandon Mahoney",
+        "contents": "Tech invoice attachedFST cost: 380.00Cust cost: 0.00Client billing ticket - 2401704",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15892102",
+        "time": "2025-04-17 15:22:58",
+        "user": "Kayla Gonzalez",
+        "contents": "A bill was created under this ticket: 2424333<br/>Total Bill to Customer : $0.00<br/>Total Bill to CISSDM  : $380.00",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  },
+  "2424336": {
+    "ticketid": "2424336",
+    "department": "FST Accounting",
+    "subject": "Flynn_FW005579_Fishers_IN_Electrician Client Billing",
+    "status": "Closed",
+    "created_time": null,
+    "created_date": "2025-04-17T14:22:19",
+    "creator_name": "Brandon.Mahoney",
+    "creator_email": "brandon.mahoney@cisvpn.com",
+    "closed_date": "2025-04-17T14:22:19",
+    "category": "Dispatch Tickets",
+    "site_number": "5579",
+    "customer": "131",
+    "state": "IN",
+    "city": "Fishers",
+    "street": "46037",
+    "service_date": "1969-12-31T16:00:00",
+    "project_id": "3912",
+    "posts": [
+      {
+        "id": "15891800",
+        "time": "2025-04-17 14:22:19",
+        "user": "Brandon.Mahoney",
+        "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+        "private": "0",
+        "creator": "2"
+      },
+      {
+        "id": "15891856",
+        "time": "2025-04-17 14:28:57",
+        "user": "Brandon Mahoney",
+        "contents": "Client billing ticketFST invoice was processed on CIS ID 2382228FST cost: 0.00Cust cost: 600.00",
+        "private": "0",
+        "creator": "1"
+      },
+      {
+        "id": "15892105",
+        "time": "2025-04-17 15:23:37",
+        "user": "Kayla Gonzalez",
+        "contents": "A bill was created under this ticket: 2424336<br/>Total Bill to Customer : $600.00<br/>Total Bill to CISSDM  : $0.00",
+        "private": "0",
+        "creator": "1"
+      }
+    ],
+    "notes": []
+  }
+}

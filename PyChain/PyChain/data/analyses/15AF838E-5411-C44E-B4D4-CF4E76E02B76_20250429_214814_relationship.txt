@@ -1,0 +1,214 @@
+Certainly! Here is a comprehensive summary of relationships and extracted details across all 18 tickets in chain **15AF838E-5411-C44E-B4D4-CF4E76E02B76** (starting with ticket **2367830**), as well as an extraction of project specifics per ticket as requested.
+
+---
+
+## 1. **Parent-Child Relationships**
+- **linked_tickets** field is **absent or empty across all tickets**. No explicit internal system parent-child linking exists in this chain.
+    - All relationships must be inferred from ticket context, subjects, project_id, site_number, and references in posts/notes.
+
+---
+
+## 2. **Dispatch ↔ Turnup ↔ Billing Linkages**
+
+**General Structure and Flow:**
+- This chain ties together a single site rollout (Flynn_5579_Fishers_IN) with hardware shipping, turnups (install visits), dispatch revisits, site surveys, billing, and closeout activities.
+
+### **A. Shipping / Pre-Install**
+- **2368088** — _Shipping Ticket_: Handles hardware shipment to site. Ticket closed when hardware was determined not shipped ("client shipped the hardware themselves").
+    - **Completion Status**: "Closed"
+    - **Delay**: Hardware not shipped by the service provider—note says "factory reset...using hardware for another location".
+
+### **B. Turnup / Install / Cabling**
+- **2367830** — _Project Management_: Master ‘Hardware-Wiring’ project ticket, long SOW with specific **drop counts**.
+    - **Cable Drop Counts**: 
+        - Enumerates per-location cable details, i.e., "Install Qty. 1", "Qty. 4 – Siemon Cat 6..." for each device/location.
+    - **Status**: "Audit", not yet closed.
+    - **Revisit Requirements**: Several posts reference confirmation of follow-up dispatch if not completed (see 2374738 post by Devin Leatham, 2025-01-28).
+
+#### **Turnup and Field Visits**
+- **2374738** — _First Survey Visit_: "FIRST VISIT SURVEY ONLY – 1/23/2025".
+    - **Cable Drop Counts**: Mirrors 2367830 (full SOW repeated).
+    - **Completion**: "Completed"
+    - **Details**: 36 cables on patch panel; 30 patched to switch; 24 showing lights.
+
+- **2376373** — _Second Visit 1/27_: _Night cabling run/partial install_; opened as "Cabling and Network Upgrade".
+    - **Delays**: Outlets missing; rack backboard undersized; scheduling issues with techs; no photos; cable drops needed access.
+    - **Completion**: "Incomplete"
+
+- **2377027** — _Night 2 (1/28/2025)_: _Backerboard install, more cabling, rack install, terminations_
+    - **Delays**: Tech had to source own laptop; issues with conduit/cabling removal; patch panel terminations dependent on removing old cabling.
+    - **Completion**: “Completed”
+
+- **2378430** — _Cutover Night (2/4/2025)_: _Finalizes install, device brings up Fortinet stack_
+    - **Cable Drop Counts**:
+        - Repeats required faceplates: (3) black jack; (3) 4-port faceplates; (55) blanks for patch panel.
+    - **Delays**: Store closing delays; support required for NAT/passthru on Comcast modem.
+    - **Completion**: “Completed”
+    - Next revisit needs for photos, cable abatement, and additional install items.
+
+### **C. Revisit & Closeout Iterations**
+- **2382228** — "Electrician": Site survey closed after work. Posts show "Billing to client will be completed on 2401704".
+    - **Billing Link**: Expenses transferred to dedicated billing ticket (**2401704**).
+    - **Completion**: “Closed”
+
+- **2384454**, **2387576**, **2391200**, **2391754**, **2401701**, **2401728** etc. — _Revisit Tickets_:
+    - Each is linked only by site and sequence (with 'Revisit 1', 'Revisit 2', etc.), **not by system links**.
+    - Revisit reasons:
+        - Missing closeout photo set (see 2387576, 2025-02-17, "make a revisit 2 to ‘get complete closeout photo set’").
+        - Missing/incorrect installs (materials uninstalled, color clips, abatement, etc.).
+        - 2391754 and 2401728 both reference needs for patch cables, clips, AP terminations.
+    - **Delays**:
+        - Shipping/material shortages (no color clips, missing blanks/plates).
+        - Scheduling with tech.
+        - Site operation—night work, stores closing late.
+    - **Status**: Some 'Closed', some 'Audit', some 'Completed', several marked 'Incomplete' with explicit post for what is pending (see 2391754 posts by John Box, 2025-03-07, listing dozens of needed patch cables and color clips).
+
+### **D. Survey & Billing**
+- **2424333, 2424336** — FST Accounting (~Final Billing): Both contain explicit posts describing “A bill was created under this ticket…” with $ values for customer and to internal org.
+    - **Reference**: 2424336 is specifically labeled “Electrician Client Billing” and refers back to 2382228 for invoice.
+
+- **2382162, 2381165** — Accounting tickets handling “Add to billing”, "Initiate billing", confirm monitoring and completed install.
+    - **Linked by site/project references only**.
+
+---
+
+## 3. **Orphaned/Unlinked Records**
+- **No explicit system-parent/child** links (“linked_tickets”: []) across the tickets.
+- **Orphaned Tickets**:
+    - All are "orphans" in the technical field system linking sense, as no linked_tickets are present.
+    - **Relationally**, they tie back to project_id "3912" and site_number "5579" and are cross-referenced in posts (e.g., 2424336 post: "FST invoice was processed on CIS ID 2382228").
+
+---
+
+## 4. **Extracted Specific Details per Ticket**
+
+#### **2367830** ("Flynn_5579_Fishers_IN_Cabling and Network Upgrade")
+- **SOW Details / Cable Drops**:
+    - Dozens of explicit lines: "**Install Qty. 1**" (WAP, Timer, etc.), "**Install Qty. 4**" (DMB, Manager Station, POS, Kiosk), "**Install Qty. 3**" (POS with Jumper), etc.
+    - Each drop location and color coded.
+- **Notes**: Discuss required pre-install site walk, identification of kiosk cable pathways.
+- **Status**: "Audit"
+- **Delays**: None noted directly; revisits referenced for incomplete works.
+
+#### **2368088** (Hardware Shipping)
+- **Delay**: Hardware NOT shipped by provider, closed because client did it themselves.
+- **Status**: "Closed"
+
+#### **2374738** (Survey Visit)
+- **Drop Counts/Results**: 36 total patch panel cables; 30 patched to switch; 24 in use.
+- **Completion**: "Completed"
+- **Delay**: Tech late; brief reschedule option offered (post by Devin Leatham).
+
+#### **2376373/2377027/2378430** (Turnup Iterations)
+- **Delays**: 
+    - Power not present (2368088, 2376373).
+    - "No faceplates", no J-hook screws, misfit backerboard (Tech note, posts by Tony Dinh).
+    - Hardware validation issues (missing laptops, serial adapter issues, etc.).
+    - Store closing late, limiting work hours.
+- **Completion**:
+    - 2376373: "Incomplete"
+    - 2377027: "Completed"
+    - 2378430: "Completed"
+
+#### **Revisit Records** (2384454/2387576/2391200/2391754/2401701/2401728)
+- **Revisit Requirements**:
+    - Missing closeout photos ("please make a revisit 2 to 'get complete closeout photo set referenced in the installation manual'" — 2387576).
+    - Additional hardware to be installed (patch cords, color clips, faceplates).
+    - AP terminations incomplete.
+    - Items requested: "25 patch cables, color clips (list by color), AP Z-plugs..." (2391754, 2025-03-07).
+- **Delays**:
+    - Missing materials, scheduling, work denied because of incomplete prerequisites.
+- **Statuses**: Range from "Audit", "Closed", "Incomplete", "Completed".
+
+#### **Billing/Accounting** (2424333/2424336/2381165/2382162/2382228)
+- **Bill Handling**:
+    - Tech invoices processed (posts e.g., "FST cost: $380", "A bill was created under this ticket: 2424333...").
+    - **Explicit Cross-link**:
+        - E.g., 2382228 post by Brandon Mahoney: "Billing to the client will be completed on 2401704"
+        - 2424336: "FST invoice was processed on CIS ID 2382228"
+    - **Completion**: All marked “Closed”.
+
+---
+
+## 5. **Completion Status & Delays**
+
+- **Tickets "Completed" or "Closed"**:  
+    - *2368088 (hardware not shipped), 2374738 (survey), 2377027, 2378430 (core turnups), 2382228, 2387576 (revisit no longer needed), 2424333, 2424336 (billing/acct), 2381460 (NAT mode fix), 2382162, 2381165 (add to billing/initiate billing), 2401728 (final revisit, all items completed).*
+
+- **Tickets "Incomplete", "Audit", awaiting closure**:  
+    - *2367830 (master PM ticket), 2391200 ("Audit"), 2391754* ("Incomplete", needs hardware/patch cale cables, etc.), 2401701 ("Audit"/pending).
+
+- **Delays, Revisit Triggers, Unresolved Issues** (see also 2391754/2401701 post extracts, 2387576, 2384454):  
+    - Delays due to missing items (faceplates, blanks, color clips, cables).
+    - Reschedules for after-hours work because of store operational constraints (e.g., needs to start work at 1:30am).
+    - "Photo sets incomplete", incomplete cable abatement, missing closeout documentation.
+
+---
+
+## 6. **Examples: Cited Details, Posts & Notes**
+
+- **Cable Drop Counts**
+    - Ticket 2367830 post by Devin Leatham:  
+      _“Install Qty. 1 – Siemon Cat 6 Non-Plenum Cable(s) from the new data rack location to an AP location(s) specified on the floorplan... Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 4 separate single drop Digital Menu Bar location(s) specified on the floorplan…”_
+    - Ticket 2374738 post by Robert Cohen:  
+      _"36 total cable on patch panel. 30 are patched into a switch. 24 are in use/showing lights."_
+
+- **Completion Status / Revisit Requirements**
+    - **2387576:**  
+      _“Alyssa Philpott, please make a revisit 2 to 'get complete closeout photo set referenced in the installation manual'...”_
+    - **2391200 / 2391754 / 2401728:**  
+      Repeated posts about needing final patch cables, colored clips, AP terminations.
+    - **2391754**:  
+      _“Unresolved Issues this installation: Replacement of patch cabling at the device end and color clips for patch cables. Replacement of AP terminations to Z-plugs instead of data jacks at device end”_  
+      and  
+      _“What we need to complete the site: 25 patch cables, 8 blue clips, 12 purple clips...”_
+
+- **Delays**  
+    - **2368088:**  
+      _“Note: This was closed because the client shipped the hardware themselves.”_
+    - **2376373:**  
+      - _Tech canceled, more work next night, missing outlet, undersized board._
+    - **2378430:**  
+      _"The store has closed for the night. Brandon has started the cutover for the cabling in the kitchen/kiosks..."_
+    - **244333:**  
+      _“A bill was created under this ticket: 2424333... Total Bill to CISSDM: $380.00”_
+
+---
+
+## **Summary Table: Ticket Relationships**
+
+| Ticket ID | Type                 | Main Purpose                        | Relational Context | Completion/Status | Key Extracted Details                                             |
+|-----------|----------------------|-------------------------------------|--------------------|-------------------|-------------------------------------------------------------------|
+|2367830    |PM/Hardware-Wiring    |Master SOW, cabling, project anchor  |Unlinked, master ref|Audit              |Extensive cable drop details, followup/revisit references          |
+|2368088    |Shipping              |Hardware shipping                    |Orphan, referenced  |Closed             |Delay: hardware not shipped by provider                            |
+|2374738    |Turnup Survey         |First visit, survey                  |Follows SOW         |Completed          |36 drops, 30 patched, 24 live; revisit contingency noted           |
+|2376373    |Turnup Attempt        |Night 1 cabling, partial install     |Orphan, context link|Incomplete         |Outlets missing, rack/backboard size issues, missed photos         |
+|2377027    |Turnup                |Night 2 install, cabling, racks      |Orphan, context link|Completed          |Patch panel and terminations, missing tools/delays                 |
+|2378430    |Turnup Cutover        |Final cutover, device migration      |Orphan, context link|Completed          |More cabling, ARP table use, SOW carryovers, store closing delays  |
+|2381460    |Incident/General      |Comcast NAT mode fix                 |Context link        |Closed             |Modem troubleshooting, restoration of static public IP             |
+|2382228    |Dispatch/Electrician  |Dispatch/billing handoff             |Refer to 2401704    |Closed             |"Billing to client will be completed on 2401704"                   |
+|2382162    |Billing Add           |"Add to billing", after site up      |Context link        |Closed             |Monitoring, billing started                                        |
+|2384454    |Revisit 1             |Photo set revisit                    |Revisit reference   |Confirmed          |Next: "get complete closeout photo set referenced ..."             |
+|2387576    |Revisit 2             |Photo set revisit                    |Follow-up revisit   |Closed             |"Closing this ticket... no longer needed"                          |
+|2391200    |Revisit 4             |Materials, after-hour revisit        |Revisit context     |Audit              |"Blanks and blank faceplate...", photo requirements                |
+|2391754    |Revisit 4 (Turnup)    |Install missing items (cables/patch) |Next revisit needed |Incomplete         |Detailed needed items list, ARP tables, photos, issue notes        |
+|2401701    |Revisit 5             |More materials, billing              |Audit w/revisit     |Audit              |"Moving to audit for Revisit pricing..."                           |
+|2401728    |Revisit 5 (Turnup)    |Final finish (cables etc)            |Final revisit       |Completed          |All work/validation completed, photos, blanks, cables              |
+|2424333    |Billing Entry         |FST accounting                       |Billing ticket      |Closed             |"A bill was created... $380.00..."                                 |
+|2424336    |Billing Entry         |Client billing (electrician)          |Billing ticket      |Closed             |"FST invoice was processed on CIS ID 2382228..."                   |
+|2381165    |Billing Init          |Initiate billing "Add to billing"    |Billing             |Closed             |Billing transitive references                                      |
+
+---
+
+## **Summary Conclusion**
+
+- **Tickets are not explicitly linked**, but are functionally **related as a time-sequenced project chain** by project_id, site_number, subject, and cross-reference in posts.
+- **Dispatch → Turnup → Revisit → Billing** structure is clear, with billing tied back to installation/dispatch tickets by reference.
+- Most tickets **reflect the need for multiple revisits** due to site availability, missing/delayed materials, incomplete cable drops, or photo documentation issues.
+- **All delays and requirements are tightly documented in posts** (e.g., color clips, patch cables, ARP tables).
+- **Completion status is generally up to date**, with open items clearly called out for remaining materials or documentation; final revisit marks project as "Completed."
+- **No tickets are orphaned in a project sense**, but all are system-orphaned (no system linking) except by context/reference.
+
+---
+
+### Let me know if you need a **ticket-by-ticket narrative**, **extracted timelines**, or a diagram of the revisit/billing connections.

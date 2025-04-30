@@ -1,0 +1,46 @@
+{
+  "ticketid": "2424336",
+  "department": "FST Accounting",
+  "subject": "Flynn_FW005579_Fishers_IN_Electrician Client Billing",
+  "status": "Closed",
+  "created_time": null,
+  "created_date": "2025-04-17T14:22:19",
+  "creator_name": "Brandon.Mahoney",
+  "creator_email": "brandon.mahoney@cisvpn.com",
+  "closed_date": "2025-04-17T14:22:19",
+  "category": "Dispatch Tickets",
+  "site_number": "5579",
+  "customer": "131",
+  "state": "IN",
+  "city": "Fishers",
+  "street": "46037",
+  "service_date": "1969-12-31T16:00:00",
+  "project_id": "3912",
+  "posts": [
+    {
+      "id": "15891800",
+      "time": "2025-04-17 14:22:19",
+      "user": "Brandon.Mahoney",
+      "contents": "Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ",
+      "private": "0",
+      "creator": "2"
+    },
+    {
+      "id": "15891856",
+      "time": "2025-04-17 14:28:57",
+      "user": "Brandon Mahoney",
+      "contents": "Client billing ticketFST invoice was processed on CIS ID 2382228FST cost: 0.00Cust cost: 600.00",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15892105",
+      "time": "2025-04-17 15:23:37",
+      "user": "Kayla Gonzalez",
+      "contents": "A bill was created under this ticket: 2424336<br/>Total Bill to Customer : $600.00<br/>Total Bill to CISSDM  : $0.00",
+      "private": "0",
+      "creator": "1"
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,199 @@
+==== DEBUG: posts_json_raw Query Results ====
+
+[{"ticketpostid":"15422999","post_dateline":"2025-01-08 12:47:19","fullname":"Devin Leatham via Triton","contents":"Legacy Cabling Demo:
+
+• CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the parallel network to reduce downtime. This will be done carefully to avoid damaging other trades.Network Buildout:
+
+• Upon completion of the demolition of existing data cabling, technicians will decommission existing networking equipment as required.
+• If required, legacy networking devices will be left will local management or dropped off at a local shipping provider to be sent back to a centralized location.
+• Rack installation:
+• Install Qty. 1 – Open-frame Network Equipment Rack, wall-mounted with plywood backboard in the Crew area.
+• Rack to be mounted within 6” from the ceiling.
+• Plywood will be securely fastened to the wall using structural wall supports for the racks to mount to.
+• Equipment Stack:
+• Install Qty. 1 – 2U shelf for the Meraki switch and ISP modem to sit on inside the rack.
+• Supply a coaxial demarc extension to the new rack location.
+• Install Qty. 2 – Network switches inside the racks for data connections.
+• Install Qty. 1 – PDU in the data rack
+• Install Qty. 1 – customer provided UPS inside the data rack.
+• Install Qty. 2 – 2u shelf inside the security rack for the Actineon Nodes and the Mood Media devices.
+• Install Qty. 2 – Unloaded, Modular Patch Panel, 24-port inside the new racks for data cabling.
+• Unloaded patch panel will be populated with the correct, color-coded data jacks in the alignment that the customer provided.
+• Install Qty. 1 – Wireless Access Point in predetermined locations.
+• All devices will be cross-connected following wiring diagrams/port mapping.
+• All devices will be tested and turned up with the tech team.Horizontal (Cat 6) Cabling:
+
+• From Rack 1 – Data Rack
+• WAP
+• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cable(s) from the new data rack location to an AP location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a male RJ45 Siemon Z-plug on the device end and to a black Cat 6 data jack on the server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• DMB
+• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 4 separate single drop Digital Menu Bar location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon yellow Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Timer
+• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Music
+• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Manager Station
+• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a quad drop Manager Station location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to Siemon ivory, red, blue, and white Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• POS
+• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop POS location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• POS with Jumper
+• Install Qty. 3 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a triple drop POS with jumper location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon green, violet, and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Kiosk
+• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to 2 dual drop kiosk location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Prep
+• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to a single drop prep location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon orange Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Prep and Jumper
+• Install Qty. 2 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon orange and blue Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• Timer
+• Install Qty. 1 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Digital Menu Bar location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon black Cat 6 data jack housed in a modular faceplate/patch panel on the device and server end.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• OCD and Outdoor DMB
+• Install Qty. 4 – Siemon Cat 6 Non-Plenum Cables from the new data rack location to Outdoor pedestals for a single drop OCD and quad drop Outdoor DMB location(s) specified on the floorplan.
+• If required, J-hook cable hangers will be added where legacy infrastructure may have been lacking to ensure the new cabling meets local and building codes.
+• Terminate cabling to a Siemon male RJ-45 on the device end and to black and yellow Cat 6 data jacks on the server end, black for OCD and yellow for DMB.
+• All cabling will be tested and labeled on both ends of the cable to ensure proper function.
+• From Rack 2 – Security Rack
+• Cameras
+• This scope of work assumes all cameras are installed and active, currently. After cabling is installed, technicians will work with customer tech team to ensure all cameras maintain proper operations and field of view. 
+","isprivate":"0","creator":"2"},{"ticketpostid":"15461766","post_dateline":"2025-01-17 13:09:15","fullname":"Brett Pearson","contents":"CIS ID 2367830
+
+Hello Flynn Team,
+
+Thank you for the opportunity.  We have received this request and will begin working on it right away.
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15480985","post_dateline":"2025-01-22 11:21:17","fullname":"Devin Leatham","contents":"CIS ID 2367830
+Hello all,
+
+The site survey for this location has been scheduled for 3:00 PM EST 1/23/2025. Technician contact information will be provided shortly. 
+
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15498486","post_dateline":"2025-01-27 13:48:58","fullname":"Brett Pearson","contents":"Good Morning Jesse and Stephen,
+
+Just wanted to reach out to confirm that we are still good on the schedule for the Wendy's install tonight starting at 930 PM EST . Could you please send the name of the lead that will be onsite for this install and let us know if there is anything you need from us. Devin, Ben and Brett can answer any specific questions you might have about the install.
+
+
+Best Regards,
+
+Lucas Berends | Vendor Coordinator
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15498489","post_dateline":"2025-01-27 13:49:10","fullname":"Brett Pearson","contents":"Yes, we are.
+
+Brandon Lowery (copied) is our Project Lead.
+(317) 625 - 1776
+brandon.lowery@comlinkns.com 
+
+
+ Thanks!
+ 
+ 
+Stephen
+Arnold, Operations Manager
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15502091","post_dateline":"2025-01-28 10:45:31","fullname":"Devin Leatham","contents":"Tony (CIS tech support) is working to get the materials from your end.
+ComLink will provide a 32x48 plywood backboard for tonight.
+Power was installed at the rack location.
+ComLink is providing an extra technician (4 total) for tonight to try to get back on schedule.
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15502160","post_dateline":"2025-01-28 10:56:26","fullname":"Devin Leatham","contents":"FST Brandon Lowery (317) 625 - 1776
+
+Verify QC/BOM checklist and
+confirm all materials are delivered.
+
+Technician will need to install backerboard that was not included in last nights work
+
+Pull ARP table data at the beginning
+of the night.
+
+Ensure all worked-on areas are clean
+and free of obstacles.
+
+Run new cables alongside the old
+cabling to their endpoints.
+
+Perform cable management for the
+new runs.
+
+Capture photos of ceiling cable
+pathways, including the use of Jhooks.
+
+
+Install the new rack alongside the
+old rack only if site conditions allow.
+
+Install the new patch panel into the
+new rack.
+
+Install and terminate new cables at
+the new patch panel.
+
+Pre-stage Fortinet hardware
+(Firewall, switches, extender).
+
+ Perform cleanup of all areas affected
+by installation of cabling and racks.
+
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15508483","post_dateline":"2025-01-29 14:45:02","fullname":"Devin Leatham","contents":"Per Kiran - 
+5579 – Move night 3 (network flip) to 2/4
+
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15508485","post_dateline":"2025-01-29 14:45:14","fullname":"Devin Leatham","contents":"Stephen,
+
+I just got word that the customer would like to reschedule night 3 (Network flip) and push to 2/4/2025. Please let me know that this is received and let me know if your team can confirm the new date.
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15508555","post_dateline":"2025-01-29 15:03:16","fullname":"Devin Leatham","contents":"Hello Devin
+
+We can reschedule for February 4, no problem.
+ Thanks!
+ 
+
+Stephen
+Arnold, Operations Manager
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15511777","post_dateline":"2025-01-30 08:33:33","fullname":"Devin Leatham","contents":"CIS ID 2367830
+Confirmed for 9:30 PM local on 2/04/2025
+
+Thank you,
+Devin Leatham
+
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15518640","post_dateline":"2025-01-31 14:21:39","fullname":"Brandon Mahoney","contents":"Tech info:
+Brandon Lowery 317-625-1776
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15529447","post_dateline":"2025-02-04 07:46:51","fullname":"Christopher Hagen","contents":"I just called and confirmed with Brandon that he is good to go tonight. 
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15545011","post_dateline":"2025-02-06 13:56:18","fullname":"Josh Bosen","contents":"Moving these to: Turnu up Projects > Auditas clean up efforts of 2/6/2025
+
+","isprivate":"0","creator":"1"}]

@@ -1,0 +1,227 @@
+Certainly! Here’s an **in-depth analysis of relationships and extracted post/note details** for the ticket chain **15AF838E-5411-C44E-B4D4-CF4E76E02B76 (18 tickets)** beginning with **2367830**.
+
+---
+
+## 1. Parent-Child Relationships (using `linked_tickets`)
+
+- **linked_tickets** fields are **empty for all tickets** in this chain.  
+    - **Implication:** There are **no explicit parent-child relationships** recorded in the system database among these ticket records, i.e., no tickets are formally ‘linked’ as parent or child.
+
+---
+
+## 2. Dispatch / Turnup / Billing Linkages
+
+### a. **Project Structure & Primary Types**
+
+- This project involves:
+    - **Turnup/installation/project tickets** (network/cabling work)
+    - **Site Surveys (Dispatches/Field Service)**
+    - **Revisits and incomplete work**
+    - **General problem/monitoring/billing**
+    - **Shipping** (hardware)
+    - **Formal Billing/Accounting tickets** (client/FST, cost details)
+
+#### **Turnup/Core Project Tickets**
+- **2367830** (Project Management, main cabling/network upgrade, Audit)
+    - **2374738** (Turnup Visit 1, Hardware-Wiring)
+    - **2376373** (Turnup Visit 2, Hardware-Wiring, cabling/install ongoing)
+    - **2377027** (Turnup Visit 3, Hardware-Wiring, more install)
+    - **2378430** (Day 2 Cutover, Hardware, successful cutover)
+    - **2391754** (Revisit 4, VPN Installation—cabling corrections, unresolved work)
+    - **2401728** (Revisit 5, VPN Installation—final corrections, closure)
+
+#### **Site Surveys / Dispatch Tickets**
+- **2382228** ("FW005579_Fishers_IN_Electrician") — assigned as "Closed", billing $0 customer, $488.19 FST
+- **2384454** ("Revisit 1") — referenced closeout notes in 2378430
+- **2387576** ("Revisit 2") — closed, revisit not needed
+- **2391200** ("Revisit 4") — Audit, $801 FST cost, billing confusion, moved to audit
+- **2401701** ("Revisit 5") — Audit, $821.77 FST cost, revisit pricing
+- **2424333** (Site Survey, "Closed", $380 FST cost, client billing ticket 2401704)
+- **2424336** (Electrician Client Billing—closed, $600 bill to customer, processed on 2382228)
+
+#### **General / Support / Billing Tickets**
+- **2381165** ("Billing") — instructs accounting to initiate billing after successful cutover
+- **2381460** ("Comcast Modem") — addresses modem config issues post-cutover
+- **2382162** ("Add to billing") — confirms site addition to CIS monitor, instructs to invoice appropriately
+
+#### **Shipping Ticket**
+- **2368088** — Hardware shipment, ultimately not used (client shipped hardware themselves)
+
+---
+
+### b. **Mapping Ticket Workflows**
+
+#### Turnup/Dispatch-to-Billing Pathways
+
+- **Field Service/Install (Turnup/Survey) → Completion → Billing/Accounting**
+    - **Example:**  
+        - *Turnup installs (2367830, 2378430, 2377027, 2391754)* &rarr;  
+        - *Site survey tickets (2382228, 2384454, etc.)* &rarr;  
+        - *Billing triggered by 2381165, 2382162, and finalized in 2382228, 2424333, 2424336.*
+
+#### Billing/Accounting Activity
+- **2381165** (“Please initiate billing for this location. Thank you.”, post by Tony Dinh, 2025-02-05)
+    - Response: “Added on ticket 2382162” (Kayla Gonzalez, 2025-02-17)
+- **2382162** (“Added to billing.” — shown as completed, closes the accounting loop)
+
+#### Survey/Turnup–Audit
+- **2378430**: Field install, then moves to audit for review per last post (2377027, 2378430).
+- **2382228**: Billing ticket for “Electrician”, invoice to FST, references “Billing to the client will be completed on 2401704” (possible typo for '2401701' or related client billing).
+
+#### Revisits & Incomplete Work
+- **2384454** references “closeout notes in 2378430” (post, 2384454).
+- **2391754** and **2401728** (Revisits 4/5): Document the process of repeatedly returning to the site for corrections/materials and final punchlist items.
+- **2391200** and **2401701**: Track audit status and repeated invoices (one $801, one $821.77), with submitted and later rescinded invoices—see posts by Brandon Mahoney.
+
+---
+
+### c. **Orphaned / Unlinked Records**
+
+- **All tickets have empty `linked_tickets`.**
+    - However, functionally, some (e.g., 2368088, hardware shipping, and 2381460, modem issue) **stand alone** and are referenced elsewhere by post content, not formally linked.
+
+---
+
+## 3. Ticket Detail Extraction (*with post/note citations*)
+
+---
+
+### **Cable Drop Counts** (`Qty.` mentions, totals):
+
+- **2367830, 2374738, 2376373, 2377027, 2378430**  
+  Each contains lengthy SOW listing, explicit count for each drop:
+    - **WAP:** 1
+    - **Digital Menu Bar (DMB):** 4
+    - **Timer:** 1
+    - **Music:** 1
+    - **Manager Station:** 4
+    - **POS:** 4
+    - **POS with jumper:** 3
+    - **Kiosk:** 4
+    - **Prep:** 1
+    - **Prep and Jumper:** 2
+    - **OCD and Outdoor DMB:** 4
+    - **Cameras:** cable validation, not count provided
+    - **See original post from 2367830, 2374738 for explicit, bulleted counts (“Install Qty. X – ...”)**
+
+---
+
+### **Completion Status (closing, completed, open, incomplete):**
+
+- **Survey/Turnup Progression:**
+    - **2374738:** "Completed" (Field survey, 1/23/25)
+      - “Tech completed the site survey... and will have the results sent over as soon as possible.” (Post by Robert Cohen)
+    - **2376373:** "Incomplete"
+      - Ongoing issues with rack/backboard, outlet, terminations (see Tony Dinh posts at end); outstanding items listed.
+    - **2377027:** "Completed"
+      - Subsequent completion, install of new racks, panel term, posts about cleanup and “all systems are online.”
+    - **2378430:** "Completed"
+      - “Site cutover is successful and store confirmed operational.” (Tony Dinh post, 2/5/25)
+    - **2391754 (Revisit 4):** "Incomplete"
+      - “Unresolved Issues: Replacement of patch cabling... AP terminations to Z-plugs...” (John Box post, 3/7/25)
+    - **2401728 (Revisit 5):** "Completed" (Final closure, all punchlist items resolved)
+      - “Technician completed final cabling and mounting work. Patch cables, clips, surface mount boxes, and patch panel blanks were installed.” (Timothy Smith, 3/18/25)
+
+- **Billing/Accounting:**
+    - **2382228:** "Closed"
+    - **2381165, 2382162, 2424336, 2424333:** “Closed”, completed, billing processed.
+
+- **Special Case:**  
+  **2387576 (“Revisit 2”)**: Closed early (“Closing this ticket per Chris - it is no longer needed”)
+
+---
+
+### **Revisit Requirements & Pending/Delays**
+
+- **Reschedule/Delay:**
+    - **2367830:** Scheduling moved for 3rd night flip (Devin Leatham, 1/29/25):
+        - “Move night 3 (network flip) to 2/4...”
+    - **2374738:** Customer “asked us that we confirm the availability for a 3rd revisit...” (Devin Leatham, 1/28/25)
+    - **2376373:** Work paused due to hardware/rack issues (“...Brandon can be back tomorrow with a bigger back board...”, “...avoid pushing things to night 2”, Tony Dinh, 1/28/25)
+    - **2378430:** Revisit “needed to run a drop for the NVR system” (Tony Dinh, 2/5/25)
+    - **2384454:** “See tony's closeout notes in 2378430” —i.e., follow up necessary.
+    - **2391754 (Revisit 4):**
+        - “Unresolved Issues this installation:
+          \u2022 Replacement of patch cabling at the device end and color clips for patch cables
+          \u2022 Replacement of AP terminations to Z-plugs...”
+        - “What we need to complete the site: 25 patch cables, 8 blue clips, ...” (John Box; multiple posts, 3/7/25)
+    - **2401728 (Revisit 5):** All deliverables resolved, “Incomplete / remaining items, if any: N/A”
+
+- **Delays / On Hold / Cancellations**
+    - **2368088:** Shipping ticket closed after hardware not used: 
+        - “Note: This was closed because the client shipped the hardware themselves.” (Eric Morales post, 1/27/25)
+    - **2387576:** Ticket closed, revisit not needed:
+        - “Closing this ticket per Chris - it is no longer needed” (Alyssa Philpott, 2/19/25)
+    - **2391200/2401701:** Billing/invoicing confusion:
+        - “Invoices submitted to CIS in error... Please disregard... Once above projects have been fully finalized, proper invoices will be submitted to CIS.” (Brandon Mahoney, 3/20/25)
+    - **2381450:** Modem NAT/pass-through mode delay. (Configs performed (Philip Smith/Tony Dinh, 2/5/25))
+
+---
+
+### **Other Key Post Extracts (by requirement):**
+
+#### **Cable/Material Shortage Listings**
+- **2378430** (and subsequent revisits; see posts by Tony Dinh, John Box):
+    - “FST requested a few additional items: 10 blank inserts for patch panel, 1 blank face plate.”
+    - “what is needed to complete the site: 25 patch cables, 8 blue clips, ...” (John Box, 2391754)
+
+#### **Punchlist Closure**
+- **2401728:** 
+    - “Technician completed final cabling and mounting work. Patch cables, clips, surface mount boxes, and patch panel blanks were installed. Final photos were taken.”
+    - “Incomplete / remaining items: N/A”
+
+#### **Cost/Billing Details**
+- **2382228:** “FST cost: $488.19. Billing to the client will be completed on 2401704.”
+- **2391200:** “FST invoice attached, FST cost: $801”
+- **2401701:** “FST invoice attached, FST cost: 821.77 Moving to audit for Revisit pricing”
+- **2424333/2424336:** Final customer/FST bill split.
+
+---
+
+## 4. **Summary Table of Relationships**
+
+| Ticket ID   | Type           | Status        | Role       | Linked         | Cables         | Revisit | Delay/Issue | Billing                             | Notes/Extract  |
+|-------------|----------------|--------------|------------|---------------|----------------|---------|-------------|--------------------------------------|----------------|
+| 2367830     | Project Mgmt   | Audit        | Main Cabling| No            | Qty. Details   | Yes     | Move night 3 |                                      | Site walk req  |
+| 2374738     | Turnup Visit 1 | Completed    | Survey     | No            | Yes            | Yes     | Confirm 3rd visit |                                 |               |
+| 2376373     | Turnup Visit 2 | Incomplete   | Install    | No            | Yes            | Yes     | Hardware/rack |                                | Power, backboard|
+| 2377027     | Turnup Visit 3 | Completed    | Install    | No            | Yes            | -       |             |                                      | More install   |
+| 2378430     | Cutover        | Completed    | Cutover    | No            | Yes            | Yes     | NVR run pending |                              | Success status |
+| 2382228     | Survey/Billing | Closed       | Survey/Bill| No            | -              | -       | -           | $488.19 FST, $0 customer             | Related to 2401701|
+| 2384454     | Survey         | Confirmed    | Revisit1   | No            | -              | Yes     | -           |                                      | Points to 2378430 |
+| 2387576     | Survey         | Closed       | Revisit2   | No            | -              | Closed  | Not needed  |                                      | Closed per Chris |
+| 2391200     | Survey/Billing | Audit        | Revisit4   | No            | -              | Yes     | Invoice issue| $801 FST                            | See 2391754, 2401701 details |
+| 2391754     | Turnup         | Incomplete   | Revisit4   | No            | Yes            | Yes     | Materials   |                                      | "Unresolved Issues"|
+| 2401728     | Turnup         | Completed    | Revisit5   | No            | Yes            | -       |             |                                      | Final closure|
+| 2401701     | Survey/Billing | Audit        | Revisit5   | No            | -              | -       | Pricing     | $821.77 FST                          |                |
+| 2424333     | Survey/Billing | Closed       | Account    | No            | -              | -       | -           | $380 FST, $0 customer                |                |
+| 2424336     | Survey/Billing | Closed       | Account    | No            | -              | -       | -           | $600 customer, $0 FST                |                |
+| 2381165     | General/Billing| Closed       | Billing    | No            | -              | -       | -           | Initiate billing                      |                |
+| 2381460     | General/Monitor| Closed       | Monitoring | No            | -              | -       | Nat mode Delays  |                              | Comcast config |
+| 2382162     | General/Billing| Closed       | Billing    | No            | -              | -       | -           | "Added to billing"                    |                |
+| 2368088     | Shipping       | Closed       | Shipping   | No            | Hardware list  | -       | "Client shipped" |                                 | Not used       |
+| ...         | ...            | ...          | ...        | ...           | ...            | ...     | ...         | ...                                  | ...            |
+
+---
+
+## 5. **Summary & Observations**
+
+- **All tickets** are **unlinked in system data** but **logically related** via subject, post references, and chronological dependencies.
+- The workflow is **sequential**, with install/turnups, escalated field corrections (revisits), audit, and then billing/accounting closure.
+- **Revisits** are frequent, necessitated by:
+    - Hardware/labor issues (rack, power, dropped cables, material shortages)
+    - Scheduling conflicts (sites not closed, hardware delays)
+    - Final punchlist items (NVR drops, patch cables and color clips, AP terminations)
+- **Delays** are called out explicitly in posts (e.g., “did not ship”, “needed larger back board”), as are requirements for further revisits.
+- **Billing confusion/invoice issues** is present, with corrected bills and zero-cost to customer entries, as well as client/FST cost tickets.
+- **Material requirements** repeatedly cited: e.g., “25 patch cables, 8 blue clips...”, “10 blank inserts”, leading to two revisits for final closure.
+- **Final closure** is only truly achieved after Revisit 5 (2401728), with all installation, corrective, and material tasks done and sign-off received.
+
+---
+
+### **In Summary**
+- The entire chain is a **single, evolving project** for network upgrade/cabling at Flynn 5579/Fishers/IN, with dispatch, install, support, revisit, and billing all manifesting as discrete, unlinked ticket records.
+- **Posts and notes** contain the true “thread” binding the records, with explicit cross-references (e.g., “see closeout notes in 2378430”) and shared project context.
+- **Cable drop counts, completion, revisit, and delay details** are documented in first posts and subsequent technician/PM notes, with ticket IDs and post dates provided in this summary.
+
+If you require visualization (e.g., a workflow diagram) or deeper drill-down into any individual ticket’s chronology or field-work specifics, let me know!

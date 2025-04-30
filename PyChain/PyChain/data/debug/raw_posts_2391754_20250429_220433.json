@@ -1,0 +1,154 @@
+[
+  {
+    "id": "15625725",
+    "time": "2025-02-25 13:30:29",
+    "user": "David Fisher",
+    "contents": "Scope - Objective: Revisit 4Scope: Complete the following:Materials:- FST requested a few additional items for the store10 blank inserts for the patch panel1 blank face plate- There are two temp cable runs for NVR connectivity Technician Information: Expected In Time: 10:00 PM Technician Type: ContractorFST Technician Name: Tim KellerContact #: (317) 954-0286 Project ID: NETWORK RE-CABLING - WENDYS  Customer Name: FlynnStore Type: ExistingStore Name: East 96th StSite #: 5579Street Address: 8000 E 96th StSuite: City: FishersState: INZIP: 46037 Site Contact Name:  Site Contact Number:  New Store Contact:  Site Time Zone:   Provider Ordered:  Product Ordered:  Number of IPs:  Upload Bandwidth:  Download Bandwidth:  Circuit InformationOrder ID: Account Number:  ISP Circuit Live: IP Address:  IP Assignment: Subnet Mask: Gateway: DNS1: DNS2: Provider Support Number:   Modem Information Make:  Model:  Mode:   DMARC Extension Extension Required:  Date extension completed:  DMARC Location Details:  ILEC Circuit ID:  ",
+    "private": "0",
+    "creator": "2"
+  },
+  {
+    "id": "15637018",
+    "time": "2025-02-27 12:35:21",
+    "user": "Alyssa Philpott",
+    "contents": "add to their scopes: take proper closeout photos again",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675016",
+    "time": "2025-03-06 21:32:46",
+    "user": "Christopher Hagen",
+    "contents": "Scope: Blanks and blank faceplate are on order- install, There are two temp cable runs for NVR connectivity- Run and terminate, No new patch cords, No color clips, smbs not mounted to furniture, Cannot see photos of jack colors, abatement, strighten AP, Photo of lag bolts, 6' loop in ceiling. ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675064",
+    "time": "2025-03-06 22:01:09",
+    "user": "John Box",
+    "contents": "calling FST",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675073",
+    "time": "2025-03-06 22:05:58",
+    "user": "John Box",
+    "contents": "FST is on site and he is getting started",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675088",
+    "time": "2025-03-06 22:15:17",
+    "user": "John Box",
+    "contents": "pre ARP table FW005579 # get sys arp | grep 10.55.79.10.55.79.197      2689       c4:00:ad:12:6e:3e CLOE_PAY10.55.79.1        2          e0:4f:43:55:df:7d CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.55.79.29       0          6c:0b:84:a3:42:30 CLOE_PCI10.55.79.2        1          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        2          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.12       0          1c:ee:c9:0c:1b:89 CLOE_PCI10.55.79.22       1          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI FW005579 # get sys arp Address           Age(min)   Hardware Addr      Interface192.168.170.3     87         f8:0d:ac:da:6e:35 CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink192.168.170.95    0          c0:74:ad:49:93:be CLOE_Bridge10.55.79.197      2689       c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          fa:0c:23:9e:f7:fc WAN2_FEX192.168.170.97    0          00:30:18:00:9b:61 CLOE_Bridge10.55.79.1        2          e0:4f:43:55:df:7d CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      0          80:80:2c:f1:96:f8 FW_MGMT10.55.79.29       0          6c:0b:84:a3:42:30 CLOE_PCI192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    0          00:10:be:20:7d:6b CLOE_Bridge10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.2        1          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.12       0          1c:ee:c9:0c:1b:89 CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       1          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      0          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     1          20:4b:22:91:d4:e6 CLOE_Bridge",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675169",
+    "time": "2025-03-06 22:44:56",
+    "user": "John Box",
+    "contents": "FST is getting the rack corrected  ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675267",
+    "time": "2025-03-06 23:32:22",
+    "user": "John Box",
+    "contents": "FST is getting close on getting the jack in the patch panel correct and the cables to the correct ports on the SWs ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675351",
+    "time": "2025-03-07 00:08:07",
+    "user": "John Box",
+    "contents": "FST is getting the rack corrected",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675497",
+    "time": "2025-03-07 01:01:11",
+    "user": "John Box",
+    "contents": "the FST got all of the cables to the correct spots they are working on cable management ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675608",
+    "time": "2025-03-07 02:05:25",
+    "user": "John Box",
+    "contents": "they are working on cable management",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675647",
+    "time": "2025-03-07 02:31:39",
+    "user": "John Box",
+    "contents": "FST is about done he said he need 15 to 30 mins and he will be getting me pics ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675695",
+    "time": "2025-03-07 03:13:55",
+    "user": "John Box",
+    "contents": "FW005579 # get sys arp | grep 10.55.7910.55.79.197      0          c4:00:ad:12:6e:3e CLOE_PAY10.55.79.201      0          38:ef:e3:e8:81:04 CLOE_PAY10.55.79.1        0          e0:4f:43:55:df:7d CLOE_PCI10.55.79.203      0          38:ef:e3:e4:26:1f CLOE_PAY10.55.79.3        0          30:0e:d5:38:50:ea CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.55.79.29       2          6c:0b:84:a3:42:30 CLOE_PCI10.55.79.196      0          c4:00:ad:12:6e:3e CLOE_PAY10.55.79.202      0          38:ef:e3:e5:39:4c CLOE_PAY10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.204      0          10:1e:da:7e:c1:c3 CLOE_PAY10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI10.55.79.22       0          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI FW005579 # get sys arpAddress           Age(min)   Hardware Addr      Interface192.168.170.3     10         f8:0d:ac:da:6e:35 CLOE_Bridge192.168.170.95    0          c0:74:ad:49:93:be CLOE_Bridge96.94.12.58       0          c4:50:9c:7a:4f:39 wan110.222.0.114      0          80:80:2c:4a:12:30 fortilink10.55.79.197      0          c4:00:ad:12:6e:3e CLOE_PAY63.44.78.197      0          c6:ff:51:53:68:6d WAN2_FEX10.55.79.201      0          38:ef:e3:e8:81:04 CLOE_PAY10.55.79.1        1          e0:4f:43:55:df:7d CLOE_PCI10.55.79.203      0          38:ef:e3:e4:26:1f CLOE_PAY10.55.79.3        0          30:0e:d5:38:50:ea CLOE_PCI10.55.79.101      0          c8:f7:50:fa:0b:42 CLOE_PCI10.55.79.23       0          6c:0b:84:a3:8b:33 CLOE_PCI10.55.79.25       0          6c:0b:84:a3:69:29 CLOE_PCI10.222.0.123      0          80:80:2c:f1:96:f8 FW_MGMT10.55.79.29       2          6c:0b:84:a3:42:30 CLOE_PCI192.168.170.2     0          a4:bb:6d:a6:a4:04 CLOE_Bridge192.168.170.90    1          00:10:be:20:7d:6b CLOE_Bridge10.55.79.196      0          c4:00:ad:12:6e:3e CLOE_PAY10.222.0.115      0          80:80:2c:4a:13:08 fortilink10.55.79.202      0          38:ef:e3:e5:39:4c CLOE_PAY10.55.79.2        0          3c:e1:a1:c9:24:58 CLOE_PCI10.55.79.204      0          10:1e:da:7e:c1:c3 CLOE_PAY10.55.79.4        0          3c:e1:a1:3b:db:bc CLOE_PCI192.168.200.99    0          ac:71:2e:d6:0d:1e wan210.55.79.22       0          6c:0b:84:a3:8e:e8 CLOE_PCI10.55.79.24       0          6c:0b:84:a3:70:14 CLOE_PCI10.222.0.122      1          80:80:2c:f2:10:78 FW_MGMT192.168.170.1     0          20:4b:22:91:d4:e6 CLOE_Bridge",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675718",
+    "time": "2025-03-07 03:31:54",
+    "user": "John Box",
+    "contents": "they don't have the new cable with the colored clips to replace the cables at the devices site",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675779",
+    "time": "2025-03-07 04:01:36",
+    "user": "John Box",
+    "contents": "Benjamin give approval to release the FST FST is leaving ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675788",
+    "time": "2025-03-07 04:02:43",
+    "user": "John Box",
+    "contents": "what is needed to complete the site 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips ",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675804",
+    "time": "2025-03-07 04:07:45",
+    "user": "John Box",
+    "contents": "Flynn site number: Flynn_FW005579_Fishers_IN_Revisit 4 3/6/2025 10:00 PM Visit date: 3/6/2025Number of technicians onsite: Check-in time: 10:00 PM PSTCheck-out time:  4:00 AM PSTTotal hours 6 hours Cutover status: yesFST name and number: Tim Keller (317) 954-0286Manager name upon arrival:  Adrian Additional materials needed: 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips a. Cutover to Fortinet stack completed: Yesb. All validation steps completed: Yesc. Record Cradlepoint IMEI and SIM: Yesd. Pre/Post-change ARP table verified: Yese. Network validated by Service Desk: Yesf. Legacy hardware decommissioned: Yesg. Location of decommissioned hardware: not fully h. Cable abatement completed: Yesi. Photos attached to the turn-up ticket: Yesj. Incomplete / remaining items, if any: needing to replace the patch cables going to the devices k. Notes of any issues experienced:",
+    "private": "1",
+    "creator": "1"
+  },
+  {
+    "id": "15675823",
+    "time": "2025-03-07 04:14:47",
+    "user": "John Box",
+    "contents": "In: 10:00 PMOut: 4:01 AMBrief notes on Turnup start to finish: Got before pics FST worked on getting the cable to the corrected ports on the switches Got the jacks to the correct color on the patch panel Installed the blacks in the patch panel Did cable management of the IT rack Got pics of the IT rack, jacks, and cables Got approval from Benjemin what is needed to complete the site 25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips Brief notes on significant sources of delay: List of any Materials Used by FST:Approximate time and description of client driven time spent on out of scope work: Unresolved Issues this installation:•Replacement of patch cabling at the device end and color clips for patch cables•Replacement of AP terminations to Z-plugs instead of data jacks at device endLocal Contact on Site: AdrianCIS ticket completion approved by: BenjeminClient ticket completion approved by: ",
+    "private": "0",
+    "creator": "1"
+  },
+  {
+    "id": "15675824",
+    "time": "2025-03-07 04:15:25",
+    "user": "John Box",
+    "contents": "PM notes •Replacement of patch cabling at the device end and color clips for patch cables•Replacement of AP terminations to Z-plugs instead of data jacks at device endWhat we need to complete the site25 patch cables 8 blue clips12 purple clips 4 white clips 2 red clips 12 green clips10 orange clips AP terminations to Z-plugs",
+    "private": "1",
+    "creator": "1"
+  }
+]

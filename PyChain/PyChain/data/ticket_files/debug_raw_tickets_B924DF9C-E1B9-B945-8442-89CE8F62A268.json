@@ -1,0 +1,958 @@
+{
+  "2376701": {
+    "ticket_id": "2376701",
+    "subject": "Flynn_Wendys FW008350_Hagerstown_MD_Cabling and Network Upgrade",
+    "status": "Closed",
+    "department": "N/A",
+    "created_date": "2025-01-28T07:20:06",
+    "last_activity_date": "2025-02-06T14:53:44",
+    "closed_date": "2025-02-06T14:53:45",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Project Management",
+    "site": {
+      "number": "Wendys FW008350",
+      "address": "17786 Garland Groh Blvd, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK UPGRADE INSTALLATION - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 3,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable"
+  },
+  "2376735": {
+    "ticket_id": "2376735",
+    "subject": "Flynn_FW008350_Hagerstown_MD",
+    "status": "Delivered",
+    "department": "N/A",
+    "created_date": "2025-01-28T07:48:37",
+    "last_activity_date": "2025-02-13T12:00:42",
+    "closed_date": "2025-02-13T12:00:43",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Shipping Tickets",
+    "site": {
+      "number": "FW008350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "Flynn - FSPM",
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 6,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable"
+  },
+  "2376830": {
+    "ticket_id": "2376830",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket",
+    "status": "Closed",
+    "department": "N/A",
+    "created_date": "2025-01-28T08:28:15",
+    "last_activity_date": "2025-02-06T14:06:27",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": true,
+    "is_dispatch": true,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Dispatch Tickets",
+    "site": {
+      "number": "FW008350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": null,
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 1,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "dispatch_data": {
+      "status": "Closed",
+      "type": "Turnup",
+      "service_date": "2025-02-12",
+      "service_time": "77400.0 seconds",
+      "priority": "Normal",
+      "customer_name": "Flynn",
+      "wo_id": 0,
+      "turnup_id": 2380336,
+      "site_number": "FW008350",
+      "project_id": null,
+      "location": {
+        "address": "N/A",
+        "city": "N/A",
+        "state": "N/A",
+        "zipcode": "N/A",
+        "phone": "N/A",
+        "timezone": "N/A"
+      }
+    }
+  },
+  "2380335": {
+    "ticket_id": "2380335",
+    "subject": "Flynn_Wendys FW008350_Hagerstown_MD SURVEY 2/4/2025 11:30 AM",
+    "status": "Completed",
+    "department": "N/A",
+    "created_date": "2025-02-04T08:30:26",
+    "last_activity_date": "2025-02-04T08:43:59",
+    "closed_date": "2025-02-04T08:41:41",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "Wendys FW008350",
+      "address": "17786 Garland Groh Blvd, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK UPGRADE INSTALLATION - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 1,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2376701",
+    "turnup_data": {
+      "status": "Completed",
+      "service_date": "2025-02-04",
+      "technician_name": "^Jeff.Cohen",
+      "in_time": "8:00 AM",
+      "out_time": "8:27 AM",
+      "duration": null,
+      "notes": "In: 8:00 AM\nOut: 8:27 AM\n\nWork Completed:\n\nTech arrived onsite and checked in with MOD, Tim, from Wendy\u2019s.\nTech completed the site survey successfully.\nTech will submit the survey results to the project manager as soon as possible.\nTech was then approved for release by MOD, Tim.\n\nSurvey Notes:\n\nCable Requirements:\n\n28 cable runs needed.\n1 additional cable run may be required for a label printer.\nRack Installation:\n2 racks to be installed.\nPower Note: A power outlet is needed at the new rack location.\nObstructions: No obstructions identified.\nISP Circuit: Technician was unable to locate the ISP circuit. Further investigation may be required.\n\nCheck In Time: 8:00 AM PST\nCheck Out Time: 8:27 AM PST\nMOD Name: Tim\n\nJoel\n(240) 888-7239\n\nFinal pics.\n\nEmail requested.\n\nhttps://portal.cissdm.com/customer/dispatch/2376701",
+      "dispatch_notes": "Legacy Cabling Demo:\n\n\u2022 CIS Technicians will properly demo all legacy data cabling in the building      AFTER they have completed the installation of the parallel network to      reduce downtime. This will be done carefully to avoid damaging other      trades.Network Buildout:\n\n\u2022 Upon completion of the demolition of existing data cabling, technicians will      decommission existing networking equipment as required.\n\u2022 If required, legacy networking devices will be left will local management or       dropped off at a local shipping provider to be sent back to a centralized       location.\n\u2022 Rack installation:\n\u2022 Install Qty. 1 \u2013 Open-frame Network Equipment Rack, wall-mounted with plywood        backboard in the Crew area.\n\u2022 Rack to be mounted within 6\u201d from the ceiling.\n\u2022 Plywood will be securely fastened to the wall using structural wall supports         for the racks to mount to.\n\u2022 Equipment Stack:\n\u2022 Install Qty. 1 \u2013 2U shelf for the Meraki switch and ISP modem to sit on inside        the rack.\n\u2022 Supply a coaxial demarc extension to the new rack location.\n\u2022 Install Qty. 2 \u2013 Network switches inside the racks for data connections.\n\u2022 Install Qty. 1 \u2013 PDU in the data rack\n\u2022 Install Qty. 1 \u2013 customer provided UPS inside the data rack.\n\u2022 Install Qty. 2 \u2013 2u shelf inside the security rack for the Actineon Nodes and        the Mood Media devices.\n\u2022 Install Qty. 2 \u2013 Unloaded, Modular Patch Panel, 24-port inside the new racks for       data cabling.\n\u2022 Unloaded patch panel will be populated with the correct, color-coded data jacks        in the alignment that the customer provided.\n\u2022 Install Qty. 1 \u2013 Wireless Access Point in predetermined locations.\n\u2022 All devices will be cross-connected following wiring diagrams/port mapping.\n\u2022 All devices will be tested and turned up with the tech team.Horizontal (Cat 6) Cabling:\n\n\u2022 From Rack 1 \u2013 Data Rack\n\u2022 WAP\n\u2022 Install Qty. 1 \u2013 Siemon Cat 6 Non-Plenum Cable(s) from the new data rack        location to an AP location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy         infrastructure may have been lacking to ensure the new cabling meets         local and building codes.\n\u2022 Terminate cabling to a male RJ45 Siemon Z-plug on the device end and to a black         Cat 6 data jack on the server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure         proper function.\n\u2022 DMB\n\u2022 Install Qty. 4 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to 4 separate single drop Digital Menu Bar location(s) specified on the         floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon yellow Cat 6 data jack housed in a modular          faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Timer\n\u2022 Install Qty. 1 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to Digital Menu Bar location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon black Cat 6 data jack housed in a modular          faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Music\n\u2022 Install Qty. 1 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to Digital Menu Bar location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon black Cat 6 data jack housed in a modular          faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Manager Station\n\u2022 Install Qty. 4 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to a quad drop Manager Station location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to Siemon ivory, red, blue, and white Cat 6 data jack housed          in a modular faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 POS\n\u2022 Install Qty. 4 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to 2 dual drop POS location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a          modular faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 POS with Jumper\n\u2022 Install Qty. 3 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to a triple drop POS with jumper location(s) specified on the         floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon green, violet, and blue Cat 6 data jack housed in          a modular faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Kiosk\n\u2022 Install Qty. 4 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to 2 dual drop kiosk location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon green and violet Cat 6 data jack housed in a          modular faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Prep\n\u2022 Install Qty. 1 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to a single drop prep location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon orange Cat 6 data jack housed in a modular          faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Prep and Jumper\n\u2022 Install Qty. 2 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to Digital Menu Bar location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon orange and blue Cat 6 data jack housed in a          modular faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 Timer\n\u2022 Install Qty. 1 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to Digital Menu Bar location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon black Cat 6 data jack housed in a modular          faceplate/patch panel on the device and server end.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 OCD and Outdoor DMB\n\u2022 Install Qty. 4 \u2013 Siemon Cat 6 Non-Plenum Cables from the new data rack location         to Outdoor pedestals for a single drop OCD and quad drop Outdoor DMB         location(s) specified on the floorplan.\n\u2022 If required, J-hook cable hangers will be added where legacy          infrastructure may have been lacking to ensure the new cabling meets          local and building codes.\n\u2022 Terminate cabling to a Siemon male RJ-45 on the device end and to black and          yellow Cat 6 data jacks on the server end, black for OCD and yellow          for DMB.\n\u2022 All cabling will be tested and labeled on both ends of the cable to ensure          proper function.\n\u2022 From Rack 2 \u2013 Security Rack\n\u2022 Cameras\n\u2022 This scope of work assumes all cameras are installed and active, currently.         After cabling is installed, technicians will work with customer tech         team to ensure all cameras maintain proper operations and field of         view.",
+      "failure_code": null,
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-04 08:30:26",
+      "last_activity_date": "2025-02-04 08:43:59",
+      "closed_date": "2025-02-04 08:41:41"
+    }
+  },
+  "2380336": {
+    "ticket_id": "2380336",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket 2/12/2025 9:30 PM",
+    "status": "Closed",
+    "department": "N/A",
+    "created_date": "2025-02-04T08:30:36",
+    "last_activity_date": "2025-02-06T15:13:11",
+    "closed_date": "2025-02-06T15:13:12",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Project Management",
+    "site": {
+      "number": "FW008350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": null,
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 2,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable"
+  },
+  "2382265": {
+    "ticket_id": "2382265",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Site Survey",
+    "status": "Confirmed",
+    "department": "N/A",
+    "created_date": "2025-02-06T15:01:13",
+    "last_activity_date": "2025-02-07T09:34:10",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": false,
+    "is_dispatch": true,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [
+      {
+        "id": "647147",
+        "time": "2025-03-31 07:41:51",
+        "user": "Hannah Szubinski",
+        "contents": "https://staff.cissdm.com/ticketing/ticket/2380335"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      },
+      {
+        "time": "2025-03-31 07:41:51",
+        "type": "note",
+        "user": "Hannah Szubinski",
+        "content": "https://staff.cissdm.com/ticketing/ticket/2380335"
+      }
+    ],
+    "issues": [],
+    "category": "Dispatch Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 1,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "dispatch_data": {
+      "status": "Confirmed",
+      "type": "Site Survey",
+      "service_date": "2025-02-04",
+      "service_time": "18000.0 seconds",
+      "priority": "Normal",
+      "customer_name": "Flynn",
+      "wo_id": 0,
+      "turnup_id": null,
+      "site_number": "8350",
+      "project_id": "NETWORK RE-CABLING - WENDYS",
+      "location": {
+        "address": "N/A",
+        "city": "N/A",
+        "state": "N/A",
+        "zipcode": "N/A",
+        "phone": "N/A",
+        "timezone": "N/A"
+      }
+    }
+  },
+  "2382333": {
+    "ticket_id": "2382333",
+    "subject": "Flynn_FW008350_Hagerstown_MD_P1",
+    "status": "On Hold",
+    "department": "N/A",
+    "created_date": "2025-02-06T15:59:13",
+    "last_activity_date": "2025-02-11T14:36:25",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": false,
+    "is_dispatch": true,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [
+      {
+        "id": "647142",
+        "time": "2025-03-31 07:21:40",
+        "user": "Hannah Szubinski",
+        "contents": "On hold per Lucas"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      },
+      {
+        "time": "2025-03-31 07:21:40",
+        "type": "note",
+        "user": "Hannah Szubinski",
+        "content": "On hold per Lucas"
+      }
+    ],
+    "issues": [
+      "Non-1:1 relationship, linked to 2 turnups: 2382726, 2389439"
+    ],
+    "category": "Dispatch Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 3,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "dispatch_data": {
+      "status": "On Hold",
+      "type": "Hardware-Wiring",
+      "service_date": "2025-02-24",
+      "service_time": "66600.0 seconds",
+      "priority": "Normal",
+      "customer_name": "Flynn",
+      "wo_id": 0,
+      "turnup_id": 2389439,
+      "site_number": "8350",
+      "project_id": "NETWORK RE-CABLING - WENDYS",
+      "location": {
+        "address": "N/A",
+        "city": "N/A",
+        "state": "N/A",
+        "zipcode": "N/A",
+        "phone": "N/A",
+        "timezone": "N/A"
+      }
+    }
+  },
+  "2382726": {
+    "ticket_id": "2382726",
+    "subject": "Flynn_FW008350_Hagerstown_MD_P1 2/11/2025 6:30 PM",
+    "status": "Failed",
+    "department": "N/A",
+    "created_date": "2025-02-07T11:00:33",
+    "last_activity_date": "2025-02-11T18:43:10",
+    "closed_date": "2025-02-11T18:43:10",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [
+      {
+        "id": "641428",
+        "time": "2025-02-11 18:21:00",
+        "user": "Robert Cohen",
+        "contents": "Site: 6614"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      },
+      {
+        "time": "2025-02-11 18:21:00",
+        "type": "note",
+        "user": "Robert Cohen",
+        "content": "Site: 6614"
+      }
+    ],
+    "issues": [
+      "Missing visit times (InTime/OutTime)",
+      "Failed/Cancelled: Tech Cancel - "
+    ],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2382333",
+    "turnup_data": {
+      "status": "Failed",
+      "service_date": "2025-02-11",
+      "technician_name": "^Ryan.Cohen",
+      "in_time": "",
+      "out_time": "",
+      "duration": null,
+      "notes": "",
+      "dispatch_notes": "Phase 1",
+      "failure_code": "Tech Cancel",
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-07 11:00:33",
+      "last_activity_date": "2025-02-11 18:43:10",
+      "closed_date": "2025-02-11 18:43:10"
+    }
+  },
+  "2382746": {
+    "ticket_id": "2382746",
+    "subject": "Flynn_FW008350_Hagerstown_MD_P2 2/12/2025 ",
+    "status": "Cancelled - CIS",
+    "department": "N/A",
+    "created_date": "2025-02-07T11:30:33",
+    "last_activity_date": "2025-02-07T11:30:33",
+    "closed_date": "2025-03-31T07:35:45",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [
+      {
+        "id": "641299",
+        "time": "2025-02-11 06:14:40",
+        "user": "Jill Bankey",
+        "contents": "NPC name in MX portal for ARP:  6614"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      },
+      {
+        "time": "2025-02-11 06:14:40",
+        "type": "note",
+        "user": "Jill Bankey",
+        "content": "NPC name in MX portal for ARP:  6614"
+      }
+    ],
+    "issues": [
+      "Missing visit times (InTime/OutTime)"
+    ],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2382382",
+    "turnup_data": {
+      "status": "Cancelled - CIS",
+      "service_date": "2025-02-12",
+      "technician_name": "^Todd.Zagarri",
+      "in_time": "",
+      "out_time": "",
+      "duration": null,
+      "notes": "",
+      "dispatch_notes": "P2",
+      "failure_code": null,
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-07 11:30:33",
+      "last_activity_date": "2025-02-07 11:30:33",
+      "closed_date": "2025-03-31 07:35:45"
+    }
+  },
+  "2384350": {
+    "ticket_id": "2384350",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install",
+    "status": "Scheduled",
+    "department": "N/A",
+    "created_date": "2025-02-11T09:10:01",
+    "last_activity_date": "2025-02-11T09:10:01",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": false,
+    "is_dispatch": true,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Dispatch Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "dispatch_data": {
+      "status": "Scheduled",
+      "type": "Repair",
+      "service_date": "2025-02-13",
+      "service_time": "18000.0 seconds",
+      "priority": "Normal",
+      "customer_name": "Flynn",
+      "wo_id": 0,
+      "turnup_id": 2385184,
+      "site_number": "8350",
+      "project_id": "NETWORK RE-CABLING - WENDYS",
+      "location": {
+        "address": "N/A",
+        "city": "N/A",
+        "state": "N/A",
+        "zipcode": "N/A",
+        "phone": "N/A",
+        "timezone": "N/A"
+      }
+    }
+  },
+  "2385184": {
+    "ticket_id": "2385184",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Outlet Install 2/13/2025 5:00 AM",
+    "status": "Failed",
+    "department": "N/A",
+    "created_date": "2025-02-12T18:00:16",
+    "last_activity_date": "2025-02-13T10:29:47",
+    "closed_date": "2025-02-13T10:29:47",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [
+      "Missing visit times (InTime/OutTime)",
+      "Failed/Cancelled: Tech Cancel - "
+    ],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2384350",
+    "turnup_data": {
+      "status": "Failed",
+      "service_date": "2025-02-13",
+      "technician_name": "^Jeff.Cohen",
+      "in_time": "",
+      "out_time": "",
+      "duration": null,
+      "notes": "",
+      "dispatch_notes": "Outlet Install",
+      "failure_code": "Tech Cancel",
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-12 18:00:16",
+      "last_activity_date": "2025-02-13 10:29:47",
+      "closed_date": "2025-02-13 10:29:47"
+    }
+  },
+  "2389439": {
+    "ticket_id": "2389439",
+    "subject": "Flynn_FW008350_Hagerstown_MD_P1 2/24/2025 6:30 PM",
+    "status": "Cancelled - CIS",
+    "department": "N/A",
+    "created_date": "2025-02-20T09:00:19",
+    "last_activity_date": "2025-02-24T06:31:45",
+    "closed_date": "2025-02-24T06:31:45",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [
+      "Missing visit times (InTime/OutTime)"
+    ],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2382333",
+    "turnup_data": {
+      "status": "Cancelled - CIS",
+      "service_date": "2025-02-24",
+      "technician_name": "^Ryan.Cohen",
+      "in_time": "",
+      "out_time": "",
+      "duration": null,
+      "notes": "",
+      "dispatch_notes": "Phase 1",
+      "failure_code": null,
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-20 09:00:19",
+      "last_activity_date": "2025-02-24 06:31:45",
+      "closed_date": "2025-02-24 06:31:45"
+    }
+  },
+  "2389461": {
+    "ticket_id": "2389461",
+    "subject": "Flynn_FW008350_Hagerstown_MD_P2 2/25/2025 6:30 PM ",
+    "status": "Cancelled - CIS",
+    "department": "N/A",
+    "created_date": "2025-02-20T09:30:19",
+    "last_activity_date": "2025-02-24T06:31:59",
+    "closed_date": "2025-02-24T06:31:59",
+    "is_resolved": true,
+    "is_dispatch": false,
+    "is_turnup": true,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [
+      "Missing visit times (InTime/OutTime)"
+    ],
+    "category": "Turnup Tickets",
+    "site": {
+      "number": "8350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 32963,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "parent_dispatch_id": "2382382",
+    "turnup_data": {
+      "status": "Cancelled - CIS",
+      "service_date": "2025-02-25",
+      "technician_name": "^Robert.Johns",
+      "in_time": "",
+      "out_time": "",
+      "duration": null,
+      "notes": "",
+      "dispatch_notes": "P2",
+      "failure_code": null,
+      "failure_code_other": "",
+      "is_resolved": true,
+      "created_date": "2025-02-20 09:30:19",
+      "last_activity_date": "2025-02-24 06:31:59",
+      "closed_date": "2025-02-24 06:31:59"
+    }
+  },
+  "2401881": {
+    "ticket_id": "2401881",
+    "subject": "Flynn_FW008350_Hagerstown_MD_50 PERCENT BILLING",
+    "status": "On Hold",
+    "department": "N/A",
+    "created_date": "2025-03-13T15:38:15",
+    "last_activity_date": "2025-03-13T16:49:49",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": false,
+    "is_dispatch": true,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Dispatch Tickets",
+    "site": {
+      "number": "FW008350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 7770,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 1,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable",
+    "dispatch_data": {
+      "status": "On Hold",
+      "type": "Hardware-Wiring",
+      "service_date": "N/A",
+      "service_time": "0.0 seconds",
+      "priority": "Normal",
+      "customer_name": "Flynn",
+      "wo_id": 0,
+      "turnup_id": null,
+      "site_number": "FW008350",
+      "project_id": "NETWORK RE-CABLING - WENDYS",
+      "location": {
+        "address": "N/A",
+        "city": "N/A",
+        "state": "N/A",
+        "zipcode": "N/A",
+        "phone": "N/A",
+        "timezone": "N/A"
+      }
+    }
+  },
+  "2402063": {
+    "ticket_id": "2402063",
+    "subject": "Flynn_FW008350_Hagerstown_MD_Billing Complete Ticket",
+    "status": "On Hold",
+    "department": "N/A",
+    "created_date": "2025-03-13T16:26:12",
+    "last_activity_date": "2025-03-13T16:26:12",
+    "closed_date": "1969-12-31T16:00:00",
+    "is_resolved": false,
+    "is_dispatch": false,
+    "is_turnup": false,
+    "posts": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "user_id": "0",
+        "contents": "Content unavailable",
+        "is_staff": false
+      }
+    ],
+    "notes": [
+      {
+        "id": "0",
+        "time": "2025-01-01 00:00:00",
+        "user": "Unknown",
+        "contents": "Note unavailable"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "post",
+        "user": "Unknown",
+        "content": "Content unavailable"
+      },
+      {
+        "time": "2025-01-01 00:00:00",
+        "type": "note",
+        "user": "Unknown",
+        "content": "Note unavailable"
+      }
+    ],
+    "issues": [],
+    "category": "Other",
+    "site": {
+      "number": "FW008350",
+      "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+      "city": "Hagerstown",
+      "state": "MD"
+    },
+    "project_id": "NETWORK RE-CABLING - WENDYS",
+    "location_id": 7770,
+    "chain_hash": "67eaa71510b7e0.94949964",
+    "total_replies": 0,
+    "first_post": "Content unavailable",
+    "last_post": "Content unavailable"
+  }
+}

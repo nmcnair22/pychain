@@ -1,0 +1,53 @@
+==== DEBUG: posts_json_raw Query Results ====
+
+[{"ticketpostid":"15620502","post_dateline":"2025-02-24 13:47:38","fullname":"alyssa.philpott","contents":"Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ","isprivate":"0","creator":"2"},{"ticketpostid":"15620510","post_dateline":"2025-02-24 13:49:16","fullname":"Alyssa Philpott","contents":"Please create a redispatch for this site the week of 3/2 after hours. Store closes at 1am, would be 1am arrival, start work at 1:30am.
+
+Scope: Complete the following:
+Materials:
+- FST requested a few additional items for the store
+10 blank inserts for the patch panel
+1 blank face plate
+- There are two temp cable runs for NVR connectivity
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15637014","post_dateline":"2025-02-27 12:35:12","fullname":"Alyssa Philpott","contents":"add to their scopes: take proper closeout photos again
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15672769","post_dateline":"2025-03-06 12:46:03","fullname":"Christopher Hagen","contents":"Scope to be added: 5579- Blanks and blank faceplate are on order- install, There are two temp cable runs for NVR connectivity- Run and terminate, No new patch cords, No color clips, smbs not mounted to furniture, Cannot see photos of jack colors, abatement, strighten AP, Photo of lag bolts, 6' loop in ceiling. 
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15739737","post_dateline":"2025-03-20 13:51:12","fullname":"Brandon Mahoney","contents":"Good Afternoon:
+
+Your invoice-#7851 for $801.00 is attached.
+
+Thank you for your business - we appreciate it very much.
+
+Sincerely,
+ComLink Network Services, Inc.
+Accounts Receivable Dept.
+
+(317) 786-3496 Ext 300
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15739914","post_dateline":"2025-03-20 14:28:45","fullname":"Brandon Mahoney","contents":"Hello,
+
+Due to an internal program causing a few incomplete projects, in our system, to be marked as “Ready to Invoice”, ComLink invoices were submitted to CIS today in error.
+
+Please disregard the following ComLink invoices dated 03/20/2025.
+
+Invoice #7849 - for Wendy’s Store FW007898
+Invoice #7850 – for Wendy’s Store FW001840
+Invoice #7851 – for Wendy’s Store FW005579
+Invoice #7852 – for Wendy’s Store FW0012304
+Invoice #7853 – for Wendy’s Store FW0013208
+
+Once the above projects have been fully finalized in our system, proper invoices will be submitted to CIS.
+
+We apologize for any inconvenience or confusion this may have caused.
+
+Thank you,
+Peggy Stevens /Office Manager
+1106 S. Meridian St. Indianapolis, IN 46225
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15884774","post_dateline":"2025-04-16 13:54:53","fullname":"Brandon Mahoney","contents":"FST invoice attached
+
+FST cost: $801
+Moving to Audit for review
+
+","isprivate":"0","creator":"1"}]

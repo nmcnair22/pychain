@@ -1,0 +1,38 @@
+{
+  "ticketid": "2381165",
+  "department": "Accounting",
+  "subject": "Flynn_FW005579_Fishers_IN Billing",
+  "status": "Closed",
+  "created_time": null,
+  "created_date": "2025-02-05T07:49:58",
+  "creator_name": "Tony Dinh",
+  "creator_email": "tony.dinh@cis.us",
+  "closed_date": "2025-02-17T11:41:57",
+  "category": "Other",
+  "site_number": "",
+  "customer": "3535",
+  "state": "",
+  "city": "",
+  "street": "",
+  "service_date": "1969-12-31T16:00:00",
+  "project_id": null,
+  "posts": [
+    {
+      "id": "15536435",
+      "time": "2025-02-05 07:49:58",
+      "user": "Tony Dinh",
+      "contents": "- The site was successfully cutover to the new network- Please initiate billing for this location. Thank you.Site NameFLN_FW005579_Fishers_INSite NumberFW005579Address8000 E 96th StFishers, IN, 46037Telephone317-578-8544",
+      "private": "0",
+      "creator": "2"
+    },
+    {
+      "id": "15588898",
+      "time": "2025-02-17 11:41:55",
+      "user": "Kayla Gonzalez",
+      "contents": "Added on ticket 2382162",
+      "private": "0",
+      "creator": "1"
+    }
+  ],
+  "notes": []
+}

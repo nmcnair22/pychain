@@ -6,7 +6,7 @@ import os
 import re
 import time
 import shutil
-from datetime import datetime
+from datetime import datetime, timedelta
 from openai import OpenAI
 from sqlalchemy import text
 from app.services.ticket_chain_service import TicketChainService
@@ -23,7 +23,95 @@ class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime):
             return obj.isoformat()
+        elif isinstance(obj, timedelta):
+            # Convert timedelta to total seconds for json serialization
+            return f"{obj.total_seconds()} seconds"
+        elif hasattr(obj, 'isoformat'):
+            # Handle any other date/time-like objects
+            return obj.isoformat()
+        # Let the base class handle anything else
         return super().default(obj)
+
+def sanitize_json_string(json_str):
+    """
+    Sanitize JSON string for parsing.
+    
+    This function attempts to clean up malformed JSON by:
+    1. Removing control characters
+    2. Escaping quotes and slashes
+    3. Handling truncated strings
+    4. Extracting valid JSON within malformed strings
+    """
+    if not json_str:
+        return "[]"
+    
+    try:
+        # Save the original string for debugging
+        debug_dir = 'PyChain/data/debug'
+        os.makedirs(debug_dir, exist_ok=True)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        debug_file = f"{debug_dir}/sanitize_json_input_{timestamp}.txt"
+        try:
+            with open(debug_file, 'w', encoding='utf-8', errors='ignore') as f:
+                f.write(str(json_str))
+            logging.info(f"Saved original JSON string to {debug_file}")
+        except Exception as e:
+            logging.error(f"Error saving JSON debug file: {str(e)}")
+            
+        # First replace null bytes which often cause problems
+        cleaned = json_str.replace('\0', '').replace('\u0000', '')
+        
+        # Replace problematic control characters
+        cleaned = re.sub(r'[\x00-\x1F\x7F]', '', cleaned)
+        
+        # Ensure the JSON string has proper opening/closing brackets
+        if not cleaned.strip().startswith('['):
+            cleaned = '[' + cleaned
+        if not cleaned.strip().endswith(']'):
+            cleaned = cleaned + ']'
+        
+        # Try to parse the cleaned string
+        try:
+            json.loads(cleaned)
+            return cleaned
+        except json.JSONDecodeError:
+            # If that fails, try more aggressive cleaning
+            pass
+        
+        # For more aggressive cleaning, look for JSON-like structures
+        matches = re.findall(r'\{[^{}]*\}', cleaned)
+        if matches:
+            reconstructed = '[' + ','.join(matches) + ']'
+            try:
+                json.loads(reconstructed)  # Validate it's proper JSON
+                return reconstructed
+            except json.JSONDecodeError:
+                logging.warning("Failed to reconstruct valid JSON with regex matches")
+        
+        # Last resort: Remove problematic characters and try again
+        final_attempt = re.sub(r'[^\x20-\x7E]', '', cleaned)  # Keep only printable ASCII
+        
+        # Fix unescaped quotes and control characters in strings
+        final_attempt = re.sub(r'(?<!\\)"(?=(.*?".*?"))', r'\"', final_attempt)
+        
+        # Fix truncated objects/arrays
+        if final_attempt.count('{') > final_attempt.count('}'):
+            final_attempt += '}' * (final_attempt.count('{') - final_attempt.count('}'))
+        if final_attempt.count('[') > final_attempt.count(']'):
+            final_attempt += ']' * (final_attempt.count('[') - final_attempt.count(']'))
+            
+        # Save the final sanitized string
+        debug_file_out = f"{debug_dir}/sanitize_json_output_{timestamp}.txt"
+        with open(debug_file_out, 'w', encoding='utf-8') as f:
+            f.write(final_attempt)
+        logging.info(f"Saved sanitized JSON string to {debug_file_out}")
+        
+        return final_attempt
+    except Exception as e:
+        logging.error(f"Error in sanitize_json_string: {str(e)}")
+        import traceback
+        logging.error(f"Sanitization error traceback: {traceback.format_exc()}")
+        return "[]"  # Return empty array as a safe fallback
 
 def get_db_session(db_type="primary"):
     """Create a database session with connection pooling and retry logic."""
@@ -64,283 +152,324 @@ def get_db_session(db_type="primary"):
         logging.error(f"Invalid database type: {db_type}")
         return None
 
-def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
-    """Fetch detailed data for all tickets in chain."""
-    if not ticket_ids:
-        return {}
+def debug_query_results(results, query_name, identifier="debug"):
+    """Save raw query results to file for debugging."""
+    debug_dir = 'PyChain/data/debug'
+    os.makedirs(debug_dir, exist_ok=True)
     
-    ticket_data = {}
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"{debug_dir}/{query_name}_{identifier}_{timestamp}.txt"
     
     try:
-        # Create placeholders for SQL query
-        placeholders = ','.join([f':tid_{i}' for i in range(len(ticket_ids))])
+        with open(filename, 'w', encoding='utf-8', errors='ignore') as f:
+            f.write(f"==== DEBUG: {query_name} Query Results ====\n\n")
+            try:
+                f.write(str(results))
+            except Exception as e:
+                f.write(f"<Error writing results: {str(e)}>")
         
-        # Primary table query (tickets)
-        base_query = text(f"""
-            SELECT
-                t.ticketid, t.subject, t.ticketstatustitle, t.departmenttitle,
-                FROM_UNIXTIME(t.dateline) AS created_date,
-                FROM_UNIXTIME(t.lastactivity) AS last_activity_date,
-                FROM_UNIXTIME(t.resolutiondateline) AS closed_date,
-                t.totalreplies, t.locationid, t.isresolved
-            FROM sw_tickets t
-            WHERE t.ticketid IN ({placeholders})
-        """)
-        
-        # Execute query with parameters
-        params = {f'tid_{i}': int(tid) for i, tid in enumerate(ticket_ids)}
-        results = session.execute(base_query, params).mappings().all()
-        
-        # Process all tickets in chain
-        for row_mapping in results:
-            row = dict(row_mapping)
-            tid_str = str(row['ticketid'])
-            
-            # Initialize ticket_data structure
-            ticket_data[tid_str] = {
-                'ticket_id': tid_str,
-                'subject': row['subject'],
-                'status': row['ticketstatustitle'],
-                'department': row['departmenttitle'],
-                'created_date': str(row['created_date']),
-                'last_activity_date': str(row['last_activity_date']),
-                'closed_date': str(row['closed_date']) if row['closed_date'] else None,
-                'is_resolved': bool(row['isresolved']),
-                'is_dispatch': False,
-                'is_turnup': False,
-                'posts': [],
-                'notes': [],
-                'user_posts': [],
-                'timeline': [],
-                'issues': [],
-                'category': 'Unknown',
-                'site': {
-                    'number': 'N/A',
-                    'address': 'N/A',
-                    'city': 'N/A',
-                    'state': 'N/A'
-                }
-            }
-            
-            # Categorize by department
-            if row['departmenttitle'] == 'Dispatch Tickets':
-                ticket_data[tid_str]['category'] = 'Dispatch Tickets'
-                ticket_data[tid_str]['is_dispatch'] = True
-            elif row['departmenttitle'] == 'Turnup Tickets':
-                ticket_data[tid_str]['category'] = 'Turnup Tickets'
-                ticket_data[tid_str]['is_turnup'] = True
-            
-        # Get posts for each ticket
-        for tid in ticket_ids:
-            tid_str = str(tid)
-            if tid_str not in ticket_data:
-                continue
-                
-            posts_query = text("""
-                SELECT ticketpostid, dateline AS post_dateline, userid, fullname, contents
-                FROM sw_ticketposts
-                WHERE ticketid = :ticket_id
-                ORDER BY dateline
-            """)
-            posts_results = session.execute(posts_query, {'ticket_id': int(tid)}).mappings().all()
-            
-            for post_row in posts_results:
-                post_dict = dict(post_row)
-                post_time = datetime.fromtimestamp(post_dict['post_dateline'])
-                
-                # Add to main posts list
-                post_data = {
-                    'id': post_dict['ticketpostid'],
-                    'time': str(post_time),
-                    'user': post_dict['fullname'],
-                    'user_id': post_dict['userid'],
-                    'contents': post_dict['contents'],
-                    'is_staff': True if post_dict['userid'] != 0 else False
-                }
-                ticket_data[tid_str]['posts'].append(post_data)
-                
-                # Add user posts to separate list
-                if post_dict['userid'] == 0:
-                    ticket_data[tid_str]['user_posts'].append(post_data)
-                
-                # Add to unified timeline
-                ticket_data[tid_str]['timeline'].append({
-                    'time': str(post_time),
-                    'type': 'post',
-                    'user': post_dict['fullname'],
-                    'content': post_dict['contents']
-                })
-            
-            # First and last post shortcuts
-            if ticket_data[tid_str]['posts']:
-                ticket_data[tid_str]['first_post'] = ticket_data[tid_str]['posts'][0]['contents']
-                ticket_data[tid_str]['last_post'] = ticket_data[tid_str]['posts'][-1]['contents']
-            
-            # Get notes for each ticket
-            notes_query = text("""
-                SELECT ticketnoteid, linktypeid, dateline AS note_dateline, staffname, note
-                FROM sw_ticketnotes
-                WHERE linktypeid = :ticket_id
-                ORDER BY note_dateline
-            """)
-            notes_results = session.execute(notes_query, {'ticket_id': int(tid)}).mappings().all()
-            
-            for note_row in notes_results:
-                note_dict = dict(note_row)
-                note_time = datetime.fromtimestamp(note_dict['note_dateline'])
-                
-                note_data = {
-                    'id': note_dict['ticketnoteid'],
-                    'time': str(note_time),
-                    'user': note_dict['staffname'],
-                    'contents': note_dict['note']
-                }
-                ticket_data[tid_str]['notes'].append(note_data)
-                
-                # Add to unified timeline
-                ticket_data[tid_str]['timeline'].append({
-                    'time': str(note_time),
-                    'type': 'note',
-                    'user': note_dict['staffname'],
-                    'content': note_dict['note']
-                })
-        
-        # Sort timeline for each ticket
-        for tid_str in ticket_data:
-            ticket_data[tid_str]['timeline'].sort(key=lambda x: x['time'])
-        
-        if cissdm_session:
-            # Dispatch Tickets from CISSDM
-            dispatch_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Dispatch Tickets']
-            if dispatch_ids:
-                dispatch_placeholders = ','.join([f':tid_{i}' for i in range(len(dispatch_ids))])
-                dispatch_query = text(f"""
-                    SELECT
-                        id, id_turnup, id_wo, id_customer, customername, subject,
-                        statusDispatch, statusTurnup, ticketType, serviceDate, serviceTime,
-                        ticketPriority, postFirstDetails, postLastDetails, dateCreated,
-                        department, projectId, billableRate, FSTHourlyCosts, FSTHourlyCostsToCustomer,
-                        FSTFinalBilledToCIS, siteNumber, created_at, updated_at
-                    FROM dispatches WHERE id IN ({dispatch_placeholders})
-                """)
-                params = {f'tid_{i}': tid for i, tid in enumerate(dispatch_ids)}
-                dispatch_results = cissdm_session.execute(dispatch_query, params).mappings().all()
-                
-                for row_mapping in dispatch_results:
-                    row = dict(row_mapping)
-                    tid_str = str(row['id'])
-                    if tid_str in ticket_data:
-                        ticket_data[tid_str]['dispatch_data'] = {
-                            'status': row.get('statusDispatch', 'N/A'),
-                            'type': row.get('ticketType', 'N/A'),
-                            'service_date': str(row.get('serviceDate')) if row.get('serviceDate') else 'N/A',
-                            'service_time': row.get('serviceTime', 'N/A'),
-                            'priority': row.get('ticketPriority', 'N/A'),
-                            'customer_name': row.get('customername', 'N/A'),
-                            'wo_id': row.get('id_wo', 'N/A'),
-                            'turnup_id': row.get('id_turnup', 'N/A'),
-                            'site_number': row.get('siteNumber', 'N/A'),
-                            'project_id': row.get('projectId', 'N/A'),
-                            'location': {
-                                'address': row.get('location_address', 'N/A') if 'location_address' in row else 'N/A',
-                                'city': row.get('location_city', 'N/A') if 'location_city' in row else 'N/A',
-                                'state': row.get('location_state', 'N/A') if 'location_state' in row else 'N/A',
-                                'zipcode': row.get('location_zipcode', 'N/A') if 'location_zipcode' in row else 'N/A',
-                                'phone': row.get('location_phone', 'N/A') if 'location_phone' in row else 'N/A',
-                                'timezone': row.get('location_timezone', 'N/A') if 'location_timezone' in row else 'N/A'
-                            }
-                        }
-                        if row.get('location_city') and (row.get('location_city') != 'Hagerstown' or row.get('location_state') != 'MD'):
-                            ticket_data[tid_str]['issues'].append(f"Dispatch location mismatch: {row.get('location_city')}, {row.get('location_state')} vs. Hagerstown, MD")
-            
-            # Turnup Tickets
-            turnup_ids = [tid for tid, data in ticket_data.items() if data['category'] == 'Turnup Tickets']
-            if turnup_ids:
-                turnup_placeholders = ','.join([f':tid_{i}' for i in range(len(turnup_ids))])
-                turnup_query = text(f"""
-                    SELECT 
-                        ticketid, 
-                        DispatchId, 
-                        subject, 
-                        ticketstatustitle AS turnup_status, 
-                        ServiceDate, 
-                        CISTechnicianName,
-                        InTime, 
-                        OutTime, 
-                        TurnupNotes, 
-                        DispatchNotes, 
-                        technicianGrade, 
-                        technicianComment,
-                        FailureCode, 
-                        FailureCodeOther, 
-                        pmreview, 
-                        closeOutNotes, 
-                        brief_summary_for_invoice,
-                        isresolved, 
-                        created_at AS turnup_created, 
-                        last_activity AS turnup_last_activity, 
-                        updated_at AS turnup_updated, 
-                        closed_at AS turnup_closed, 
-                        SiteNumber
-                    FROM turnups 
-                    WHERE ticketid IN ({turnup_placeholders})
-                """)
-                params = {f'tid_{i}': tid for i, tid in enumerate(turnup_ids)}
-                turnup_results = cissdm_session.execute(turnup_query, params).mappings().all()
-                for row_mapping in turnup_results:
-                    row = dict(row_mapping)
-                    tid_str = str(row.get('ticketid'))
-                    if tid_str in ticket_data:
-                        ticket_data[tid_str]['parent_dispatch_id'] = str(row.get('DispatchId')) if row.get('DispatchId') else None
-                        ticket_data[tid_str]['turnup_data'] = {
-                            'status': row.get('turnup_status', 'N/A'),
-                            'service_date': str(row.get('ServiceDate')) if row.get('ServiceDate') else 'N/A',
-                            'technician_name': row.get('CISTechnicianName', 'N/A'),
-                            'in_time': row.get('InTime', 'N/A'),
-                            'out_time': row.get('OutTime', 'N/A'),
-                            'duration': None,
-                            'notes': row.get('TurnupNotes', 'N/A'),
-                            'dispatch_notes': row.get('DispatchNotes', 'N/A'),
-                            'failure_code': row.get('FailureCode', 'N/A'),
-                            'failure_code_other': row.get('FailureCodeOther', 'N/A'),
-                            'is_resolved': bool(row.get('isresolved', False)),
-                            'created_date': str(row.get('turnup_created')) if row.get('turnup_created') else 'N/A',
-                            'last_activity_date': str(row.get('turnup_last_activity')) if row.get('turnup_last_activity') else 'N/A',
-                            'closed_date': str(row.get('turnup_closed')) if row.get('turnup_closed') else 'N/A'
-                        }
-                        if row.get('InTime') and row.get('OutTime'):
-                            try:
-                                in_time = datetime.strptime(row.get('InTime'), '%H:%M:%S')
-                                out_time = datetime.strptime(row.get('OutTime'), '%H:%M:%S')
-                                duration = (out_time - in_time).total_seconds() / 60
-                                ticket_data[tid_str]['turnup_data']['duration'] = f"{duration:.2f} minutes"
-                            except ValueError:
-                                pass
-                        if not row.get('InTime') or not row.get('OutTime'):
-                            ticket_data[tid_str]['issues'].append("Missing visit times (InTime/OutTime)")
-                        if row.get('FailureCode'):
-                            ticket_data[tid_str]['issues'].append(f"Failed/Cancelled: {row.get('FailureCode')} - {row.get('FailureCodeOther', '')}")
-                        if row.get('ServiceDate') and '1969-12-31' in str(row.get('ServiceDate')):
-                            ticket_data[tid_str]['issues'].append("Epoch turnup service date (1969-12-31), indicating data error")
-
+        logging.info(f"Saved query debug data to {filename}")
+        return filename
     except Exception as e:
-        logging.error(f"Error fetching from primary database: {e}")
-        raise
+        logging.error(f"Failed to save query debug data: {e}")
+        return None
 
-    # Detect orphaned turnups and non-1:1 relationships
-    dispatch_to_turnups = {}
-    for tid, data in ticket_data.items():
-        if data.get('category') == 'Turnup Tickets':
-            if not data.get('parent_dispatch_id'):
-                data['issues'].append("Orphaned turnup, no linked dispatch")
-            else:
-                dispatch_id = data['parent_dispatch_id']
-                if dispatch_id not in dispatch_to_turnups:
-                    dispatch_to_turnups[dispatch_id] = []
-                dispatch_to_turnups[dispatch_id].append(tid)
-    for dispatch_id, turnup_ids in dispatch_to_turnups.items():
-        if len(turnup_ids) > 1 and dispatch_id in ticket_data:
-            ticket_data[dispatch_id]['issues'].append(f"Non-1:1 relationship, linked to {len(turnup_ids)} turnups: {', '.join(turnup_ids)}")
+def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
+    """
+    Fetch complete ticket data including posts, notes, and related data
+    
+    Args:
+        session: Primary database session
+        cissdm_session: CISSDM database session
+        ticket_ids: List of ticket IDs to fetch data for
+        
+    Returns:
+        Dictionary mapping ticket IDs to their detailed data
+    """
+    if not session:
+        logging.error("No database session available")
+        return {}
+    
+    if not ticket_ids:
+        logging.error("No ticket IDs provided")
+        return {}
+    
+    logging.info(f"Fetching detailed data for {len(ticket_ids)} tickets")
+    
+    # Convert all ticket IDs to strings for consistent handling
+    ticket_ids_str = [str(tid) for tid in ticket_ids]
+    
+    # Create placeholders for SQL query
+    id_placeholders = ", ".join([f":{idx}" for idx in range(len(ticket_ids_str))])
+    id_params = {str(idx): tid for idx, tid in enumerate(ticket_ids_str)}
+    
+    # Query for all ticket data including posts and notes
+    query_text = f"""
+        SELECT 
+            t.ticketid, 
+            t.departmenttitle AS department,
+            t.subject,
+            t.ticketstatustitle AS status,
+            UNIX_TIMESTAMP(t.dateline) AS created_time,
+            FROM_UNIXTIME(t.dateline) AS created_date,
+            t.fullname AS creator_name,
+            t.email AS creator_email,
+            CASE WHEN t.resolutiondateline > 0 THEN FROM_UNIXTIME(t.resolutiondateline) ELSE NULL END AS closed_date,
+            CASE 
+                WHEN t.departmenttitle IN ('FST Accounting', 'Dispatch', 'Pro Services') THEN 'Dispatch Tickets'
+                WHEN t.departmenttitle = 'Turnups' THEN 'Turnup Tickets'
+                WHEN t.departmenttitle IN ('Shipping', 'Outbound', 'Inbound') THEN 'Shipping Tickets'
+                WHEN t.departmenttitle = 'Turn up Projects' THEN 'Project Management'
+                ELSE 'Other'
+            END AS category,
+            (
+                SELECT CAST(CONCAT('[', GROUP_CONCAT(
+                    CONCAT(
+                        '{{',
+                        '"ticketpostid":"', tp.ticketpostid, '",',
+                        '"post_dateline":"', FROM_UNIXTIME(tp.dateline), '",',
+                        '"fullname":"', COALESCE(REPLACE(tp.fullname, '"', '\\"'), ''), '",',
+                        '"contents":"', COALESCE(REPLACE(REPLACE(tp.contents, '\\\\', '\\\\\\\\'), '"', '\\"'), ''), '",',
+                        '"isprivate":"', tp.isprivate, '",',
+                        '"creator":"', tp.creator, '"',
+                        '}}'
+                    )
+                    ORDER BY tp.dateline
+                    SEPARATOR ','), ']') AS CHAR)
+                FROM sw_ticketposts tp
+                WHERE tp.ticketid = t.ticketid
+            ) AS posts_json,
+            (
+                SELECT CAST(CONCAT('[', GROUP_CONCAT(
+                    CONCAT(
+                        '{{',
+                        '"ticketnoteid":"', tn.ticketnoteid, '",',
+                        '"note_staffid":"', tn.staffid, '",',
+                        '"note_dateline":"', FROM_UNIXTIME(tn.dateline), '",',
+                        '"staffname":"', COALESCE(REPLACE(tn.staffname, '"', '\\"'), ''), '",',
+                        '"note":"', COALESCE(REPLACE(REPLACE(tn.note, '\\\\', '\\\\\\\\'), '"', '\\"'), ''), '"',
+                        '}}'
+                    )
+                    ORDER BY tn.dateline
+                    SEPARATOR ','), ']') AS CHAR)
+                FROM sw_ticketnotes tn
+                WHERE tn.linktypeid = t.ticketid
+            ) AS notes_json,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 117 AND typeid = t.ticketid) AS site_number,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 104 AND typeid = t.ticketid) AS customer,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 122 AND typeid = t.ticketid) AS state,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 121 AND typeid = t.ticketid) AS city,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 123 AND typeid = t.ticketid) AS street,
+            FROM_UNIXTIME(t.duedate) AS service_date,
+            (SELECT fieldvalue FROM sw_customfieldvalues WHERE customfieldid = 248 AND typeid = t.ticketid) AS project_id
+        FROM sw_tickets t
+        WHERE t.ticketid IN ({id_placeholders})
+    """
+    query = text(query_text)
+    
+    logging.info(f"Executing ticket data query for {len(ticket_ids_str)} tickets")
+    results = session.execute(query, id_params).fetchall()
+    logging.info(f"Retrieved detailed data for {len(results)} tickets")
+    
+    # Save raw query results for debugging
+    debug_query_results(results, "full_ticket_data", f"{len(ticket_ids_str)}_tickets")
+    
+    # Process results into a structured format
+    ticket_data = {}
+    for row in results:
+        tid_str = str(row.ticketid)
+        
+        # Save raw row data for this ticket for debugging
+        debug_query_results(row, "ticket_row", tid_str)
+        
+        # Create a data structure for the ticket
+        ticket_data[tid_str] = {
+            'ticketid': tid_str,
+            'department': row.department,
+            'subject': row.subject,
+            'status': row.status,
+            'created_time': row.created_time,
+            'created_date': row.created_date,
+            'creator_name': row.creator_name,
+            'creator_email': row.creator_email,
+            'closed_date': row.closed_date,
+            'category': row.category,
+            'site_number': row.site_number,
+            'customer': row.customer,
+            'state': row.state,
+            'city': row.city,
+            'street': row.street,
+            'service_date': row.service_date,
+            'project_id': row.project_id,
+            'posts': [],
+            'notes': []
+        }
+        
+        # Parse and add posts
+        posts_json = row.posts_json
+        if posts_json:
+            try:
+                # Save raw posts JSON for debugging
+                debug_query_results(posts_json, "posts_json_raw", tid_str)
+                
+                # Sanitize and parse the JSON
+                sanitized_posts_json = sanitize_json_string(posts_json)
+                
+                # Save sanitized posts JSON for debugging
+                debug_query_results(sanitized_posts_json, "posts_json_sanitized", tid_str)
+                
+                posts = json.loads(sanitized_posts_json)
+                
+                if posts:
+                    processed_posts = []
+                    for post in posts:
+                        processed_post = {
+                            'id': post.get('ticketpostid', ''),
+                            'time': post.get('post_dateline', ''),
+                            'user': post.get('fullname', ''),
+                            'contents': post.get('contents', ''),
+                            'private': post.get('isprivate', '0'),
+                            'creator': post.get('creator', '')
+                        }
+                        processed_posts.append(processed_post)
+                    ticket_data[tid_str]['posts'] = processed_posts
+                    logging.info(f"Processed {len(processed_posts)} posts for ticket {tid_str}")
+                else:
+                    logging.warning(f"No posts found in parsed JSON for ticket {tid_str}")
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON parse error for posts in ticket {tid_str}: {e}")
+                logging.error(f"Posts JSON: {posts_json[:200]}...")
+            except Exception as e:
+                logging.error(f"Error processing posts for ticket {tid_str}: {e}")
+                import traceback
+                logging.error(f"Posts processing traceback: {traceback.format_exc()}")
+        
+        # Parse and add notes
+        notes_json = row.notes_json
+        if notes_json:
+            try:
+                # Save raw notes JSON for debugging
+                debug_query_results(notes_json, "notes_json_raw", tid_str)
+                
+                # Sanitize and parse the JSON
+                sanitized_notes_json = sanitize_json_string(notes_json)
+                
+                # Save sanitized notes JSON for debugging
+                debug_query_results(sanitized_notes_json, "notes_json_sanitized", tid_str)
+                
+                notes = json.loads(sanitized_notes_json)
+                
+                if notes:
+                    processed_notes = []
+                    for note in notes:
+                        processed_note = {
+                            'id': note.get('ticketnoteid', ''),
+                            'time': note.get('note_dateline', ''),
+                            'user': note.get('staffname', ''),
+                            'contents': note.get('note', '')
+                        }
+                        processed_notes.append(processed_note)
+                    ticket_data[tid_str]['notes'] = processed_notes
+                    logging.info(f"Processed {len(processed_notes)} notes for ticket {tid_str}")
+                else:
+                    logging.warning(f"No notes found in parsed JSON for ticket {tid_str}")
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON parse error for notes in ticket {tid_str}: {e}")
+                logging.error(f"Notes JSON: {notes_json[:200]}...")
+            except Exception as e:
+                logging.error(f"Error processing notes for ticket {tid_str}: {e}")
+                import traceback
+                logging.error(f"Notes processing traceback: {traceback.format_exc()}")
+    
+    # Process additional CISSDM data if available
+    if cissdm_session:
+        try:
+            # Add CISSDM dispatch - turnup relationships
+            for tid_str in ticket_data:
+                if ticket_data[tid_str]['category'] == 'Turnup Tickets':
+                    # Check if this is a turnup ticket related to a dispatch
+                    cissdm_query = text("""
+                        SELECT 
+                            d.TicketID AS dispatch_id,
+                            d.LineItemID,
+                            t.TemplateName
+                        FROM TurnupTask t
+                        JOIN Dispatch d ON t.DispatchID = d.ID
+                        WHERE t.TicketID = :ticket_id
+                        LIMIT 1
+                    """)
+                    try:
+                        cissdm_result = cissdm_session.execute(cissdm_query, {"ticket_id": tid_str}).first()
+                        if cissdm_result:
+                            ticket_data[tid_str]['parent_dispatch_id'] = cissdm_result.dispatch_id
+                            ticket_data[tid_str]['line_item_id'] = cissdm_result.LineItemID
+                            ticket_data[tid_str]['turnup_template'] = cissdm_result.TemplateName
+                            logging.info(f"Linked turnup {tid_str} to dispatch {cissdm_result.dispatch_id}")
+                            
+                            # Save debug information
+                            debug_query_results(cissdm_result, "cissdm_turnup_relation", tid_str)
+                    except Exception as e:
+                        logging.error(f"Error querying CISSDM turnup relation for {tid_str}: {e}")
+                
+                # Add turnup data for all tickets
+                turnup_query = text("""
+                    SELECT 
+                        tt.ID AS turnup_id,
+                        tt.TicketID,
+                        tt.TemplateName,
+                        tt.DispatchID,
+                        tt.Status,
+                        tt.CreatedDate,
+                        tt.DateComplete,
+                        tt.CompletingUserName,
+                        tt.Quantity
+                    FROM TurnupTask tt
+                    WHERE tt.TicketID = :ticket_id
+                """)
+                try:
+                    turnup_results = cissdm_session.execute(turnup_query, {"ticket_id": tid_str}).fetchall()
+                    if turnup_results:
+                        turnup_list = []
+                        for tr in turnup_results:
+                            turnup = {
+                                'id': tr.turnup_id,
+                                'template': tr.TemplateName,
+                                'dispatch_id': tr.DispatchID,
+                                'status': tr.Status,
+                                'created_date': tr.CreatedDate,
+                                'completed_date': tr.DateComplete,
+                                'completed_by': tr.CompletingUserName,
+                                'quantity': tr.Quantity
+                            }
+                            turnup_list.append(turnup)
+                        ticket_data[tid_str]['turnup_data'] = turnup_list
+                        logging.info(f"Added {len(turnup_list)} turnup tasks for ticket {tid_str}")
+                        
+                        # Save debug information
+                        debug_query_results(turnup_results, "cissdm_turnup_data", tid_str)
+                except Exception as e:
+                    logging.error(f"Error querying CISSDM turnup data for {tid_str}: {e}")
+        except Exception as e:
+            logging.error(f"Error processing CISSDM data: {e}")
+    
+    # Log summary of data retrieval
+    categories = {}
+    for tid_str, data in ticket_data.items():
+        cat = data['category']
+        categories[cat] = categories.get(cat, 0) + 1
+        if data.get('parent_dispatch_id'):
+            logging.info(f"  - {tid_str} ({cat}): Related to dispatch {data['parent_dispatch_id']}")
+        else:
+            logging.info(f"  - {tid_str} ({cat})")
+        
+        if 'posts' in data:
+            logging.info(f"    - Posts: {len(data['posts'])}")
+        if 'notes' in data:
+            logging.info(f"    - Notes: {len(data['notes'])}")
+        if 'turnup_data' in data:
+            logging.info(f"  - Has turnup data: Yes")
+        if data.get('parent_dispatch_id'):
+            logging.info(f"  - Parent dispatch: {data.get('parent_dispatch_id')}")
 
     logging.info(f"Fetched details for {len(ticket_data)} tickets")
     return ticket_data
@@ -348,38 +477,81 @@ def fetch_full_ticket_data(session, cissdm_session, ticket_ids):
 def setup_vector_store_and_assistant(client: OpenAI, ticket_files: list[str]):
     """Set up or reuse vector store and assistant, updating .env if needed."""
     try:
+        # DEBUG: Check API key configuration
+        api_key = os.getenv("OPENAI_API_KEY", "")
+        if not api_key:
+            logging.error("DEBUG: OPENAI_API_KEY environment variable is not set")
+        else:
+            masked_key = api_key[:4] + "..." + api_key[-4:] if len(api_key) > 8 else "***"
+            logging.info(f"DEBUG: Using OpenAI API key starting with {masked_key}")
+            
+        # DEBUG: Log client configuration
+        logging.info(f"DEBUG: OpenAI client configuration - API base: {client.base_url if hasattr(client, 'base_url') else 'default'}")
+        
         vector_store_id = os.getenv("VECTOR_STORE_ID")
         assistant_id = os.getenv("ASSISTANT_ID")
         vector_store_created = False
         assistant_created = False
 
+        # DEBUG: Log existing IDs
+        logging.info(f"DEBUG: Existing vector_store_id: {vector_store_id or 'None'}")
+        logging.info(f"DEBUG: Existing assistant_id: {assistant_id or 'None'}")
+
         # Vector Store Handling
         if not vector_store_id:
             logging.info("No VECTOR_STORE_ID found, creating new vector store...")
             try:
+                # DEBUG: Log vector store creation attempt
+                logging.info("DEBUG: Attempting to create new vector store")
                 vector_store = client.vector_stores.create(
                     name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
                 )
-            except AttributeError:
-                vector_store = client.beta.vector_stores.create(
-                    name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
-                )
+                logging.info(f"DEBUG: Vector store creation response: {vector_store}")
+            except AttributeError as ae:
+                logging.info(f"DEBUG: AttributeError in vector store creation: {ae}")
+                try:
+                    vector_store = client.beta.vector_stores.create(
+                        name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
+                    )
+                    logging.info(f"DEBUG: Beta vector store creation response: {vector_store}")
+                except Exception as e:
+                    logging.error(f"DEBUG: Failed to create vector store using beta endpoint: {e}")
+                    raise
+            except Exception as e:
+                logging.error(f"DEBUG: Failed to create vector store: {e}")
+                raise
+            
             vector_store_id = vector_store.id
             vector_store_created = True
             logging.info(f"Created vector store with ID: {vector_store_id}")
         else:
             logging.info(f"Using existing vector store ID: {vector_store_id}")
             try:
-                client.vector_stores.retrieve(vector_store_id)
+                # DEBUG: Log vector store verification attempt
+                logging.info(f"DEBUG: Verifying existing vector store: {vector_store_id}")
+                vs_info = client.vector_stores.retrieve(vector_store_id)
+                logging.info(f"DEBUG: Vector store verification response: {vs_info}")
                 logging.info(f"Vector store {vector_store_id} verified.")
             except Exception as e:
                 logging.error(f"Failed to verify vector store {vector_store_id}: {e}")
-                raise
+                logging.info("Creating new vector store since verification failed...")
+                try:
+                    vector_store = client.vector_stores.create(
+                        name=f"Ticket Analysis Store - {datetime.now():%Y%m%d-%H%M%S}"
+                    )
+                    vector_store_id = vector_store.id
+                    vector_store_created = True
+                    logging.info(f"Created new vector store with ID: {vector_store_id}")
+                except Exception as new_e:
+                    logging.error(f"Failed to create replacement vector store: {new_e}")
+                    raise new_e
 
         # Assistant Handling
         if not assistant_id:
             logging.info("No ASSISTANT_ID found, creating new assistant...")
             try:
+                # DEBUG: Log assistant creation attempt
+                logging.info("DEBUG: Attempting to create new assistant")
                 assistant = client.assistants.create(
                     name="Ticket Analysis Assistant",
                     instructions="You are an expert in analyzing ticket chains for field service operations. Analyze ticket data from uploaded files, extracting detailed metrics (e.g., timeline, scope, outcome, revisits, delays) and issues. Provide structured JSON responses, citing specific ticket data (e.g., posts, notes) as evidence. Do not assume data beyond what's provided.",
@@ -387,45 +559,86 @@ def setup_vector_store_and_assistant(client: OpenAI, ticket_files: list[str]):
                     tools=[{"type": "file_search"}],
                     tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
                 )
-            except AttributeError:
-                assistant = client.beta.assistants.create(
-                    name="Ticket Analysis Assistant",
-                    instructions="You are an expert in analyzing ticket chains for field service operations. Analyze ticket data from uploaded files, extracting detailed metrics (e.g., timeline, scope, outcome, revisits, delays) and issues. Provide structured JSON responses, citing specific ticket data (e.g., posts, notes) as evidence. Do not assume data beyond what's provided.",
-                    model="gpt-4o",
-                    tools=[{"type": "file_search"}],
-                    tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
-                )
+                logging.info(f"DEBUG: Assistant creation response: {assistant}")
+            except AttributeError as ae:
+                logging.info(f"DEBUG: AttributeError in assistant creation: {ae}")
+                try:
+                    assistant = client.beta.assistants.create(
+                        name="Ticket Analysis Assistant",
+                        instructions="You are an expert in analyzing ticket chains for field service operations. Analyze ticket data from uploaded files, extracting detailed metrics (e.g., timeline, scope, outcome, revisits, delays) and issues. Provide structured JSON responses, citing specific ticket data (e.g., posts, notes) as evidence. Do not assume data beyond what's provided.",
+                        model="gpt-4o",
+                        tools=[{"type": "file_search"}],
+                        tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+                    )
+                    logging.info(f"DEBUG: Beta assistant creation response: {assistant}")
+                except Exception as e:
+                    logging.error(f"DEBUG: Failed to create assistant using beta endpoint: {e}")
+                    raise
+            except Exception as e:
+                logging.error(f"DEBUG: Failed to create assistant: {e}")
+                raise
+                
             assistant_id = assistant.id
             assistant_created = True
             logging.info(f"Created assistant with ID: {assistant_id}")
         else:
             logging.info(f"Using existing assistant ID: {assistant_id}")
             try:
-                client.assistants.update(
-                    assistant_id=assistant_id,
-                    tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
-                )
+                # DEBUG: Log assistant update attempt
+                logging.info(f"DEBUG: Updating existing assistant: {assistant_id} with vector store: {vector_store_id}")
+                try:
+                    update_response = client.assistants.update(
+                        assistant_id=assistant_id,
+                        tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+                    )
+                    logging.info(f"DEBUG: Assistant update response: {update_response}")
+                except AttributeError as ae:
+                    logging.info(f"DEBUG: AttributeError in assistant update: {ae}")
+                    update_response = client.beta.assistants.update(
+                        assistant_id=assistant_id,
+                        tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+                    )
+                    logging.info(f"DEBUG: Beta assistant update response: {update_response}")
                 logging.info(f"Updated assistant {assistant_id} with vector store {vector_store_id}")
-            except AttributeError:
-                client.beta.assistants.update(
-                    assistant_id=assistant_id,
-                    tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
-                )
-                logging.info(f"Updated assistant {assistant_id} with vector store {vector_store_id}")
+            except Exception as e:
+                logging.error(f"DEBUG: Failed to update assistant: {e}")
+                logging.info("Creating new assistant since update failed...")
+                try:
+                    assistant = client.assistants.create(
+                        name="Ticket Analysis Assistant",
+                        instructions="You are an expert in analyzing ticket chains for field service operations. Analyze ticket data from uploaded files, extracting detailed metrics (e.g., timeline, scope, outcome, revisits, delays) and issues. Provide structured JSON responses, citing specific ticket data (e.g., posts, notes) as evidence. Do not assume data beyond what's provided.",
+                        model="gpt-4o",
+                        tools=[{"type": "file_search"}],
+                        tool_resources={"file_search": {"vector_store_ids": [vector_store_id]}}
+                    )
+                    assistant_id = assistant.id
+                    assistant_created = True
+                    logging.info(f"Created new assistant with ID: {assistant_id}")
+                except Exception as new_e:
+                    logging.error(f"Failed to create replacement assistant: {new_e}")
+                    raise new_e
 
         # Update .env file if new IDs were created
         if vector_store_created or assistant_created:
             try:
                 env_file = ".env"
+                # DEBUG: Log .env file update
+                logging.info(f"DEBUG: Updating .env file with new IDs. Vector store created: {vector_store_created}, Assistant created: {assistant_created}")
+                
                 lines = []
                 if os.path.exists(env_file):
                     with open(env_file, "r") as f:
                         lines = f.readlines()
+                    logging.info(f"DEBUG: Read {len(lines)} lines from existing .env file")
+                else:
+                    logging.info("DEBUG: No existing .env file found. Creating new file.")
+                    
                 new_lines = {}
                 if assistant_id:
                     new_lines["ASSISTANT_ID"] = f"ASSISTANT_ID={assistant_id}\n"
                 if vector_store_id:
                     new_lines["VECTOR_STORE_ID"] = f"VECTOR_STORE_ID={vector_store_id}\n"
+                
                 updated_lines = []
                 keys_updated = set()
                 for line in lines:
@@ -438,50 +651,287 @@ def setup_vector_store_and_assistant(client: OpenAI, ticket_files: list[str]):
                             break
                     if not found:
                         updated_lines.append(line)
+                
                 for key, new_line in new_lines.items():
                     if key not in keys_updated:
                         updated_lines.append(new_line)
+                
                 with open(env_file, "w") as f:
                     f.writelines(updated_lines)
+                    
+                # Update environment variables in current process
+                os.environ["VECTOR_STORE_ID"] = vector_store_id
+                if assistant_id:
+                    os.environ["ASSISTANT_ID"] = assistant_id
+                    
                 logging.info("Updated .env file with ASSISTANT_ID and/or VECTOR_STORE_ID")
+                logging.info(f"DEBUG: Updated .env file now has {len(updated_lines)} lines")
             except Exception as e:
                 logging.error(f"Error updating .env file: {e}")
+                import traceback
+                logging.error(f"DEBUG: .env update error traceback: {traceback.format_exc()}")
 
         return vector_store_id, assistant_id
     except Exception as e:
         logging.error(f"Failed to set up vector store or assistant: {e}")
+        import traceback
+        logging.error(f"DEBUG: Setup error traceback: {traceback.format_exc()}")
+        
         if "invalid_api_key" in str(e).lower():
             logging.error("Invalid OpenAI API key. Please verify OPENAI_API_KEY in your .env file.")
         raise
+
+def wait_for_vector_store_processing(client, vector_store_id, file_ids, timeout=300):
+    """Wait for files to be processed by the vector store."""
+    start_time = time.time()
+    processed_files = set()
+    all_files = set(file_ids)
+    
+    # DEBUG: Log initial state
+    logging.info(f"DEBUG: Starting vector store processing wait. Files to process: {len(all_files)}")
+    logging.info(f"DEBUG: Files IDs: {file_ids}")
+    
+    while time.time() - start_time < timeout:
+        if len(all_files) == 0:
+            logging.info("No files to process")
+            return True
+            
+        all_processed = True
+        # DEBUG: Log current check cycle
+        elapsed = int(time.time() - start_time)
+        logging.info(f"DEBUG: Checking file processing status at {elapsed}s. Remaining: {len(all_files - processed_files)}")
+        
+        for file_id in list(all_files - processed_files):
+            try:
+                # DEBUG: Log individual file check
+                logging.info(f"DEBUG: Checking status of file {file_id}")
+                
+                try:
+                    file_status = client.vector_stores.files.retrieve(vector_store_id=vector_store_id, file_id=file_id)
+                    logging.info(f"DEBUG: File {file_id} status: {file_status.status}")
+                except AttributeError:
+                    logging.info(f"DEBUG: Using beta endpoint for file status check")
+                    file_status = client.beta.vector_stores.files.retrieve(vector_store_id=vector_store_id, file_id=file_id)
+                    logging.info(f"DEBUG: File {file_id} status: {file_status.status}")
+                
+                if file_status.status == 'completed':
+                    processed_files.add(file_id)
+                    logging.info(f"DEBUG: File {file_id} processing completed!")
+                elif file_status.status in ['failed', 'cancelled']:
+                    logging.error(f"File {file_id} failed: {file_status.status}")
+                    logging.error(f"DEBUG: Full file status object: {file_status}")
+                    all_files.remove(file_id)
+                else:
+                    logging.info(f"DEBUG: File {file_id} still processing. Current status: {file_status.status}")
+                    all_processed = False
+            except Exception as e:
+                logging.error(f"Error checking file {file_id}: {e}")
+                import traceback
+                logging.error(f"DEBUG: Error traceback for file {file_id}: {traceback.format_exc()}")
+                all_processed = False
+                
+        if all_processed:
+            logging.info("All files processed")
+            logging.info(f"DEBUG: Processing completed in {elapsed}s")
+            return True
+            
+        logging.info(f"Waiting for {len(all_files - processed_files)} files... ({int(time.time() - start_time)}s)")
+        time.sleep(5)
+        
+    logging.error(f"Timeout after {timeout}s. Unprocessed files: {all_files - processed_files}")
+    logging.error(f"DEBUG: Processing timed out. Processed {len(processed_files)} of {len(file_ids)} files.")
+    return False
+
+def save_debug_data(prefix, data, ticket_id, content_type="json"):
+    """Save debug data to a file for analysis."""
+    debug_dir = 'PyChain/data/debug'
+    os.makedirs(debug_dir, exist_ok=True)
+    
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"{debug_dir}/{prefix}_{ticket_id}_{timestamp}.{content_type}"
+    
+    try:
+        if content_type == "json":
+            with open(filename, 'w', encoding='utf-8') as f:
+                if isinstance(data, str):
+                    f.write(data)
+                else:
+                    json.dump(data, f, indent=2, ensure_ascii=False, cls=DateTimeEncoder)
+        else:
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(str(data))
+        logging.info(f"Saved debug data to {filename}")
+        return filename
+    except Exception as e:
+        logging.error(f"Failed to save debug data: {e}")
+        return None
 
 def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
     """Create JSON files for ticket data, chain metadata, and analysis with standardized structure for AI ingestion."""
     output_dir = 'PyChain/data/ticket_files'
     os.makedirs(output_dir, exist_ok=True)
-    chain_hash = chain_details['chain_hash']
+    
     file_paths = []
-
-    # Chain metadata
+    chain_hash = chain_details['chain_hash']
     chain_file = os.path.join(output_dir, f'chain_{chain_hash}.json')
-    try:
-        chain_meta = {
-             "chain_hash": chain_hash,
-            "ticket_count": chain_details.get('ticket_count', len(chain_details.get('tickets', []))),
-            "ticket_ids": list(full_ticket_data.keys())
-        }
-        with open(chain_file, 'w') as f:
-            json.dump(chain_meta, f, indent=2)
-        file_paths.append(chain_file)
-        logging.info(f"Created chain metadata file: {chain_file}")
-    except Exception as e:
-        logging.error(f"Error creating chain metadata file {chain_file}: {e}")
-
-    # Consolidated ticket data with standardized structure
     tickets_file = os.path.join(output_dir, f'tickets_{chain_hash}.json')
+    
+    # Save raw data for debugging
+    debug_raw_path = save_debug_data("raw_chain", chain_details, chain_hash)
+    debug_raw_tickets = save_debug_data("raw_tickets", full_ticket_data, chain_hash)
+    
+    # Chain metadata
     try:
-        # Standardize the ticket data structure for AI ingestion
+        with open(chain_file, 'w') as f:
+            json.dump(chain_details, f, indent=2, cls=DateTimeEncoder)
+        file_paths.append(chain_file)
+        logging.info(f"Created chain details file: {chain_file}")
+    except Exception as e:
+        logging.error(f"Error creating chain file {chain_file}: {e}")
+    
+    # Tickets with standardized structure
+    try:
         standardized_ticket_data = {}
-        for ticket_id, data in full_ticket_data.items():
+        tickets_with_content = 0
+        
+        for ticket in chain_details.get('tickets', []):
+            ticket_id = str(ticket.get('ticket_id', 'unknown'))
+            
+            # Check if this ticket has content in the full_ticket_data
+            if ticket_id not in full_ticket_data:
+                logging.warning(f"No detailed data found for ticket {ticket_id}")
+                continue
+            
+            data = full_ticket_data[ticket_id]
+            
+            # Save raw data for this specific ticket for debugging
+            save_debug_data("raw_ticket_data", data, ticket_id)
+            
+            # Clean post content with improved sanitization
+            clean_posts = []
+            has_content = False
+            
+            # Save raw posts for debugging
+            if 'posts' in data:
+                save_debug_data("raw_posts", data['posts'], ticket_id)
+                
+            post_count = len(data.get('posts', []))
+            note_count = len(data.get('notes', []))
+            logging.info(f"DEBUG: Ticket {ticket_id} has {post_count} posts and {note_count} notes")
+            
+            # Clean and format posts for standardized output
+            clean_posts = []
+            for post in data.get('posts', []):
+                try:
+                    content = post.get('contents', '')
+                    if content:
+                        # Save raw post content
+                        save_debug_data(f"raw_post_content_{post.get('id', 'unknown')}", content, ticket_id, "txt")
+                        
+                        # Ensure the content is properly sanitized and not empty
+                        sanitized_content = sanitize_content_string(content)
+                        
+                        # Save sanitized content
+                        save_debug_data(f"sanitized_post_content_{post.get('id', 'unknown')}", sanitized_content, ticket_id, "txt")
+                        
+                        if sanitized_content:
+                            clean_post = {
+                                "id": str(post.get('id', '')),
+                                "timestamp": post.get('time', ''),
+                                "author": post.get('user', ''),
+                                "content": sanitized_content
+                            }
+                            clean_posts.append(clean_post)
+                            has_content = True
+                except Exception as e:
+                    logging.error(f"DEBUG: Error cleaning post in ticket {ticket_id}: {e}")
+                    import traceback
+                    logging.error(f"DEBUG: Traceback: {traceback.format_exc()}")
+                    
+            # Save raw notes for debugging
+            if 'notes' in data:
+                save_debug_data("raw_notes", data['notes'], ticket_id)
+                
+            # Clean and format notes for standardized output
+            clean_notes = []
+            for note in data.get('notes', []):
+                try:
+                    content = note.get('contents', '')
+                    if content:
+                        # Save raw note content
+                        save_debug_data(f"raw_note_content_{note.get('id', 'unknown')}", content, ticket_id, "txt")
+                        
+                        # Ensure the content is properly sanitized and not empty
+                        sanitized_content = sanitize_content_string(content)
+                        
+                        # Save sanitized content
+                        save_debug_data(f"sanitized_note_content_{note.get('id', 'unknown')}", sanitized_content, ticket_id, "txt")
+                        
+                        if sanitized_content:
+                            clean_note = {
+                                "id": str(note.get('id', '')),
+                                "timestamp": note.get('time', ''),
+                                "author": note.get('user', ''),
+                                "content": sanitized_content
+                            }
+                            clean_notes.append(clean_note)
+                            has_content = True
+                except Exception as e:
+                    logging.error(f"DEBUG: Error cleaning note in ticket {ticket_id}: {e}")
+                    import traceback
+                    logging.error(f"DEBUG: Traceback: {traceback.format_exc()}")
+            
+            # Extract technical details from posts and notes for easier analysis
+            technical_details = []
+            
+            # From posts
+            for post in clean_posts:
+                content = post.get('content', '').lower()
+                if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment', 'install', 'upgrade']):
+                    technical_details.append(f"Post ({post.get('timestamp', 'unknown')} by {post.get('author', 'unknown')}): {post.get('content', '')[:150]}...")
+            
+            # From notes
+            for note in clean_notes:
+                content = note.get('content', '').lower()
+                if any(kw in content for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'fortinet', 'fortigate', 'fortiswitch', 'fortiap', 'equipment', 'install', 'upgrade']):
+                    technical_details.append(f"Note ({note.get('timestamp', 'unknown')} by {note.get('author', 'unknown')}): {note.get('content', '')[:150]}...")
+            
+            # Add additional metadata to explain missing data
+            missing_data_notes = []
+            if len(clean_posts) == 0:
+                missing_data_notes.append("No post data available due to database sanitization issues.")
+            if len(clean_notes) == 0:
+                missing_data_notes.append("No note data available due to database sanitization issues.")
+            if post_count > 0 and len(clean_posts) == 0:
+                missing_data_notes.append(f"WARNING: {post_count} posts exist but could not be parsed due to sanitization issues.")
+            if note_count > 0 and len(clean_notes) == 0:
+                missing_data_notes.append(f"WARNING: {note_count} notes exist but could not be parsed due to sanitization issues.")
+            
+            # Extract first and last post content if available
+            first_post_content = sanitize_content_string(data.get('first_post', '')) if data.get('first_post') else ''
+            last_post_content = sanitize_content_string(data.get('last_post', '')) if data.get('last_post') else ''
+            
+            # If no clean posts but we have first_post content, add it as a dummy post
+            if len(clean_posts) == 0 and first_post_content:
+                clean_posts.append({
+                    "id": "first_post",
+                    "timestamp": data.get('created_date', 'unknown'),
+                    "author": "Unknown (First Post)",
+                    "content": first_post_content
+                })
+                logging.info(f"DEBUG: Added first post as dummy post for ticket {ticket_id}")
+            
+            # If no clean posts but we have last_post content, add it as a dummy post
+            if len(clean_posts) == 0 and last_post_content and last_post_content != first_post_content:
+                clean_posts.append({
+                    "id": "last_post",
+                    "timestamp": data.get('last_activity_date', 'unknown'),
+                    "author": "Unknown (Last Post)",
+                    "content": last_post_content
+                })
+                logging.info(f"DEBUG: Added last post as dummy post for ticket {ticket_id}")
+            
+            # Create the standardized ticket data structure
             standardized_ticket_data[ticket_id] = {
                 "basic_info": {
                     "ticket_id": data.get('ticket_id', 'N/A'),
@@ -489,41 +939,89 @@ def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
                     "status": data.get('status', 'N/A'),
                     "department": data.get('department', 'N/A'),
                     "category": data.get('category', 'N/A'),
-                    "queue": data.get('queue', 'N/A'),
-                    "audit_status": data.get('audit_status', 'N/A'),
                     "parent_dispatch_id": data.get('parent_dispatch_id', 'N/A'),
                     "location_id": data.get('location_id', 'N/A'),
-                    "site_number": data.get('site_number', 'N/A') if 'site_number' in data else 'N/A',
-                    "project_id": data.get('project_id', 'N/A') if 'project_id' in data else 'N/A'
+                    "site_number": data.get('site', {}).get('number', 'N/A'),
+                    "project_id": data.get('project_id', 'N/A'),
+                    "chain_hash": data.get('chain_hash', 'N/A')
                 },
                 "timeline": {
                     "created_date": data.get('created_date', 'N/A'),
                     "last_activity_date": data.get('last_activity_date', 'N/A'),
                     "closed_date": data.get('closed_date', 'N/A'),
-                    "service_date": data.get('turnup_data', {}).get('service_date', 'N/A') if 'turnup_data' in data else 'N/A'
+                    "service_date": data.get('service_date', data.get('turnup_data', {}).get('service_date', 'N/A')) 
                 },
                 "details": {
                     "total_replies": data.get('total_replies', 0),
-                    "technical_details": data.get('technical_details', 'N/A'),
+                    "technical_details": "\n".join(technical_details) if technical_details else "N/A",
                     "issues": data.get('issues', []),
-                    "accounting_details": data.get('accounting_details', None)
+                    "is_resolved": data.get('is_resolved', False),
+                    "missing_data_notes": missing_data_notes
                 },
                 "interactions": {
-                    "posts": data.get('posts', []),
-                    "notes": data.get('notes', [])
+                    "posts": clean_posts,
+                    "notes": clean_notes,
+                    "post_count": len(clean_posts),
+                    "note_count": len(clean_notes),
+                    "first_post": first_post_content,
+                    "last_post": last_post_content
+                },
+                "location": {
+                    "address": data.get('site', {}).get('address', 'N/A'),
+                    "city": data.get('site', {}).get('city', 'N/A'),
+                    "state": data.get('site', {}).get('state', 'N/A')
                 },
                 "related_data": {
-                    "dispatch_data": data.get('dispatch_data', None),
-                    "turnup_data": data.get('turnup_data', None)
+                    "dispatch_data": data.get('dispatch_data'),
+                    "turnup_data": data.get('turnup_data')
                 }
             }
+            
+            # DEBUG: Log standardized ticket data stats
+            logging.info(f"DEBUG: Ticket {ticket_id} standardized data contains:")
+            logging.info(f"  - Posts: {len(clean_posts)}")
+            logging.info(f"  - Notes: {len(clean_notes)}")
+            logging.info(f"  - Issues: {len(data.get('issues', []))}")
+            logging.info(f"  - Technical details length: {len(standardized_ticket_data[ticket_id]['details']['technical_details'])} chars")
+            if standardized_ticket_data[ticket_id]['related_data']['dispatch_data']:
+                logging.info(f"  - Has dispatch data: Yes")
+            if standardized_ticket_data[ticket_id]['related_data']['turnup_data']:
+                logging.info(f"  - Has turnup data: Yes")
 
+        # Check if we have any usable post/note content and add fallback data if needed
+        tickets_with_content = sum(1 for tid, data in standardized_ticket_data.items() 
+                                  if data['interactions']['post_count'] > 0 or data['interactions']['note_count'] > 0)
+        logging.info(f"DEBUG: {tickets_with_content} out of {len(standardized_ticket_data)} tickets have content")
+        
+        if tickets_with_content == 0:
+            logging.warning(f"DEBUG: No tickets have content, adding fallback dummy data")
+            # Add fallback text to help the AI understand the issue
+            for tid, data in standardized_ticket_data.items():
+                data['details']['missing_data_notes'].append(
+                    "ALL TICKETS: No usable content could be parsed from the database. This is a data sanitization issue, not an indication that the tickets are empty."
+                )
+                # Add a dummy post with subject information
+                data['interactions']['posts'].append({
+                    "id": "dummy_post",
+                    "timestamp": data['timeline']['created_date'],
+                    "author": "System",
+                    "content": f"Subject: {data['basic_info']['subject']}\nStatus: {data['basic_info']['status']}\nDepartment: {data['basic_info']['department']}"
+                })
+                data['interactions']['post_count'] = 1
+
+        # Write the standardized ticket data to file with custom JSON serialization
         with open(tickets_file, 'w') as f:
-            json.dump(standardized_ticket_data, f, indent=2, default=str)
+            # Use a custom JSON encoder to handle any potential datetime objects
+            json_data = json.dumps(standardized_ticket_data, indent=2, cls=DateTimeEncoder)
+            f.write(json_data)
+            # DEBUG: Log JSON file size
+            logging.info(f"DEBUG: Tickets JSON file size: {len(json_data)} bytes")
         file_paths.append(tickets_file)
         logging.info(f"Created standardized tickets file: {tickets_file}")
     except Exception as e:
         logging.error(f"Error creating tickets file {tickets_file}: {e}")
+        import traceback
+        logging.error(f"DEBUG: Error traceback: {traceback.format_exc()}")
 
     # Phase 1 analysis
     phase1_file = os.path.join(output_dir, f'phase1_analysis_{chain_hash}.json')
@@ -547,34 +1045,91 @@ def create_ticket_files(chain_details, full_ticket_data, phase1_analysis_text):
                     dispatch_to_turnups[dispatch_id] = []
                 if tid not in dispatch_to_turnups[dispatch_id]:
                     dispatch_to_turnups[dispatch_id].append(tid)
+        
+        # Find non-1:1 relationships
+        non_one_to_one = {}
+        for dispatch_id, turnups in dispatch_to_turnups.items():
+            if len(turnups) > 1:
+                non_one_to_one[dispatch_id] = turnups
+                logging.info(f"DEBUG: Dispatch {dispatch_id} has {len(turnups)} turnups: {', '.join(turnups)}")
+        
+        # Find orphaned tickets (tickets without relationship connections)
+        orphaned_tickets = []
+        for tid, data in full_ticket_data.items():
+            if data.get('category') == 'Turnup Tickets' and not data.get('parent_dispatch_id'):
+                orphaned_tickets.append(tid)
+                logging.info(f"DEBUG: Turnup {tid} has no parent dispatch")
+            elif data.get('category') == 'Dispatch Tickets' and tid not in dispatch_to_turnups:
+                orphaned_tickets.append(tid)
+                logging.info(f"DEBUG: Dispatch {tid} has no linked turnups")
+        
         relationships_data = {
-          "chain_hash": chain_hash,
-          "relationships": [
-                {"dispatch_ticket_id": disp_id, "turnup_ticket_ids": turnups, "confidence": "High"}
-                for disp_id, turnups in dispatch_to_turnups.items()
-            ]
+            "chain_hash": chain_hash,
+            "dispatch_to_turnups": dispatch_to_turnups,
+            "non_one_to_one_relationships": non_one_to_one,
+            "orphaned_tickets": orphaned_tickets
         }
+        
         with open(relationships_file, 'w') as f:
             json.dump(relationships_data, f, indent=2)
         file_paths.append(relationships_file)
         logging.info(f"Created relationships file: {relationships_file}")
     except Exception as e:
         logging.error(f"Error creating relationships file {relationships_file}: {e}")
-
-    # Context rules
-    rules_src_path = "PyChain/Ticket_Records_Information_and_Rules.txt"
-    rules_dest_path = os.path.join(output_dir, 'Ticket_Records_Information_and_Rules.txt')
-    try:
-        if os.path.exists(rules_src_path):
-            shutil.copyfile(rules_src_path, rules_dest_path)
-            file_paths.append(rules_dest_path)
-            logging.info(f"Copied rules file: {rules_dest_path}")
-        else:
-            logging.warning(f"Rules file not found at {rules_src_path}")
-    except Exception as e:
-        logging.error(f"Error copying rules file: {e}")
-
+    
     return file_paths
+
+def sanitize_content_string(content):
+    """Sanitize content string for JSON output - helper method for create_ticket_files"""
+    if not content:
+        return ""
+    
+    try:
+        # Log original content for debugging (sample)
+        content_preview = content[:100] + "..." if len(content) > 100 else content
+        logging.info(f"Original content preview: {content_preview}")
+        
+        # Remove control characters 
+        sanitized = re.sub(r'[\x00-\x1F\x7F]', '', content)
+        # Replace common problematic characters
+        sanitized = sanitized.replace('\0', '').replace('\r', ' ').replace('\u0000', '')
+        
+        # Additional sanitization steps
+        sanitized = sanitized.encode('utf-8', 'ignore').decode('utf-8')
+        
+        # Log sanitized content
+        sanitized_preview = sanitized[:100] + "..." if len(sanitized) > 100 else sanitized
+        logging.info(f"Sanitized content preview: {sanitized_preview}")
+        
+        # Save debug files
+        debug_dir = 'PyChain/data/debug'
+        os.makedirs(debug_dir, exist_ok=True)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Save original content
+        orig_file = f"{debug_dir}/original_content_{timestamp}.txt"
+        try:
+            with open(orig_file, 'w', encoding='utf-8', errors='ignore') as f:
+                f.write(content)
+            logging.info(f"Saved original content to {orig_file}")
+        except Exception as e:
+            logging.error(f"Error saving original content: {e}")
+        
+        # Save sanitized content
+        sanitized_file = f"{debug_dir}/sanitized_content_{timestamp}.txt"
+        try:
+            with open(sanitized_file, 'w', encoding='utf-8') as f:
+                f.write(sanitized)
+            logging.info(f"Saved sanitized content to {sanitized_file}")
+        except Exception as e:
+            logging.error(f"Error saving sanitized content: {e}")
+        
+        return sanitized
+    except Exception as e:
+        logging.error(f"Error sanitizing content: {str(e)}")
+        import traceback
+        logging.error(f"Sanitization error traceback: {traceback.format_exc()}")
+        return "Content unavailable due to sanitization error"
 
 def upload_files(client, file_paths, max_retries=3):
     """Upload files to OpenAI with retries."""
@@ -598,38 +1153,6 @@ def upload_files(client, file_paths, max_retries=3):
                 else:
                     time.sleep(2 ** attempt)
     return file_ids
-
-def wait_for_vector_store_processing(client, vector_store_id, file_ids, timeout=300):
-    """Wait for files to be processed by the vector store."""
-    start_time = time.time()
-    processed_files = set()
-    all_files = set(file_ids)
-    
-    while time.time() - start_time < timeout:
-        if len(all_files) == 0:
-            logging.info("No files to process")
-            return True
-        all_processed = True
-        for file_id in list(all_files - processed_files):
-            try:
-                file_status = client.vector_stores.files.retrieve(vector_store_id=vector_store_id, file_id=file_id)
-                if file_status.status == 'completed':
-                    processed_files.add(file_id)
-                elif file_status.status in ['failed', 'cancelled']:
-                    logging.error(f"File {file_id} failed: {file_status.status}")
-                    all_files.remove(file_id)
-                else:
-                    all_processed = False
-            except Exception as e:
-                logging.error(f"Error checking file {file_id}: {e}")
-                all_processed = False
-        if all_processed:
-            logging.info("All files processed")
-            return True
-        logging.info(f"Waiting for {len(all_files - processed_files)} files... ({int(time.time() - start_time)}s)")
-        time.sleep(5)
-    logging.error(f"Timeout after {timeout}s. Unprocessed files: {all_files - processed_files}")
-    return False
 
 def validate_response(response_text, expected_ticket_ids):
     """Validate and clean assistant response."""
@@ -713,63 +1236,161 @@ def run_assistant_query(client, thread_id, assistant_id, prompt, timeout_seconds
     """Run a query against an assistant and return the response."""
     logging.info(f"Running query against assistant {assistant_id}")
     
-    try:
-        message = client.beta.threads.messages.create(
-            thread_id=thread_id,
-            role="user",
-            content=prompt
-        )
-    except AttributeError:
-        message = client.threads.messages.create(
-            thread_id=thread_id,
-            role="user",
-            content=prompt
-        )
+    # DEBUG: Log query details
+    logging.info(f"DEBUG: Thread ID: {thread_id}")
+    logging.info(f"DEBUG: Assistant ID: {assistant_id}")
+    logging.info(f"DEBUG: Prompt length: {len(prompt)} characters")
+    logging.info(f"DEBUG: Prompt first 100 chars: {prompt[:100]}...")
     
     try:
-        run = client.beta.threads.runs.create(
-            thread_id=thread_id,
-            assistant_id=assistant_id
-        )
-    except AttributeError:
-        run = client.threads.runs.create(
-            thread_id=thread_id,
-            assistant_id=assistant_id
-        )
+        # DEBUG: Log message creation attempt
+        logging.info(f"DEBUG: Creating message in thread {thread_id}")
+        try:
+            message = client.beta.threads.messages.create(
+                thread_id=thread_id,
+                role="user",
+                content=prompt
+            )
+            logging.info(f"DEBUG: Message created with ID: {message.id}")
+        except AttributeError as ae:
+            logging.info(f"DEBUG: AttributeError in message creation: {ae}, trying non-beta endpoint")
+            message = client.threads.messages.create(
+                thread_id=thread_id,
+                role="user",
+                content=prompt
+            )
+            logging.info(f"DEBUG: Message created with ID: {message.id}")
+        except Exception as e:
+            logging.error(f"DEBUG: Error creating message: {e}")
+            import traceback
+            logging.error(f"DEBUG: Message creation error traceback: {traceback.format_exc()}")
+            raise
+    except Exception as e:
+        logging.error(f"Error creating message: {e}")
+        raise
+    
+    try:
+        # DEBUG: Log run creation attempt
+        logging.info(f"DEBUG: Creating run in thread {thread_id} with assistant {assistant_id}")
+        try:
+            run = client.beta.threads.runs.create(
+                thread_id=thread_id,
+                assistant_id=assistant_id
+            )
+            logging.info(f"DEBUG: Run created with ID: {run.id}")
+        except AttributeError as ae:
+            logging.info(f"DEBUG: AttributeError in run creation: {ae}, trying non-beta endpoint")
+            run = client.threads.runs.create(
+                thread_id=thread_id,
+                assistant_id=assistant_id
+            )
+            logging.info(f"DEBUG: Run created with ID: {run.id}")
+        except Exception as e:
+            logging.error(f"DEBUG: Error creating run: {e}")
+            import traceback
+            logging.error(f"DEBUG: Run creation error traceback: {traceback.format_exc()}")
+            raise
+    except Exception as e:
+        logging.error(f"Error creating run: {e}")
+        raise
     
     logging.info(f"Run {run.id} started")
     
+    # Monitor the run status with more detailed debug information
     start_time = time.time()
+    run_status = None
+    status_history = []
+    
     while time.time() - start_time < timeout_seconds:
         try:
-            run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
-        except AttributeError:
-            run_status = client.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
-        
-        if run_status.status == "completed":
-            logging.info(f"Run {run.id} completed")
-            break
-        elif run_status.status in ["failed", "cancelled", "expired"]:
-            logging.error(f"Run {run.id} {run_status.status}")
-            raise Exception(f"Run {run.id} {run_status.status}")
-        elif run_status.status == "requires_action":
-            logging.warning(f"Run {run.id} requires action: {run_status.required_action}")
-            time.sleep(15)
-        else:
-            logging.info(f"Waiting for run {run.id} (Status: {run_status.status})... ({int(time.time() - start_time)}s)")
+            # DEBUG: Log run status check
+            elapsed = int(time.time() - start_time)
+            logging.info(f"DEBUG: Checking run status at {elapsed}s")
+            
+            try:
+                run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
+            except AttributeError:
+                logging.info(f"DEBUG: Using non-beta endpoint for run status")
+                run_status = client.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
+            
+            # DEBUG: Keep track of status changes
+            current_status = run_status.status
+            if not status_history or status_history[-1] != current_status:
+                status_history.append(current_status)
+                logging.info(f"DEBUG: Run status changed to: {current_status}")
+                logging.info(f"DEBUG: Full status history: {' -> '.join(status_history)}")
+            
+            if current_status == "completed":
+                logging.info(f"Run {run.id} completed")
+                logging.info(f"DEBUG: Run completed in {elapsed}s")
+                break
+            elif current_status in ["failed", "cancelled", "expired"]:
+                error_details = getattr(run_status, 'last_error', 'No error details')
+                logging.error(f"Run {run.id} {current_status}")
+                logging.error(f"DEBUG: Run failed with error: {error_details}")
+                raise Exception(f"Run {run.id} {current_status}")
+            elif current_status == "requires_action":
+                logging.warning(f"Run {run.id} requires action: {run_status.required_action}")
+                logging.warning(f"DEBUG: Run requires action with details: {run_status.required_action}")
+                time.sleep(15)
+            else:
+                logging.info(f"Waiting for run {run.id} (Status: {current_status})... ({elapsed}s)")
+                time.sleep(10)
+        except Exception as e:
+            logging.error(f"Error checking run status: {e}")
+            import traceback
+            logging.error(f"DEBUG: Status check error traceback: {traceback.format_exc()}")
             time.sleep(10)
     else:
+        logging.error(f"DEBUG: Run timed out after {timeout_seconds}s. Final status: {run_status.status if run_status else 'unknown'}")
         raise TimeoutError(f"Run {run.id} timed out after {timeout_seconds} seconds")
 
+    # Retrieve the assistant's response
     try:
-        messages = client.beta.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
-    except AttributeError:
-        messages = client.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
-    
-    for msg in messages.data:
-        if msg.role == "assistant" and msg.run_id == run.id:
-            content = msg.content[0].text.value
-            return content
+        # DEBUG: Log message retrieval attempt
+        logging.info(f"DEBUG: Retrieving messages from thread {thread_id}")
+        
+        try:
+            messages = client.beta.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+        except AttributeError:
+            logging.info(f"DEBUG: Using non-beta endpoint for message retrieval")
+            messages = client.threads.messages.list(thread_id=thread_id, order="desc", limit=5)
+        
+        logging.info(f"DEBUG: Retrieved {len(messages.data)} messages")
+        
+        for msg in messages.data:
+            if msg.role == "assistant" and msg.run_id == run.id:
+                # DEBUG: Log message details
+                msg_content = msg.content
+                logging.info(f"DEBUG: Found assistant response message with ID: {msg.id}")
+                logging.info(f"DEBUG: Message content type: {type(msg_content)}")
+                logging.info(f"DEBUG: Message content structure: {msg_content}")
+                
+                if msg.content and isinstance(msg.content, list) and len(msg.content) > 0:
+                    content_block = msg.content[0]
+                    logging.info(f"DEBUG: Content block type: {type(content_block)}")
+                    
+                    if hasattr(content_block, 'text') and content_block.text:
+                        response_text = content_block.text.value
+                        logging.info(f"DEBUG: Response text length: {len(response_text)} characters")
+                        logging.info(f"DEBUG: Response first 100 chars: {response_text[:100]}...")
+                        return response_text
+                    else:
+                        logging.warning(f"DEBUG: Non-text content block: {content_block}")
+                else:
+                    logging.warning(f"DEBUG: Empty/invalid message content: {msg.content}")
+        
+        # DEBUG: If we got here, we didn't find the right message
+        logging.error("DEBUG: No valid assistant message found with the correct run_id")
+        all_msg_ids = [f"{m.id} (role: {m.role}, run_id: {m.run_id})" for m in messages.data]
+        logging.error(f"DEBUG: All messages found: {all_msg_ids}")
+        
+        raise Exception("No valid assistant message found")
+    except Exception as e:
+        logging.error(f"Error retrieving assistant response: {e}")
+        import traceback
+        logging.error(f"DEBUG: Response retrieval error traceback: {traceback.format_exc()}")
+        raise
     
     logging.error("No response from assistant")
     return "No response from assistant"
@@ -1129,33 +1750,111 @@ def cleanup_openai_resources(client, file_ids, vector_store_id=None, delete_vect
 
 def create_nlp_extraction_prompt(chain_hash, ticket_id, ticket_data):
     """Create a prompt for advanced NLP data extraction from ticket text."""
+    # Start with basic ticket information
     prompt = f"""
 Analyze ticket {ticket_id} in chain {chain_hash} to extract structured data from the provided notes and posts.
 
-Ticket Data:
+Ticket Basic Information:
 - Category: {ticket_data.get('category', 'N/A')}
 - Subject: {ticket_data.get('subject', 'N/A')}
 - Status: {ticket_data.get('status', 'N/A')}
 - Created: {ticket_data.get('created_date', 'N/A')}
 - Last Activity: {ticket_data.get('last_activity_date', 'N/A')}
 - Closed: {ticket_data.get('closed_date', 'N/A')}
+- Site: {ticket_data.get('site', {}).get('address', 'N/A')}, {ticket_data.get('site', {}).get('city', 'N/A')}, {ticket_data.get('site', {}).get('state', 'N/A')}
+- Project ID: {ticket_data.get('project_id', 'N/A')}
 """
-    technical_details = ticket_data.get('technical_details', 'N/A')
-    if len(technical_details) > 300:
-        technical_details = technical_details[:300] + "..."
-    prompt += f"- Technical Details: {technical_details}\n"
-    prompt += f"- Posts: {len(ticket_data.get('posts', []))} entries (first few):\n"
-    for i, post in enumerate(ticket_data.get('posts', [])[:5]):
-        content = post.get('content', 'N/A')
-        if len(content) > 150:
-            content = content[:150] + "..."
-        prompt += f"  Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}): {content}\n"
-    prompt += f"- Notes: {len(ticket_data.get('notes', []))} entries (first few):\n"
-    for i, note in enumerate(ticket_data.get('notes', [])[:5]):
-        content = note.get('content', 'N/A')
-        if len(content) > 150:
-            content = content[:150] + "..."
-        prompt += f"  Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}): {content}\n"
+
+    # Add site location information if available
+    if ticket_data.get('site', {}).get('number') != 'N/A':
+        prompt += f"- Site Number: {ticket_data.get('site', {}).get('number', 'N/A')}\n"
+    
+    # Include first post content if available
+    if ticket_data.get('first_post'):
+        prompt += f"\nFirst Post:\n{ticket_data.get('first_post')[:500]}...\n"
+    
+    # Include technical details if available
+    technical_details = ticket_data.get('details', {}).get('technical_details', 'N/A')
+    if technical_details and technical_details != 'N/A':
+        # Truncate if too long
+        if len(technical_details) > 1000:
+            prompt += f"\nTechnical Details:\n{technical_details[:1000]}...\n"
+        else:
+            prompt += f"\nTechnical Details:\n{technical_details}\n"
+
+    # Add posts and notes content
+    posts = ticket_data.get('interactions', {}).get('posts', [])
+    notes = ticket_data.get('interactions', {}).get('notes', [])
+    
+    if posts:
+        prompt += f"\nPosts ({len(posts)}):\n"
+        # Include up to 10 posts, prioritizing posts with technical content
+        technical_posts = []
+        other_posts = []
+        
+        for post in posts:
+            content = post.get('content', '')
+            if any(kw in content.lower() for kw in ['cable', 'cat6', 'rack', 'network', 'config', 'install', 'upgrade', 'materials', 'equipment']):
+                technical_posts.append(post)
+            else:
+                other_posts.append(post)
+        
+        # Show technical posts first, then others, up to a total of 10
+        display_posts = technical_posts + other_posts
+        display_posts = display_posts[:10]  # Limit to 10 posts
+        
+        for i, post in enumerate(display_posts):
+            content = post.get('content', '')
+            # Truncate content if too long
+            if len(content) > 300:
+                content = content[:300] + "..."
+            prompt += f"  Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}):\n  {content}\n\n"
+    
+    if notes:
+        prompt += f"\nNotes ({len(notes)}):\n"
+        # Include up to 5 notes
+        for i, note in enumerate(notes[:5]):
+            content = note.get('content', '')
+            # Truncate content if too long
+            if len(content) > 300:
+                content = content[:300] + "..."
+            prompt += f"  Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}):\n  {content}\n\n"
+    
+    # Include any dispatch or turnup data if available
+    dispatch_data = ticket_data.get('related_data', {}).get('dispatch_data')
+    if dispatch_data:
+        prompt += f"\nDispatch Data:\n"
+        prompt += f"  - Status: {dispatch_data.get('status', 'N/A')}\n"
+        prompt += f"  - Type: {dispatch_data.get('type', 'N/A')}\n"
+        prompt += f"  - Service Date: {dispatch_data.get('service_date', 'N/A')}\n"
+        prompt += f"  - Service Time: {dispatch_data.get('service_time', 'N/A')}\n"
+        prompt += f"  - Priority: {dispatch_data.get('priority', 'N/A')}\n"
+        prompt += f"  - Customer: {dispatch_data.get('customer_name', 'N/A')}\n"
+    
+    turnup_data = ticket_data.get('related_data', {}).get('turnup_data')
+    if turnup_data:
+        prompt += f"\nTurnup Data:\n"
+        prompt += f"  - Status: {turnup_data.get('status', 'N/A')}\n"
+        prompt += f"  - Service Date: {turnup_data.get('service_date', 'N/A')}\n"
+        prompt += f"  - Technician: {turnup_data.get('technician_name', 'N/A')}\n"
+        if turnup_data.get('notes'):
+            prompt += f"  - Notes: {turnup_data.get('notes', 'N/A')[:300]}...\n"
+    
+    # Include any issues found
+    issues = ticket_data.get('issues', [])
+    if issues:
+        prompt += f"\nIssues Identified:\n"
+        for issue in issues:
+            prompt += f"  - {issue}\n"
+    
+    # Include missing data notes
+    missing_data_notes = ticket_data.get('details', {}).get('missing_data_notes', [])
+    if missing_data_notes:
+        prompt += f"\nMissing Data Notes:\n"
+        for note in missing_data_notes:
+            prompt += f"  - {note}\n"
+
+    # Add extraction instructions
     prompt += """
 From the provided ticket notes/posts, explicitly extract the following structured data fields:
 - Ticket ID, Date, Start/End times
@@ -1171,7 +1870,9 @@ From the provided ticket notes/posts, explicitly extract the following structure
 - Revisit required (Yes/No, reasons)
 - Audit trail events (timestamps, actions, users)
 
-Provide output strictly as structured JSON matching the following schema. Use 'not specified' or empty arrays for fields with no data:
+IMPORTANT: Only extract information that is explicitly mentioned in the ticket data. If information is not available, use 'not specified' for text fields, empty arrays for list fields, or null for numeric fields.
+
+Provide output strictly as structured JSON matching the following schema:
 {
   "ticket_id": "string or number",
   "date": "string (YYYY-MM-DD)",
@@ -1189,10 +1890,10 @@ Provide output strictly as structured JSON matching the following schema. Use 'n
   "sla_metrics": {
     "response_time": "string",
     "completion_deadline": "string (YYYY-MM-DDTHH:MM)",
-    "sla_compliance": "boolean"
+    "sla_compliance": false
   },
   "customer_feedback": {
-    "rating": "number (1-5)",
+    "rating": null,
     "comments": "string"
   },
   "tasks": [
@@ -1200,16 +1901,16 @@ Provide output strictly as structured JSON matching the following schema. Use 'n
       "task_id": "string",
       "description": "string",
       "status": "string",
-      "completed": "boolean",
+      "completed": false,
       "notes": "string",
       "dependencies": ["string"]
     }
   ],
   "tasks_closeout": {
-    "tasks_completed_percentage": "number (0-100)",
-    "all_tasks_completed": "boolean",
-    "total_tasks": "number",
-    "tasks_failed": "number",
+    "tasks_completed_percentage": 0,
+    "all_tasks_completed": false,
+    "total_tasks": 0,
+    "tasks_failed": 0,
     "closeout_notes": "string"
   },
   "status": "string",
@@ -1217,24 +1918,17 @@ Provide output strictly as structured JSON matching the following schema. Use 'n
   "site_contact": "string",
   "customer_name": "string",
   "customer_signature": "string",
-  "actual_duration_minutes": "number",
-  "travel_time_minutes": "number",
+  "actual_duration_minutes": null,
+  "travel_time_minutes": null,
   "materials_used": [
     {
       "item": "string",
-      "quantity": "number",
+      "quantity": 0,
       "part_number": "string"
     }
   ],
   "inventory": {
-    "items": [
-      {
-        "item_id": "string",
-        "description": "string",
-        "quantity_used": "number",
-        "stock_remaining": "number"
-      }
-    ]
+    "items": []
   },
   "issues_encountered": [
     {
@@ -1253,59 +1947,40 @@ Provide output strictly as structured JSON matching the following schema. Use 'n
     }
   ],
   "issues_closeout": {
-    "total_issues": "number",
-    "issues_resolved": "number",
-    "issues_unresolved": "number",
-    "revisits_triggered": "number",
+    "total_issues": 0,
+    "issues_resolved": 0,
+    "issues_unresolved": 0,
+    "revisits_triggered": 0,
     "closeout_notes": "string"
   },
-  "resolutions": ["string"],
-  "revisit_required": "boolean",
-  "revisits_required": ["string"],
+  "resolutions": [],
+  "revisit_required": false,
+  "revisits_required": [],
   "notes": "string",
-  "attachments": [
-    {
-      "type": "string",
-      "url": "string"
-    }
-  ],
-  "financials": [
-    {
-      "cost_id": "string",
-      "type": "string",
-      "description": "string",
-      "amount": "number",
-      "notes": "string"
-    }
-  ],
+  "attachments": [],
+  "financials": [],
   "financials_closeout": {
-    "total_cost": "number",
+    "total_cost": 0,
     "cost_breakdown": {
-      "Labor": "number",
-      "Materials": "number",
-      "Trip Charge": "number",
-      "Tax": "number",
-      "Equipment Rental": "number"
+      "Labor": 0,
+      "Materials": 0,
+      "Trip Charge": 0,
+      "Tax": 0,
+      "Equipment Rental": 0
     },
-    "tax_included": "boolean",
+    "tax_included": false,
     "closeout_notes": "string"
   },
   "task_outcome": "string",
-  "completion_percentage": "number (0-100)",
-  "audit_trail": [
-    {
-      "timestamp": "string (YYYY-MM-DDTHH:MM:SSZ)",
-      "change": "string",
-      "user": "string"
-    }
-  ]
+  "completion_percentage": 0,
+  "audit_trail": []
 }
 Output ONLY valid JSON matching this schema.
 """
     return prompt
 
 def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
-    """Run multi-stage Phase 2 analysis with advanced NLP data extraction."""
+    """Run multi-stage Phase 2 analysis with turnup-dispatch pair focus."""
     try:
         vector_store_id, assistant_id = setup_vector_store_and_assistant(client, [])
         if not assistant_id or not vector_store_id:
@@ -1370,136 +2045,255 @@ def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
         thread = client.threads.create()
         logging.info(f"Analysis thread created: {thread.id}")
 
-    # Step 1: Advanced NLP Data Extraction
-    logging.info("Running Phase 2 Step 1: Advanced NLP Data Extraction")
-    nlp_extraction_results = []
-    for ticket_id in expected_ticket_ids:
-        logging.info(f"Extracting data for ticket {ticket_id}")
-        ticket_data = full_ticket_data.get(ticket_id, {})
-        nlp_prompt = create_nlp_extraction_prompt(chain_hash, ticket_id, ticket_data)
+    # Create ticket pairs focusing on turnup tickets as primary
+    logging.info("Creating turnup-dispatch ticket pairs...")
+    ticket_pairs = create_ticket_pairs(full_ticket_data)
+    
+    # Step 1: Analyze each ticket pair (turnup-dispatch pairs are prioritized)
+    logging.info("Running Phase 2 Step 1: Turnup-Dispatch Pair Analysis")
+    pair_analysis_results = []
+    
+    for i, pair in enumerate(ticket_pairs):
+        primary_id = pair["primary_ticket_id"]
+        related_id = pair["related_ticket_id"]
+        pair_type = pair["pair_type"]
+        
+        pair_description = f"{pair['primary_type'].capitalize()} {primary_id}"
+        if related_id:
+            pair_description += f" with {pair['related_type'].capitalize()} {related_id}"
+        
+        logging.info(f"Analyzing Pair {i+1}/{len(ticket_pairs)}: {pair_description}")
+        
+        # Create a detailed prompt for this specific ticket pair
+        pair_prompt = create_ticket_pair_analysis_prompt(chain_hash, pair, full_ticket_data)
+        
         try:
-            nlp_response = run_assistant_query(client, thread.id, assistant_id, nlp_prompt)
-            validated_json = validate_response(nlp_response, [ticket_id])
-            nlp_extraction_results.append({
-                "ticket_id": ticket_id,
-                "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": nlp_response}
-            })
-            final_responses["stages"][f"NLP_Extraction_Ticket_{ticket_id}"] = nlp_extraction_results[-1]
-            print(f"\n--- NLP Extraction for Ticket {ticket_id} (JSON) ---")
+            pair_response = run_assistant_query(client, thread.id, assistant_id, pair_prompt)
+            validated_json = validate_response(pair_response, [primary_id] + ([related_id] if related_id else []))
+            
+            pair_result = {
+                "primary_ticket_id": primary_id,
+                "primary_type": pair["primary_type"],
+                "related_ticket_id": related_id,
+                "pair_type": pair_type,
+                "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": pair_response}
+            }
+            
+            pair_analysis_results.append(pair_result)
+            final_responses["stages"][f"Pair_Analysis_{primary_id}_{related_id if related_id else 'none'}"] = pair_result
+            
+            print(f"\n--- Pair Analysis: {pair_description} ---")
             if validated_json:
                 print(json.dumps(validated_json, indent=2))
             else:
-                print(f"ERROR: Invalid JSON.\nRaw:\n{nlp_response}")
+                print(f"ERROR: Invalid JSON.\nRaw:\n{pair_response}")
             print("-----------------------------------")
         except Exception as e:
-            logging.error(f"NLP extraction for ticket {ticket_id} failed: {e}")
-            nlp_extraction_results.append({"ticket_id": ticket_id, "error": str(e)})
-            final_responses["stages"][f"NLP_Extraction_Ticket_{ticket_id}"] = {"error": str(e)}
-
-    # Step 2: Batch Analysis (previously Step 1)
-    logging.info("Running Phase 2 Step 2: Batch Analysis")
-    batches = create_ticket_batches(full_ticket_data)
-    batch_results = []
-    ticket_ids_list_str = ", ".join(f'"{tid}"' for tid in expected_ticket_ids)
-    for i, batch in enumerate(batches):
-        logging.info(f"Analyzing Batch {i+1}/{len(batches)} with {len(batch['ticket_ids'])} tickets")
-        batch_prompt = create_batch_analysis_prompt(chain_hash, batch, full_ticket_data)
-        try:
-            batch_response = run_assistant_query(client, thread.id, assistant_id, batch_prompt)
-            validated_json = validate_response(batch_response, batch['ticket_ids'])
-            batch_results.append({
-                "batch_id": i+1,
-                "ticket_ids": batch['ticket_ids'],
-                "result": validated_json if validated_json else {"error": "Invalid JSON", "raw": batch_response}
+            logging.error(f"Pair analysis for {pair_description} failed: {e}")
+            pair_analysis_results.append({
+                "primary_ticket_id": primary_id,
+                "primary_type": pair["primary_type"],
+                "related_ticket_id": related_id,
+                "pair_type": pair_type,
+                "error": str(e)
             })
-            final_responses["stages"][f"Batch_{i+1}_Analysis"] = batch_results[-1]
-            print(f"\n--- Batch {i+1} Analysis Result (JSON) ---")
-            if validated_json:
-                print(json.dumps(validated_json, indent=2))
-            else:
-                print(f"ERROR: Invalid JSON.\nRaw:\n{batch_response}")
-            print("-----------------------------------")
-        except Exception as e:
-            logging.error(f"Batch {i+1} analysis failed: {e}")
-            batch_results.append({"batch_id": i+1, "ticket_ids": batch['ticket_ids'], "error": str(e)})
-            final_responses["stages"][f"Batch_{i+1}_Analysis"] = {"error": str(e)}
-
-    # Step 3: Issue Indexing (previously Step 2)
-    logging.info("Running Phase 2 Step 3: Issue Indexing")
-    issues_index = compile_issues_index(batch_results)
+    
+    # Step 2: Compile issues across all analyzed pairs
+    logging.info("Running Phase 2 Step 2: Compiling Issues Index")
+    issues_index = {
+        "chain_hash": chain_hash,
+        "issues_by_pair": [],
+        "issues_by_type": {
+            "scheduling": [],
+            "technical": [],
+            "customer": [],
+            "equipment": [],
+            "other": []
+        },
+        "missing_data": []
+    }
+    
+    for pair_result in pair_analysis_results:
+        primary_id = pair_result["primary_ticket_id"]
+        related_id = pair_result["related_ticket_id"]
+        result_data = pair_result.get("result", {})
+        
+        if isinstance(result_data, dict) and not result_data.get("error"):
+            # Extract issues from this pair's analysis
+            pair_issues = {
+                "primary_ticket_id": primary_id,
+                "related_ticket_id": related_id,
+                "issues": []
+            }
+            
+            # Add issues encountered
+            issues_encountered = result_data.get("issues_encountered", [])
+            for issue in issues_encountered:
+                if isinstance(issue, dict):
+                    pair_issues["issues"].append(issue)
+                    
+                    # Categorize the issue
+                    issue_desc = issue.get("description", "").lower() if issue.get("description") else ""
+                    if any(kw in issue_desc for kw in ["schedule", "time", "date", "appointment", "cancel"]):
+                        issues_index["issues_by_type"]["scheduling"].append(issue)
+                    elif any(kw in issue_desc for kw in ["technical", "network", "config", "install", "error"]):
+                        issues_index["issues_by_type"]["technical"].append(issue)
+                    elif any(kw in issue_desc for kw in ["customer", "client", "site access"]):
+                        issues_index["issues_by_type"]["customer"].append(issue)
+                    elif any(kw in issue_desc for kw in ["equipment", "material", "device", "hardware"]):
+                        issues_index["issues_by_type"]["equipment"].append(issue)
+                    else:
+                        issues_index["issues_by_type"]["other"].append(issue)
+            
+            # Add missing information
+            missing_info = result_data.get("missing_information", [])
+            if missing_info:
+                pair_issues["missing_data"] = missing_info
+                issues_index["missing_data"].extend(missing_info)
+            
+            issues_index["issues_by_pair"].append(pair_issues)
+    
     final_responses["stages"]["Issues_Index"] = issues_index
     print("\n--- Issues Index ---")
     print(json.dumps(issues_index, indent=2))
     print("--------------------")
-
-    # Step 4: Follow-up Questions (previously Step 3)
-    logging.info("Running Phase 2 Step 4: Follow-up Questions")
-    questions_prompt = create_questions_prompt(chain_hash, issues_index, ticket_ids_list_str)
-    try:
-        questions_response = run_assistant_query(client, thread.id, assistant_id, questions_prompt)
-        questions_json = validate_response(questions_response, expected_ticket_ids)
-        final_responses["stages"]["Followup_Questions"] = questions_json if questions_json else {"error": "Invalid JSON", "raw": questions_response}
-        print("\n--- Follow-up Questions (JSON) ---")
-        if questions_json:
-            print(json.dumps(questions_json, indent=2))
-        else:
-            print(f"ERROR: Invalid JSON.\nRaw:\n{questions_response}")
-        print("--------------------------------")
-    except Exception as e:
-        logging.error(f"Follow-up question generation failed: {e}")
-        final_responses["stages"]["Followup_Questions"] = {"error": str(e)}
-
-    # Step 5: User Input (previously Step 4)
-    logging.info("Running Phase 2 Step 5: User Input")
+    
+    # Step 3: User Input for specific questions
+    logging.info("Running Phase 2 Step 3: User Input")
     try:
         user_question = input("\nEnter a specific question about the ticket chain (or 'no' to skip): ").strip()
-        userQuestions = {}
+        user_questions = {}
         if user_question.lower() != 'no' and user_question:
             user_questions = {"global_question": user_question}
             logging.info(f"User question: {user_question}")
+            
+            # Create a custom prompt for the user's question
+            user_prompt = f"""
+Analyze the ticket chain with ID {chain_hash} to answer this specific question:
+
+{user_question}
+
+Provide a detailed answer based on the data in the files. Only include information that is explicitly mentioned in the ticket data. If the information needed to answer the question isn't available, clearly state what's missing.
+
+Respond with a JSON object with this structure:
+{{
+  "question": "{user_question}",
+  "answer": "string",
+  "evidence": [
+    {{
+      "ticket_id": "string",
+      "content": "string",
+      "source": "string (post/note)"
+    }}
+  ],
+  "missing_information": [
+    "string"
+  ]
+}}
+"""
+            
+            try:
+                user_response = run_assistant_query(client, thread.id, assistant_id, user_prompt)
+                user_json = validate_response(user_response, expected_ticket_ids)
+                user_questions["response"] = user_json if user_json else {"error": "Invalid JSON", "raw": user_response}
+                
+                print(f"\n--- Response to User Question ---")
+                if user_json:
+                    print(json.dumps(user_json, indent=2))
+                else:
+                    print(f"ERROR: Invalid JSON.\nRaw:\n{user_response}")
+                print("----------------------------------")
+            except Exception as e:
+                logging.error(f"Error processing user question: {e}")
+                user_questions["error"] = str(e)
         else:
             logging.info("User skipped custom question")
+        
         final_responses["stages"]["User_Questions"] = user_questions
     except Exception as e:
         logging.error(f"Error getting user input: {e}")
         final_responses["stages"]["User_Questions"] = {"error": str(e)}
+    
+    # Step 4: Final Consolidated Report
+    logging.info("Running Phase 2 Step 4: Final Consolidated Report")
+    
+    consolidation_prompt = f"""
+Create a consolidated summary report for the ticket chain with ID {chain_hash} based on all the analysis performed.
 
-    # Step 6: Detailed Re-Analysis (previously Step 5)
-    logging.info("Running Phase 2 Step 6: Detailed Re-Analysis")
-    detailed_results = []
-    tickets_with_questions = get_tickets_with_questions(questions_json if questions_json else {}, user_questions, full_ticket_data)
-    for ticket_id, q_data in tickets_with_questions.items():
-        logging.info(f"Re-analyzing ticket {ticket_id}")
-        detail_prompt = create_detailed_analysis_prompt(chain_hash, ticket_id, full_ticket_data, q_data["questions"])
-        try:
-            detail_response = run_assistant_query(client, thread.id, assistant_id, detail_prompt)
-            detail_json = validate_response(detail_response, [ticket_id])
-            detailed_results.append({
-                "ticket_id": ticket_id,
-                "result": detail_json if detail_json else {"error": "Invalid JSON", "raw": detail_response}
-            })
-            final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = detailed_results[-1]
-            print(f"\n--- Detailed Analysis for Ticket {ticket_id} (JSON) ---")
-            if detail_json:
-                print(json.dumps(detail_json, indent=2))
-            else:
-                print(f"ERROR: Invalid JSON.\nRaw:\n{detail_response}")
-            print("-----------------------------------")
-        except Exception as e:
-            logging.error(f"Detailed analysis for ticket {ticket_id} failed: {e}")
-            detailed_results.append({"ticket_id": ticket_id, "error": str(e)})
-            final_responses["stages"][f"Detailed_Analysis_Ticket_{ticket_id}"] = {"error": str(e)}
+Provide a comprehensive overview covering:
+1. Overall timeline of events (all visits/contacts in chronological order)
+2. Summary of work completed across all visits
+3. Summary of technical specifications and configurations
+4. Summary of all issues encountered and their resolutions
+5. Current status of the service/project
+6. Any follow-up actions required
 
-    # Step 7: Consolidation (previously Step 6)
-    logging.info("Running Phase 2 Step 7: Final Consolidation")
-    consolidated_report = consolidate_final_report(batch_results, issues_index, detailed_results, full_ticket_data, chain_hash)
-    final_responses["consolidated_report"] = consolidated_report
-    print("\n--- Consolidated Final Report (JSON) ---")
-    print(json.dumps(consolidated_report, indent=2))
-    print("---------------------------------------")
+Format the output as valid JSON matching this structure:
+{{
+  "chain_hash": "{chain_hash}",
+  "timeline": [
+    {{
+      "date": "string (YYYY-MM-DD)",
+      "ticket_id": "string",
+      "event_type": "string",
+      "description": "string"
+    }}
+  ],
+  "work_summary": {{
+    "overall_status": "string",
+    "completion_percentage": number,
+    "tasks_completed": [
+      "string"
+    ],
+    "outstanding_tasks": [
+      "string"
+    ]
+  }},
+  "technical_summary": {{
+    "equipment_installed": [
+      "string"
+    ],
+    "configurations_performed": [
+      "string"
+    ],
+    "materials_used": [
+      "string"
+    ]
+  }},
+  "issues_summary": [
+    {{
+      "issue_description": "string",
+      "status": "string",
+      "resolution": "string"
+    }}
+  ],
+  "service_status": "string",
+  "follow_up_actions": [
+    "string"
+  ],
+  "data_quality_notes": [
+    "string"
+  ]
+}}
+"""
+    
+    try:
+        consolidation_response = run_assistant_query(client, thread.id, assistant_id, consolidation_prompt)
+        consolidated_json = validate_response(consolidation_response, expected_ticket_ids)
+        final_responses["consolidated_report"] = consolidated_json if consolidated_json else {"error": "Invalid JSON", "raw": consolidation_response}
+        
+        print("\n--- Consolidated Final Report ---")
+        if consolidated_json:
+            print(json.dumps(consolidated_json, indent=2))
+        else:
+            print(f"ERROR: Invalid JSON.\nRaw:\n{consolidation_response}")
+        print("-------------------------------")
+    except Exception as e:
+        logging.error(f"Consolidation failed: {e}")
+        final_responses["consolidated_report"] = {"error": str(e)}
 
     # Save Output
-    final_output_file = f"PyChain/data/analyses/Phase2_BatchIterative_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    final_output_file = f"PyChain/data/analyses/Phase2_TurnupPairs_{chain_hash}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     try:
         with open(final_output_file, 'w') as f:
             json.dump(final_responses, f, indent=2)
@@ -1542,7 +2336,7 @@ def run_phase_2_analysis(client, chain_details, phase1_analysis_text):
                 print("\nCleanup interrupted by user. Resources may not be fully cleaned up.")
             except Exception as e:
                 logging.error(f"Error during cleanup prompt: {e}")
-                
+
 def analyze_real_ticket(ticket_id: str, phase: str = "all"):
     """Analyze a ticket chain starting from the given ticket ID."""
     logging.info(f"Retrieving ticket chain for ticket ID: {ticket_id}")
@@ -1649,6 +2443,335 @@ def analyze_real_ticket(ticket_id: str, phase: str = "all"):
         if session:
             logging.info("Primary database session closed")
             session.close()
+
+def create_ticket_pairs(full_ticket_data):
+    """Create turnup-dispatch ticket pairs for analysis.
+    
+    This function identifies turnup tickets and pairs them with their related dispatch tickets.
+    Turnup tickets are the primary focus since they typically contain the details of actual visits.
+    """
+    # Identify turnup and dispatch tickets
+    turnup_tickets = {}
+    dispatch_tickets = {}
+    
+    for tid, data in full_ticket_data.items():
+        if data.get('category') == 'Turnup Tickets':
+            turnup_tickets[tid] = data
+        elif data.get('category') == 'Dispatch Tickets':
+            dispatch_tickets[tid] = data
+    
+    # Create dispatch-to-turnup relationship mapping
+    dispatch_to_turnups = {}
+    turnup_to_dispatch = {}
+    
+    # Map turnups to their parent dispatch tickets
+    for turnup_id, turnup_data in turnup_tickets.items():
+        if turnup_data.get('parent_dispatch_id'):
+            dispatch_id = str(turnup_data['parent_dispatch_id'])
+            # Add to dispatch_to_turnups map
+            if dispatch_id not in dispatch_to_turnups:
+                dispatch_to_turnups[dispatch_id] = []
+            if turnup_id not in dispatch_to_turnups[dispatch_id]:
+                dispatch_to_turnups[dispatch_id].append(turnup_id)
+            
+            # Add to turnup_to_dispatch map
+            turnup_to_dispatch[turnup_id] = dispatch_id
+    
+    # Create turnup-dispatch pairs for analysis
+    ticket_pairs = []
+    
+    # First, handle all turnup tickets with a known related dispatch
+    for turnup_id, dispatch_id in turnup_to_dispatch.items():
+        if dispatch_id in dispatch_tickets:
+            ticket_pairs.append({
+                "primary_ticket_id": turnup_id,
+                "primary_type": "turnup",
+                "related_ticket_id": dispatch_id,
+                "related_type": "dispatch",
+                "pair_type": "turnup_with_dispatch"
+            })
+        else:
+            # Turnup with missing dispatch ticket
+            ticket_pairs.append({
+                "primary_ticket_id": turnup_id,
+                "primary_type": "turnup",
+                "related_ticket_id": None,
+                "related_type": None,
+                "pair_type": "turnup_only"
+            })
+    
+    # Next, handle any turnup tickets without a known dispatch relationship
+    for turnup_id in turnup_tickets:
+        if turnup_id not in turnup_to_dispatch:
+            ticket_pairs.append({
+                "primary_ticket_id": turnup_id,
+                "primary_type": "turnup",
+                "related_ticket_id": None,
+                "related_type": None,
+                "pair_type": "turnup_only"
+            })
+    
+    # Finally, handle any dispatch tickets without a known turnup relationship
+    for dispatch_id in dispatch_tickets:
+        if dispatch_id not in dispatch_to_turnups:
+            ticket_pairs.append({
+                "primary_ticket_id": dispatch_id,
+                "primary_type": "dispatch",
+                "related_ticket_id": None,
+                "related_type": None,
+                "pair_type": "dispatch_only"
+            })
+    
+    # Calculate statistics for logging
+    turnup_with_dispatch_count = sum(1 for pair in ticket_pairs if pair["pair_type"] == "turnup_with_dispatch")
+    turnup_only_count = sum(1 for pair in ticket_pairs if pair["pair_type"] == "turnup_only")
+    dispatch_only_count = sum(1 for pair in ticket_pairs if pair["pair_type"] == "dispatch_only")
+    
+    logging.info(f"Created {len(ticket_pairs)} ticket pairs for analysis:")
+    logging.info(f"  - Turnup tickets with dispatch: {turnup_with_dispatch_count}")
+    logging.info(f"  - Turnup tickets without dispatch: {turnup_only_count}")
+    logging.info(f"  - Dispatch tickets without turnup: {dispatch_only_count}")
+    
+    return ticket_pairs
+
+def create_ticket_pair_analysis_prompt(chain_hash, ticket_pair, full_ticket_data):
+    """Create a prompt for analyzing a turnup-dispatch ticket pair.
+    
+    This function generates a detailed prompt that combines data from both the turnup and dispatch
+    tickets to provide comprehensive context for AI analysis.
+    """
+    primary_id = ticket_pair["primary_ticket_id"]
+    related_id = ticket_pair["related_ticket_id"]
+    primary_data = full_ticket_data.get(primary_id, {})
+    related_data = full_ticket_data.get(related_id, {}) if related_id else {}
+    
+    # Start with header information
+    if ticket_pair["pair_type"] == "turnup_with_dispatch":
+        title = f"Turnup Ticket {primary_id} and related Dispatch Ticket {related_id}"
+    elif ticket_pair["pair_type"] == "turnup_only":
+        title = f"Turnup Ticket {primary_id} (No related dispatch found)"
+    elif ticket_pair["pair_type"] == "dispatch_only":
+        title = f"Dispatch Ticket {primary_id} (No related turnup found)"
+    else:
+        title = f"Ticket {primary_id}"
+    
+    prompt = f"""
+Analyze the following ticket pair in chain {chain_hash}:
+{title}
+
+"""
+    
+    # Add primary ticket information
+    prompt += f"""
+PRIMARY TICKET ({ticket_pair["primary_type"].upper()} {primary_id}):
+- Subject: {primary_data.get('subject', 'N/A')}
+- Status: {primary_data.get('status', 'N/A')}
+- Category: {primary_data.get('category', 'N/A')}
+- Created: {primary_data.get('created_date', 'N/A')}
+- Last Activity: {primary_data.get('last_activity_date', 'N/A')}
+- Closed: {primary_data.get('closed_date', 'N/A')}
+- Site: {primary_data.get('site', {}).get('address', 'N/A')}, {primary_data.get('site', {}).get('city', 'N/A')}, {primary_data.get('site', {}).get('state', 'N/A')}
+"""
+
+    # Add primary ticket's first post content if available
+    if primary_data.get('first_post'):
+        prompt += f"\nPrimary Ticket First Post:\n{primary_data.get('first_post')[:500]}...\n"
+    
+    # Add primary ticket's posts
+    posts = primary_data.get('interactions', {}).get('posts', [])
+    if posts:
+        prompt += f"\nPrimary Ticket Posts ({len(posts)}):\n"
+        for i, post in enumerate(posts[:8]):  # Limit to 8 posts
+            content = post.get('content', '')
+            if len(content) > 300:
+                content = content[:300] + "..."
+            prompt += f"  Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}):\n  {content}\n\n"
+    
+    # Add primary ticket's notes
+    notes = primary_data.get('interactions', {}).get('notes', [])
+    if notes:
+        prompt += f"\nPrimary Ticket Notes ({len(notes)}):\n"
+        for i, note in enumerate(notes[:5]):  # Limit to 5 notes
+            content = note.get('content', '')
+            if len(content) > 300:
+                content = content[:300] + "..."
+            prompt += f"  Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}):\n  {content}\n\n"
+    
+    # Add related ticket information (if exists)
+    if related_id:
+        prompt += f"""
+RELATED TICKET ({ticket_pair["related_type"].upper()} {related_id}):
+- Subject: {related_data.get('subject', 'N/A')}
+- Status: {related_data.get('status', 'N/A')}
+- Category: {related_data.get('category', 'N/A')}
+- Created: {related_data.get('created_date', 'N/A')}
+- Last Activity: {related_data.get('last_activity_date', 'N/A')}
+- Closed: {related_data.get('closed_date', 'N/A')}
+"""
+
+        # Add related ticket's first post content if available
+        if related_data.get('first_post'):
+            prompt += f"\nRelated Ticket First Post:\n{related_data.get('first_post')[:500]}...\n"
+        
+        # Add related ticket's posts (fewer than primary)
+        related_posts = related_data.get('interactions', {}).get('posts', [])
+        if related_posts:
+            prompt += f"\nRelated Ticket Posts ({len(related_posts)}):\n"
+            for i, post in enumerate(related_posts[:5]):  # Limit to 5 posts for related ticket
+                content = post.get('content', '')
+                if len(content) > 300:
+                    content = content[:300] + "..."
+                prompt += f"  Post {i+1} ({post.get('timestamp', 'N/A')} by {post.get('author', 'N/A')}):\n  {content}\n\n"
+        
+        # Add any important notes from the related ticket
+        related_notes = related_data.get('interactions', {}).get('notes', [])
+        if related_notes:
+            prompt += f"\nRelated Ticket Notes ({len(related_notes)}):\n"
+            for i, note in enumerate(related_notes[:3]):  # Limit to 3 notes for related ticket
+                content = note.get('content', '')
+                if len(content) > 300:
+                    content = content[:300] + "..."
+                prompt += f"  Note {i+1} ({note.get('timestamp', 'N/A')} by {note.get('author', 'N/A')}):\n  {content}\n\n"
+    
+    # Add any additional turnup or dispatch specific data
+    if ticket_pair["primary_type"] == "turnup":
+        turnup_data = primary_data.get('related_data', {}).get('turnup_data')
+        if turnup_data:
+            prompt += f"\nTurnup Data (Primary Ticket):\n"
+            prompt += f"  - Status: {turnup_data.get('status', 'N/A')}\n"
+            prompt += f"  - Service Date: {turnup_data.get('service_date', 'N/A')}\n"
+            prompt += f"  - Technician: {turnup_data.get('technician_name', 'N/A')}\n"
+            if turnup_data.get('notes'):
+                prompt += f"  - Notes: {turnup_data.get('notes', 'N/A')[:300]}...\n"
+    
+    if ticket_pair["primary_type"] == "dispatch" or (related_id and ticket_pair["related_type"] == "dispatch"):
+        dispatch_data = None
+        if ticket_pair["primary_type"] == "dispatch":
+            dispatch_data = primary_data.get('related_data', {}).get('dispatch_data')
+            dispatch_label = "Primary Ticket"
+        else:
+            dispatch_data = related_data.get('related_data', {}).get('dispatch_data')
+            dispatch_label = "Related Ticket"
+        
+        if dispatch_data:
+            prompt += f"\nDispatch Data ({dispatch_label}):\n"
+            prompt += f"  - Status: {dispatch_data.get('status', 'N/A')}\n"
+            prompt += f"  - Type: {dispatch_data.get('type', 'N/A')}\n"
+            prompt += f"  - Service Date: {dispatch_data.get('service_date', 'N/A')}\n"
+            prompt += f"  - Service Time: {dispatch_data.get('service_time', 'N/A')}\n"
+            prompt += f"  - Priority: {dispatch_data.get('priority', 'N/A')}\n"
+            prompt += f"  - Customer: {dispatch_data.get('customer_name', 'N/A')}\n"
+    
+    # Add any issues from either ticket
+    primary_issues = primary_data.get('issues', [])
+    related_issues = related_data.get('issues', []) if related_id else []
+    all_issues = primary_issues + related_issues
+    
+    if all_issues:
+        prompt += f"\nIssues Identified:\n"
+        for issue in all_issues:
+            prompt += f"  - {issue}\n"
+    
+    # Add missing data notes if any
+    primary_missing_notes = primary_data.get('details', {}).get('missing_data_notes', [])
+    related_missing_notes = related_data.get('details', {}).get('missing_data_notes', []) if related_id else []
+    
+    if primary_missing_notes or related_missing_notes:
+        prompt += f"\nMissing Data Notes:\n"
+        for note in primary_missing_notes:
+            prompt += f"  - Primary ticket: {note}\n"
+        for note in related_missing_notes:
+            prompt += f"  - Related ticket: {note}\n"
+    
+    # Add analysis instructions
+    prompt += """
+Based on both tickets' data, perform the following analysis:
+
+1. FIELD SERVICE VISIT DETAILS:
+   - When was the visit scheduled/completed? Extract exact dates and times
+   - What specific tasks were performed? Be explicit about work completed
+   - What equipment or materials were used?
+   - What technical issues were encountered?
+   - What was the outcome of the visit?
+
+2. SERVICE/PROJECT LIFECYCLE TRACKING:
+   - What stage of the overall project does this visit represent?
+   - Were there prior visits? Will future visits be needed?
+   - How does this visit connect to the broader service lifecycle?
+
+3. ISSUE ANALYSIS:
+   - What specific problems occurred during this service event?
+   - Were they resolved on-site or need follow-up?
+   - Extract details about causes and impacts of issues
+
+4. KEY TECHNICAL SPECIFICATIONS:
+   - What networking equipment was configured?
+   - What cabling was installed/modified?
+   - What specific technical work was completed?
+
+IMPORTANT: Only include information explicitly mentioned in the tickets. If information is missing, state this clearly rather than making assumptions.
+
+Provide output as structured JSON with this schema:
+{
+  "primary_ticket_id": "string",
+  "primary_ticket_type": "string (turnup/dispatch)",
+  "related_ticket_id": "string or null",
+  "pair_type": "string (turnup_with_dispatch/turnup_only/dispatch_only)",
+  "visit_details": {
+    "scheduled_date": "string or null",
+    "actual_date": "string or null",
+    "start_time": "string or null",
+    "end_time": "string or null",
+    "technicians": [],
+    "status": "string",
+    "was_completed": boolean,
+    "cancellation_reason": "string or null"
+  },
+  "location_details": {
+    "site_id": "string or null",
+    "site_name": "string",
+    "address": "string",
+    "city": "string",
+    "state": "string"
+  },
+  "tasks_performed": [
+    {
+      "description": "string",
+      "status": "string",
+      "notes": "string"
+    }
+  ],
+  "technical_details": {
+    "equipment_used": [],
+    "materials_used": [],
+    "configurations_performed": [],
+    "network_changes": []
+  },
+  "issues_encountered": [
+    {
+      "description": "string",
+      "resolution": "string",
+      "impact": "string"
+    }
+  ],
+  "service_lifecycle": {
+    "current_stage": "string",
+    "prior_visits": [],
+    "future_visits_needed": boolean,
+    "future_visit_reasons": []
+  },
+  "outcomes": {
+    "visit_result": "string",
+    "completion_percentage": number,
+    "client_feedback": "string",
+    "notes": "string"
+  },
+  "missing_information": []
+}
+
+Respond ONLY with valid JSON matching this schema.
+"""
+    return prompt
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a ticket chain")

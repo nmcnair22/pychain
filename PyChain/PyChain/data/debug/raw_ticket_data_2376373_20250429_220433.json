@@ -1,0 +1,21 @@
+{
+  "ticketid": "2376373",
+  "department": "Turnups",
+  "subject": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade  6:30 PM",
+  "status": "Incomplete",
+  "created_time": null,
+  "created_date": "2025-01-27T13:00:04",
+  "creator_name": "Devin Leatham",
+  "creator_email": "devin.leatham@cisvpn.com",
+  "closed_date": "2025-01-28T13:29:17",
+  "category": "Turnup Tickets",
+  "site_number": "5579",
+  "customer": "131",
+  "state": "IN",
+  "city": "Fishers",
+  "street": "46037",
+  "service_date": "1969-12-31T16:00:00",
+  "project_id": "3912",
+  "posts": [],
+  "notes": []
+}

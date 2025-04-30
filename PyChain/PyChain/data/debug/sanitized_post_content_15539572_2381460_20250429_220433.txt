@@ -1,0 +1,1 @@
+Spoke with Comcast agent Kayne and asked him for an update on the TT. Kayne said he checked the modem and saw it was showing a 10. x.x.x. IP and he was able to reset the modem to passthrough mode with NAT, FW, and Wi-Fi off. Kayne said the connection was restored and no longer showing a 10. x.x.x. IP address.Comcast: 866-511-6489Info: 8529 2008 6687 1784Comcast TT: CR 184695631

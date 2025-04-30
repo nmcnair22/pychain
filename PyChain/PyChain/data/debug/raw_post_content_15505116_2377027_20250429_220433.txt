@@ -1,0 +1,1 @@
+- Reached out to Kedrick- He's bacl onsite but getting errors when connecting his USB-to-serial adapter for the console connection- He is troubleshooting the issue and will call back when ready

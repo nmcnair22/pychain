@@ -1,0 +1,1 @@
+Received a message from Tony D. asking to call Comcast back and check for a static IP on the modem. Tony bounced the WAN port and he did not pick up any IP from the Comcast modem.Calling Comcast.Comcast: 866-511-6489Info: 8529 2008 6687 1784Comcast TT: CR 184695631

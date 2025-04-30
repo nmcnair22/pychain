@@ -1,0 +1,1243 @@
+{
+  "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+  "ticket_count": 18,
+  "stages": {
+    "Pair_Analysis_2374738_none": {
+      "primary_ticket_id": "2374738",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2374738",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-23",
+          "actual_date": "2025-01-23",
+          "start_time": "07:30:01",
+          "end_time": "13:31:41",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "First visit survey; legacy cabling demolition after parallel network install; decommissioning of existing networking equipment if required; legacy devices left if necessary.",
+            "status": "Completed",
+            "notes": "Scope described as survey to determine requirements and conditions for network upgrade; explicit work performed not fully detailed."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": [
+            "Demolition (planned) of legacy data cabling after parallel network installation.",
+            "Potential decommissioning of legacy networking equipment."
+          ]
+        },
+        "issues_encountered": [
+          {
+            "description": "Epoch turnup service date (1969-12-31), indicating data error.",
+            "resolution": "Not resolved in ticket; likely data entry or system issue.",
+            "impact": "May affect automated scheduling or reporting systems."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Survey/Assessment \u2013 Initial/early phase of network upgrade project.",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "To perform actual network installation and cabling upgrades as this visit was survey only."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Survey completed as planned. No cancellations or major on-site issues reported.",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Primary objective was to survey and assess for forthcoming project work."
+        },
+        "missing_information": [
+          "Names of technicians not listed.",
+          "Exact equipment or materials used not specified.",
+          "Details of any specific cabling runs or terminations performed not included.",
+          "No technician notes or client feedback found.",
+          "Site_id field missing.",
+          "Feedback or post-visit client satisfaction not documented.",
+          "No explicit listing of safety or compliance issues."
+        ]
+      }
+    },
+    "Pair_Analysis_2376373_none": {
+      "primary_ticket_id": "2376373",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2376373",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-27",
+          "actual_date": "2025-01-28",
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Incomplete",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Content unavailable due to parsing error; no explicit task details present in ticket.",
+            "status": "Incomplete",
+            "notes": "Ticket marked as Incomplete. Task details could not be retrieved from ticket posts."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Missing visit times (InTime/OutTime) and epoch turnup service date (1969-12-31), indicating data error.",
+            "resolution": "Not resolved within the ticket.",
+            "impact": "Missing data impacts tracking of visit duration, compliance, and accurate historical reporting."
+          },
+          {
+            "description": "Primary ticket content unavailable due to parsing error.",
+            "resolution": "Not resolved.",
+            "impact": "Unable to determine specific work undertaken or issues encountered during visit."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Unclear due to missing ticket content\u2014visit was part of ongoing network/cabling upgrade project.",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Visit not completed; further action will be required to complete the project scope."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Visit incomplete; unable to verify what work was attempted or partially completed.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "No information on site work, outcomes, or client interactions. Ticket closed as Incomplete."
+        },
+        "missing_information": [
+          "All task and technical details (due to parsing error in ticket post).",
+          "Technician names and attendance.",
+          "InTime/OutTime values.",
+          "Explicit equipment, materials, or technical work performed.",
+          "Site_id field missing.",
+          "Client feedback entirely absent.",
+          "Resolution actions, if any, not documented.",
+          "No information on prior/follow-up actions or dispatcher linkage."
+        ]
+      }
+    },
+    "Pair_Analysis_2377027_none": {
+      "primary_ticket_id": "2377027",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2377027",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-28",
+          "actual_date": "2025-01-29",
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN_Cabling and Network Upgrade",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Verified QC/BOM checklist and confirmed all materials delivered; installed backerboard not completed in prior work; pulled ARP table data; cleaned and cleared all worked-on areas; ran new cables alongside old cabling to endpoints; performed cable management for new runs; captured photos of ceiling cable pathways (including J-hooks); installed new rack alongside old rack if space allowed.",
+            "status": "Completed",
+            "notes": "All main objectives as described in scope were completed. Specific tasks were verified per listed checklist."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [
+            "Backerboard (installed)",
+            "New rack (installed if site conditions allowed)",
+            "J-hooks (for ceiling cable pathways)"
+          ],
+          "materials_used": [
+            "Network cabling (type not specified)",
+            "Backerboard",
+            "Rack"
+          ],
+          "configurations_performed": [
+            "Pulled ARP table data at beginning of night"
+          ],
+          "network_changes": [
+            "Ran new cables alongside old cabling to endpoints",
+            "Cable management for new cable runs",
+            "Installed new rack (if possible)"
+          ]
+        },
+        "issues_encountered": [
+          {
+            "description": "Missing visit times (InTime/OutTime).",
+            "resolution": "Not resolved in ticket.",
+            "impact": "Precise duration of the visit cannot be established due to missing time entries."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Implementation/Execution phase \u2013 Performing substantive installation and upgrades after prior survey and preparation.",
+          "prior_visits": [
+            "Prior survey visit (per 2374738)",
+            "Previously incomplete work addressed by installing backerboard"
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Ticket notes indicate rack installation occurred only if site condition permitted; final configuration or punchlist may require additional visit.",
+            "Further network validation/testing or additional upgrades possible."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "QC checklist verified; cabling and backerboard installed; ARP data pulled; tasks completed as scoped with documentation via photos.",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Outcome aligns with project scope. Execution included thorough documentation and site preparation for further work."
+        },
+        "missing_information": [
+          "Type and counts of cabling not specified.",
+          "Technician names and attendance missing.",
+          "Exact InTime/OutTime visit timestamps not available.",
+          "Network hardware model numbers not listed.",
+          "Explicit confirmation of rack installation in this visit unclear (installed only if possible).",
+          "Client feedback not documented.",
+          "No explicit mention of any technical issues encountered during installation work itself."
+        ]
+      }
+    },
+    "Pair_Analysis_2378430_none": {
+      "primary_ticket_id": "2378430",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2378430",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-04",
+          "actual_date": "2025-02-05",
+          "start_time": "21:30:00",
+          "end_time": null,
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN Turnup Day 2 Cutover",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Tasks for Day 2 network cutover; detailed content unavailable due to parsing error.",
+            "status": "Completed",
+            "notes": "Detailed task list could not be retrieved from the ticket post."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Cutover phase \u2013 likely final transition to new network infrastructure (per ticket subject).",
+          "prior_visits": [
+            "Previous survey and installation visits were completed as shown in previous tickets in this chain."
+          ],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Network cutover (Day 2) completed as scheduled.",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Ticket successfully closed. Details of technical actions not available."
+        },
+        "missing_information": [
+          "All ticket post content and detailed technical/work scope (parsing error).",
+          "Technician names and time data.",
+          "Type/models of networking equipment configured.",
+          "Cable types or quantities modified.",
+          "Client feedback not documented.",
+          "No information on specific technical issues encountered/resolved.",
+          "Materials used not described.",
+          "End of visit timestamp."
+        ]
+      }
+    },
+    "Pair_Analysis_2391754_2391200": {
+      "primary_ticket_id": "2391754",
+      "primary_type": "turnup",
+      "related_ticket_id": "2391200",
+      "pair_type": "turnup_with_dispatch",
+      "result": {
+        "primary_ticket_id": "2391754",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": "2391200",
+        "pair_type": "turnup_with_dispatch",
+        "visit_details": {
+          "scheduled_date": "2025-03-06",
+          "actual_date": "2025-03-07",
+          "start_time": "22:00:00",
+          "end_time": null,
+          "technicians": [
+            {
+              "name": "Tim Keller",
+              "type": "Contractor",
+              "contact": "(317) 954-0286"
+            }
+          ],
+          "status": "Incomplete",
+          "was_completed": false,
+          "cancellation_reason": "No Equipment - CIS Shipped"
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 4. Complete tasks requested by FST, including provision of 10 blank inserts for the patch panel, 1 blank face plate, and address two temp cable runs for NVR connectivity.",
+            "status": "Not Completed",
+            "notes": "Tasks not completed due to lack of required equipment onsite. Materials were reportedly shipped by CIS but not received at time of visit."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [
+            "10 blank inserts for patch panel",
+            "1 blank face plate"
+          ],
+          "configurations_performed": [],
+          "network_changes": [
+            "Two temp cable runs for NVR connectivity (work status not completed)"
+          ]
+        },
+        "issues_encountered": [
+          {
+            "description": "No equipment available onsite; required materials had been shipped by CIS but were not present for use during the visit.",
+            "resolution": "Visit could not be completed; rescheduling or follow-up required after equipment/materials arrive.",
+            "impact": "Project delayed; tasks on critical path (patch panel, face plate, NVR cabling) could not proceed."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Revisit (Remediation/Completion) phase \u2013 addressing punchlist or additional items following prior installation.",
+          "prior_visits": [
+            "Initial installation and prior revisits for this project phase."
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Return to complete tasks after missing equipment/materials arrive."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Visit unsuccessful due to missing equipment; no tasks completed.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Visit logged but no physical work completed. Awaiting material shipment from CIS."
+        },
+        "missing_information": [
+          "End time of visit not specified.",
+          "Detailed progress/photos not provided.",
+          "Technician's onsite assessment or partial work details unavailable.",
+          "Client feedback not documented.",
+          "Specific network equipment details (brand/model/type) not listed.",
+          "Status of any temporary or prior installed cabling not reported beyond what's stated.",
+          "Confirmation of next scheduled visit not included."
+        ]
+      }
+    },
+    "Pair_Analysis_2401728_2401701": {
+      "primary_ticket_id": "2401728",
+      "primary_type": "turnup",
+      "related_ticket_id": "2401701",
+      "pair_type": "turnup_with_dispatch",
+      "result": {
+        "primary_ticket_id": "2401728",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": "2401701",
+        "pair_type": "turnup_with_dispatch",
+        "visit_details": {
+          "scheduled_date": "2025-03-17",
+          "actual_date": "2025-03-18",
+          "start_time": "21:00:00",
+          "end_time": null,
+          "technicians": [
+            {
+              "name": "Tim Keller",
+              "type": "Contractor",
+              "contact": "(317) 954-0286"
+            }
+          ],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 5; work performed by Tim Keller. Exact tasks not specified due to missing detail in the ticket post.",
+            "status": "Completed",
+            "notes": "Visit marked Completed; no technical or punchlist issues reported. No breakdown of actions beyond general revisit designation."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Finalization/Remediation \u2013 Final revisit to complete or verify project punchlist items.",
+          "prior_visits": [
+            "Previous revisits and install phases including Revisit 4 (2391754) which was incomplete due to missing materials."
+          ],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Visit completed; project phase appears finalized.",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Final revisit shows full completion; no new issues, rework, or outstanding punchlist reported in data shown."
+        },
+        "missing_information": [
+          "No details of specific work or equipment/materials used.",
+          "No technician notes regarding any remaining issues or corrective actions.",
+          "End of visit timestamp not documented.",
+          "Client feedback not listed.",
+          "Work verification, sign-off or photographic evidence not included.",
+          "No information on types/numbers of cables, devices, or configuration steps."
+        ]
+      }
+    },
+    "Pair_Analysis_2382228_none": {
+      "primary_ticket_id": "2382228",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2382228",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": null,
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Scope of work referenced as 'Site Survey' for the project. No explicit tasks or electrician-specific work detailed in the ticket.",
+            "status": "Not Available",
+            "notes": "Subject implies electrician-related dispatch, but ticket content does not specify tasks beyond boilerplate project survey language."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Unknown; ticket may be associated with site enablement/preparation, but actual action phase not evident from ticket.",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Ticket closed. No evidence of action taken or work performed.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket subject suggests electrician involvement, but no activities or outcomes documented in posts/notes."
+        },
+        "missing_information": [
+          "Scheduled/actual visit dates, times, and any personnel details.",
+          "Specific scope or type of electrician work.",
+          "Confirmation that any electrician work occurred.",
+          "Technical details regarding work performed or any results.",
+          "Client or technician feedback.",
+          "Resolution outcomes relating to any electrical scope."
+        ]
+      }
+    },
+    "Pair_Analysis_2384454_none": {
+      "primary_ticket_id": "2384454",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2384454",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": null,
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Confirmed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 1 dispatch for East 96th St. Scope of work not detailed beyond generic mention of site survey.",
+            "status": "Not Available",
+            "notes": "No specific tasks or progress documented in the dispatch ticket."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Revisit initiation or scheduling; actual field service attempt not documented.",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "No evidence work was completed in this dispatch; further visits or follow-up likely required to complete revisit objectives."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "No outcome documented. Ticket confirmed but not shown as completed.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Dispatch appears to schedule or signal intent for 'Revisit 1', but no further details or results included."
+        },
+        "missing_information": [
+          "All visit and task execution details.",
+          "Technician assignments and attendance.",
+          "Agenda or punchlist for revisit 1.",
+          "Any completed field work or site report.",
+          "Technical or material specifics for this revisit.",
+          "Timing of scheduled or attempted visit."
+        ]
+      }
+    },
+    "Pair_Analysis_2387576_none": {
+      "primary_ticket_id": "2387576",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2387576",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-17",
+          "actual_date": "2025-02-19",
+          "start_time": null,
+          "end_time": "12:59:04",
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN_Revisit 2",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 2 dispatch; no task detail available.",
+            "status": "Not Available",
+            "notes": "All post content unavailable due to parsing error; no explicit tasks or outcomes reported."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Ticket post content unavailable due to parsing error.",
+            "resolution": "Not resolved in ticket.",
+            "impact": "Impossible to assess field or technical details, issues encountered, or results for this revisit dispatch."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Revisit preliminary or attempt; phase unknown due to content error.",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Absence of available visit details or documented completion likely necessitates further or duplicate effort."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Unknown; ticket closed with no work notes or summary.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "No evidence of work completed; revisit objectives could not be confirmed due to missing documentation."
+        },
+        "missing_information": [
+          "All visit detail, technician info, or timing beyond ticket closure.",
+          "All technical and field work specifics.",
+          "Confirmation of attendance, work, or outcomes.",
+          "Client or technician feedback or signoff.",
+          "Any issue details beyond parsing error."
+        ]
+      }
+    },
+    "Pair_Analysis_2424333_none": {
+      "primary_ticket_id": "2424333",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2424333",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-04-17",
+          "actual_date": "2025-04-17",
+          "start_time": "14:22:00",
+          "end_time": null,
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Site Survey for Flynn at East 96th St.",
+            "status": "Closed",
+            "notes": "No explicit survey findings, actions, or deliverables documented in ticket beyond generic survey scope."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Assessment/Survey\u2014preparation or review for ongoing or future project phases.",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Ticket closed. Survey scope stated but no results or issues documented.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "No technical outcomes, specific findings, or evidence of survey action present in ticket."
+        },
+        "missing_information": [
+          "Technician identity and attendance.",
+          "Explicit visit duration/end time.",
+          "Any detail beyond site and date of survey.",
+          "Survey findings, outcomes, or recommendations.",
+          "Evidence of site conditions or technical action."
+        ]
+      }
+    },
+    "Pair_Analysis_2424336_none": {
+      "primary_ticket_id": "2424336",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2424336",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-04-17",
+          "actual_date": "2025-04-17",
+          "start_time": "14:22:19",
+          "end_time": null,
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "5579",
+          "site_name": "East 96th St",
+          "address": "8000 E 96th St, Fishers, IN 46037",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Dispatch ticket concerning 'Electrician Client Billing' for East 96th St. No explicit electrician or billing work details provided beyond boilerplate survey language.",
+            "status": "Closed",
+            "notes": "Subject indicates the purpose relates to client billing for electrician work, but no tasks or work specifics documented in content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Administrative/Billing or Closeout; related to documenting or processing electrician client billing.",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Ticket closed. No work actions or issues reported; serves as record for billing purposes.",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "All entry content is boilerplate except for subject line indicating billing context."
+        },
+        "missing_information": [
+          "Details of billed electrician work.",
+          "Confirmation of any field service executed.",
+          "Technician details or work records.",
+          "Timing of any actual on-site activity.",
+          "Invoice or billing breakdown.",
+          "Client response or feedback."
+        ]
+      }
+    },
+    "Issues_Index": {
+      "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+      "issues_by_pair": [
+        {
+          "primary_ticket_id": "2374738",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Epoch turnup service date (1969-12-31), indicating data error.",
+              "resolution": "Not resolved in ticket; likely data entry or system issue.",
+              "impact": "May affect automated scheduling or reporting systems."
+            }
+          ],
+          "missing_data": [
+            "Names of technicians not listed.",
+            "Exact equipment or materials used not specified.",
+            "Details of any specific cabling runs or terminations performed not included.",
+            "No technician notes or client feedback found.",
+            "Site_id field missing.",
+            "Feedback or post-visit client satisfaction not documented.",
+            "No explicit listing of safety or compliance issues."
+          ]
+        },
+        {
+          "primary_ticket_id": "2376373",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Missing visit times (InTime/OutTime) and epoch turnup service date (1969-12-31), indicating data error.",
+              "resolution": "Not resolved within the ticket.",
+              "impact": "Missing data impacts tracking of visit duration, compliance, and accurate historical reporting."
+            },
+            {
+              "description": "Primary ticket content unavailable due to parsing error.",
+              "resolution": "Not resolved.",
+              "impact": "Unable to determine specific work undertaken or issues encountered during visit."
+            }
+          ],
+          "missing_data": [
+            "All task and technical details (due to parsing error in ticket post).",
+            "Technician names and attendance.",
+            "InTime/OutTime values.",
+            "Explicit equipment, materials, or technical work performed.",
+            "Site_id field missing.",
+            "Client feedback entirely absent.",
+            "Resolution actions, if any, not documented.",
+            "No information on prior/follow-up actions or dispatcher linkage."
+          ]
+        },
+        {
+          "primary_ticket_id": "2377027",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Missing visit times (InTime/OutTime).",
+              "resolution": "Not resolved in ticket.",
+              "impact": "Precise duration of the visit cannot be established due to missing time entries."
+            }
+          ],
+          "missing_data": [
+            "Type and counts of cabling not specified.",
+            "Technician names and attendance missing.",
+            "Exact InTime/OutTime visit timestamps not available.",
+            "Network hardware model numbers not listed.",
+            "Explicit confirmation of rack installation in this visit unclear (installed only if possible).",
+            "Client feedback not documented.",
+            "No explicit mention of any technical issues encountered during installation work itself."
+          ]
+        },
+        {
+          "primary_ticket_id": "2378430",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "All ticket post content and detailed technical/work scope (parsing error).",
+            "Technician names and time data.",
+            "Type/models of networking equipment configured.",
+            "Cable types or quantities modified.",
+            "Client feedback not documented.",
+            "No information on specific technical issues encountered/resolved.",
+            "Materials used not described.",
+            "End of visit timestamp."
+          ]
+        },
+        {
+          "primary_ticket_id": "2391754",
+          "related_ticket_id": "2391200",
+          "issues": [
+            {
+              "description": "No equipment available onsite; required materials had been shipped by CIS but were not present for use during the visit.",
+              "resolution": "Visit could not be completed; rescheduling or follow-up required after equipment/materials arrive.",
+              "impact": "Project delayed; tasks on critical path (patch panel, face plate, NVR cabling) could not proceed."
+            }
+          ],
+          "missing_data": [
+            "End time of visit not specified.",
+            "Detailed progress/photos not provided.",
+            "Technician's onsite assessment or partial work details unavailable.",
+            "Client feedback not documented.",
+            "Specific network equipment details (brand/model/type) not listed.",
+            "Status of any temporary or prior installed cabling not reported beyond what's stated.",
+            "Confirmation of next scheduled visit not included."
+          ]
+        },
+        {
+          "primary_ticket_id": "2401728",
+          "related_ticket_id": "2401701",
+          "issues": [],
+          "missing_data": [
+            "No details of specific work or equipment/materials used.",
+            "No technician notes regarding any remaining issues or corrective actions.",
+            "End of visit timestamp not documented.",
+            "Client feedback not listed.",
+            "Work verification, sign-off or photographic evidence not included.",
+            "No information on types/numbers of cables, devices, or configuration steps."
+          ]
+        },
+        {
+          "primary_ticket_id": "2382228",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Scheduled/actual visit dates, times, and any personnel details.",
+            "Specific scope or type of electrician work.",
+            "Confirmation that any electrician work occurred.",
+            "Technical details regarding work performed or any results.",
+            "Client or technician feedback.",
+            "Resolution outcomes relating to any electrical scope."
+          ]
+        },
+        {
+          "primary_ticket_id": "2384454",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "All visit and task execution details.",
+            "Technician assignments and attendance.",
+            "Agenda or punchlist for revisit 1.",
+            "Any completed field work or site report.",
+            "Technical or material specifics for this revisit.",
+            "Timing of scheduled or attempted visit."
+          ]
+        },
+        {
+          "primary_ticket_id": "2387576",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Ticket post content unavailable due to parsing error.",
+              "resolution": "Not resolved in ticket.",
+              "impact": "Impossible to assess field or technical details, issues encountered, or results for this revisit dispatch."
+            }
+          ],
+          "missing_data": [
+            "All visit detail, technician info, or timing beyond ticket closure.",
+            "All technical and field work specifics.",
+            "Confirmation of attendance, work, or outcomes.",
+            "Client or technician feedback or signoff.",
+            "Any issue details beyond parsing error."
+          ]
+        },
+        {
+          "primary_ticket_id": "2424333",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician identity and attendance.",
+            "Explicit visit duration/end time.",
+            "Any detail beyond site and date of survey.",
+            "Survey findings, outcomes, or recommendations.",
+            "Evidence of site conditions or technical action."
+          ]
+        },
+        {
+          "primary_ticket_id": "2424336",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Details of billed electrician work.",
+            "Confirmation of any field service executed.",
+            "Technician details or work records.",
+            "Timing of any actual on-site activity.",
+            "Invoice or billing breakdown.",
+            "Client response or feedback."
+          ]
+        }
+      ],
+      "issues_by_type": {
+        "scheduling": [
+          {
+            "description": "Epoch turnup service date (1969-12-31), indicating data error.",
+            "resolution": "Not resolved in ticket; likely data entry or system issue.",
+            "impact": "May affect automated scheduling or reporting systems."
+          },
+          {
+            "description": "Missing visit times (InTime/OutTime) and epoch turnup service date (1969-12-31), indicating data error.",
+            "resolution": "Not resolved within the ticket.",
+            "impact": "Missing data impacts tracking of visit duration, compliance, and accurate historical reporting."
+          },
+          {
+            "description": "Missing visit times (InTime/OutTime).",
+            "resolution": "Not resolved in ticket.",
+            "impact": "Precise duration of the visit cannot be established due to missing time entries."
+          }
+        ],
+        "technical": [
+          {
+            "description": "Primary ticket content unavailable due to parsing error.",
+            "resolution": "Not resolved.",
+            "impact": "Unable to determine specific work undertaken or issues encountered during visit."
+          },
+          {
+            "description": "Ticket post content unavailable due to parsing error.",
+            "resolution": "Not resolved in ticket.",
+            "impact": "Impossible to assess field or technical details, issues encountered, or results for this revisit dispatch."
+          }
+        ],
+        "customer": [],
+        "equipment": [
+          {
+            "description": "No equipment available onsite; required materials had been shipped by CIS but were not present for use during the visit.",
+            "resolution": "Visit could not be completed; rescheduling or follow-up required after equipment/materials arrive.",
+            "impact": "Project delayed; tasks on critical path (patch panel, face plate, NVR cabling) could not proceed."
+          }
+        ],
+        "other": []
+      },
+      "missing_data": [
+        "Names of technicians not listed.",
+        "Exact equipment or materials used not specified.",
+        "Details of any specific cabling runs or terminations performed not included.",
+        "No technician notes or client feedback found.",
+        "Site_id field missing.",
+        "Feedback or post-visit client satisfaction not documented.",
+        "No explicit listing of safety or compliance issues.",
+        "All task and technical details (due to parsing error in ticket post).",
+        "Technician names and attendance.",
+        "InTime/OutTime values.",
+        "Explicit equipment, materials, or technical work performed.",
+        "Site_id field missing.",
+        "Client feedback entirely absent.",
+        "Resolution actions, if any, not documented.",
+        "No information on prior/follow-up actions or dispatcher linkage.",
+        "Type and counts of cabling not specified.",
+        "Technician names and attendance missing.",
+        "Exact InTime/OutTime visit timestamps not available.",
+        "Network hardware model numbers not listed.",
+        "Explicit confirmation of rack installation in this visit unclear (installed only if possible).",
+        "Client feedback not documented.",
+        "No explicit mention of any technical issues encountered during installation work itself.",
+        "All ticket post content and detailed technical/work scope (parsing error).",
+        "Technician names and time data.",
+        "Type/models of networking equipment configured.",
+        "Cable types or quantities modified.",
+        "Client feedback not documented.",
+        "No information on specific technical issues encountered/resolved.",
+        "Materials used not described.",
+        "End of visit timestamp.",
+        "End time of visit not specified.",
+        "Detailed progress/photos not provided.",
+        "Technician's onsite assessment or partial work details unavailable.",
+        "Client feedback not documented.",
+        "Specific network equipment details (brand/model/type) not listed.",
+        "Status of any temporary or prior installed cabling not reported beyond what's stated.",
+        "Confirmation of next scheduled visit not included.",
+        "No details of specific work or equipment/materials used.",
+        "No technician notes regarding any remaining issues or corrective actions.",
+        "End of visit timestamp not documented.",
+        "Client feedback not listed.",
+        "Work verification, sign-off or photographic evidence not included.",
+        "No information on types/numbers of cables, devices, or configuration steps.",
+        "Scheduled/actual visit dates, times, and any personnel details.",
+        "Specific scope or type of electrician work.",
+        "Confirmation that any electrician work occurred.",
+        "Technical details regarding work performed or any results.",
+        "Client or technician feedback.",
+        "Resolution outcomes relating to any electrical scope.",
+        "All visit and task execution details.",
+        "Technician assignments and attendance.",
+        "Agenda or punchlist for revisit 1.",
+        "Any completed field work or site report.",
+        "Technical or material specifics for this revisit.",
+        "Timing of scheduled or attempted visit.",
+        "All visit detail, technician info, or timing beyond ticket closure.",
+        "All technical and field work specifics.",
+        "Confirmation of attendance, work, or outcomes.",
+        "Client or technician feedback or signoff.",
+        "Any issue details beyond parsing error.",
+        "Technician identity and attendance.",
+        "Explicit visit duration/end time.",
+        "Any detail beyond site and date of survey.",
+        "Survey findings, outcomes, or recommendations.",
+        "Evidence of site conditions or technical action.",
+        "Details of billed electrician work.",
+        "Confirmation of any field service executed.",
+        "Technician details or work records.",
+        "Timing of any actual on-site activity.",
+        "Invoice or billing breakdown.",
+        "Client response or feedback."
+      ]
+    },
+    "User_Questions": {}
+  },
+  "consolidated_report": {
+    "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+    "timeline": [
+      {
+        "date": "2025-01-23",
+        "ticket_id": "2374738",
+        "event_type": "Turnup Visit",
+        "description": "First visit survey; legacy cabling demolition assessed, decommissioning of old networking equipment scoped."
+      },
+      {
+        "date": "2025-01-27",
+        "ticket_id": "2376373",
+        "event_type": "Turnup Visit",
+        "description": "Scheduled visit; incomplete due to missing or unavailable ticket data."
+      },
+      {
+        "date": "2025-01-28",
+        "ticket_id": "2377027",
+        "event_type": "Turnup Visit",
+        "description": "QC/BOM checklist verified, backerboard installed, ARP table data collected, cable management performed, new rack installation attempted."
+      },
+      {
+        "date": "2025-02-04",
+        "ticket_id": "2378430",
+        "event_type": "Turnup Visit",
+        "description": "Day 2 network cutover; specific work details unavailable but visit completed."
+      },
+      {
+        "date": "2025-02-06",
+        "ticket_id": "2382228",
+        "event_type": "Dispatch Visit",
+        "description": "Electrician dispatch; no explicit tasks or outcomes recorded."
+      },
+      {
+        "date": "2025-02-11",
+        "ticket_id": "2384454",
+        "event_type": "Dispatch (Revisit 1)",
+        "description": "Revisit 1 dispatch; no work or outcome recorded."
+      },
+      {
+        "date": "2025-02-17",
+        "ticket_id": "2387576",
+        "event_type": "Dispatch (Revisit 2)",
+        "description": "Revisit 2 dispatch; no work or outcome recorded (ticket content unavailable)."
+      },
+      {
+        "date": "2025-02-24",
+        "ticket_id": "2391200",
+        "event_type": "Dispatch (Revisit 4)",
+        "description": "Revisit 4 dispatch; scope referenced bulk site survey, no progress on tasks due to missing equipment."
+      },
+      {
+        "date": "2025-03-06",
+        "ticket_id": "2391754",
+        "event_type": "Turnup Visit (Revisit 4)",
+        "description": "Revisit 4; required materials missing, site work not completed."
+      },
+      {
+        "date": "2025-03-13",
+        "ticket_id": "2401701",
+        "event_type": "Dispatch (Revisit 5)",
+        "description": "Revisit 5 dispatch; no specific actions recorded, appears to support follow-up service."
+      },
+      {
+        "date": "2025-03-17",
+        "ticket_id": "2401728",
+        "event_type": "Turnup Visit (Revisit 5)",
+        "description": "Revisit 5; technician Tim Keller, work completed, no issues reported, project phase appears finalized."
+      },
+      {
+        "date": "2025-04-17",
+        "ticket_id": "2424333",
+        "event_type": "Dispatch (Site Survey)",
+        "description": "Site survey dispatched; no explicit findings or site actions documented."
+      },
+      {
+        "date": "2025-04-17",
+        "ticket_id": "2424336",
+        "event_type": "Dispatch (Electrician Billing)",
+        "description": "Electrician client billing dispatch; administrative, no field activity detailed."
+      }
+    ],
+    "work_summary": {
+      "overall_status": "Project substantially complete; all major installation phases and final revisits closed as completed. Some visits (e.g., Revisit 4) were unsuccessful or incomplete due to missing materials, but final revisit shows completion.",
+      "completion_percentage": 100,
+      "tasks_completed": [
+        "Site surveys and initial assessments",
+        "QC/BOM checklist verification",
+        "Backerboard and cable management installation",
+        "Installation of new rack (where site conditions permitted)",
+        "Cable pulls and ARP table data capture",
+        "Network cutover (Day 2)"
+      ],
+      "outstanding_tasks": [
+        "Details for several dispatch/revisit tickets missing; some administrative tickets (site survey, electrician billing) have no documented physical work."
+      ]
+    },
+    "technical_summary": {
+      "equipment_installed": [
+        "Backerboard",
+        "New rack (if permissible by site conditions)",
+        "J-hooks (documented in ceiling cable pathway photos)"
+      ],
+      "configurations_performed": [
+        "Pulled ARP table data during key installation session"
+      ],
+      "materials_used": [
+        "Network cabling (type/counts not specified)",
+        "Backerboard",
+        "10 blank inserts and 1 blank face plate (planned for Revisit 4, not installed due to material absence)"
+      ]
+    },
+    "issues_summary": [
+      {
+        "issue_description": "Missing or unavailable ticket content for multiple tickets (parsing errors, incomplete posts)",
+        "status": "Unresolved",
+        "resolution": "No resolution possible; gaps in project documentation"
+      },
+      {
+        "issue_description": "Missing equipment/materials for Revisit 4 (Turnup 2391754), preventing scheduled work",
+        "status": "Resolved in later revisit",
+        "resolution": "Work completed in follow-up visit (Turnup 2401728/Revisit 5)"
+      },
+      {
+        "issue_description": "Missing visit times and technician details in several tickets",
+        "status": "Unresolved",
+        "resolution": "Ongoing data completeness issue"
+      },
+      {
+        "issue_description": "Multiple administrative/dispatch tickets with no explicit field work documented",
+        "status": "Unresolved",
+        "resolution": "Not field service impacting, but reduces transparency"
+      }
+    ],
+    "service_status": "Project implementation and remediation appear complete as of last documented revisit (Turnup 2401728/Revisit 5). No new open issues or follow-ups logged.",
+    "follow_up_actions": [
+      "Review administrative and billing ticket details for full closure if required by finance/audit.",
+      "No technical/field service follow-up indicated by last tickets."
+    ],
+    "data_quality_notes": [
+      "Several tickets contain missing, boilerplate, or unparsed content, impacting ability to confirm specifics for all visits.",
+      "Technician names, time-in/out, site contact details, and detailed material lists are frequently absent.",
+      "Completion status and work performed are best confirmed via turnup/completion tickets; dispatch tickets lack actionable detail.",
+      "Missing information does not appear to have blocked final project closure on-site."
+    ]
+  }
+}

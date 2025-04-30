@@ -1,0 +1,1 @@
+- The Comcast modem at this location is handing out a 10.x.x.x address to the FortiGate- A dispatch was scheduled this morning for a modem swap but the FortiGate continues to show a 10.x.x.x addressACCT:8529200866871784TT:CR18469563102/05/258 am ~ 11 amSOW: check RX power issues with the modem, repair or replace as needed and place the device in IP passthrough mode before leaving

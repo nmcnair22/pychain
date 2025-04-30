@@ -1,0 +1,1 @@
+- Rack photos provided- Cables managed- MOD confirmed all systems are online- Cable modem was issuing NAT addresses; will need to work with carrier for passthru mode- Brandon released at 5:30am PST

@@ -1,0 +1,3 @@
+==== DEBUG: ticket_row Query Results ====
+
+(2424333, 'FST Accounting', 'Flynn_FW005579_Fishers_IN_Site Survey', 'Closed', None, datetime.datetime(2025, 4, 17, 14, 22), 'Brandon.Mahoney', 'brandon.mahoney@cisvpn.com', datetime.datetime(2025, 4, 17, 14, 22), 'Dispatch Tickets', '[{"ticketpostid":"15891793","post_dateline":"2025-04-17 14:22:00","fullname":"Brandon.Mahoney","contents":"Flynn Bulk\r\rSite ID: 5579\r\r\rDate: 1/2 ... (525 characters truncated) ... ll was created under this ticket: 2424333<br/>Total Bill to Customer : $0.00<br/>Total Bill to CISSDM  : $380.00\n\n","isprivate":"0","creator":"1"}]', None, '5579', '131', 'IN', 'Fishers', '46037', datetime.datetime(1969, 12, 31, 16, 0), '3912')

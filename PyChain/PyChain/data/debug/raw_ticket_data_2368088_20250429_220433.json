@@ -1,0 +1,94 @@
+{
+  "ticketid": "2368088",
+  "department": "Outbound",
+  "subject": "FLN_FW005579_Fishers_IN",
+  "status": "Closed",
+  "created_time": null,
+  "created_date": "2025-01-09T03:53:01",
+  "creator_name": "Amber Hodgson",
+  "creator_email": "amber.hodgson@cisvpn.com",
+  "closed_date": "2025-01-27T10:01:31",
+  "category": "Shipping Tickets",
+  "site_number": "FW005579",
+  "customer": "131",
+  "state": "IN",
+  "city": "Fishers",
+  "street": "46037",
+  "service_date": "1969-12-31T16:00:00",
+  "project_id": "3316",
+  "posts": [
+    {
+      "id": "15425364",
+      "time": "2025-01-09 03:53:01",
+      "user": "Amber Hodgson",
+      "contents": "Please use both bubble wrap and hot pink tape for packaging  Hardware list:  1 router, 2 switches, 2 indoor AP's, 1 FEXT, SIM VZW, and 4 SFP's GBIC",
+      "private": "0",
+      "creator": "2"
+    },
+    {
+      "id": "15453247",
+      "time": "2025-01-15 17:43:11",
+      "user": "Eric Morales",
+      "contents": "This site number is already existing in FortiManagerSite looks to be already converted as EQ showing online on FortiManager SWITCH TEMPLATES - CLOE SW1 / SW2",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15482647",
+      "time": "2025-01-22 19:23:05",
+      "user": "Eric Morales",
+      "contents": "On hold for further instructionsSite still exist on FortiManager as they work on config for this CLOE location ",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15492788",
+      "time": "2025-01-25 22:34:26",
+      "user": "Eric Morales",
+      "contents": "- 1 unit - Fortigate 60FS/N: FGT60FTK2309A1M8MAC: 84:39:8F:E5:88:5AKEY: HJE99DDK3 - 1 unit - FortiExtender 201F-AMS/N: FXA21FTQ22005585MAC: 94:F3:92:9F:0E:F2IMEI: 356280111296289KEY: 7M2FBWEP Verizon SIM: 89148000010950592758- 1 unit - FEXT POWERSP-FEX12V3A-PA-1-US-10 - 2 units - FortiSwitch 148FSW1S/N: S148FPTF23018490MAC: 80:80:2C:8B:BE:1CKEY: UGSEQD8KSW2S/N: S148FPTF23022119MAC: 78:18:EC:3B:AB:C4KEY: NXJ5X5N4 - 2 units - FortiAP 231GAP1S/N: FP231GTF24063675MAC: 04:01:A1:19:D0:38KEY: 8YUZD8R2AP2S/N: FP231GTF24063338MAC: 04:01:A1:19:A6:18KEY: F72GT2SZ- 4 units - SFP ModulesCSGE2NB6255CSGE2NB6257CSGE2NB6260CSGE2NB6256",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15492908",
+      "time": "2025-01-25 23:48:23",
+      "user": "Eric Morales",
+      "contents": "Left off on Task 13: FortiExtender Configuration",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15495152",
+      "time": "2025-01-26 19:47:12",
+      "user": "Eric Morales",
+      "contents": "WAN1 IP infoIP: 96.94.224.185SNM: 255.255.255.248GW: 96.94.224.190",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15495158",
+      "time": "2025-01-26 19:49:39",
+      "user": "Eric Morales",
+      "contents": "Fortigate configured and on proper firmware- Firmware: v.7.2.9-build1688FortiSwitches configured and on proper firmware- Firmware: v7.2.8-build495FortiAPs configured and on proper firmware- Firmware: v7.4-build0540FortiExtender configured and on proper firmware- Firmware: v7.2.5-build164- IP: 166.142.26.241- APN: mw01.vzwstatic- NO DATA PLAN ASSIGNEDNOTE: - FortiDDNS (FW005579.fortiddns.com) was claimed as this was assigned on Flynn LAB setup- FortiDDNS claimed for this location will be FW0005579.fortiddns.com",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15495159",
+      "time": "2025-01-26 19:50:02",
+      "user": "Eric Morales",
+      "contents": "EQ configuredReady to ship",
+      "private": "0",
+      "creator": "1"
+    },
+    {
+      "id": "15497354",
+      "time": "2025-01-27 10:01:30",
+      "user": "Eric Morales",
+      "contents": "Per PM we will close this requestI will be factory reset these and using hardware for another locationNote: This was closed because the client shipped the hardware themselves. ",
+      "private": "0",
+      "creator": "1"
+    }
+  ],
+  "notes": []
+}

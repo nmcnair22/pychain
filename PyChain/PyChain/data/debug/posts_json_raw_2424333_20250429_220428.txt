@@ -1,0 +1,12 @@
+==== DEBUG: posts_json_raw Query Results ====
+
+[{"ticketpostid":"15891793","post_dateline":"2025-04-17 14:22:00","fullname":"Brandon.Mahoney","contents":"Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ","isprivate":"0","creator":"2"},{"ticketpostid":"15891812","post_dateline":"2025-04-17 14:23:50","fullname":"Brandon Mahoney","contents":"Tech invoice attached
+
+FST cost: 380.00
+Cust cost: 0.00
+
+Client billing ticket - 2401704
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15892102","post_dateline":"2025-04-17 15:22:58","fullname":"Kayla Gonzalez","contents":"A bill was created under this ticket: 2424333<br/>Total Bill to Customer : $0.00<br/>Total Bill to CISSDM  : $380.00
+
+","isprivate":"0","creator":"1"}]

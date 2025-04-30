@@ -1,0 +1,3 @@
+==== DEBUG: ticket_row Query Results ====
+
+(2381165, 'Accounting', 'Flynn_FW005579_Fishers_IN Billing', 'Closed', None, datetime.datetime(2025, 2, 5, 7, 49, 58), 'Tony Dinh', 'tony.dinh@cis.us', datetime.datetime(2025, 2, 17, 11, 41, 57), 'Other', '[{"ticketpostid":"15536435","post_dateline":"2025-02-05 07:49:58","fullname":"Tony Dinh","contents":"- The site was successfully cutover to the new n ... (249 characters truncated) ... "15588898","post_dateline":"2025-02-17 11:41:55","fullname":"Kayla Gonzalez","contents":"Added on ticket 2382162\n\n","isprivate":"0","creator":"1"}]', None, '', '3535', '', '', '', datetime.datetime(1969, 12, 31, 16, 0), None)

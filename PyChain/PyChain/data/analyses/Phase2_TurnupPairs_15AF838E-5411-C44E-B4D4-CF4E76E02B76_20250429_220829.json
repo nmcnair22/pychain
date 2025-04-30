@@ -1,0 +1,1261 @@
+{
+  "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+  "ticket_count": 18,
+  "stages": {
+    "Pair_Analysis_2374738_none": {
+      "primary_ticket_id": "2374738",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2374738",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-23",
+          "actual_date": "2025-01-23",
+          "start_time": "07:30:01",
+          "end_time": "13:31:41",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Cabling and Network Upgrade",
+            "status": "Completed",
+            "notes": "No further task detail found in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Network Upgrade",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Completed",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Ticket marked as completed with no reported issues or follow-up needed."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No equipment, materials, or configuration details provided.",
+          "No details on specific cabling (e.g., Cat type) or networking changes.",
+          "No references to technical issues encountered.",
+          "No explicit client feedback recorded.",
+          "No information on prior visits.",
+          "No notes beyond subject line."
+        ]
+      }
+    },
+    "Pair_Analysis_2376373_none": {
+      "primary_ticket_id": "2376373",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2376373",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-27",
+          "actual_date": "2025-01-27",
+          "start_time": "13:00:04",
+          "end_time": "2025-01-28 13:29:17",
+          "technicians": [],
+          "status": "Incomplete",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Cabling and Network Upgrade",
+            "status": "Incomplete",
+            "notes": "No further detail about performed tasks found in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Network Upgrade",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Turnup marked Incomplete; scope likely unfinished."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Incomplete",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed as Incomplete; no task completion, equipment, or issues noted."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No equipment, materials, or configuration details provided.",
+          "No details on installed/modified cabling.",
+          "No references to technical issues encountered or causes of incompletion.",
+          "No explicit client feedback recorded.",
+          "No explicit list of prior visits.",
+          "No technical or narrative notes beyond subject and status."
+        ]
+      }
+    },
+    "Pair_Analysis_2377027_none": {
+      "primary_ticket_id": "2377027",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2377027",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-01-28",
+          "actual_date": "2025-01-28",
+          "start_time": "11:00:03",
+          "end_time": "2025-01-29 13:58:58",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Cabling and Network Upgrade",
+            "status": "Completed",
+            "notes": "No further detail about performed tasks found in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Network Upgrade",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Completed",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Ticket marked as completed; no explicit issues or technical work detail present."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No explicit equipment, materials, or configuration details.",
+          "No details on cabling installed/modified.",
+          "No documented technical issues encountered.",
+          "No explicit client feedback recorded.",
+          "No list of prior visits or reference to earlier attempts.",
+          "No technical or narrative notes beyond subject and status."
+        ]
+      }
+    },
+    "Pair_Analysis_2378430_none": {
+      "primary_ticket_id": "2378430",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2378430",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-04",
+          "actual_date": "2025-02-04",
+          "start_time": "18:30:00 PST (21:30:00 EST)",
+          "end_time": "2025-02-05 07:46:33",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_5579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Turnup Day 2 Cutover",
+            "status": "Completed",
+            "notes": "No further detail about performed tasks found in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Day 2 Cutover",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Completed",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Ticket marked as completed. No additional task, technical, or issue detail documented."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No equipment, materials, or configuration details provided.",
+          "No details on networking equipment configured or cabling installed/modified.",
+          "No technical or issue notes beyond subject and status.",
+          "No explicit client feedback.",
+          "No explicit list of prior visits."
+        ]
+      }
+    },
+    "Pair_Analysis_2391754_none": {
+      "primary_ticket_id": "2391754",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2391754",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-03-06",
+          "actual_date": "2025-03-06",
+          "start_time": "22:00:00",
+          "end_time": "2025-03-07 04:14:44",
+          "technicians": [],
+          "status": "Incomplete",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 4",
+            "status": "Incomplete",
+            "notes": "No explicit details about tasks performed or attempted in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Revisit 4",
+          "prior_visits": [],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Turnup marked Incomplete; additional work required."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Incomplete",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed as incomplete; no further detail documented in ticket."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No equipment, materials, or configuration details provided.",
+          "No details on networking equipment or cabling.",
+          "No technical work or issue notes documented.",
+          "No explicit list of prior visits.",
+          "No client feedback recorded."
+        ]
+      }
+    },
+    "Pair_Analysis_2401728_none": {
+      "primary_ticket_id": "2401728",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2401728",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-03-17",
+          "actual_date": "2025-03-17",
+          "start_time": "21:00:00",
+          "end_time": "2025-03-18 03:44:18",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 5",
+            "status": "Completed",
+            "notes": "No explicit details about tasks performed or attempted in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Turnup / Revisit 5",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Completed",
+          "completion_percentage": 100,
+          "client_feedback": "Not Available",
+          "notes": "Ticket marked as completed; no further detail about technical work or issues documented."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No equipment, materials, or configuration details provided.",
+          "No details on networking equipment or cabling.",
+          "No technical work or issue notes documented.",
+          "No explicit list of prior visits.",
+          "No client feedback recorded."
+        ]
+      }
+    },
+    "Pair_Analysis_2382228_none": {
+      "primary_ticket_id": "2382228",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2382228",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-06",
+          "actual_date": "2025-02-06",
+          "start_time": "14:41:08",
+          "end_time": null,
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Electrician dispatch",
+            "status": "Unknown",
+            "notes": "No further details about the actual work, if any, documented in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Electrician",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Unknown",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed with no detail of work performed, completion, or technical actions."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of electrician attendance or work performed.",
+          "No equipment, materials, or configuration detail.",
+          "No technical issue notes.",
+          "No explicit reference to prior or future related visits.",
+          "No client feedback."
+        ]
+      }
+    },
+    "Pair_Analysis_2384454_none": {
+      "primary_ticket_id": "2384454",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2384454",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-11",
+          "actual_date": "2025-02-11",
+          "start_time": "11:11:54",
+          "end_time": null,
+          "technicians": [],
+          "status": "Confirmed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 1 dispatch",
+            "status": "Confirmed",
+            "notes": "No additional task or completion detail documented in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Revisit 1",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Unknown",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket status is Confirmed; no evidence of actual work performed or issues resolved."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance or specific task performed.",
+          "No technical work or materials detailed.",
+          "No issues or resolutions recorded.",
+          "No explicit prior or future visit notes.",
+          "No client feedback or closure confirmation."
+        ]
+      }
+    },
+    "Pair_Analysis_2387576_none": {
+      "primary_ticket_id": "2387576",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2387576",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-17",
+          "actual_date": "2025-02-17",
+          "start_time": "13:45:59",
+          "end_time": "2025-02-19 12:59:04",
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 2 dispatch",
+            "status": "Unknown",
+            "notes": "No explicit information about work performed or visit outcome in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Revisit 2",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Unknown",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed; no details regarding technical tasks, issues encountered, or resolutions provided."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance or specific tasks performed.",
+          "No technical work or materials detailed.",
+          "No issues or resolutions recorded.",
+          "No reference to prior or future visits.",
+          "No client feedback or outcome confirmable."
+        ]
+      }
+    },
+    "Pair_Analysis_2391200_none": {
+      "primary_ticket_id": "2391200",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2391200",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-24",
+          "actual_date": "2025-02-24",
+          "start_time": "13:47:38",
+          "end_time": "13:47:38",
+          "technicians": [],
+          "status": "Audit",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 4 dispatch (audit event)",
+            "status": "Audit",
+            "notes": "No explicit indication of on-site work performed; status is 'Audit'."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Revisit 4 (Audit event)",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Audit only, no work documented",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed at creation with 'Audit' status; no confirmed field work, technical details, or issues described."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance or tasks performed.",
+          "No technical or material detail documented.",
+          "No issues or resolutions recorded.",
+          "No evidence of prior or follow-up action.",
+          "No client feedback or completion confirmation."
+        ]
+      }
+    },
+    "Pair_Analysis_2401701_none": {
+      "primary_ticket_id": "2401701",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2401701",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-03-13",
+          "actual_date": "2025-03-13",
+          "start_time": "12:56:23",
+          "end_time": null,
+          "technicians": [],
+          "status": "Audit",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Revisit 5 dispatch (audit event)",
+            "status": "Audit",
+            "notes": "No explicit indication of on-site work performed; status is 'Audit'."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Revisit 5 (Audit event)",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Audit only, no work documented",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket marked 'Audit'; no details on work, issues, or completion provided."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance or performed tasks.",
+          "No technical or material detail documented.",
+          "No issues or completed technical work recorded.",
+          "No evidence of prior or future actions.",
+          "No client feedback or outcome documentation."
+        ]
+      }
+    },
+    "Pair_Analysis_2424333_none": {
+      "primary_ticket_id": "2424333",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2424333",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-04-17",
+          "actual_date": "2025-04-17",
+          "start_time": "14:22:00",
+          "end_time": "14:22:00",
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Site Survey",
+            "status": "Closed",
+            "notes": "No further site survey details or task completion information found in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Site Survey",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Unknown",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed at creation; no technical or narrative detail provided regarding work or findings."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance or completion of the site survey.",
+          "No technical specifications, equipment, or materials provided.",
+          "No issues or resolutions recorded.",
+          "No explicit connection to prior or future visits.",
+          "No client feedback or outcome details."
+        ]
+      }
+    },
+    "Pair_Analysis_2424336_none": {
+      "primary_ticket_id": "2424336",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2424336",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-04-17",
+          "actual_date": "2025-04-17",
+          "start_time": "14:22:19",
+          "end_time": "14:22:19",
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW005579_Fishers_IN",
+          "address": "N/A",
+          "city": "Fishers",
+          "state": "IN"
+        },
+        "tasks_performed": [
+          {
+            "description": "Electrician Client Billing",
+            "status": "Closed",
+            "notes": "No detail about performed work, billing reason, or services rendered provided in ticket content."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Dispatch - Electrician Client Billing",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Unknown",
+          "completion_percentage": 0,
+          "client_feedback": "Not Available",
+          "notes": "Ticket closed; no further detail on what prompted billing or if service was completed."
+        },
+        "missing_information": [
+          "Technician names not specified.",
+          "Exact address, site ID not provided.",
+          "No confirmation of attendance, task details, or work performed.",
+          "No technical details, equipment, or materials provided.",
+          "No issues, resolutions, or client feedback documented.",
+          "No explicit link to prior or follow-up visits.",
+          "No specifics about billing reason documented."
+        ]
+      }
+    },
+    "Issues_Index": {
+      "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+      "issues_by_pair": [
+        {
+          "primary_ticket_id": "2374738",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No equipment, materials, or configuration details provided.",
+            "No details on specific cabling (e.g., Cat type) or networking changes.",
+            "No references to technical issues encountered.",
+            "No explicit client feedback recorded.",
+            "No information on prior visits.",
+            "No notes beyond subject line."
+          ]
+        },
+        {
+          "primary_ticket_id": "2376373",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No equipment, materials, or configuration details provided.",
+            "No details on installed/modified cabling.",
+            "No references to technical issues encountered or causes of incompletion.",
+            "No explicit client feedback recorded.",
+            "No explicit list of prior visits.",
+            "No technical or narrative notes beyond subject and status."
+          ]
+        },
+        {
+          "primary_ticket_id": "2377027",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No explicit equipment, materials, or configuration details.",
+            "No details on cabling installed/modified.",
+            "No documented technical issues encountered.",
+            "No explicit client feedback recorded.",
+            "No list of prior visits or reference to earlier attempts.",
+            "No technical or narrative notes beyond subject and status."
+          ]
+        },
+        {
+          "primary_ticket_id": "2378430",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No equipment, materials, or configuration details provided.",
+            "No details on networking equipment configured or cabling installed/modified.",
+            "No technical or issue notes beyond subject and status.",
+            "No explicit client feedback.",
+            "No explicit list of prior visits."
+          ]
+        },
+        {
+          "primary_ticket_id": "2391754",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No equipment, materials, or configuration details provided.",
+            "No details on networking equipment or cabling.",
+            "No technical work or issue notes documented.",
+            "No explicit list of prior visits.",
+            "No client feedback recorded."
+          ]
+        },
+        {
+          "primary_ticket_id": "2401728",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No equipment, materials, or configuration details provided.",
+            "No details on networking equipment or cabling.",
+            "No technical work or issue notes documented.",
+            "No explicit list of prior visits.",
+            "No client feedback recorded."
+          ]
+        },
+        {
+          "primary_ticket_id": "2382228",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of electrician attendance or work performed.",
+            "No equipment, materials, or configuration detail.",
+            "No technical issue notes.",
+            "No explicit reference to prior or future related visits.",
+            "No client feedback."
+          ]
+        },
+        {
+          "primary_ticket_id": "2384454",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance or specific task performed.",
+            "No technical work or materials detailed.",
+            "No issues or resolutions recorded.",
+            "No explicit prior or future visit notes.",
+            "No client feedback or closure confirmation."
+          ]
+        },
+        {
+          "primary_ticket_id": "2387576",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance or specific tasks performed.",
+            "No technical work or materials detailed.",
+            "No issues or resolutions recorded.",
+            "No reference to prior or future visits.",
+            "No client feedback or outcome confirmable."
+          ]
+        },
+        {
+          "primary_ticket_id": "2391200",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance or tasks performed.",
+            "No technical or material detail documented.",
+            "No issues or resolutions recorded.",
+            "No evidence of prior or follow-up action.",
+            "No client feedback or completion confirmation."
+          ]
+        },
+        {
+          "primary_ticket_id": "2401701",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance or performed tasks.",
+            "No technical or material detail documented.",
+            "No issues or completed technical work recorded.",
+            "No evidence of prior or future actions.",
+            "No client feedback or outcome documentation."
+          ]
+        },
+        {
+          "primary_ticket_id": "2424333",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance or completion of the site survey.",
+            "No technical specifications, equipment, or materials provided.",
+            "No issues or resolutions recorded.",
+            "No explicit connection to prior or future visits.",
+            "No client feedback or outcome details."
+          ]
+        },
+        {
+          "primary_ticket_id": "2424336",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names not specified.",
+            "Exact address, site ID not provided.",
+            "No confirmation of attendance, task details, or work performed.",
+            "No technical details, equipment, or materials provided.",
+            "No issues, resolutions, or client feedback documented.",
+            "No explicit link to prior or follow-up visits.",
+            "No specifics about billing reason documented."
+          ]
+        }
+      ],
+      "issues_by_type": {
+        "scheduling": [],
+        "technical": [],
+        "customer": [],
+        "equipment": [],
+        "other": []
+      },
+      "missing_data": [
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No equipment, materials, or configuration details provided.",
+        "No details on specific cabling (e.g., Cat type) or networking changes.",
+        "No references to technical issues encountered.",
+        "No explicit client feedback recorded.",
+        "No information on prior visits.",
+        "No notes beyond subject line.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No equipment, materials, or configuration details provided.",
+        "No details on installed/modified cabling.",
+        "No references to technical issues encountered or causes of incompletion.",
+        "No explicit client feedback recorded.",
+        "No explicit list of prior visits.",
+        "No technical or narrative notes beyond subject and status.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No explicit equipment, materials, or configuration details.",
+        "No details on cabling installed/modified.",
+        "No documented technical issues encountered.",
+        "No explicit client feedback recorded.",
+        "No list of prior visits or reference to earlier attempts.",
+        "No technical or narrative notes beyond subject and status.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No equipment, materials, or configuration details provided.",
+        "No details on networking equipment configured or cabling installed/modified.",
+        "No technical or issue notes beyond subject and status.",
+        "No explicit client feedback.",
+        "No explicit list of prior visits.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No equipment, materials, or configuration details provided.",
+        "No details on networking equipment or cabling.",
+        "No technical work or issue notes documented.",
+        "No explicit list of prior visits.",
+        "No client feedback recorded.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No equipment, materials, or configuration details provided.",
+        "No details on networking equipment or cabling.",
+        "No technical work or issue notes documented.",
+        "No explicit list of prior visits.",
+        "No client feedback recorded.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of electrician attendance or work performed.",
+        "No equipment, materials, or configuration detail.",
+        "No technical issue notes.",
+        "No explicit reference to prior or future related visits.",
+        "No client feedback.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance or specific task performed.",
+        "No technical work or materials detailed.",
+        "No issues or resolutions recorded.",
+        "No explicit prior or future visit notes.",
+        "No client feedback or closure confirmation.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance or specific tasks performed.",
+        "No technical work or materials detailed.",
+        "No issues or resolutions recorded.",
+        "No reference to prior or future visits.",
+        "No client feedback or outcome confirmable.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance or tasks performed.",
+        "No technical or material detail documented.",
+        "No issues or resolutions recorded.",
+        "No evidence of prior or follow-up action.",
+        "No client feedback or completion confirmation.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance or performed tasks.",
+        "No technical or material detail documented.",
+        "No issues or completed technical work recorded.",
+        "No evidence of prior or future actions.",
+        "No client feedback or outcome documentation.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance or completion of the site survey.",
+        "No technical specifications, equipment, or materials provided.",
+        "No issues or resolutions recorded.",
+        "No explicit connection to prior or future visits.",
+        "No client feedback or outcome details.",
+        "Technician names not specified.",
+        "Exact address, site ID not provided.",
+        "No confirmation of attendance, task details, or work performed.",
+        "No technical details, equipment, or materials provided.",
+        "No issues, resolutions, or client feedback documented.",
+        "No explicit link to prior or follow-up visits.",
+        "No specifics about billing reason documented."
+      ]
+    },
+    "User_Questions": {}
+  },
+  "consolidated_report": {
+    "chain_hash": "15AF838E-5411-C44E-B4D4-CF4E76E02B76",
+    "timeline": [
+      {
+        "date": "2025-01-23",
+        "ticket_id": "2374738",
+        "event_type": "Turnup",
+        "description": "Cabling and Network Upgrade scheduled and completed for Flynn_5579_Fishers_IN."
+      },
+      {
+        "date": "2025-01-27",
+        "ticket_id": "2376373",
+        "event_type": "Turnup",
+        "description": "Cabling and Network Upgrade scheduled, marked as Incomplete. No further details."
+      },
+      {
+        "date": "2025-01-28",
+        "ticket_id": "2377027",
+        "event_type": "Turnup",
+        "description": "Cabling and Network Upgrade scheduled and marked as Completed."
+      },
+      {
+        "date": "2025-02-04",
+        "ticket_id": "2378430",
+        "event_type": "Turnup",
+        "description": "Turnup Day 2 Cutover event for Flynn_5579_Fishers_IN, marked as Completed."
+      },
+      {
+        "date": "2025-02-06",
+        "ticket_id": "2382228",
+        "event_type": "Dispatch",
+        "description": "Dispatch for Electrician at Flynn_FW005579_Fishers_IN. Ticket closed; no further work detail."
+      },
+      {
+        "date": "2025-02-11",
+        "ticket_id": "2384454",
+        "event_type": "Dispatch",
+        "description": "Dispatch for Revisit 1, marked as Confirmed. No task or result details."
+      },
+      {
+        "date": "2025-02-17",
+        "ticket_id": "2387576",
+        "event_type": "Dispatch",
+        "description": "Dispatch for Revisit 2, ticket closed with no details of tasks performed."
+      },
+      {
+        "date": "2025-02-24",
+        "ticket_id": "2391200",
+        "event_type": "Dispatch",
+        "description": "Dispatch (audit event) for Revisit 4. Status 'Audit'; ticket closed upon creation."
+      },
+      {
+        "date": "2025-02-25",
+        "ticket_id": "2391754",
+        "event_type": "Turnup",
+        "description": "Turnup Revisit 4 scheduled, marked as Incomplete."
+      },
+      {
+        "date": "2025-03-13",
+        "ticket_id": "2401701",
+        "event_type": "Dispatch",
+        "description": "Dispatch (audit event) for Revisit 5. Status 'Audit', no work detail."
+      },
+      {
+        "date": "2025-03-13",
+        "ticket_id": "2401728",
+        "event_type": "Turnup",
+        "description": "Turnup Revisit 5 scheduled, marked as Completed."
+      },
+      {
+        "date": "2025-04-17",
+        "ticket_id": "2424333",
+        "event_type": "Dispatch",
+        "description": "Dispatch for Site Survey, ticket closed upon creation with no details of findings or work."
+      },
+      {
+        "date": "2025-04-17",
+        "ticket_id": "2424336",
+        "event_type": "Dispatch",
+        "description": "Dispatch for Electrician Client Billing, ticket closed upon creation."
+      }
+    ],
+    "work_summary": {
+      "overall_status": "Mostly completed with several revisits and some incomplete attempts; most turnups eventually marked completed.",
+      "completion_percentage": 70,
+      "tasks_completed": [
+        "Cabling and Network Upgrade (1874738, 2377027)",
+        "Turnup Day 2 Cutover (2378430)",
+        "Revisit 5 Turnup (2401728)"
+      ],
+      "outstanding_tasks": [
+        "No details on outstanding technical tasks, but some revisits are marked completed only after prior failures.",
+        "Revisit 4 Turnup (2391754) remained incomplete.",
+        "Dispatches had no explicit service completion documentation."
+      ]
+    },
+    "technical_summary": {
+      "equipment_installed": [],
+      "configurations_performed": [],
+      "materials_used": []
+    },
+    "issues_summary": [
+      {
+        "issue_description": "Turnup marked Incomplete on multiple visits (2376373, 2391754)",
+        "status": "Unresolved on those visits; follow-up scheduled and later completed",
+        "resolution": "Subsequent revisits (e.g., Turnup Revisit 5) marked as completed"
+      }
+    ],
+    "service_status": "Project appears substantially complete as of Turnup Revisit 5 (2401728), but lack of explicit technical detail and dispatch outcomes limit certainty.",
+    "follow_up_actions": [
+      "No explicit follow-ups documented; assumed completed as last turnup is marked completed. Data does not confirm all technical outcomes."
+    ],
+    "data_quality_notes": [
+      "No technician names, site addresses, or site IDs specified in tickets.",
+      "No explicit details on equipment installed, materials used, or specific technical work performed.",
+      "No technical specifications (cabling type, configuration, models) given in any ticket content.",
+      "No technician notes, issue detail, or client feedback recorded.",
+      "Dispatch tickets broadly lack activity or completion confirmation.",
+      "Completion percentages and status are inferred solely from 'Completed' or 'Incomplete' status fields; intermediate progress is not documented.",
+      "Many tickets closed upon creation, or marked as 'Audit', with no field activity confirmed."
+    ]
+  }
+}

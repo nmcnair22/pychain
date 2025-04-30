@@ -1,0 +1,1 @@
+- Kedrick called back stating he's got a new laptop and it's not working with the serial-to-USB adapter despite his efforts- Kedrick asked if there was anything else we can do- Asked him to make a temp run from the broadband modem to FGT WAN1- Waiting on Kedrick to make a 15-20ft long cable for the connection

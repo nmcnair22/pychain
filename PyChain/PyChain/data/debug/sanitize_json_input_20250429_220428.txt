@@ -1,0 +1,9 @@
+[{"ticketpostid":"15891800","post_dateline":"2025-04-17 14:22:19","fullname":"Brandon.Mahoney","contents":"Flynn BulkSite ID: 5579Date: 1/23/2025SCOPE OF WORK:Site SurveyEast 96th St8000 E 96th St FishersIN46037Project Details: Customer Quoted Cost: ","isprivate":"0","creator":"2"},{"ticketpostid":"15891856","post_dateline":"2025-04-17 14:28:57","fullname":"Brandon Mahoney","contents":"Client billing ticket
+FST invoice was processed on CIS ID 2382228
+
+FST cost: 0.00
+Cust cost: 600.00
+
+","isprivate":"0","creator":"1"},{"ticketpostid":"15892105","post_dateline":"2025-04-17 15:23:37","fullname":"Kayla Gonzalez","contents":"A bill was created under this ticket: 2424336<br/>Total Bill to Customer : $600.00<br/>Total Bill to CISSDM  : $0.00
+
+","isprivate":"0","creator":"1"}]

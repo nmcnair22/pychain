@@ -1,0 +1,1050 @@
+{
+  "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+  "ticket_count": 15,
+  "stages": {
+    "Pair_Analysis_2380335_none": {
+      "primary_ticket_id": "2380335",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2380335",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-04",
+          "actual_date": "2025-02-04",
+          "start_time": "08:30:26",
+          "end_time": "08:43:59",
+          "technicians": [],
+          "status": "Completed",
+          "was_completed": true,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_Wendys FW008350_Hagerstown_MD",
+          "address": "17786 Garland Groh Blvd, Hagerstown, MD 21740, Hagerstown, MD",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Demo all legacy data cabling in the building after parallel network installation; decommission existing networking equipment as required; leave legacy devices as required by local management.",
+            "status": "Completed",
+            "notes": "Scope as explicitly described in first post: 'Legacy Cabling Demo:\u2022 CIS Technicians will properly demo all legacy data cabling in the building AFTER they have completed the installation of the parallel network to reduce downtime. This will be done carefully to avoid damaging other trades. Network Buildout:\u2022 Upon completion of the demolition of existing data cabling, technicians will decommission existing networking equipment as required. \u2022 If required, legacy networking devices will be left will local management.'"
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": [
+            "Demolition (removal) of legacy data cabling",
+            "Decommissioning of existing networking equipment if required",
+            "Legacy devices left with local management if required"
+          ]
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Survey/Turnup - Legacy cabling demo and network prep",
+          "prior_visits": [],
+          "future_visits_needed": null,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Completed as planned",
+          "completion_percentage": 100,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "Technician names or attending personnel not specified.",
+          "No equipment models or material types explicitly mentioned.",
+          "No technical issues or complications listed.",
+          "No explicit mention of client feedback or responses.",
+          "Site ID not provided.",
+          "No reference to prior or future visits in ticket data.",
+          "No post-visit notes or explicit outcome statements apart from 'Completed' status."
+        ]
+      }
+    },
+    "Pair_Analysis_2382726_2382333": {
+      "primary_ticket_id": "2382726",
+      "primary_type": "turnup",
+      "related_ticket_id": "2382333",
+      "pair_type": "turnup_with_dispatch",
+      "result": {
+        "primary_ticket_id": "2382726",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": "2382333",
+        "pair_type": "turnup_with_dispatch",
+        "visit_details": {
+          "scheduled_date": "2025-02-11",
+          "actual_date": "2025-02-11",
+          "start_time": "18:30:00",
+          "end_time": "18:43:10",
+          "technicians": [
+            {
+              "name": "Ritchie",
+              "type": "ContractorFST",
+              "contact": "443-375-7942"
+            }
+          ],
+          "status": "Failed",
+          "was_completed": false,
+          "cancellation_reason": "Tech Cancel - snowstorm"
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_P1",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Phase 1 site work for network re-cabling (per SCOPE OF WORK in related dispatch)",
+            "status": "Not Performed",
+            "notes": "Visit failed, no work performed due to weather cancellation."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Extreme weather (snowstorm) prevented technician from performing work.",
+            "resolution": "Work visit cancelled; site not serviced on scheduled date.",
+            "impact": "Network re-cabling phase 1 work was not started or completed; requires rescheduling."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Attempted Phase 1 - Network Re-cabling (visit failed)",
+          "prior_visits": [
+            {
+              "ticket_id": "2380335",
+              "type": "turnup"
+            }
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Reschedule Phase 1 work due to weather cancellation"
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Failed - Cancelled by technician due to snowstorm",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No explicit technical work performed details (visit did not proceed).",
+          "No equipment, cabling, or material usage recorded.",
+          "Actual site contact name/number not provided.",
+          "No technician check-in/out times beyond intended schedule.",
+          "No explicit client feedback.",
+          "No detailed cancellation log beyond 'Tech Cancel - snowstorm'.",
+          "Future visit date not specified."
+        ]
+      }
+    },
+    "Pair_Analysis_2382746_none": {
+      "primary_ticket_id": "2382746",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2382746",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-12",
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Cancelled - CIS",
+          "was_completed": false,
+          "cancellation_reason": "Customer unaware of scheduled visit"
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_P2",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Phase 2 site work for network re-cabling (no details on specific tasks due to cancellation).",
+            "status": "Not Performed",
+            "notes": "Site visit cancelled; no technical work performed."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled before service began.",
+            "impact": "No work performed; phase 2 of network re-cabling not initiated."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Phase 2 (planned, but cancelled)",
+          "prior_visits": [
+            {
+              "ticket_id": "2382726",
+              "type": "turnup"
+            }
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Reschedule with customer coordination for Phase 2 work"
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Cancelled - customer was unaware of scheduled visit",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No technician name or info specified.",
+          "No actual start/end/visit times recorded.",
+          "No technical, equipment, or material details.",
+          "No explicit work scope beyond high-level 'network re-cabling'.",
+          "No client feedback present.",
+          "No explanation for the customer notification failure.",
+          "No dispatch or related ticket to provide additional information."
+        ]
+      }
+    },
+    "Pair_Analysis_2385184_2384350": {
+      "primary_ticket_id": "2385184",
+      "primary_type": "turnup",
+      "related_ticket_id": "2384350",
+      "pair_type": "turnup_with_dispatch",
+      "result": {
+        "primary_ticket_id": "2385184",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": "2384350",
+        "pair_type": "turnup_with_dispatch",
+        "visit_details": {
+          "scheduled_date": "2025-02-13",
+          "actual_date": "2025-02-13",
+          "start_time": "05:00:00",
+          "end_time": "10:29:47",
+          "technicians": [
+            {
+              "name": "Dahan Electric",
+              "type": "ContractorFST",
+              "contact": "240 603-8778"
+            }
+          ],
+          "status": "Failed",
+          "was_completed": false,
+          "cancellation_reason": "No check-in by technician"
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_Outlet Install",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Outlet installation as part of network re-cabling project.",
+            "status": "Not Performed",
+            "notes": "No work was performed due to technician not checking in for the scheduled visit."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Technician did not check in for scheduled outlet installation.",
+            "resolution": "Visit failed and was not completed.",
+            "impact": "Scheduled outlet installation was not performed, causing potential project delay."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Outlet install phase (attempted, visit failed)",
+          "prior_visits": [
+            {
+              "ticket_id": "2382746",
+              "type": "turnup"
+            }
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Reschedule outlet installation due to missed appointment."
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Failed - technician did not check in; no work done",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No post details describing actions taken on site (visit did not proceed).",
+          "No specific equipment or material use information provided.",
+          "No details on whether client was notified of technician no-show.",
+          "No explicit reason for technician no-show provided.",
+          "No direct client feedback or on-site notes recorded.",
+          "No outcome or reschedule information beyond failure status."
+        ]
+      }
+    },
+    "Pair_Analysis_2389439_2382333": {
+      "primary_ticket_id": "2389439",
+      "primary_type": "turnup",
+      "related_ticket_id": "2382333",
+      "pair_type": "turnup_with_dispatch",
+      "result": {
+        "primary_ticket_id": "2389439",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": "2382333",
+        "pair_type": "turnup_with_dispatch",
+        "visit_details": {
+          "scheduled_date": "2025-02-24",
+          "actual_date": null,
+          "start_time": "18:30:00",
+          "end_time": "06:31:45",
+          "technicians": [
+            {
+              "name": "Aaron Blackburn",
+              "type": "ContractorFST",
+              "contact": "215-771-8788"
+            }
+          ],
+          "status": "Cancelled - CIS",
+          "was_completed": false,
+          "cancellation_reason": "Customer unaware of scheduled visit"
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_P1",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Phase 1 site work for network re-cabling (no specific tasks performed due to cancellation).",
+            "status": "Not Performed",
+            "notes": "No technical work performed; site visit cancelled."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled, no work performed.",
+            "impact": "Network re-cabling Phase 1 work not started; delays to project timeline."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Phase 1 (planned, but cancelled)",
+          "prior_visits": [
+            {
+              "ticket_id": "2382726",
+              "type": "turnup"
+            }
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Reschedule with customer coordination for Phase 1 work"
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Cancelled - customer was unaware of scheduled visit",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No explicit start/arrival time or technician check-in/out times.",
+          "No technical, equipment, or material details driven by ticket cancellation.",
+          "No explicit client feedback or responses.",
+          "No details explaining customer notification failure.",
+          "No information on reschedule date or instructions.",
+          "Non-1:1 dispatch-turnup mapping (dispatch 2382333 linked to multiple turnups)."
+        ]
+      }
+    },
+    "Pair_Analysis_2389461_none": {
+      "primary_ticket_id": "2389461",
+      "primary_type": "turnup",
+      "related_ticket_id": null,
+      "pair_type": "turnup_only",
+      "result": {
+        "primary_ticket_id": "2389461",
+        "primary_ticket_type": "turnup",
+        "related_ticket_id": null,
+        "pair_type": "turnup_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-25",
+          "actual_date": null,
+          "start_time": "18:30:00",
+          "end_time": "06:31:59",
+          "technicians": [
+            {
+              "name": "Aaron Blackburn",
+              "type": "ContractorFST",
+              "contact": "215-771-8788"
+            }
+          ],
+          "status": "Cancelled - CIS",
+          "was_completed": false,
+          "cancellation_reason": "Customer unaware of scheduled visit"
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_P2",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Phase 2 site work for network re-cabling (work not performed due to cancellation).",
+            "status": "Not Performed",
+            "notes": "No technical work performed; site visit cancelled."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled, no work performed.",
+            "impact": "Phase 2 of network re-cabling was not started, resulting in project delay."
+          }
+        ],
+        "service_lifecycle": {
+          "current_stage": "Phase 2 (planned, but cancelled)",
+          "prior_visits": [
+            {
+              "ticket_id": "2389439",
+              "type": "turnup"
+            }
+          ],
+          "future_visits_needed": true,
+          "future_visit_reasons": [
+            "Reschedule with customer coordination for Phase 2 work"
+          ]
+        },
+        "outcomes": {
+          "visit_result": "Cancelled - customer was unaware of scheduled visit",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No explicit start/arrival time or technician check-in/out times.",
+          "No technical, equipment, or material details provided.",
+          "No explicit client feedback or responses.",
+          "No explanation for notification or scheduling failure.",
+          "No dispatch or related ticket to provide additional information.",
+          "No information on reschedule plan or date."
+        ]
+      }
+    },
+    "Pair_Analysis_2376830_none": {
+      "primary_ticket_id": "2376830",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2376830",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": null,
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Closed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW008350_Hagerstown_MD_Turnup Assist Ticket",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Arrange for a remote resource to be available for network cutover on day 2 of cabling project, approximately 2-3 hours from project start.",
+            "status": "Not Specified",
+            "notes": "Reference to cutover guide published by engineering; includes check-in/check-out template, photo and notes requirements."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Network cutover preparation (turnup assist, remote resource planning)",
+          "prior_visits": [],
+          "future_visits_needed": null,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Turnup assist request ticket closed; unclear if remote resource support was delivered.",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No explicit visit date, time, or completion information.",
+          "No confirmation that the remote resource was scheduled or participated.",
+          "No technician or personnel details provided.",
+          "No technical, equipment, or material information.",
+          "No explicit record of issues encountered.",
+          "No record of client feedback.",
+          "No matching related turnup ticket found."
+        ]
+      }
+    },
+    "Pair_Analysis_2382265_none": {
+      "primary_ticket_id": "2382265",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2382265",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": "2025-02-04",
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "Confirmed",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": "8350",
+          "site_name": "Flynn_FW008350_Hagerstown_MD_Site Survey",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Site Survey for Hagerstown Centre as part of Flynn project.",
+            "status": "Scheduled",
+            "notes": "Project details: Flat Rate. No explicit evidence of visit completion or survey findings."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Site survey scheduling (preparatory phase)",
+          "prior_visits": [],
+          "future_visits_needed": null,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Survey visit scheduled and dispatch confirmed; unclear if site survey was delivered or completed.",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No indication of actual survey completion or findings.",
+          "No technician information provided.",
+          "No detailed scope, equipment, or material specifics.",
+          "No survey report or output evidence.",
+          "No post-visit notes, issues, or client feedback.",
+          "No related completed turnup found."
+        ]
+      }
+    },
+    "Pair_Analysis_2401881_none": {
+      "primary_ticket_id": "2401881",
+      "primary_type": "dispatch",
+      "related_ticket_id": null,
+      "pair_type": "dispatch_only",
+      "result": {
+        "primary_ticket_id": "2401881",
+        "primary_ticket_type": "dispatch",
+        "related_ticket_id": null,
+        "pair_type": "dispatch_only",
+        "visit_details": {
+          "scheduled_date": null,
+          "actual_date": null,
+          "start_time": null,
+          "end_time": null,
+          "technicians": [],
+          "status": "On Hold",
+          "was_completed": false,
+          "cancellation_reason": null
+        },
+        "location_details": {
+          "site_id": null,
+          "site_name": "Flynn_FW008350_Hagerstown_MD_50 PERCENT BILLING",
+          "address": "17786 Garland Groth Boulevard, Hagerstown, MD 21740",
+          "city": "Hagerstown",
+          "state": "MD"
+        },
+        "tasks_performed": [
+          {
+            "description": "Submit invoice to customer via Coupa for 50 percent of the project billing.",
+            "status": "On Hold",
+            "notes": "PO: 232498. Amount: 2808. No work visit or technical activity occurred; finance/billing action only."
+          }
+        ],
+        "technical_details": {
+          "equipment_used": [],
+          "materials_used": [],
+          "configurations_performed": [],
+          "network_changes": []
+        },
+        "issues_encountered": [],
+        "service_lifecycle": {
+          "current_stage": "Project billing milestone (50 percent invoice)",
+          "prior_visits": [],
+          "future_visits_needed": false,
+          "future_visit_reasons": []
+        },
+        "outcomes": {
+          "visit_result": "Billing instruction recorded; payment status not shown.",
+          "completion_percentage": 0,
+          "client_feedback": "",
+          "notes": ""
+        },
+        "missing_information": [
+          "No field service, technical work, or visit details present (billing only).",
+          "No technician or personnel details.",
+          "No confirmation of invoice submission or payment receipt.",
+          "No project linkage or supporting documentation for milestone.",
+          "No client feedback.",
+          "No related turnup ticket identified."
+        ]
+      }
+    },
+    "Issues_Index": {
+      "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+      "issues_by_pair": [
+        {
+          "primary_ticket_id": "2380335",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "Technician names or attending personnel not specified.",
+            "No equipment models or material types explicitly mentioned.",
+            "No technical issues or complications listed.",
+            "No explicit mention of client feedback or responses.",
+            "Site ID not provided.",
+            "No reference to prior or future visits in ticket data.",
+            "No post-visit notes or explicit outcome statements apart from 'Completed' status."
+          ]
+        },
+        {
+          "primary_ticket_id": "2382726",
+          "related_ticket_id": "2382333",
+          "issues": [
+            {
+              "description": "Extreme weather (snowstorm) prevented technician from performing work.",
+              "resolution": "Work visit cancelled; site not serviced on scheduled date.",
+              "impact": "Network re-cabling phase 1 work was not started or completed; requires rescheduling."
+            }
+          ],
+          "missing_data": [
+            "No explicit technical work performed details (visit did not proceed).",
+            "No equipment, cabling, or material usage recorded.",
+            "Actual site contact name/number not provided.",
+            "No technician check-in/out times beyond intended schedule.",
+            "No explicit client feedback.",
+            "No detailed cancellation log beyond 'Tech Cancel - snowstorm'.",
+            "Future visit date not specified."
+          ]
+        },
+        {
+          "primary_ticket_id": "2382746",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Customer was unaware of the scheduled service event.",
+              "resolution": "Visit cancelled before service began.",
+              "impact": "No work performed; phase 2 of network re-cabling not initiated."
+            }
+          ],
+          "missing_data": [
+            "No technician name or info specified.",
+            "No actual start/end/visit times recorded.",
+            "No technical, equipment, or material details.",
+            "No explicit work scope beyond high-level 'network re-cabling'.",
+            "No client feedback present.",
+            "No explanation for the customer notification failure.",
+            "No dispatch or related ticket to provide additional information."
+          ]
+        },
+        {
+          "primary_ticket_id": "2385184",
+          "related_ticket_id": "2384350",
+          "issues": [
+            {
+              "description": "Technician did not check in for scheduled outlet installation.",
+              "resolution": "Visit failed and was not completed.",
+              "impact": "Scheduled outlet installation was not performed, causing potential project delay."
+            }
+          ],
+          "missing_data": [
+            "No post details describing actions taken on site (visit did not proceed).",
+            "No specific equipment or material use information provided.",
+            "No details on whether client was notified of technician no-show.",
+            "No explicit reason for technician no-show provided.",
+            "No direct client feedback or on-site notes recorded.",
+            "No outcome or reschedule information beyond failure status."
+          ]
+        },
+        {
+          "primary_ticket_id": "2389439",
+          "related_ticket_id": "2382333",
+          "issues": [
+            {
+              "description": "Customer was unaware of the scheduled service event.",
+              "resolution": "Visit cancelled, no work performed.",
+              "impact": "Network re-cabling Phase 1 work not started; delays to project timeline."
+            }
+          ],
+          "missing_data": [
+            "No explicit start/arrival time or technician check-in/out times.",
+            "No technical, equipment, or material details driven by ticket cancellation.",
+            "No explicit client feedback or responses.",
+            "No details explaining customer notification failure.",
+            "No information on reschedule date or instructions.",
+            "Non-1:1 dispatch-turnup mapping (dispatch 2382333 linked to multiple turnups)."
+          ]
+        },
+        {
+          "primary_ticket_id": "2389461",
+          "related_ticket_id": null,
+          "issues": [
+            {
+              "description": "Customer was unaware of the scheduled service event.",
+              "resolution": "Visit cancelled, no work performed.",
+              "impact": "Phase 2 of network re-cabling was not started, resulting in project delay."
+            }
+          ],
+          "missing_data": [
+            "No explicit start/arrival time or technician check-in/out times.",
+            "No technical, equipment, or material details provided.",
+            "No explicit client feedback or responses.",
+            "No explanation for notification or scheduling failure.",
+            "No dispatch or related ticket to provide additional information.",
+            "No information on reschedule plan or date."
+          ]
+        },
+        {
+          "primary_ticket_id": "2376830",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "No explicit visit date, time, or completion information.",
+            "No confirmation that the remote resource was scheduled or participated.",
+            "No technician or personnel details provided.",
+            "No technical, equipment, or material information.",
+            "No explicit record of issues encountered.",
+            "No record of client feedback.",
+            "No matching related turnup ticket found."
+          ]
+        },
+        {
+          "primary_ticket_id": "2382265",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "No indication of actual survey completion or findings.",
+            "No technician information provided.",
+            "No detailed scope, equipment, or material specifics.",
+            "No survey report or output evidence.",
+            "No post-visit notes, issues, or client feedback.",
+            "No related completed turnup found."
+          ]
+        },
+        {
+          "primary_ticket_id": "2401881",
+          "related_ticket_id": null,
+          "issues": [],
+          "missing_data": [
+            "No field service, technical work, or visit details present (billing only).",
+            "No technician or personnel details.",
+            "No confirmation of invoice submission or payment receipt.",
+            "No project linkage or supporting documentation for milestone.",
+            "No client feedback.",
+            "No related turnup ticket identified."
+          ]
+        }
+      ],
+      "issues_by_type": {
+        "scheduling": [
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled before service began.",
+            "impact": "No work performed; phase 2 of network re-cabling not initiated."
+          },
+          {
+            "description": "Technician did not check in for scheduled outlet installation.",
+            "resolution": "Visit failed and was not completed.",
+            "impact": "Scheduled outlet installation was not performed, causing potential project delay."
+          },
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled, no work performed.",
+            "impact": "Network re-cabling Phase 1 work not started; delays to project timeline."
+          },
+          {
+            "description": "Customer was unaware of the scheduled service event.",
+            "resolution": "Visit cancelled, no work performed.",
+            "impact": "Phase 2 of network re-cabling was not started, resulting in project delay."
+          }
+        ],
+        "technical": [],
+        "customer": [],
+        "equipment": [],
+        "other": [
+          {
+            "description": "Extreme weather (snowstorm) prevented technician from performing work.",
+            "resolution": "Work visit cancelled; site not serviced on scheduled date.",
+            "impact": "Network re-cabling phase 1 work was not started or completed; requires rescheduling."
+          }
+        ]
+      },
+      "missing_data": [
+        "Technician names or attending personnel not specified.",
+        "No equipment models or material types explicitly mentioned.",
+        "No technical issues or complications listed.",
+        "No explicit mention of client feedback or responses.",
+        "Site ID not provided.",
+        "No reference to prior or future visits in ticket data.",
+        "No post-visit notes or explicit outcome statements apart from 'Completed' status.",
+        "No explicit technical work performed details (visit did not proceed).",
+        "No equipment, cabling, or material usage recorded.",
+        "Actual site contact name/number not provided.",
+        "No technician check-in/out times beyond intended schedule.",
+        "No explicit client feedback.",
+        "No detailed cancellation log beyond 'Tech Cancel - snowstorm'.",
+        "Future visit date not specified.",
+        "No technician name or info specified.",
+        "No actual start/end/visit times recorded.",
+        "No technical, equipment, or material details.",
+        "No explicit work scope beyond high-level 'network re-cabling'.",
+        "No client feedback present.",
+        "No explanation for the customer notification failure.",
+        "No dispatch or related ticket to provide additional information.",
+        "No post details describing actions taken on site (visit did not proceed).",
+        "No specific equipment or material use information provided.",
+        "No details on whether client was notified of technician no-show.",
+        "No explicit reason for technician no-show provided.",
+        "No direct client feedback or on-site notes recorded.",
+        "No outcome or reschedule information beyond failure status.",
+        "No explicit start/arrival time or technician check-in/out times.",
+        "No technical, equipment, or material details driven by ticket cancellation.",
+        "No explicit client feedback or responses.",
+        "No details explaining customer notification failure.",
+        "No information on reschedule date or instructions.",
+        "Non-1:1 dispatch-turnup mapping (dispatch 2382333 linked to multiple turnups).",
+        "No explicit start/arrival time or technician check-in/out times.",
+        "No technical, equipment, or material details provided.",
+        "No explicit client feedback or responses.",
+        "No explanation for notification or scheduling failure.",
+        "No dispatch or related ticket to provide additional information.",
+        "No information on reschedule plan or date.",
+        "No explicit visit date, time, or completion information.",
+        "No confirmation that the remote resource was scheduled or participated.",
+        "No technician or personnel details provided.",
+        "No technical, equipment, or material information.",
+        "No explicit record of issues encountered.",
+        "No record of client feedback.",
+        "No matching related turnup ticket found.",
+        "No indication of actual survey completion or findings.",
+        "No technician information provided.",
+        "No detailed scope, equipment, or material specifics.",
+        "No survey report or output evidence.",
+        "No post-visit notes, issues, or client feedback.",
+        "No related completed turnup found.",
+        "No field service, technical work, or visit details present (billing only).",
+        "No technician or personnel details.",
+        "No confirmation of invoice submission or payment receipt.",
+        "No project linkage or supporting documentation for milestone.",
+        "No client feedback.",
+        "No related turnup ticket identified."
+      ]
+    },
+    "User_Questions": {}
+  },
+  "consolidated_report": {
+    "chain_hash": "B924DF9C-E1B9-B945-8442-89CE8F62A268",
+    "timeline": [
+      {
+        "date": "2025-01-28",
+        "ticket_id": "2376830",
+        "event_type": "dispatch",
+        "description": "Turnup assist requested for remote network cutover support; preparatory planning only, no record of execution."
+      },
+      {
+        "date": "2025-02-04",
+        "ticket_id": "2382265",
+        "event_type": "dispatch",
+        "description": "Site Survey scheduled and dispatch confirmed for Hagerstown Centre; no follow-up or execution details provided."
+      },
+      {
+        "date": "2025-02-04",
+        "ticket_id": "2380335",
+        "event_type": "turnup",
+        "description": "Survey and legacy cabling demolition work scheduled and completed. Existing network equipment decommissioned where required."
+      },
+      {
+        "date": "2025-02-11",
+        "ticket_id": "2382333",
+        "event_type": "dispatch",
+        "description": "Dispatch created for Phase 1 network re-cabling; linked with multiple turnup attempts."
+      },
+      {
+        "date": "2025-02-11",
+        "ticket_id": "2382726",
+        "event_type": "turnup",
+        "description": "Phase 1 visit failed. Technician (Ritchie) cancelled due to snowstorm, no work performed."
+      },
+      {
+        "date": "2025-02-12",
+        "ticket_id": "2382746",
+        "event_type": "turnup",
+        "description": "Phase 2 visit cancelled - customer was unaware of scheduled visit; no work was attempted."
+      },
+      {
+        "date": "2025-02-13",
+        "ticket_id": "2384350",
+        "event_type": "dispatch",
+        "description": "Dispatch for outlet install created and scheduled; related turnup failed due to no technician check-in."
+      },
+      {
+        "date": "2025-02-13",
+        "ticket_id": "2385184",
+        "event_type": "turnup",
+        "description": "Outlet install visit failed; technician (Dahan Electric) did not check in. No work performed."
+      },
+      {
+        "date": "2025-02-24",
+        "ticket_id": "2389439",
+        "event_type": "turnup",
+        "description": "Phase 1 (second attempt) visit cancelled - customer was unaware of scheduled visit; no work performed."
+      },
+      {
+        "date": "2025-02-25",
+        "ticket_id": "2389461",
+        "event_type": "turnup",
+        "description": "Phase 2 (second attempt) visit cancelled - customer was unaware of scheduled visit; no work performed."
+      },
+      {
+        "date": "2025-03-13",
+        "ticket_id": "2401881",
+        "event_type": "dispatch",
+        "description": "Project billing milestone created (50% invoice instruction); finance-only, no technical or field event."
+      }
+    ],
+    "work_summary": {
+      "overall_status": "Incomplete - Project Stalled",
+      "completion_percentage": 10,
+      "tasks_completed": [
+        "Legacy data cabling demolition completed (2/4/2025, ticket 2380335).",
+        "Site survey dispatched (no proof of completion, ticket 2382265)."
+      ],
+      "outstanding_tasks": [
+        "Phase 1 network re-cabling (multiple failed/cancelled visits).",
+        "Phase 2 network re-cabling (both scheduled attempts cancelled).",
+        "Outlet installation (visit failed, no check-in).",
+        "Any additional configuration or commissioning steps after cabling.",
+        "Any post-install validation or hand-off to customer."
+      ]
+    },
+    "technical_summary": {
+      "equipment_installed": [],
+      "configurations_performed": [],
+      "materials_used": []
+    },
+    "issues_summary": [
+      {
+        "issue_description": "Technician unable to perform Phase 1 re-cabling due to snowstorm (ticket 2382726).",
+        "status": "Unresolved",
+        "resolution": "Reschedule required."
+      },
+      {
+        "issue_description": "Phase 2 and later Phase 1/2 attempts cancelled because customer was unaware of visit (tickets 2382746, 2389439, 2389461).",
+        "status": "Unresolved",
+        "resolution": "Requires customer notification and reschedule."
+      },
+      {
+        "issue_description": "Technician did not check in for scheduled outlet installation (ticket 2385184).",
+        "status": "Unresolved",
+        "resolution": "Requires rescheduling and technician accountability."
+      },
+      {
+        "issue_description": "Multiple non-1:1 relationships between dispatch and turnup tickets; evidence of process or scheduling gaps.",
+        "status": "Unresolved",
+        "resolution": "Review ticket chain management and dispatch/turnup linkage process."
+      }
+    ],
+    "service_status": "Project delayed. Only site survey and legacy cabling demo are confirmed. All critical installation and configuration work remains uncompleted due to repeated failures and cancellations.",
+    "follow_up_actions": [
+      "Coordinate with customer for clear notification and mutual schedule for remaining phases.",
+      "Reschedule Phase 1 and Phase 2 of network re-cabling with confirmed customer acknowledgment.",
+      "Ensure technician check-in compliance for outlet install and future phases.",
+      "Review dispatch/turnup workflow for improved 1:1 ticket matching and visibility.",
+      "Verify project billing aligns with actual field work delivered."
+    ],
+    "data_quality_notes": [
+      "No turnup tickets related to 2376830 (turnup assist) or 2382265 (survey), possible orphaned dispatches.",
+      "Phase 1/2, and outlet installation tickets lacked visit/check-in times and customer notification documentation.",
+      "No technical or configuration results, equipment, or material details were provided in failed/cancelled visit records.",
+      "Billing ticket unrelated to field work completion.",
+      "Survey visit completion and result were not documented.",
+      "Client feedback and post-visit documentation are entirely missing."
+    ]
+  }
+}
